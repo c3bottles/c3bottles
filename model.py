@@ -96,8 +96,8 @@ class DropPoint(db.Model):
 	def get_current_location(self):
 		return self.locations[-1] if self.locations else None
 
-	def get_current_capacity(self):
-		return self.capacities[-1] if self.capacities else None
+	def get_current_crate_count(self):
+		return self.capacities[-1].crates if self.capacities else 0
 
 	def get_total_report_count(self):
 		return self.reports.count()
@@ -173,8 +173,8 @@ class DropPoint(db.Model):
 		else:
 			priority *= 3
 
-		if self.get_current_capacity().crates > 2:
-			priority *= self.get_current_capacity().crates
+		if self.get_current_crate_count() > 2:
+			priority *= self.get_current_crate_count()
 
 		return priority
 
