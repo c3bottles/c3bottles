@@ -8,15 +8,20 @@ In order to install c3bottles, you will need:
 
 *   a WSGI-capable webserver (e.g. Apache)
 
-*   some SQL server supported by SQLALchemy (the author uses PostgreSQL but
-    others may work, too)
+*   some SQL server supported by SQLAlchemy
+    (the author uses PostgreSQL but others should work, too)
 
 # Installation
+
+0.  Make sure all the dependencies are installed.
+    On Debian using Apache, you can do:
+
+        apt-get install python-flask python-flask-sqlalchemy libapache2-mod-wsgi
 
 1.  Copy the files into some directory readable by the web server.
     You can clone the repository from Github:
 
-        git clone  https://github.com/Der-MichiK/c3bottles.git
+        git clone https://github.com/der-michik/c3bottles.git
 
 2.  Create a configuriation file `config.py`. You will find a template for the
     configuration in the file `config.default.py`. c3bottles will not work if
