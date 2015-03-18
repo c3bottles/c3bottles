@@ -99,19 +99,84 @@ class DropPoint(db.Model):
 	def get_current_capacity(self):
 		return self.capacities[-1] if self.capacities else None
 
-	def get_last_report(self):
-		return self.reports.order_by(Report.time.desc()).first()
-
 	def get_total_report_count(self):
 		return self.reports.count()
 
 	def get_new_report_count(self):
-		# TODO: This method should return the number of reports issued
-		# 	since the last visit.
-		return 0
+		last_visit = self.get_last_visit()
+		if last_visit:
+			return self.reports.\
+				filter(Report.time > last_visit.time).\
+				count()
+		else:
+			return self.get_total_report_count()
 
 	def get_last_visit(self):
 		return self.visits.order_by(Visit.time.desc()).first()
+
+	def get_new_reports(self):
+		last_visit = self.get_last_visit()
+		if last_visit:
+			return self.reports.\
+				filter(Report.time > last_visit.time).\
+				all()
+		else:
+			return self.reports.all()
+
+	def get_visit_interval(self):
+		"""Get the visit inteval for this drop point.
+
+		This method returns the visit interval for this drop point
+		in seconds.
+
+		This is not implemented as a static method or a constant
+		since in the future the visit interval might depend on
+		capacity or location of drop points, time of day or a
+		combination of those.
+		"""
+
+		# TODO:
+		# currently fixed at 2 hours (in seconds). the base interval
+		# hould be stored in the configuration or somthing.
+
+		return 120*1440
+
+	def get_priority(self):
+		"""Get the priority to visit this drop point.
+
+		The priority to visit a drop point mainly depends on the
+		number and weight of reports since the last visit and
+		the capacity of the drop point (larger: more important).
+
+		In addition, priority increases with time since the last
+		visit even if the states of reports indicate a low priority.
+		This ensures that every drop point is visited from time to
+		time.
+		"""
+
+		new_reports = self.get_new_reports()
+
+		# This is the starting priority. The report weight should
+		# be scaled relative to 1, so this can be interpreted as a
+		# number of standing default reports ensuring that every
+		# drop point's priority increases slowly if it is not
+		# visited even if no real reports come in.
+		priority = 1
+
+		for report in new_reports:
+			priority += report.get_weight()
+
+		if self.get_last_visit():
+			priority *= (datetime.today() - \
+				self.get_last_visit().time).total_seconds() \
+				/ self.get_visit_interval()
+		else:
+			priority *= 3
+
+		if self.get_current_capacity().crates > 2:
+			priority *= self.get_current_capacity().crates
+
+		return priority
 
 	def __repr__(self):
 		return "Drop point %s (%s)" % (
@@ -231,6 +296,7 @@ class Capacity(db.Model):
 report_states = (
 	"DEFAULT",
 	"NO_CRATES",
+	"EMPTY",
 	"SOME_BOTTLES",
 	"RESONABLY_FULL",
 	"FULL",
@@ -273,6 +339,39 @@ class Report(db.Model):
 			self.state = report_states[0]
 
 		db.session.add(self)
+
+	def get_weight(self):
+		"""Get the weight (i.e. significance) of a report.
+
+		The weight of a report determines how significant it is for the
+		calculation of the priority to visit the respective drop point
+		soon.
+
+		Most important for the weight of a report is the state of the
+		drop point as seen by the reporter. The report of an
+		overflowing drop point is certainly more important than one
+		of a drop point nearly empty.
+
+		If the reporter is a trusted user, that increases the weight.
+
+		Special users see special weights: The supervisor of the
+		bottle collectors is not focused on full drop points (that's
+		what they have a collector team for) but rather on solving
+		problems like overflows or missing crates reported by trusted
+		users.
+
+		The default weight under default conditions is 1 and all
+		influences should only multiply that default value with some
+		factor.
+		"""
+
+		# TODO:
+		# - weight should depend on the state (OVERFLOW > FULL > rest)
+		# - weight should depend on the reporter (trusted > stranger)
+		# - weight should depend on the viewer (supervisor: problem-
+		#   focused, collector: collection-focused)
+
+		return 1
 
 	def __repr__(self):
 		return "Report %s of drop point %s (state %s at %s)" % (
