@@ -16,7 +16,7 @@ In order to install c3bottles, you will need:
 1.  Copy the files into some directory readable by the web server.
     You can clone the repository from Github:
 
-        `git clone  https://github.com/Der-MichiK/c3bottles.git`
+        git clone  https://github.com/Der-MichiK/c3bottles.git
 
 2.  Create a configuriation file `config.py`. You will find a template for the
     configuration in the file `config.default.py`. c3bottles will not work if
