@@ -8,9 +8,10 @@ c3bottles.config.from_object("config")
 
 db = SQLAlchemy(c3bottles)
 
-@c3bottles.route("/")
-def index():
-	return "Hello, world!"
+# Trim blocks in jinja2 so no unnecessary newlines appear in the output:
+c3bottles.jinja_env.trim_blocks = True
+
+from view import *
 
 if __name__ == "__main__":
 	c3bottles.run(debug=True)

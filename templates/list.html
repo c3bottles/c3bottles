@@ -1,0 +1,9 @@
+<h1>List of all Drop Points</h1>
+<ul>
+{% for dp in all_dps %}
+<li>Drop point {{ dp.number }} is located at
+{{ dp.location.description if dp.location else "an anunknown location" }}.
+It has been reported {{ dp.reports_total }} times in total and
+{{ dp.reports_new }} times since the last visit.</li>
+{% endfor %}
+</ul>
