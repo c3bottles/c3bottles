@@ -64,6 +64,12 @@ class DropPoint(db.Model):
 			start_time=None
 			):
 
+		if not isinstance(number, (int, long)) or number < 1:
+			raise TypeError("Drop point number not positive.")
+
+		if db.session.query(DropPoint).get(number):
+			raise ValueError("That drop point already exists.")
+
 		self.number = number
 
 		db.session.add(self)
@@ -71,14 +77,14 @@ class DropPoint(db.Model):
 		if placed:
 
 			Location(
-				dp=self,
+				self,
 				start_time=start_time,
 				description=loc_desc,
 				coords=loc_coords
 				)
 
 			Capacity(
-				dp=self,
+				self,
 				start_time=start_time,
 				crates=crates
 				)
@@ -88,10 +94,10 @@ class DropPoint(db.Model):
 			self.removed = time if time else datetime.today()
 
 	def report(self, state=None, time=None):
-		Report(dp=self, time=time, state=state)
+		Report(self, time=time, state=state)
 
 	def visit(self, action=None, time=None):
-		Visit(dp=self, time=time, action=action)
+		Visit(self, time=time, action=action)
 
 	def get_current_location(self):
 		return self.locations[-1] if self.locations else None
@@ -202,6 +208,8 @@ class Location(db.Model):
 	null, the location of that drop point is unknwon.
 	"""
 
+	max_description = 140
+
 	loc_id = db.Column(db.Integer, primary_key=True)
 
 	dp_id = db.Column(
@@ -213,7 +221,7 @@ class Location(db.Model):
 	dp = db.relationship("DropPoint")
 
 	start_time = db.Column(db.DateTime)
-	description = db.Column(db.String(140))
+	description = db.Column(db.String(max_description))
 	coordinate_x = db.Column(db.Integer)
 	coordinate_y = db.Column(db.Integer)
 	coordinate_z = db.Column(db.Integer)
@@ -229,14 +237,40 @@ class Location(db.Model):
 			coords=None
 			):
 
-		self.dp = dp
-		self.start_time = start_time if start_time else datetime.today()
-		self.description = description
+		if not isinstance(dp, DropPoint):
+			raise TypeError("Not a drop point object.")
 
-		if coords and len(coords) is 3:
+		self.dp = dp
+
+		if start_time and not isinstance(start_time, datetime):
+			raise TypeError("Start time not a datetime object.")
+
+		if start_time and start_time > datetime.today():
+			raise ValueError("Start time in the future.")
+
+		if dp.locations and start_time and \
+			start_time < dp.locations[-1].start_time:
+			raise ValueError("Location older than current.")
+
+		self.start_time = start_time if start_time else datetime.today()
+
+		if coords and not \
+			(all(isinstance(n, (int, long, float)) for n in coords) \
+			and len(coords) is 3):
+			raise TypeError("Invalid coordinates given.")
+
+		if coords:
 			self.coordinate_x = coords[0]
 			self.coordinate_y = coords[1]
-			self.coordinate_z = coordi[2]
+			self.coordinate_z = coords[2]
+
+		if description and not isinstance(description, str):
+			raise TypeError("Description not a string.")
+
+		if description and len(description) > self.max_description:
+			raise ValueError("Description too long.")
+
+		self.description = description
 
 		db.session.add(self)
 
@@ -264,6 +298,8 @@ class Capacity(db.Model):
 	sign on the wall but no crates at all.
 	"""
 
+	default_crate_count = 1
+
 	cap_id = db.Column(db.Integer, primary_key=True)
 
 	dp_id = db.Column(
@@ -275,14 +311,36 @@ class Capacity(db.Model):
 	dp = db.relationship("DropPoint")
 
 	start_time = db.Column(db.DateTime)
-	crates = db.Column(db.Integer, default=1)
+	crates = db.Column(db.Integer, default=default_crate_count)
 
-	def __init__(self, dp, start_time=None, crates=None):
+	def __init__(
+		self,
+		dp,
+		start_time=None,
+		crates=default_crate_count
+		):
+
+		if not isinstance(dp, DropPoint):
+			raise TypeError("Not a drop point object.")
+
 		self.dp = dp
+
+		if start_time and not isinstance(start_time, datetime):
+			raise TypeError("Start time not a datetime object.")
+
+		if start_time and start_time > datetime.today():
+			raise ValueError("Start time in the future.")
+
+		if dp.capacities and start_time and \
+			start_time < dp.capacities[-1].start_time:
+			raise ValueError("Capacity older than current.")
+
 		self.start_time = start_time if start_time else datetime.today()
 
-		if crates >= 0:
-			self.crates = crates
+		if not (isinstance(crates, (int, long)) or crates < 0):
+			raise TypeError("Invalid crate count.")
+
+		self.crates = crates
 
 		db.session.add(self)
 
