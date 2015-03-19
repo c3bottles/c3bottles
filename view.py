@@ -4,7 +4,7 @@ from c3bottles import c3bottles, db
 
 @c3bottles.route("/")
 def index():
-	return "Welcome to c3bottles!"
+	return render_template("index.html")
 
 @c3bottles.route("/list")
 def dp_list():

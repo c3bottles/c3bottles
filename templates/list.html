@@ -1,9 +1,21 @@
-<h1>List of all Drop Points</h1>
-<ul>
-{% for dp in all_dps %}
-<li>Drop point {{ dp.number }} is located at
-{{ dp.location.description if dp.location else "an anunknown location" }}.
-It has been reported {{ dp.reports_total }} times in total and
-{{ dp.reports_new }} times since the last visit.</li>
-{% endfor %}
-</ul>
+{% set title = "List of Bottle Drop Points" %}
+{% extends "layout.html" %}
+{% block content %}
+			<div class="page-header">
+				<h1>{{ title }}</h1>
+			</div>
+			<ul>
+				{% for dp in all_dps %}
+				<li>
+					Drop point {{ dp.number }} is located at
+					{{
+						dp.location.description if dp.location.description
+						else "an unknown location"
+					}}.
+					It has been reported {{ dp.reports_total }} times in total and
+					{{ dp.reports_new }} times since the last visit.
+				</li>
+				{% endfor %}
+			</ul>
+{% endblock %}
+{# vim: set noexpandtab ts=2 sw=2: #}

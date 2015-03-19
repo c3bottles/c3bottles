@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>c3bottles{% if title %} - {{ title }}{% endif %}</title>
+		<link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+		<link href="{{ url_for('static', filename='css/theme.css') }}" rel="stylesheet">
+	</head>
+	<body role="document">
+{% include 'navbar.html' %}
+		<div class="container">
+{% block content %}{% endblock %}
+		</div>
+{% include 'footer.html' %}
+		<script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+	</body>
+</html>
+{# vim: set noexpandtab ts=2 sw=2: #}
