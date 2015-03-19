@@ -6,7 +6,7 @@
 			</div>
 			<ul>
 				{% for dp in all_dps %}
-				<li>
+				<li>{{ "<s>"|safe if dp.removed }}
 					Drop point {{ dp.number }} is located at
 					{{
 						dp.location.description if dp.location.description
@@ -14,7 +14,7 @@
 					}}.
 					It has been reported {{ dp.reports_total }} times in total and
 					{{ dp.reports_new }} times since the last visit.
-				</li>
+				{{ "</s>"|safe if dp.removed }}</li>
 				{% endfor %}
 			</ul>
 {% endblock %}

@@ -1,14 +1,60 @@
 {% set title = "Home" %}
 {% extends "layout.html" %}
 {% block content %}
-			<div class="page-header">
+			<div class="jumbotron">
 				<h1>Welcome to c3bottles!</h1>
+				<p class="lead">
+					c3bottles is the bottle drop and collection management system of
+					your favourite chaos event. You have no idea what that means? Try
+					the links below!
+				</p>
 			</div>
-			<p class="lead">
-				c3 bottles is the bottle drop and collection management system for your
-				favourite chaos event.
-			</p>
-			<p>
-				View the <a href="list">list of all bottle drop points</a>!
+			<div class="row">
+				<div class="col-md-4 text-center">
+					<div class="large-icon hidden-xs hidden-sm">
+						<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+					</div>
+					<h2>Show me the list!</h2>
+					<p>
+						You like working in text-mode? Great! We have a huge list of bottle
+						drop points and all the tools to interact with them!
+					</p>
+					<p>
+						<a class="btn btn-primary navbar-btn" href="{{ url_for("dp_list") }}" role="button">
+							To the list &raquo;
+						</a>
+					</p>
+				</div>
+				<div class="col-md-4 text-center">
+					<div class="large-icon hidden-xs hidden-sm">
+						<span class="glyphicon glyphicon-globe text-center" aria-hidden="true"></span>
+					</div>
+					<h2>Show me the map!</h2>
+					<p>
+						Text is nothing for you? No problem! We have a very cool map which
+						shows all the drop points and their state in real-time!
+					</p>
+					<p>
+						<a class="btn btn-primary navbar-btn" href="#" role="button">
+							To the map &raquo;
+						</a>
+					</p>
+				</div>
+				<div class="col-md-4 text-center">
+					<div class="large-icon hidden-xs hidden-sm">
+						<span class="glyphicon glyphicon-education text-center" aria-hidden="true"></span>
+					</div>
+					<h2>WTF is this sh*t?</h2>
+					<p>
+						You have no clue what this is about or how it works? Your questions
+						can be answered! Others have asked them before.
+					</p>
+					<p>
+						<a class="btn btn-primary navbar-btn" href="{{ url_for("faq") }}" role="button">
+							To the FAQ &raquo;
+						</a>
+					</p>
+				</div>
+			</div>
 {% endblock %}
 {# vim: set noexpandtab ts=2 sw=2: #}

@@ -1,0 +1,212 @@
+{# Use this snippet as template for new questions:
+
+			<p class="lead collapse-toggle" data-toggle="collapse" data-target="#some-question">
+				What was the question again?
+			</p>
+			<div id="some-question" class="collapse">
+				<p>
+					TODO: Answer me!
+				</p>
+				<hr/>
+			</div>
+
+#}
+{% set title = "FAQ" %}
+{% extends "layout.html" %}
+{% block content %}
+			<div class="page-header">
+				<h1>Frequently Asked Questions</h1>
+			</div>
+			<p class="lead collapse-toggle" data-toggle="collapse" data-target="#what-is-this-about">
+				What is all this about in the first place?
+			</p>
+			<div id="what-is-this-about" class="collapse">
+				<p>
+					c3bottles is a bottle drop and collection management system for
+					chaos events. Collecting all the empty bottles is a hard task
+					at every event since they appear in large numbers at places and
+					times you cannot always plan beforehand. Bottle collectors need
+					to roam the area all the time and check it periodically for any
+					left empty bottles.
+				</p>
+				<p>
+					To make this job a lot easier, bottle drop points were invented:
+					Empty crates are placed at spots in the area where a high level
+					of empty bottles is expected, e.g. exits of lecture halls,
+					lounges or the main exit/entrance of a building. The visitors
+					are advised to leave their bottles not at random but rather
+					only at the designated bottle drop points. The bottle collectors
+					then only need to visit these points to do their job.
+				</p>
+				<p>
+					However, there are some caveats: In a large building like the
+					CCH nobody is able to memorize all the drop points and some of
+					them may be forgotten and overflow without anyone noticing. In
+					addition, if the planning in advance was not perfect (as always),
+					some drop points in popular locations may overflow very quickly
+					making the job of the collectors a lot harder. At an overflowing
+					drop point, they can't simply exchange a full crate for an empty
+					one but instead have to put all the bottles laying on and around
+					the more than full crate into their fresh one. In the worst case
+					they then have lots of full but no empty crates left in
+					locations with a high bottle drop rate. If that ever happens,
+					the bottlecalypse is inevitable.
+				</p>
+				<p>
+					c3bottles aims to solve this problem using modern web technology
+					combined with crowdsourcing: A database tracks the state of all
+					the drop points and visitors noticing full or overflowing drop
+					points can report that fact. The bottle collectors will be
+					notified and can react promptly. They track their tour and the
+					system can notify them of drop points not visited in a long time
+					or needing immediate action. Statistical analysis allows for
+					continuous optimization of drop point placement by scaling drop
+					points according to the demand or abandoning drop points in
+					remote locations which are not used much anyway.
+				</p>
+				<hr/>
+			</div>
+			<p class="lead collapse-toggle" data-toggle="collapse" data-target="#how-does-it-work">
+				How does this work?
+			</p>
+			<div id="how-does-it-work" class="collapse">
+				<p>
+					During placement of bottle drop points, every drop point is
+					registered in the database with its number, position and capacity
+					(i.e. number of empty crates). It gets a label telling the
+					visitors to report full drop points using a URL specific for
+					every drop point. On the website, the visitor can report the drop
+					point as needing attention by simply clicking a button.
+					Optionally, the visitor may inform the bottle collectors about
+					the filling level of the drop point.
+				</p>
+				<p>
+					The other end of the web interface shows a list of drop points to
+					visit ordered by priority: Drop points reported a lot lately get
+					a high priority which is even higher if the respective drop point
+					has a high capacity and/or was just emptied and is filling up
+					again quickly. Drop points not visited for a long time get a high
+					priority too, so the collectors can check their current state.
+				</p>
+				<p>
+					A map shows the location of all the drop points so new members of
+					the bottle collector team can find them easily and visitors can
+					always find the nearest drop point to their current location.
+				</p>
+				<p>
+					The bottle collectors track their actions when visiting drop
+					points by clicking a button whenever they empty a drop point.
+					In addition, they can change the location or capacity of drop
+					points if needed.
+				</p>
+				<hr/>
+			</div>
+			<p class="lead collapse-toggle" data-toggle="collapse" data-target="#help-as-visitor">
+				I'm a visitor and want to help. What should I do?
+			</p>
+			<div id="help-as-visitor" class="collapse">
+				<p>
+					Great! Helping is easy: If you spot a bottle drop point that seems
+					to need attention, just visit the URL printed on the sign posted
+					there. You are presented with a website with a few buttons. Just
+					click on the one you think fits most. Congratulations! :)
+				</p>
+				<p>
+					Please do not abuse the system like reporting the same drop point
+					multiple times since it can only work as good as its input is. If
+					you accidentally pressed the wrong button and e.g. reported an
+					overflowing drop point as empty, don't hesitate to report it again
+					with the correct state. The system will react to this accordingly.
+				</p>
+				<p>
+					Any report of a drop point is helpful, even if it is not overflowing.
+					Reports of empty or only sparsely used drop points help the bottle
+					collectors prioritize their visits, plan their tours optimally and
+					rearrange crates or moving drop points as they see fit. The
+					optimization works better the more detailed the reporting is.
+					Last but not least, the statistics gets more impressive with
+					larger numbers.
+				</p>
+				<hr/>
+			</div>
+			<p class="lead collapse-toggle" data-toggle="collapse" data-target="#help-as-angel">
+				I need some manual labor and bottle collection sounds like a
+				thing for me. What should I do?
+			</p>
+			<div id="help-as-angel" class="collapse">
+				<p>
+					The bottle collectors are volunteers and help is always appreciated.
+					More hands collect and sort more bottles more quickly. If this is a
+					congress and you already are an angel, just search and register for
+					bottle collection shifts in the angel system. If this is a congress
+					and you are no angel yet, ask for heaven, go there and tell the
+					friendly people there want to help.
+				</p>
+				<p>
+					If this is any other event in the chaos family, it should work
+					similarly to congress but the names heaven and angels might differ.
+					Just ask some people who look like they could know what's up. In
+					doubt, just report your nearest drop point and wait for the
+					collector team to	show up. They should know what they're doing.
+				</p>
+				<hr/>
+			</div>
+			<p class="lead collapse-toggle" data-toggle="collapse" data-target="#what-are-report-states">
+				What do the report states mean? What state should I choose when reporting?
+			</p>
+			<div id="what-are-report-states" class="collapse">
+				<p>
+					TODO: Answer me!
+				</p>
+				<hr/>
+			</div>
+			<p class="lead collapse-toggle" data-toggle="collapse" data-target="#what-is-priority">
+				What is the priority and how is it calculated?
+			</p>
+			<div id="what-is-priority" class="collapse">
+				<p>
+					TODO: Answer me!
+				</p>
+				<hr/>
+			</div>
+			<p class="lead collapse-toggle" data-toggle="collapse" data-target="#help-as-developer">
+				I'm good at coding and think this site could need some help. What should I do?
+			</p>
+			<div id="help-as-developer" class="collapse">
+				<p>
+					I started this project because I finally wanted to get my head around
+					modern web development techniques. It is written in Python using the
+					Flask	web framework. The database is accessed using SQLAlchemy and
+					the	backend of choice is PostgreSQL. If you are (or want to	become)
+					familiar with all that stuff and feel comfortable with the
+					choices made,	you are invited to contribute.
+				</p>
+				<p>
+					The link in the footer of this page will lead you to the GitHub
+					repository where development takes place.
+				</p>
+				<hr/>
+			</div>
+			<p class="lead collapse-toggle" data-toggle="collapse" data-target="#using-on-events">
+				I'm the organzier of some event in the near or far future and like the idea. Can I use your software?
+			</p>
+			<div id="using-on-events" class="collapse">
+				<p>
+					Absolutely. In the end, that's what I created it for. Feel free to
+					download the source code from GitHub and set up your own copy.
+					If you still have questions, find my contact information
+					<a href="https://michik.net/">here</a>.
+				</p>
+				<hr/>
+			</div>
+			<p class="lead collapse-toggle" data-toggle="collapse" data-target="#1337">
+				I'm a l33t h4xx0r and think this is fun.
+			</p>
+			<div id="1337" class="collapse">
+				<p>
+					Good for you. Here's your fish: {{ "<°)))><" }}
+				</p>
+				<hr/>
+			</div>
+{% endblock %}
+{# vim: set noexpandtab ts=2 sw=2: #}
