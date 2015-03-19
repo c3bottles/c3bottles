@@ -90,8 +90,17 @@ class DropPoint(db.Model):
 				)
 
 	def remove(self, time=None):
-		if not self.removed:
-			self.removed = time if time else datetime.today()
+
+		if self.removed:
+			raise RuntimeError("Drop point already removed.")
+
+		if time and not isinstance(time, datetime):
+			raise TypeError("Removal time not a datetime object.")
+
+		if time and time > datetime.today():
+			raise ValueError("Removal time in the future.")
+
+		self.removed = time if time else datetime.today()
 
 	def report(self, state=None, time=None):
 		Report(self, time=time, state=state)
@@ -337,7 +346,10 @@ class Capacity(db.Model):
 
 		self.start_time = start_time if start_time else datetime.today()
 
-		if not (isinstance(crates, (int, long)) or crates < 0):
+		if crates is None:
+			crates = self.default_crate_count
+
+		if not (isinstance(crates, (int, long)) and crates >= 0):
 			raise TypeError("Invalid crate count.")
 
 		self.crates = crates
