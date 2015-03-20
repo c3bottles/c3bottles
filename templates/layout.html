@@ -6,7 +6,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>c3bottles{% if title %} - {{ title }}{% endif %}</title>
 		<link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
-		<link href="{{ url_for('static', filename='css/theme.css') }}" rel="stylesheet">
+		<link href="{{ url_for('static', filename='css/c3bottles.css') }}" rel="stylesheet">
 	</head>
 	<body role="document">
 {% include 'navbar.html' %}
@@ -16,6 +16,7 @@
 {% include 'footer.html' %}
 		<script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
 		<script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='js/c3bottles.js') }}"></script>
 	</body>
 </html>
 {# vim: set noexpandtab ts=2 sw=2: #}

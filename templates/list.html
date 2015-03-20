@@ -4,18 +4,49 @@
 			<div class="page-header">
 				<h1>{{ title }}</h1>
 			</div>
-			<ul>
+			<div class="btn-group" role="group" aria-label="filters">
+				<button type="button" class="btn btn-default" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					Filter location <span class="caret"></span>
+				</button>
+				<!-- TODO: implement location filter -->
+				<button type="button" class="btn btn-default" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					Filter state <span class="caret"></span>
+				</button>
+				<!-- TODO: implement state filter -->
+				<div class="btn-group" role="group">
+					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						more <span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu" role="menu">
+						<li><a data-toggle="collapse" data-target=".dp-removed" href="#">Show removed drop points</a></li>
+					</ul>
+				</div>
+			</div>
+			<table class="table">
+				<thead>
+					<tr><th>Number</th><th>Location</th><th>Reports</th></tr>
+				</thead>
+				<tbody>
 				{% for dp in all_dps %}
-				<li>{{ "<s>"|safe if dp.removed }}
-					Drop point {{ dp.number }} is located at
-					{{
-						dp.location.description if dp.location.description
-						else "an unknown location"
-					}}.
-					It has been reported {{ dp.reports_total }} times in total and
-					{{ dp.reports_new }} times since the last visit.
-				{{ "</s>"|safe if dp.removed }}</li>
+				<tr{{ {"class": "dp-removed collapse"}|xmlattr if dp.removed }}>
+					<td>
+						{{ "<s>"|safe if dp.removed }}
+						{{ dp.number }}
+						{{ "</s>"|safe if dp.removed }}
+					</td>
+					<td>
+						{{ "<s>"|safe if dp.removed }}
+						{{ dp.location.description if dp.location.description else "unknown" }}
+						{{ "</s>"|safe if dp.removed }}
+					</td>
+					<td>
+						{{ "<s>"|safe if dp.removed }}
+						{{ dp.reports_total }} total,	{{ dp.reports_new }} since last visit
+						{{ "</s>"|safe if dp.removed }}
+					</td>
+				</tr>
 				{% endfor %}
-			</ul>
+				</tbody>
+			</table>
 {% endblock %}
 {# vim: set noexpandtab ts=2 sw=2: #}
