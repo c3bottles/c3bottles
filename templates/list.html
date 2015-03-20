@@ -4,15 +4,19 @@
 			<div class="page-header">
 				<h1>{{ title }}</h1>
 			</div>
-			<div class="btn-group" role="group" aria-label="filters">
-				<button type="button" class="btn btn-default" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					Filter location <span class="caret"></span>
-				</button>
-				<!-- TODO: implement location filter -->
-				<button type="button" class="btn btn-default" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					Filter state <span class="caret"></span>
-				</button>
-				<!-- TODO: implement state filter -->
+			<p><div class="btn-group" role="group" aria-label="filters">
+				<div class="btn-group" role="group">
+					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Filter location <span class="caret"></span>
+					</button>
+					<!-- TODO: implement location filter -->
+				</div>
+				<div class="btn-group" role="group">
+					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Filter state <span class="caret"></span>
+					</button>
+					<!-- TODO: implement state filter -->
+				</div>
 				<div class="btn-group" role="group">
 					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						more <span class="caret"></span>
@@ -21,29 +25,27 @@
 						<li><a data-toggle="collapse" data-target=".dp-removed" href="#">Show removed drop points</a></li>
 					</ul>
 				</div>
-			</div>
+			</div></p>
 			<table class="table">
 				<thead>
-					<tr><th>Number</th><th>Location</th><th>Reports</th></tr>
+					<tr>
+						<th>Number</th>
+						<th>Location</th>
+						<th>Last state</th>
+						<th class="hidden-xs">Reports</th>
+					</tr>
 				</thead>
 				<tbody>
 				{% for dp in all_dps %}
 				<tr{{ {"class": "dp-removed collapse"}|xmlattr if dp.removed }}>
+					<td>{{ "<s>"|safe if dp.removed }}{{ dp.number }}{{ "</s>"|safe if dp.removed }}</td>
 					<td>
-						{{ "<s>"|safe if dp.removed }}
-						{{ dp.number }}
-						{{ "</s>"|safe if dp.removed }}
+						{{ "<s>"|safe if dp.removed }}{{
+						dp.location.description if dp.location.description else "unknown"
+						}}{{ "</s>"|safe if dp.removed }}
 					</td>
-					<td>
-						{{ "<s>"|safe if dp.removed }}
-						{{ dp.location.description if dp.location.description else "unknown" }}
-						{{ "</s>"|safe if dp.removed }}
-					</td>
-					<td>
-						{{ "<s>"|safe if dp.removed }}
-						{{ dp.reports_total }} total,	{{ dp.reports_new }} since last visit
-						{{ "</s>"|safe if dp.removed }}
-					</td>
+					<td>{{ "<s>"|safe if dp.removed }}{{ dp.last_state }}{{ "</s>"|safe if dp.removed }}</td>
+					<td class="hidden-xs">{{ "<s>"|safe if dp.removed }}{{ dp.reports_new }}{{ "</s>"|safe if dp.removed }}</td>
 				</tr>
 				{% endfor %}
 				</tbody>
