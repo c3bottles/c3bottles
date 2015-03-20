@@ -17,6 +17,9 @@
 						<li>
 							<a href="#">Map</a>
 						</li>
+						<li>
+							<a href="#">Numbers</a>
+						</li>
 						<li{{ {"class": "active"}|xmlattr if request.url_rule.endpoint == "faq" }}>
 							<a href="{{ url_for("faq") }}">FAQ</a>
 						</li>
