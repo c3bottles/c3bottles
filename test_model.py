@@ -449,6 +449,11 @@ class c3bottlesModelTestCase(unittest.TestCase):
 			"Drop point not removed or removal time not datetime."
 			)
 
+		self.assertEqual(
+			dp.get_priority(), 0,
+			"Non-zero visit priority of a removed drop point."
+			)
+
 
 	def test_drop_point_removal_exceptions(self):
 

@@ -133,10 +133,11 @@ class DropPoint(db.Model):
 		last_visit = self.get_last_visit()
 		if last_visit:
 			return self.reports.\
-				filter(Report.time > last_visit.time).\
+				filter(Report.time > last_visit.time). \
+				order_by(Report.time.desc()). \
 				all()
 		else:
-			return self.reports.all()
+			return self.reports.order_by(Report.time.desc()).all()
 
 	def get_visit_interval(self):
 		"""Get the visit inteval for this drop point.
@@ -168,6 +169,9 @@ class DropPoint(db.Model):
 		This ensures that every drop point is visited from time to
 		time.
 		"""
+
+		# The priority of a removed drop point obvioulsy is always 0.
+		if self.removed: return 0
 
 		new_reports = self.get_new_reports()
 
