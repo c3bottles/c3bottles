@@ -4,7 +4,7 @@
 			<div class="page-header">
 				<h1>{{ title }}</h1>
 			</div>
-			<p><div class="btn-group" role="group" aria-label="filters">
+			<div class="btn-group" role="group" aria-label="filters">
 				<div class="btn-group" role="group">
 					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						Filter location <span class="caret"></span>
@@ -25,13 +25,16 @@
 						<li><a data-toggle="collapse" data-target=".dp-removed" href="#">Show removed drop points</a></li>
 					</ul>
 				</div>
-			</div></p>
-			<table class="table">
+			</div>
+			<p></p>
+			<table class="table table-hover">
 				<thead>
 					<tr>
 						<th>Number</th>
 						<th>Location</th>
 						<th>Last state</th>
+						<th></th><th></th><th></th>
+						<th class="hidden-xs">Priority</th>
 						<th class="hidden-xs">Reports</th>
 					</tr>
 				</thead>
@@ -39,16 +42,92 @@
 				{% for dp in all_dps %}
 				<tr{{ {"class": "dp-removed collapse"}|xmlattr if dp.removed }}>
 					<td>{{ "<s>"|safe if dp.removed }}{{ dp.number }}{{ "</s>"|safe if dp.removed }}</td>
+					<td>{{ "<s>"|safe if dp.removed }}{{ dp.location.description if dp.location.description else "unknown" }}{{ "</s>"|safe if dp.removed }}</td>
+					<td>{{ "<s>"|safe if dp.removed }}
+						{% if dp.last_state == "OVERFLOW" %}
+						<span class="label label-danger">Overflowing</span>
+						{% elif dp.last_state == "FULL" %}
+						<span class="label label-warning">Full</span>
+						{% elif dp.last_state == "REASONABLY_FULL" %}
+						<span class="label label-info">Reasonably full</span>
+						{% elif dp.last_state == "SOME_BOTTLES" %}
+						<span class="label label-primary">Some bottles</span>
+						{% elif dp.last_state == "EMPTY" %}
+						<span class="label label-success">Empty</span>
+						{% else %}
+						<span class="label label-warning">Unknown</span>
+						{% endif %}
+					{{ "</s>"|safe if dp.removed }}</td>
 					<td>
-						{{ "<s>"|safe if dp.removed }}{{
-						dp.location.description if dp.location.description else "unknown"
-						}}{{ "</s>"|safe if dp.removed }}
+						<span class="clickable glyphicon glyphicon-search" title="View drop point details"></span>
 					</td>
-					<td>{{ "<s>"|safe if dp.removed }}{{ dp.last_state }}{{ "</s>"|safe if dp.removed }}</td>
+					<td>
+						<span class="clickable glyphicon glyphicon-bullhorn" title="Report this drop point" data-toggle="modal" data-target="#dp_report_modal" data-details="{{ '{"number":' + dp.number|string + '}'  }}"></span>
+					</td>
+					<td>
+						<span class="clickable glyphicon glyphicon-wrench" title="Log a drop point visit" data-toggle="modal" data-target="#dp_visit_modal" data-details="{{ '{"number":' + dp.number|string + '}'  }}"></span>
+					</td>
+					<td class="hidden-xs">{{ "<s>"|safe if dp.removed }}{{ dp.priority }}{{ "</s>"|safe if dp.removed }}</td>
 					<td class="hidden-xs">{{ "<s>"|safe if dp.removed }}{{ dp.reports_new }}{{ "</s>"|safe if dp.removed }}</td>
 				</tr>
 				{% endfor %}
 				</tbody>
 			</table>
+			<div class="modal fade dp_modal" tabindex="-1" role="dialog" id="dp_report_modal">
+				<div class="modal-dialog modal-sm">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title">Report Drop Point <span class="modal_dp_id"></span></h4>
+						</div>
+						<div class="modal-body">
+							<p>
+								Please use the buttons below to report the current state of the drop point.
+								If you are unsure which state to report, refer to the FAQ or simply use the
+								very first button.
+							</p>
+							<div style="width: 80%; margin-left: auto; margin-right: auto;">
+								<button class="btn btn-block btn-default">I'm not sure, just take a look</button>
+								<hr/>
+								<button class="btn btn-block btn-danger">Drop point is overflowing</button>
+								<button class="btn btn-block btn-warning">Drop point is 100% full</button>
+								<button class="btn btn-block btn-info">Drop point is reasonably full</button>
+								<button class="btn btn-block btn-primary">Some bottles are present</button>
+								<button class="btn btn-block btn-success">Drop point is empty</button>
+								<hr/>
+								<button class="btn btn-block btn-default">There are no crates</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal fade dp_modal" tabindex="-1" role="dialog" id="dp_visit_modal">
+				<div class="modal-dialog modal-sm">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title">Visit Drop Point <span class="modal_dp_id"></span></h4>
+						</div>
+						<div class="modal-body">
+							<p>
+								Please use the buttons below to log the action taken on your visit
+								of this drop point.
+							</p>
+							<div style="width: 80%; margin-left: auto; margin-right: auto;">
+								<button class="btn btn-block btn-success">Emptied the drop point</button>
+								<hr/>
+								<button class="btn btn-block btn-primary">Added some crate(s)</button>
+								<button class="btn btn-block btn-info">Removed some crate(s)</button>
+								<hr/>
+								<button class="btn btn-block btn-warning">Relocated the drop point</button>
+								<hr/>
+								<button class="btn btn-block btn-danger">Removed the drop point</button>
+								<hr/>
+								<button class="btn btn-block btn-default">No action necessary</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 {% endblock %}
 {# vim: set noexpandtab ts=2 sw=2: #}
