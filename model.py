@@ -372,7 +372,7 @@ report_states = (
 	"NO_CRATES",
 	"EMPTY",
 	"SOME_BOTTLES",
-	"RESONABLY_FULL",
+	"REASONABLY_FULL",
 	"FULL",
 	"OVERFLOW"
 	)
