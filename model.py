@@ -155,7 +155,7 @@ class DropPoint(db.Model):
 		# currently fixed at 2 hours (in seconds). the base interval
 		# hould be stored in the configuration or somthing.
 
-		return 120*1440
+		return 120*60
 
 	def get_priority(self):
 		"""Get the priority to visit this drop point.
@@ -182,20 +182,20 @@ class DropPoint(db.Model):
 		# visited even if no real reports come in.
 		priority = 1
 
+		if self.get_current_crate_count() >= 1:
+			priority *= (1 + 0.1 * self.get_current_crate_count())
+
 		for report in new_reports:
 			priority += report.get_weight()
 
 		if self.get_last_visit():
-			priority *= (datetime.today() - \
+			priority += priority * (datetime.today() - \
 				self.get_last_visit().time).total_seconds() \
 				/ self.get_visit_interval()
 		else:
-			priority *= 3
+			priority += priority * 3
 
-		if self.get_current_crate_count() > 2:
-			priority *= self.get_current_crate_count()
-
-		return priority
+		return round(priority, 2)
 
 	def __repr__(self):
 		return "Drop point %s (%s)" % (

@@ -18,14 +18,16 @@ def statistics():
 def dp_list():
 	from model import DropPoint
 	all_dps = []
+	all_locations = []
 	for dp in db.session.query(DropPoint).order_by(DropPoint.number).all():
 		if dp.get_new_reports():
 			last_state = dp.get_new_reports()[0].state
 		else:
 			last_state = None
+		loc = dp.get_current_location()
 		all_dps.append({
 			"number": dp.number,
-			"location": dp.get_current_location(),
+			"location": loc,
 			"reports_total": dp.get_total_report_count(),
 			"reports_new": dp.get_new_report_count(),
 			"priority": dp.get_priority(),
@@ -33,9 +35,12 @@ def dp_list():
 			"crates": dp.get_current_crate_count(),
 			"removed": True if dp.removed else False
 			})
+		if not loc.description in all_locations and not dp.removed:
+			all_locations.append(loc.description)
 	return render_template(
 		"list.html",
-		all_dps=sorted(all_dps, key=lambda k: k["priority"], reverse=True)
+		all_dps=sorted(all_dps, key=lambda k: k["priority"], reverse=True),
+		all_locations=sorted(all_locations)
 		)
 
 @c3bottles.route("/map")

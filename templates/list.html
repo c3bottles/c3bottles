@@ -9,7 +9,11 @@
 					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						Filter location <span class="caret"></span>
 					</button>
-					<!-- TODO: implement location filter -->
+					<ul class="dropdown-menu" role="menu">
+					{% for location in all_locations %}
+						<li><a href="#">{{ location }}</a></li>
+					{% endfor %}
+					</ul>
 				</div>
 				<div class="btn-group" role="group">
 					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -40,7 +44,7 @@
 				</thead>
 				<tbody>
 				{% for dp in all_dps %}
-				<tr{{ {"class": "dp-removed collapse"}|xmlattr if dp.removed }} data-details="{{ '{"number":' + dp.number|string + ',"priority":' + dp.priority|string + ',"crates":' + dp.crates|string + '}' }}">
+				<tr{{ {"class": "dp-removed collapse"}|xmlattr if dp.removed }} data-details="{{ '{"number":' + dp.number|string + ',"priority":"' + '%0.2f'|format(dp.priority) + '","crates":' + dp.crates|string + ',"location":"' + dp.location.description + '"}' }}">
 					<td>{{ "<s>"|safe if dp.removed }}{{ dp.number }}{{ "</s>"|safe if dp.removed }}</td>
 					<td>{{ "<s>"|safe if dp.removed }}{{ dp.location.description if dp.location.description else "unknown" }}{{ "</s>"|safe if dp.removed }}</td>
 					<td>{{ "<s>"|safe if dp.removed }}
@@ -67,7 +71,7 @@
 					<td>
 						<span class="clickable glyphicon glyphicon-wrench" title="Log a drop point visit" data-toggle="modal" data-target="#dp_visit_modal"></span>
 					</td>
-					<td class="hidden-xs">{{ "<s>"|safe if dp.removed }}{{ dp.priority }}{{ "</s>"|safe if dp.removed }}</td>
+					<td class="hidden-xs">{{ "<s>"|safe if dp.removed }}{{ "%0.2f"|format(dp.priority) }}{{ "</s>"|safe if dp.removed }}</td>
 					<td class="hidden-xs">{{ "<s>"|safe if dp.removed }}{{ dp.reports_new }}{{ "</s>"|safe if dp.removed }}</td>
 				</tr>
 				{% endfor %}
