@@ -15,9 +15,12 @@ $("body").on("click", "a[data-toggle=collapse]", function() {
 	}
 });
 
-$(".dp_modal").on("show.bs.modal", function() {
-	var _details = $(this).data("bs.modal").options.details;
-	$(".modal_dp_id").text(_details.number);
+$(".dp_modal").on("show.bs.modal", function(e) {
+	var _tr = $(e.relatedTarget).parent().parent();
+	var _details = _tr.data("details");
+	for (var key in _details) {
+		$(".modal_dp_" + key).text(_details[key]);
+	}
 });
 
 $(".dp_modal").on("hidden.bs.modal", function () {

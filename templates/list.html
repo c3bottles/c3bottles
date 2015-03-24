@@ -40,7 +40,7 @@
 				</thead>
 				<tbody>
 				{% for dp in all_dps %}
-				<tr{{ {"class": "dp-removed collapse"}|xmlattr if dp.removed }}>
+				<tr{{ {"class": "dp-removed collapse"}|xmlattr if dp.removed }} data-details="{{ '{"number":' + dp.number|string + ',"priority":' + dp.priority|string + ',"crates":' + dp.crates|string + '}' }}">
 					<td>{{ "<s>"|safe if dp.removed }}{{ dp.number }}{{ "</s>"|safe if dp.removed }}</td>
 					<td>{{ "<s>"|safe if dp.removed }}{{ dp.location.description if dp.location.description else "unknown" }}{{ "</s>"|safe if dp.removed }}</td>
 					<td>{{ "<s>"|safe if dp.removed }}
@@ -59,13 +59,13 @@
 						{% endif %}
 					{{ "</s>"|safe if dp.removed }}</td>
 					<td>
-						<span class="clickable glyphicon glyphicon-search" title="View drop point details"></span>
+						<span class="clickable glyphicon glyphicon-search" title="View drop point details" data-toggle="modal" data-target="#dp_details_modal"></span>
 					</td>
 					<td>
-						<span class="clickable glyphicon glyphicon-bullhorn" title="Report this drop point" data-toggle="modal" data-target="#dp_report_modal" data-details="{{ '{"number":' + dp.number|string + '}'  }}"></span>
+						<span class="clickable glyphicon glyphicon-bullhorn" title="Report this drop point" data-toggle="modal" data-target="#dp_report_modal"></span>
 					</td>
 					<td>
-						<span class="clickable glyphicon glyphicon-wrench" title="Log a drop point visit" data-toggle="modal" data-target="#dp_visit_modal" data-details="{{ '{"number":' + dp.number|string + '}'  }}"></span>
+						<span class="clickable glyphicon glyphicon-wrench" title="Log a drop point visit" data-toggle="modal" data-target="#dp_visit_modal"></span>
 					</td>
 					<td class="hidden-xs">{{ "<s>"|safe if dp.removed }}{{ dp.priority }}{{ "</s>"|safe if dp.removed }}</td>
 					<td class="hidden-xs">{{ "<s>"|safe if dp.removed }}{{ dp.reports_new }}{{ "</s>"|safe if dp.removed }}</td>
@@ -73,12 +73,28 @@
 				{% endfor %}
 				</tbody>
 			</table>
+			<div class="modal fade dp_modal" tabindex="-1" role="dialog" id="dp_details_modal">
+				<div class="modal-dialog modal-sm">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title">Details of Drop Point <span class="modal_dp_number"></span></h4>
+						</div>
+						<div class="modal-body">
+						<table class="table table-bordered">
+							<tr><td>Visit priority:</td><td class="modal_dp_priority"></td></tr>
+							<tr><td>Number of crates:</td><td class="modal_dp_crates"></td></tr>
+						</table>
+						</div>
+					</div>
+				</div>
+			</div>
 			<div class="modal fade dp_modal" tabindex="-1" role="dialog" id="dp_report_modal">
 				<div class="modal-dialog modal-sm">
 					<div class="modal-content">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-							<h4 class="modal-title">Report Drop Point <span class="modal_dp_id"></span></h4>
+							<h4 class="modal-title">Report Drop Point <span class="modal_dp_number"></span></h4>
 						</div>
 						<div class="modal-body">
 							<p>
@@ -106,7 +122,7 @@
 					<div class="modal-content">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-							<h4 class="modal-title">Visit Drop Point <span class="modal_dp_id"></span></h4>
+							<h4 class="modal-title">Visit Drop Point <span class="modal_dp_number"></span></h4>
 						</div>
 						<div class="modal-body">
 							<p>

@@ -30,6 +30,7 @@ def dp_list():
 			"reports_new": dp.get_new_report_count(),
 			"priority": dp.get_priority(),
 			"last_state": last_state,
+			"crates": dp.get_current_crate_count(),
 			"removed": True if dp.removed else False
 			})
 	return render_template(
