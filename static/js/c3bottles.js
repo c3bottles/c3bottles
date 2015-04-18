@@ -21,6 +21,7 @@ $(".dp_modal").on("show.bs.modal", function(e) {
 	for (var key in _details) {
 		$(".modal_dp_" + key).text(_details[key]);
 	}
+	$("#modal_dp_link").attr("href", _tr.data("href"));
 });
 
 $(".dp_modal").on("hidden.bs.modal", function () {

@@ -49,7 +49,11 @@ def dp_map():
 
 @c3bottles.route("/view/<int:dp_number>")
 def dp_view(dp_number):
-	return "TODO: View details of drop point " + str(dp_number)
+	from model import DropPoint
+	return render_template(
+		"view.html",
+		dp=db.session.query(DropPoint).get(dp_number)
+		)
 
 @c3bottles.route("/report/<int:dp_number>")
 @c3bottles.route("/<int:dp_number>")
