@@ -182,18 +182,18 @@ class DropPoint(db.Model):
 		# visited even if no real reports come in.
 		priority = 1
 
-		if self.get_current_crate_count() >= 1:
-			priority *= (1 + 0.1 * self.get_current_crate_count())
-
 		for report in new_reports:
 			priority += report.get_weight()
 
+		if self.get_current_crate_count() >= 1:
+			priority *= (1 + 0.1 * self.get_current_crate_count())
+
 		if self.get_last_visit():
-			priority += priority * (datetime.today() - \
+			priority *= (datetime.today() - \
 				self.get_last_visit().time).total_seconds() \
 				/ self.get_visit_interval()
 		else:
-			priority += priority * 3
+			priority *= 3
 
 		return round(priority, 2)
 
