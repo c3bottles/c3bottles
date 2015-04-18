@@ -1,0 +1,23 @@
+{% set title = "Drop Point Details" %}
+{% extends "layout.html" %}
+{% block content %}
+			{% if dp != None %}
+			<div class="page-header">
+				<h1>Details of Drop Point {{ dp.number }}</h1>
+			</div>
+			<dl class="dl-horizontal">
+				<dt>Current location:</dt>
+				<dd>{{ dp.get_current_location().description }}</dd>
+				<dt>Visit priority:</dt>
+				<dd>{{ "%0.2f"|format(dp.get_priority()) }}</dd>
+				<dt>Number of crates:</dt>
+				<dd>{{ dp.get_current_crate_count() }}</dd>
+			</dl>
+			{% else %}
+			<div class="page-header">
+				<h1>{{ title }}</h1>
+			</div>
+			<p>Drop point not found.</p>
+			{% endif %}
+{% endblock %}
+{# vim: set noexpandtab ts=2 sw=2: #}
