@@ -11,18 +11,16 @@
 				</div>
 				<div id="navbar" class="navbar-collapse collapse">
 					<ul class="nav navbar-nav">
-						<li{{ {"class": "active"}|xmlattr if request.url_rule.endpoint == "dp_list" }}>
-							<a href="{{ url_for("dp_list") }}">List</a>
+						{% for _s, _t in (
+								("dp_list", "List"),
+								("dp_map", "Map"),
+								("statistics", "Numbers"),
+								("faq", "FAQ")
+							): %}
+						<li{{ {"class": "active"}|xmlattr if request.url_rule.endpoint == _s }}>
+							<a href="{{ url_for(_s)  }}">{{ _t }}</a>
 						</li>
-						<li>
-							<a href="#">Map</a>
-						</li>
-						<li>
-							<a href="#">Numbers</a>
-						</li>
-						<li{{ {"class": "active"}|xmlattr if request.url_rule.endpoint == "faq" }}>
-							<a href="{{ url_for("faq") }}">FAQ</a>
-						</li>
+						{% endfor %}
 					</ul>
 				</div>
 			</div>
