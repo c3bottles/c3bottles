@@ -10,15 +10,19 @@
     <link href="{{ url_for('static', filename='css/c3bottles.css') }}"
           rel="stylesheet">
 </head>
-<body role="document">
+<body>
 {% include 'navbar.html' %}
 <div class="container">
+    <div id="alerts"></div>
     {% block content %}{% endblock %}
 </div>
 {% include 'footer.html' %}
 <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
 <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.min.js') }}"></script>
 <script src="{{ url_for('static', filename='js/c3bottles.js') }}"></script>
+<script type="text/javascript">
+    var apiurl = "{{ url_for('api') }}"
+</script>
 </body>
 </html>
 {# vim: set expandtab ts=4 sw=4: #}

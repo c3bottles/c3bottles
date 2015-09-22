@@ -73,7 +73,7 @@ def dp_visit(dp_number):
     return "TODO: Visit drop point " + str(dp_number)
 
 
-@c3bottles.route("/api")
+@c3bottles.route("/api", methods=("POST", "GET"))
 def api():
     import api
     return api.process()
