@@ -100,13 +100,13 @@ function report_dp(num, state) {
                 .html("<button type=\"button\" class=\"close alert-hide\">\
                         <span aria-hidden=\"true\">&times;</span></button>\
                         <strong>Thank you!</strong> Your report has been\
-                        received successfully and the bottle collection\
-                        team is on the way.");
+                        received successfully.");
             $("#alerts").append(alert);
             $(".alert-hide").on("click", function () {
                 $(this).parent().slideUp();
             });
             alert.slideDown();
+            setTimeout(function() { alert.slideUp() }, 5000);
         },
         error: function (response) {
             var alert = $("<div></div>")
@@ -120,9 +120,11 @@ function report_dp(num, state) {
                 $(this).parent().slideUp();
             });
             alert.slideDown();
+            setTimeout(function() { alert.slideUp() }, 5000);
         }
     });
 }
+
 /*
  * This dict contains all actions which can be performed by the bottle
  * collection team when visiting a drop point. The actions are mapped to the
@@ -171,12 +173,13 @@ function visit_dp(num, action) {
                 .html("<button type=\"button\" class=\"close alert-hide\">\
                         <span aria-hidden=\"true\">&times;</span></button>\
                         <strong>Thank you!</strong> Your visit has been\
-                        logged.");
+                        logged successfully.");
             $("#alerts").append(alert);
             $(".alert-hide").on("click", function () {
                 $(this).parent().slideUp();
             });
             alert.slideDown();
+            setTimeout(function() { alert.slideUp() }, 5000);
         },
         error: function (response) {
             var alert = $("<div></div>")
@@ -190,6 +193,8 @@ function visit_dp(num, action) {
                 $(this).parent().slideUp();
             });
             alert.slideDown();
+            setTimeout(function() { alert.slideUp() }, 5000);
+
         }
     });
 }
