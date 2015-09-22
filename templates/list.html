@@ -54,7 +54,7 @@
         <tbody>
         {% for dp in all_dps %}
             <tr{{ {"class": "dp-removed collapse"}|xmlattr if dp.removed }}
-                    data-details="{{ '{"number":' + dp.number|string + ',"priority":"' + '%0.2f'|format(dp.priority) + '","crates":' + dp.crates|string + ',"location":"' + dp.location.description + '"}' }}"
+                    data-details="{{ '{"number":' + dp.number|string + ',"priority":' + '%0.2f'|format(dp.priority) + ',"crates":' + dp.crates|string + ',"location":"' + dp.location.description + '"}' }}"
                     data-href="{{ url_for("dp_view",dp_number=dp.number) }}">
                 <td>
                     {{ "<s>"|safe if dp.removed }}{{ dp.number }}{{ "</s>"|safe if dp.removed }}</td>
