@@ -1,81 +1,98 @@
-{% set title = "Home" %}
 {% extends "layout.html" %}
+{% set title = "Home" %}
 {% block content %}
-			<div class="jumbotron">
-				<h1>Welcome to c3bottles!</h1>
-				<p class="lead">
-					c3bottles is the bottle drop and collection management system of
-					your favourite chaos event. You have no idea what that means? Try
-					the links below!
-				</p>
-				<p>
-					<form class="form-inline">
-						<input type="text" name="number" class="form-control" placeholder="Enter a drop point number">
-						<button type="submit" class="btn btn-success">Report</button>
-					</form>
-				</p>
-			</div>
-			<div class="row">
-				<div class="col-md-3 col-sm-6 text-center">
-					<div class="large-icon hidden-xs">
-						<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-					</div>
-					<h3>Show me the list!</h3>
-					<p>
-						You like working in text-mode? Great! We have a huge list of bottle
-						drop points and all the tools to interact with them!
-					</p>
-					<p>
-						<a class="btn btn-primary navbar-btn" href="{{ url_for("dp_list") }}" role="button">
-							To the list &raquo;
-						</a>
-					</p>
-				</div>
-				<div class="col-md-3 col-sm-6 text-center">
-					<div class="large-icon hidden-xs">
-						<span class="glyphicon glyphicon-globe text-center" aria-hidden="true"></span>
-					</div>
-					<h3>Show me the map!</h3>
-					<p>
-						Text is nothing for you? No problem! We have a very cool map which
-						shows all the drop points and their state in real-time!
-					</p>
-					<p>
-						<a class="btn btn-primary navbar-btn" href="#" role="button">
-							To the map &raquo;
-						</a>
-					</p>
-				</div>
-				<div class="col-md-3 col-sm-6 text-center">
-					<div class="large-icon hidden-xs">
-						<span class="glyphicon glyphicon-stats" aria-hidden="true"></span>
-					</div>
-					<h3>Show me the numbers!</h3>
-					<p>
-						The sheer beauty of numbers and diagrams amazes you? Good news:
-						The system allows you to see all the statistics!
-					</p>
-					<p>
-						<a class="btn btn-primary navbar-btn" href="#" role="button">
-							To the numbers &raquo;
-						</a>
-					</p>
-				</div>
-				<div class="col-md-3 col-sm-6 text-center">
-					<div class="large-icon hidden-xs">
-						<span class="glyphicon glyphicon-education text-center" aria-hidden="true"></span>
-					</div>
-					<h3>WTF is this sh*t?</h3>
-					<p>
-						You have no clue what this is about or how it works?
-						Your questions were asked before and can be answered.
-					</p>
-					<p>
-						<a class="btn btn-primary navbar-btn" href="{{ url_for("faq") }}" role="button">
-							To the FAQ &raquo;
-						</a>
-					</p>
-				</div>
-			</div>
+    <div class="jumbotron">
+        <h1>Welcome to c3bottles!</h1>
+
+        <p class="lead">
+            c3bottles is the bottle drop and collection management system of
+            your favourite chaos event. You have no idea what that means? Try
+            the links below!
+        </p>
+
+        <p>
+
+        <form class="form-inline">
+            <input type="text" name="number" class="form-control"
+                   placeholder="Enter a drop point number">
+            <button type="submit" class="btn btn-success">Report</button>
+        </form>
+    </div>
+    <div class="row">
+        <div class="col-md-3 col-sm-6 text-center">
+            <div class="large-icon hidden-xs">
+                <span class="glyphicon glyphicon-list"
+                      aria-hidden="true"></span>
+            </div>
+            <h3>Show me the list!</h3>
+
+            <p>
+                You like working in text-mode? Great! We have a huge list of
+                bottle drop points and all the tools to interact with them!
+            </p>
+
+            <p>
+                <a class="btn btn-primary navbar-btn"
+                   href="{{ url_for("dp_list") }}" role="button">
+                    To the list &raquo;
+                </a>
+            </p>
+        </div>
+        <div class="col-md-3 col-sm-6 text-center">
+            <div class="large-icon hidden-xs">
+                <span class="glyphicon glyphicon-globe text-center"
+                      aria-hidden="true"></span>
+            </div>
+            <h3>Show me the map!</h3>
+
+            <p>
+                Text is nothing for you? No problem! We have a very cool map
+                which shows all the drop points and their state in real-time!
+            </p>
+
+            <p>
+                <a class="btn btn-primary navbar-btn" href="#" role="button">
+                    To the map &raquo;
+                </a>
+            </p>
+        </div>
+        <div class="col-md-3 col-sm-6 text-center">
+            <div class="large-icon hidden-xs">
+                <span class="glyphicon glyphicon-stats"
+                      aria-hidden="true"></span>
+            </div>
+            <h3>Show me the numbers!</h3>
+
+            <p>
+                The sheer beauty of numbers and diagrams amazes you? Good news:
+                The system allows you to see all the statistics!
+            </p>
+
+            <p>
+                <a class="btn btn-primary navbar-btn" href="#" role="button">
+                    To the numbers &raquo;
+                </a>
+            </p>
+        </div>
+        <div class="col-md-3 col-sm-6 text-center">
+            <div class="large-icon hidden-xs">
+                <span class="glyphicon glyphicon-education text-center"
+                      aria-hidden="true"></span>
+            </div>
+            <h3>WTF is this sh*t?</h3>
+
+            <p>
+                You have no clue what this is about or how it works?
+                Your questions were asked before and can be answered.
+            </p>
+
+            <p>
+                <a class="btn btn-primary navbar-btn"
+                   href="{{ url_for("faq") }}" role="button">
+                    To the FAQ &raquo;
+                </a>
+            </p>
+        </div>
+    </div>
 {% endblock %}
-{# vim: set noexpandtab ts=2 sw=2: #}
+{# vim: set expandtab ts=4 sw=4: #}

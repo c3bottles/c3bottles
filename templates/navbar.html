@@ -1,28 +1,30 @@
-		<nav class="navbar navbar-inverse navbar-fixed-top">
-			<div class="container">
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-					<a class="navbar-brand" href="{{ url_for("index") }}">c3bottles</a>
-				</div>
-				<div id="navbar" class="navbar-collapse collapse">
-					<ul class="nav navbar-nav">
-						{% for _s, _t in (
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed"
+                    data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{{ url_for("index") }}">c3bottles</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                {% for _s, _t in (
 								("dp_list", "List"),
 								("dp_map", "Map"),
 								("statistics", "Numbers"),
 								("faq", "FAQ")
-							): %}
-						<li{{ {"class": "active"}|xmlattr if request.url_rule.endpoint == _s }}>
-							<a href="{{ url_for(_s)  }}">{{ _t }}</a>
-						</li>
-						{% endfor %}
-					</ul>
-				</div>
-			</div>
-		</nav>
-{# vim: set noexpandtab ts=2 sw=2: #}
+							) %}
+                    <li{{ {"class": "active"}|xmlattr if request.url_rule.endpoint == _s }}>
+                        <a href="{{ url_for(_s) }}">{{ _t }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</nav>
+{# vim: set expandtab ts=4 sw=4: #}

@@ -16,4 +16,6 @@ c3bottles.jinja_env.lstrip_blocks = True
 from view import *
 
 if __name__ == "__main__":
-	c3bottles.run(debug=True)
+    c3bottles.run(debug=True)
+
+# vim: set expandtab ts=4 sw=4:
