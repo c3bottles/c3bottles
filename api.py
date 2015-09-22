@@ -2,7 +2,7 @@ import json
 
 from flask import request, Response
 
-from c3bottles import db
+from c3bottles import c3bottles, db
 from model import DropPoint, Report, Visit, report_states, visit_actions
 
 
@@ -11,6 +11,8 @@ def process():
         return report()
     elif request.values.get("action") == "visit":
         return visit()
+    elif request.values.get("action") == "dp_json":
+        return dp_json()
 
     return Response("Invalid or missing API action.", status=400)
 
@@ -51,5 +53,24 @@ def visit():
     db.session.commit()
 
     return Response("Success.")
+
+
+def dp_json():
+    all_dps = []
+    for dp in db.session.query(DropPoint).order_by(DropPoint.number).all():
+        all_dps.append({
+            "number": dp.number,
+            "location": dp.get_current_location().description,
+            "reports_total": dp.get_total_report_count(),
+            "reports_new": dp.get_new_report_count(),
+            "priority": dp.get_priority(),
+            "last_state": dp.get_last_state(),
+            "crates": dp.get_current_crate_count(),
+            "removed": True if dp.removed else False
+        })
+    return Response(
+        json.dumps(all_dps, indent=4 if c3bottles.debug else None),
+        mimetype="application/json"
+    )
 
 # vim: set expandtab ts=4 sw=4:
