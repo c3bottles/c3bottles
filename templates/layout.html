@@ -11,6 +11,7 @@
           rel="stylesheet">
     <link rel="icon" href="{{ url_for('static', filename='img/refund-black.png') }}"
           type="image/png">
+{% block header %}{% endblock %}
 </head>
 <body>
 {% include 'navbar.html' %}
@@ -21,10 +22,11 @@
 {% include 'footer.html' %}
 <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
 <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.min.js') }}"></script>
-<script src="{{ url_for('static', filename='js/c3bottles.js') }}"></script>
 <script type="text/javascript">
     var apiurl = "{{ url_for('api') }}"
 </script>
+<script src="{{ url_for('static', filename='js/c3bottles.js') }}"></script>
+{% block scripts %}{% endblock %}
 </body>
 </html>
 {# vim: set expandtab ts=4 sw=4: #}

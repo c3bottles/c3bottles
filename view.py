@@ -46,7 +46,9 @@ def dp_list():
 
 @c3bottles.route("/map")
 def dp_map():
-    return "TODO: Show the drop point map"
+    return render_template(
+        "map.html"
+    )
 
 
 @c3bottles.route("/view/<int:dp_number>")
