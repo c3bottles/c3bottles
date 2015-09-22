@@ -24,10 +24,6 @@ def dp_list():
     all_dps = []
     all_locations = []
     for dp in db.session.query(DropPoint).order_by(DropPoint.number).all():
-        if dp.get_new_reports():
-            last_state = dp.get_new_reports()[0].state
-        else:
-            last_state = None
         loc = dp.get_current_location()
         all_dps.append({
             "number": dp.number,
@@ -35,7 +31,7 @@ def dp_list():
             "reports_total": dp.get_total_report_count(),
             "reports_new": dp.get_new_report_count(),
             "priority": dp.get_priority(),
-            "last_state": last_state,
+            "last_state": dp.get_last_state(),
             "crates": dp.get_current_crate_count(),
             "removed": True if dp.removed else False
         })

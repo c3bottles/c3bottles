@@ -126,6 +126,24 @@ class DropPoint(db.Model):
         else:
             return self.get_total_report_count()
 
+    def get_last_state(self):
+        last_report = self.get_last_report()
+        last_visit = self.get_last_visit()
+
+        if last_report is not None and last_visit is not None:
+            if last_visit.time > last_report.time \
+                    and last_visit.action == "EMPTIED":
+                return "EMPTY"
+            else:
+                return last_report.state
+        elif last_report is not None:
+            return last_report.state
+        else:
+            return "UNKNOWN"
+
+    def get_last_report(self):
+        return self.reports.order_by(Report.time.desc()).first()
+
     def get_last_visit(self):
         return self.visits.order_by(Visit.time.desc()).first()
 
