@@ -72,4 +72,10 @@ def dp_report(dp_number):
 def dp_visit(dp_number):
     return "TODO: Visit drop point " + str(dp_number)
 
+
+@c3bottles.route("/api")
+def api():
+    import api
+    return api.process()
+
 # vim: set expandtab ts=4 sw=4:
