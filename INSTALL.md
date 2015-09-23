@@ -11,12 +11,16 @@ In order to install c3bottles, you will need:
 *   some SQL server supported by SQLAlchemy
     (the author uses PostgreSQL but others should work, too)
 
+*   GDAL and the gdal2tiles.py script to generate the map tiles
+    (gdal-bin and python-gdal)
+
 # Installation
 
 0.  Make sure all the dependencies are installed.
     On Debian using Apache, you can do:
 
-        apt-get install python-flask python-flask-sqlalchemy libapache2-mod-wsgi
+        apt-get install python-flask python-flask-sqlalchemy \
+                        libapache2-mod-wsgi gdal-bin python-gdal
 
 1.  Copy the files into some directory readable by the web server.
     You can clone the repository from Github:
@@ -29,7 +33,7 @@ In order to install c3bottles, you will need:
 
 3.  Configure your database accordingly. The user for c3bottles needs full
     access to the database. If you use SQLite, the web server needs write
-    access to the directory c3bottles lives in.
+    access to the directory containing the `*.db` file and the file itself.
 
 4.  Initialize the database using the Python interpreter:
 
@@ -43,3 +47,9 @@ In order to install c3bottles, you will need:
     
         WSGIScriptAlias / /path/to/c3bottles/c3bottles.wsgi
         Alias /static /path/to/c3bottles/static
+
+6.  To be able to use the drop point map, generate the map tiles:
+
+        $ cd /path/to/c3bottles/static/img
+        $ gdal_translate -of vrt -expand rgba map.png map.vrt
+        $ gdal2tiles.py -w none -p raster map.vrt tiles
