@@ -1,26 +1,13 @@
-var extent = [0, 0, 5500, 10500];
-var projection = new ol.proj.Projection({
-    code: "dp_map",
-    units: "pixels",
-    extent: extent
-});
-
-var map = new ol.Map({
-    layers: [
-        new ol.layer.Image({
-            source: new ol.source.ImageStatic({
-                url: mapurl,
-                projection: projection,
-                imageExtent: extent
-            })
-        })
-    ],
-    target: 'map',
-    view: new ol.View({
-              projection: projection,
-              center: ol.extent.getCenter(extent),
-              zoom: 2
-          })
-});
+var map = L.map('map', {
+    attributionControl: false
+}).fitWorld();
+L.tileLayer(tiledir + '/{z}/{x}/{y}.png', {
+    // Have a look in static/img/tiles.
+    // The directories present there correspond to zoom levels.
+    minZoom: 0,
+    maxZoom: 6,
+    tms: true,
+    noWrap: true
+}).addTo(map);
 
 /* vim: set expandtab ts=4 sw=4: */

@@ -15,10 +15,12 @@
 </head>
 <body>
 {% include 'navbar.html' %}
+{% block replacement %}
 <div class="container">
     <div id="alerts"></div>
     {% block content %}{% endblock %}
 </div>
+{% endblock %}
 {% include 'footer.html' %}
 <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
 <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.min.js') }}"></script>

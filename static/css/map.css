@@ -1,0 +1,8 @@
+#map {
+    width: 100%;
+    height: calc(100% - 51px - 60px);
+    position: absolute;
+    top: 51px;
+}
+
+/* vim: set expandtab ts=4 sw=4: */

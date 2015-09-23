@@ -1,21 +1,20 @@
 {% extends "layout.html" %}
 {% set title = "Drop Point Map" %}
 {% block header %}
-    <link href="{{ url_for('static', filename='vendor/openlayers/css/ol.css') }}"
+    <link href="{{ url_for('static', filename='vendor/leaflet/css/leaflet.css') }}"
+          rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/map.css') }}"
           rel="stylesheet">
 {% endblock %}
-{% block content %}
-    <div class="page-header">
-        <h1>{{ title }}</h1>
-    </div>
-    <div id="map" class="map"></div> 
-{% include "modals/dp_modals.html" %}
+{% block replacement %}
+    <div id="map" class="map"></div>
+    {% include "modals/dp_modals.html" %}
 {% endblock %}
 {% block scripts %}
 <script type="text/javascript">
-    var mapurl = "{{ url_for('static', filename='img/map.png') }}"
+    var tiledir = "{{ url_for('static', filename='img/tiles') }}"
 </script>
-<script src="{{ url_for('static', filename='vendor/openlayers/js/ol.js') }}"></script>
+<script src="{{ url_for('static', filename='vendor/leaflet/js/leaflet.min.js') }}"></script>
 <script src="{{ url_for('static', filename='js/map.js') }}"></script>
 {% endblock %}
 {# vim: set expandtab ts=4 sw=4: #}
