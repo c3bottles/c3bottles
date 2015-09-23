@@ -1,6 +1,7 @@
 from flask import render_template
 
 from c3bottles import c3bottles, db
+from model import DropPoint
 
 
 @c3bottles.route("/")
@@ -20,7 +21,6 @@ def statistics():
 
 @c3bottles.route("/list")
 def dp_list():
-    from model import DropPoint
     all_dps = []
     all_locations = []
     for dp in db.session.query(DropPoint).order_by(DropPoint.number).all():
@@ -47,13 +47,13 @@ def dp_list():
 @c3bottles.route("/map")
 def dp_map():
     return render_template(
-        "map.html"
+        "map.html",
+        all_dps_geojson=DropPoint.get_all_dps_as_geojson()
     )
 
 
 @c3bottles.route("/view/<int:dp_number>")
 def dp_view(dp_number):
-    from model import DropPoint
     return render_template(
         "view.html",
         dp=db.session.query(DropPoint).get(dp_number)
