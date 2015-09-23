@@ -20,7 +20,7 @@ In order to install c3bottles, you will need:
     On Debian using Apache, you can do:
 
         $ apt-get install python-flask python-flask-sqlalchemy \
-                        libapache2-mod-wsgi imagemagick gdal-bin python-gdal
+                          libapache2-mod-wsgi imagemagick gdal-bin python-gdal
 
 1.  Copy the files into some directory readable by the web server.
     You can clone the repository from Github:
@@ -39,7 +39,7 @@ In order to install c3bottles, you will need:
 
         $ cd /path/to/c3bottles
         $ python
-        >>> from model import *
+        >>> from c3bottles import db
         >>> db.create_all()
 
 5.  Configure your webserver accordingly to run the WSGI application. Apache
