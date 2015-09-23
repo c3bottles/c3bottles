@@ -286,9 +286,9 @@ class Location(db.Model):
 
     start_time = db.Column(db.DateTime)
     description = db.Column(db.String(max_description))
-    coordinate_x = db.Column(db.Integer)
-    coordinate_y = db.Column(db.Integer)
-    coordinate_z = db.Column(db.Integer)
+    coordinate_x = db.Column(db.Float)
+    coordinate_y = db.Column(db.Float)
+    coordinate_z = db.Column(db.Float)
 
     def coords(self):
         return self.coordinate_x, self.coordinate_y, self.coordinate_z
