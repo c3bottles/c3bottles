@@ -1,8 +1,6 @@
-import json
-
 from flask import request, Response
 
-from c3bottles import c3bottles, db
+from c3bottles import db
 from model import DropPoint, Report, Visit, report_states, visit_actions
 
 
@@ -56,20 +54,8 @@ def visit():
 
 
 def dp_json():
-    all_dps = []
-    for dp in db.session.query(DropPoint).order_by(DropPoint.number).all():
-        all_dps.append({
-            "number": dp.number,
-            "location": dp.get_current_location().description,
-            "reports_total": dp.get_total_report_count(),
-            "reports_new": dp.get_new_report_count(),
-            "priority": dp.get_priority(),
-            "last_state": dp.get_last_state(),
-            "crates": dp.get_current_crate_count(),
-            "removed": True if dp.removed else False
-        })
     return Response(
-        json.dumps(all_dps, indent=4 if c3bottles.debug else None),
+        DropPoint.get_all_dps_as_geojson(),
         mimetype="application/json"
     )
 

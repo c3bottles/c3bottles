@@ -1,6 +1,8 @@
+import json
+
 from datetime import datetime
 
-from c3bottles import db
+from c3bottles import c3bottles, db
 
 
 class DropPoint(db.Model):
@@ -215,6 +217,36 @@ class DropPoint(db.Model):
             priority *= 3
 
         return round(priority, 2)
+
+    @staticmethod
+    def get_all_dps_as_geojson():
+        """Get all drop points as a GeoJSON string."""
+
+        arr = []
+
+        for dp in db.session.query(DropPoint).all():
+            arr.append({
+                "type": "Feature",
+                "properties": {
+                    "number": dp.number,
+                    "location": dp.get_current_location().description,
+                    "reports_total": dp.get_total_report_count(),
+                    "reports_new": dp.get_new_report_count(),
+                    "priority": dp.get_priority(),
+                    "last_state": dp.get_last_state(),
+                    "crates": dp.get_current_crate_count(),
+                    "removed": True if dp.removed else False
+                },
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [
+                        dp.get_current_location().coordinate_x,
+                        dp.get_current_location().coordinate_y
+                    ]
+                }
+            })
+
+        return json.dumps(arr, indent=4 if c3bottles.debug else None)
 
     def __repr__(self):
         return "Drop point %s (%s)" % (
