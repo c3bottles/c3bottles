@@ -2,5 +2,6 @@ config.py
 **/*.pyc
 **/*.db
 **/.*.swp
+static/img/map_sq.*
 static/img/*.vrt
 static/img/tiles/
