@@ -22,7 +22,7 @@ function get_dp_layer() {
             var size = 12;
             var icon = L.icon({
                 iconSize: [size*zoom, size*zoom],
-                iconAnchor: [size*zoom/2, 0],
+                iconAnchor: [size*zoom/2, size*zoom],
                 iconUrl: imgdir + '/markers/' + feature.properties.last_state + '.svg'
             });
             var marker = L.marker(latlng, {icon: icon});
