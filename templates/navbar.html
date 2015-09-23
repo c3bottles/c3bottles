@@ -14,11 +14,11 @@
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 {% for _s, _t in (
-								("dp_list", "List"),
-								("dp_map", "Map"),
-								("statistics", "Numbers"),
-								("faq", "FAQ")
-							) %}
+                                ("dp_list", "List"),
+                                ("dp_map", "Map"),
+                                ("statistics", "Numbers"),
+                                ("faq", "FAQ")
+                            ) %}
                     <li{{ {"class": "active"}|xmlattr if request.url_rule.endpoint == _s }}>
                         <a href="{{ url_for(_s) }}">{{ _t }}</a>
                     </li>
