@@ -25,29 +25,12 @@ $("body").on("click", "a[data-toggle=collapse]", function () {
 });
 
 /*
- * When showing any of the drop point modals (details, reporting, visiting),
- * all elements displaying details of the drop point in question are filled
- * with the correct details before the modal is made visible to the user.
- *
- * All the details are read from the drop point table.
- *
- */
-$(".dp_modal").on("show.bs.modal", function (e) {
-    var _tr = $(e.relatedTarget).parent().parent();
-    var _details = _tr.data("details");
-    for (var key in _details) {
-        $(".modal_dp_" + key).text(_details[key]);
-    }
-    $("#modal_dp_link").attr("href", _tr.data("href"));
-});
-
-/*
  * When hiding any of the drop point modals (details, reporting, visiting),
  * the modal must be destroyed to be re-constructed on the next show instead
  * of simply hiding it and displaying the same instance again.
  *
  */
-$(".dp_modal").on("hidden.bs.modal", function () {
+$("#dp_modal").on("hidden.bs.modal", function () {
     $(this).removeData("bs.modal");
 });
 
@@ -85,7 +68,7 @@ $.each(report_states, function (cls, state) {
  *
  */
 function report_dp(num, state) {
-    $("#dp_report_modal").modal("hide");
+    $("#dp_modal").modal("hide");
     $.ajax({
         type: "POST",
         url: apiurl,
@@ -101,7 +84,7 @@ function report_dp(num, state) {
                         <span aria-hidden=\"true\">&times;</span></button>\
                         <strong>Thank you!</strong> Your report has been\
                         received successfully.");
-            $("#alerts").append(alert);
+            $("#alerts").prepend(alert);
             $(".alert-hide").on("click", function () {
                 $(this).parent().slideUp();
             });
@@ -115,7 +98,7 @@ function report_dp(num, state) {
                         <span aria-hidden=\"true\">&times;</span></button>\
                         <strong>Oh no!</strong> An error occured while\
                         processing your report: " + response.responseText);
-            $("#alerts").append(alert);
+            $("#alerts").prepend(alert);
             $(".alert-hide").on("click", function () {
                 $(this).parent().slideUp();
             });
@@ -158,7 +141,11 @@ $.each(visit_actions, function (cls, action) {
  *
  */
 function visit_dp(num, action) {
-    $("#dp_visit_modal").modal("hide");
+    if (action == "EMPTIED") {
+        $("#dp_modal").modal("hide");
+    } else {
+        show_dp_modal_pane("report");
+    }
     $.ajax({
         type: "POST",
         url: apiurl,
@@ -174,7 +161,7 @@ function visit_dp(num, action) {
                         <span aria-hidden=\"true\">&times;</span></button>\
                         <strong>Thank you!</strong> Your visit has been\
                         logged successfully.");
-            $("#alerts").append(alert);
+            $("#alerts").prepend(alert);
             $(".alert-hide").on("click", function () {
                 $(this).parent().slideUp();
             });
@@ -188,15 +175,44 @@ function visit_dp(num, action) {
                         <span aria-hidden=\"true\">&times;</span></button>\
                         <strong>Oh no!</strong> An error occured while\
                         processing your visit: " + response.responseText);
-            $("#alerts").append(alert);
+            $("#alerts").prepend(alert);
             $(".alert-hide").on("click", function () {
                 $(this).parent().slideUp();
             });
             alert.slideDown();
             setTimeout(function() { alert.slideUp() }, 5000);
-
         }
     });
 }
+
+function show_dp_modal_pane(pane) {
+    for (var arr= ["details", "report", "visit"], i = 0; i < arr.length; i++) {
+        $("#dp_modal_" + arr[i] + "_tab").removeClass("active");
+        $("#dp_modal_" + arr[i] + "_link").removeClass("active");
+    }
+    $("#dp_modal_" + pane + "_tab").addClass("active");
+    $("#dp_modal_" + pane + "_link").addClass("active");
+}
+
+/*
+ * When showing any pane of the drop point modals (details, reporting,
+ * visiting), all elements displaying details of the drop point in question are
+ * filled with the correct details before the modal is made visible to the user.
+ * All the details are read from the drop point table.
+ *
+ * In addition, the correct pane of the modal is selected and the modal is
+ * shown.
+ *
+ */
+$("[data-dp_modal]").on("click", function(e) {
+    var tr = $(e.currentTarget).parent().parent();
+    var details = tr.data("details");
+    for (var key in details) {
+        $(".modal_dp_" + key).text(details[key]);
+    }
+    $("#modal_dp_link").attr("href", tr.data("href"));
+    show_dp_modal_pane($(e.currentTarget).attr("data-dp_modal"));
+    $("#dp_modal").modal("show");
+});
 
 /* vim: set expandtab ts=4 sw=4: */

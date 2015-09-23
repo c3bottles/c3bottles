@@ -77,18 +77,18 @@
                     {{ "</s>"|safe if dp.removed }}</td>
                 <td>
                     <span class="clickable glyphicon glyphicon-search"
-                          title="View drop point details" data-toggle="modal"
-                          data-target="#dp_details_modal"></span>
+                          title="View drop point details"
+                          data-dp_modal="details"></span>
                 </td>
                 <td>
                     <span class="clickable glyphicon glyphicon-bullhorn"
-                          title="Report this drop point" data-toggle="modal"
-                          data-target="#dp_report_modal"></span>
+                          title="Report this drop point"
+                          data-dp_modal="report"></span>
                 </td>
                 <td>
                     <span class="clickable glyphicon glyphicon-wrench"
-                          title="Log a drop point visit" data-toggle="modal"
-                          data-target="#dp_visit_modal"></span>
+                          title="Log a drop point visit"
+                          data-dp_modal="visit"></span>
                 </td>
                 <td class="hidden-xs">
                     {{ "<s>"|safe if dp.removed }}{{ "%0.2f"|format(dp.priority) }}{{ "</s>"|safe if dp.removed }}</td>
