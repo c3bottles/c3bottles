@@ -13,42 +13,44 @@ var map = L.map('map', {
     attributionControl: false
 }).fitWorld();
 
-map.on("click", function (e) {
-    var latlng = e.latlng;
-    function get_marker(latlng) {
-        var marker = L.marker(latlng, {
-            icon: get_icon("NEW"),
-            draggable: true
-        });
-        $(map).one("zoomend", function (e) {
-            if (map.hasLayer(marker)) {
+function allow_dp_creation_from_map() {
+    map.on("click", function (e) {
+        var latlng = e.latlng;
+        function get_marker(latlng) {
+            var marker = L.marker(latlng, {
+                icon: get_icon("NEW"),
+                draggable: true
+            });
+            $(map).one("zoomend", function (e) {
+                if (map.hasLayer(marker)) {
+                    map.removeLayer(marker);
+                    get_marker(marker._latlng);
+                }
+            });
+            $(map).one("click", function () {
                 map.removeLayer(marker);
-                get_marker(marker._latlng);
-            }
-        });
-        $(map).one("click", function() {
-            map.removeLayer(marker);
-        });
-        marker.bindPopup(L.popup({closeButton: false}).setContent(
-            "<button class='btn btn-primary' onclick='open_new_dp_modal([" +
-            marker._latlng.lat + "," + marker._latlng.lng + "]);'>" +
-            "Create a new drop point" +
-            "</button>"
-        ));
-        marker.on("dragend", function() {
-            this._popup.setContent(
-                "<button class='btn btn-primary' onclick='open_new_dp_modal([" +
-                this._latlng.lat + "," + this._latlng.lng + "]);'>" +
+            });
+            marker.bindPopup(L.popup({closeButton: false}).setContent(
+                "<a class='btn btn-primary' href=\'" + create_dp_url + "/" +
+                marker._latlng.lat + "/" + marker._latlng.lng + "' style='color: #fff;'>" +
                 "Create a new drop point" +
-                "</button>"
-            );
-        });
-        map.addLayer(marker);
-        return marker;
-    }
-    var marker = get_marker(latlng);
-    marker.openPopup();
-});
+                "</a>"
+            ));
+            marker.on("dragend", function () {
+                this._popup.setContent(
+                    "<a class='btn btn-primary' href=\'" + create_dp_url + "/" +
+                    this._latlng.lat + "/" + this._latlng.lng + "' style='color: #fff;'>" +
+                    "Create a new drop point" +
+                    "</a>"
+                );
+            });
+            map.addLayer(marker);
+            return marker;
+        }
+        var marker = get_marker(latlng);
+        marker.openPopup();
+    });
+}
 
 L.tileLayer(imgdir + '/tiles/{z}/{x}/{y}.png', {
     // Have a look in static/img/tiles.

@@ -77,6 +77,25 @@ def dp_visit(dp_number):
     return "TODO: Visit drop point " + str(dp_number)
 
 
+@c3bottles.route("/create")
+@c3bottles.route("/create/<string:lat>/<string:lng>")
+def create_dp(lat=None, lng=None):
+    if lat is not None and lng is not None:
+        try:
+            lat_f = float(lat)
+            lng_f = float(lng)
+        except ValueError:
+            lat_f = None
+            lng_f = None
+
+    return render_template(
+        "create_dp.html",
+        all_dps_geojson=DropPoint.get_all_dps_as_geojson(),
+        lat=lat_f,
+        lng=lng_f
+    )
+
+
 @c3bottles.route("/api", methods=("POST", "GET"))
 def api():
     import api

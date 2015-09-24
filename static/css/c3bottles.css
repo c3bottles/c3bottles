@@ -40,4 +40,8 @@ body {
     transition: height 0.001s;
 }
 
+.spacer {
+    height: 20px;
+}
+
 /* vim: set expandtab ts=4 sw=4: */

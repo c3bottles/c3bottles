@@ -12,10 +12,14 @@
 {% endblock %}
 {% block scripts %}
 <script type="text/javascript">
+    var create_dp_url = "{{ url_for("create_dp") }}";
     var imgdir = "{{ url_for('static', filename='img') }}";
     var all_dps_geojson = {{ all_dps_geojson|safe }};
 </script>
 <script src="{{ url_for('static', filename='vendor/leaflet/js/leaflet.min.js') }}"></script>
 <script src="{{ url_for('static', filename='js/map.js') }}"></script>
+<script type="text/javascript">
+    allow_dp_creation_from_map();
+</script>
 {% endblock %}
 {# vim: set expandtab ts=4 sw=4: #}

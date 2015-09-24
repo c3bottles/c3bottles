@@ -4,37 +4,46 @@
     <div class="page-header">
         <h1>{{ title }}</h1>
     </div>
-    <div class="btn-group" role="group" aria-label="filters">
-        <div class="btn-group" role="group">
-            <button type="button" class="btn btn-default dropdown-toggle"
-                    data-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false">
-                Filter location <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" role="menu">
-                {% for location in all_locations %}
-                    <li><a href="#">{{ location }}</a></li>
-                {% endfor %}
-            </ul>
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="btn-group" role="group" aria-label="filters">
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-default dropdown-toggle"
+                            data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                        Filter location <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                    {% for location in all_locations %}
+                        <li><a href="#">{{ location }}</a></li>
+                    {% endfor %}
+                    </ul>
+                </div>
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-default dropdown-toggle"
+                            data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                        Filter state <span class="caret"></span>
+                    </button>
+                    <!-- TODO: implement state filter -->
+                </div>
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-default dropdown-toggle"
+                            data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                        more <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a data-toggle="collapse" data-target=".dp-removed"
+                               href="#">Show removed drop points</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
-        <div class="btn-group" role="group">
-            <button type="button" class="btn btn-default dropdown-toggle"
-                    data-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false">
-                Filter state <span class="caret"></span>
-            </button>
-            <!-- TODO: implement state filter -->
-        </div>
-        <div class="btn-group" role="group">
-            <button type="button" class="btn btn-default dropdown-toggle"
-                    data-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false">
-                more <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" role="menu">
-                <li><a data-toggle="collapse" data-target=".dp-removed"
-                       href="#">Show removed drop points</a></li>
-            </ul>
+        <div class="col-sm-4 text-right">
+            <a class="btn btn-primary" href="{{ url_for("create_dp") }}">
+                Create a new drop point
+            </a>
         </div>
     </div>
     <p></p>
