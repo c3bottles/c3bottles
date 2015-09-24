@@ -40,7 +40,8 @@ def dp_list():
     return render_template(
         "list.html",
         all_dps=sorted(all_dps, key=lambda k: k["priority"], reverse=True),
-        all_locations=sorted(all_locations)
+        all_locations=sorted(all_locations),
+        all_dps_geojson=DropPoint.get_all_dps_as_geojson()
     )
 
 
@@ -58,6 +59,11 @@ def dp_view(dp_number):
         "view.html",
         dp=db.session.query(DropPoint).get(dp_number)
     )
+
+
+@c3bottles.route("/view")
+def dp_view_base():
+    return dp_view(0)
 
 
 @c3bottles.route("/report/<int:dp_number>")

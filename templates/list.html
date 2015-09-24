@@ -53,9 +53,7 @@
         </thead>
         <tbody>
         {% for dp in all_dps %}
-            <tr{{ {"class": "dp-removed collapse"}|xmlattr if dp.removed }}
-                    data-details="{{ '{"number":' + dp.number|string + ',"priority":' + '%0.2f'|format(dp.priority) + ',"crates":' + dp.crates|string + ',"location":"' + dp.location.description + '"}' }}"
-                    data-href="{{ url_for("dp_view",dp_number=dp.number) }}">
+            <tr{{ {"class": "dp-removed collapse"}|xmlattr if dp.removed }}>
                 <td>
                     {{ "<s>"|safe if dp.removed }}{{ dp.number }}{{ "</s>"|safe if dp.removed }}</td>
                 <td>
@@ -78,17 +76,20 @@
                 <td>
                     <span class="clickable glyphicon glyphicon-search"
                           title="View drop point details"
-                          data-dp_modal="details"></span>
+                          data-dp_modal_pane="details"
+                          data-dp_number="{{ dp.number }}"></span>
                 </td>
                 <td>
                     <span class="clickable glyphicon glyphicon-bullhorn"
                           title="Report this drop point"
-                          data-dp_modal="report"></span>
+                          data-dp_modal_pane="report"
+                          data-dp_number="{{ dp.number }}"></span>
                 </td>
                 <td>
                     <span class="clickable glyphicon glyphicon-wrench"
                           title="Log a drop point visit"
-                          data-dp_modal="visit"></span>
+                          data-dp_modal_pane="visit"
+                          data-dp_number="{{ dp.number }}"></span>
                 </td>
                 <td class="hidden-xs">
                     {{ "<s>"|safe if dp.removed }}{{ "%0.2f"|format(dp.priority) }}{{ "</s>"|safe if dp.removed }}</td>
@@ -99,5 +100,10 @@
         </tbody>
     </table>
 {% include "modals/dp_modals.html" %}
+{% endblock %}
+{% block scripts %}
+<script type="text/javascript">
+    var all_dps_geojson = {{ all_dps_geojson|safe }};
+</script>
 {% endblock %}
 {# vim: set expandtab ts=4 sw=4: #}

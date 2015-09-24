@@ -26,6 +26,12 @@ function get_dp_layer() {
                 iconUrl: imgdir + '/markers/' + feature.properties.last_state + '.svg'
             });
             var marker = L.marker(latlng, {icon: icon});
+            marker.on("click",
+                function (e) {
+                    var dp = e.target.feature;
+                    show_dp_modal(dp.properties.number, "report");
+                }
+            );
             return marker;
         }
     });
