@@ -4,7 +4,8 @@ function get_icon(type) {
     return L.icon({
         iconSize: [size * zoom, size * zoom],
         iconAnchor: [size * zoom / 2, size * zoom],
-        iconUrl: imgdir + '/markers/' + type + '.svg'
+        iconUrl: imgdir + '/markers/' + type + '.svg',
+        popupAnchor: [0, -size * zoom]
     });
 }
 
@@ -12,9 +13,10 @@ var map = L.map('map', {
     attributionControl: false
 }).fitWorld();
 
+var foo;
+
 map.on("click", function (e) {
     var latlng = e.latlng;
-
     function get_marker(latlng) {
         var marker = L.marker(latlng, {
             icon: get_icon("NEW"),
@@ -29,15 +31,16 @@ map.on("click", function (e) {
         $(map).one("click", function() {
             map.removeLayer(marker);
         });
-        marker.on("click", function() {
-            var latlng = this._latlng;
-            // TODO: popup, etc.
-            alert("marker is at " + latlng.lat + "," + latlng.lng);
-        });
+        marker.bindPopup(L.popup({closeButton: false}).setContent(
+            "<button class='btn btn-primary' id='new-dp-button'>" +
+            "Create a new drop point" +
+            "</button>"
+        ));
         map.addLayer(marker);
+        return marker;
     }
-
-    get_marker(latlng);
+    var marker = get_marker(latlng);
+    marker.openPopup();
 });
 
 L.tileLayer(imgdir + '/tiles/{z}/{x}/{y}.png', {
