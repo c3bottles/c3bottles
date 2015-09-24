@@ -13,8 +13,6 @@ var map = L.map('map', {
     attributionControl: false
 }).fitWorld();
 
-var foo;
-
 map.on("click", function (e) {
     var latlng = e.latlng;
     function get_marker(latlng) {
@@ -32,10 +30,19 @@ map.on("click", function (e) {
             map.removeLayer(marker);
         });
         marker.bindPopup(L.popup({closeButton: false}).setContent(
-            "<button class='btn btn-primary' id='new-dp-button'>" +
+            "<button class='btn btn-primary' onclick='open_new_dp_modal([" +
+            marker._latlng.lat + "," + marker._latlng.lng + "]);'>" +
             "Create a new drop point" +
             "</button>"
         ));
+        marker.on("dragend", function() {
+            this._popup.setContent(
+                "<button class='btn btn-primary' onclick='open_new_dp_modal([" +
+                this._latlng.lat + "," + this._latlng.lng + "]);'>" +
+                "Create a new drop point" +
+                "</button>"
+            );
+        });
         map.addLayer(marker);
         return marker;
     }
