@@ -17,8 +17,9 @@
     <p>
         After placing the drop point on the map, enter the details of the new
         drop point in the form below. Some parameters (e.g. coordinates) are
-        automatically generated from the map, but others have to be entered
-        manually. After the form is complete, hit the "Finish drop point
+        automatically generated from the map and others are automatically
+        filled if possible but can be edited. Some have to be entered manually.
+        After the form is complete, hit the "Finish drop point
         creation" button to finish the creation. If you want to create another
         drop point, you can also hit the "Create another drop point" button
         which will lead you back to this form.
@@ -76,11 +77,15 @@
             </div>
         </div>
         <div class="form-group">
+            <label for="room" class="col-sm-2 control-label">Location</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" name="location_description" id="location_description">
+            </div>
+        </div>
+        <div class="form-group">
             <label for="level" class="col-sm-2 control-label">Drop point number</label>
             <div class="col-sm-1">
-                <div class="input-group">
-                    <input type="text" class="form-control" name="dp_number" id="dp_number">
-                </div>
+                <input type="text" class="form-control" name="dp_number" id="dp_number">
             </div>
         </div>
         <div class="form-group">
