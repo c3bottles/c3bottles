@@ -1,3 +1,5 @@
+import json
+
 from flask import render_template
 
 from c3bottles import c3bottles, db
@@ -80,13 +82,12 @@ def dp_visit(dp_number):
 @c3bottles.route("/create")
 @c3bottles.route("/create/<string:lat>/<string:lng>")
 def create_dp(lat=None, lng=None):
-    if lat is not None and lng is not None:
-        try:
-            lat_f = float(lat)
-            lng_f = float(lng)
-        except ValueError:
-            lat_f = None
-            lng_f = None
+    try:
+        lat_f = float(lat)
+        lng_f = float(lng)
+    except (ValueError, TypeError):
+        lat_f = None
+        lng_f = None
 
     return render_template(
         "create_dp.html",
