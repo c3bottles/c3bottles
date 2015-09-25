@@ -30,16 +30,20 @@ function allow_dp_creation_from_map() {
             $(map).one("click", function () {
                 map.removeLayer(marker);
             });
+            var lat = marker._latlng.lat.toFixed(2);
+            var lng = marker._latlng.lng.toFixed(2);
             marker.bindPopup(L.popup({closeButton: false}).setContent(
                 "<a class='btn btn-primary' href=\'" + create_dp_url + "/" +
-                marker._latlng.lat + "/" + marker._latlng.lng + "' style='color: #fff;'>" +
+                lat + "/" + lng + "' style='color: #fff;'>" +
                 "Create a new drop point" +
                 "</a>"
             ));
             marker.on("dragend", function () {
+                var lat = this._latlng.lat.toFixed(2);
+                var lng = this._latlng.lng.toFixed(2);
                 this._popup.setContent(
                     "<a class='btn btn-primary' href=\'" + create_dp_url + "/" +
-                    this._latlng.lat + "/" + this._latlng.lng + "' style='color: #fff;'>" +
+                    lat + "/" + lng + "' style='color: #fff;'>" +
                     "Create a new drop point" +
                     "</a>"
                 );
