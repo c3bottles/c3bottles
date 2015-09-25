@@ -17,7 +17,9 @@
 {% include 'navbar.html' %}
 {% block replacement %}
 <div class="container">
-    <div id="alerts"></div>
+    <div id="alerts">
+        {% block alerts %}{% endblock %}
+    </div>
     {% block content %}{% endblock %}
 </div>
 {% endblock %}

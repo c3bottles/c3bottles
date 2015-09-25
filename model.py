@@ -17,9 +17,7 @@ class DropPoint(db.Model):
     no description or coordinates (i.e. the drop point is present
     somewhere but the location is unknown).
 
-    If a drop point exists but has no location and capacity, the number
-    has been registered in the system but sign & crate(s) have not been
-    placed in the venue yet. If the `removed` column is not null, the drop
+    If the `removed` column is not null, the drop
     point has been removed from the venue completely (numbers are not
     reassigned).
 
@@ -60,47 +58,64 @@ class DropPoint(db.Model):
     def __init__(
             self,
             number,
-            placed=False,
-            loc_desc=None,
-            loc_coords=None,
+            description=None,
+            lat=None,
+            lng=None,
+            level=None,
             crates=None,
             start_time=None
     ):
 
-        if not isinstance(number, (int, long)) or number < 1:
-            raise TypeError("Drop point number not positive.")
+        errors = []
 
-        if db.session.query(DropPoint).get(number):
-            raise ValueError("That drop point already exists.")
+        try:
+            self.number = int(number)
+        except (TypeError, ValueError):
+            errors.append({"number": "Drop point number is not a number."})
+        else:
+            if self.number < 1:
+                errors.append({"number": "Drop point number is not positive."})
+            if db.session.query(DropPoint).get(self.number):
+                errors.append({"number": "That drop point already exists."})
 
-        self.number = number
-
-        db.session.add(self)
-
-        if placed:
+        try:
             Location(
                 self,
                 start_time=start_time,
-                description=loc_desc,
-                coords=loc_coords
+                description=description,
+                lat=lat,
+                lng=lng,
+                level=level
             )
+        except ValueError as e:
+            for m in e.message:
+                errors.append(m)
 
+        try:
             Capacity(
                 self,
                 start_time=start_time,
                 crates=crates
             )
+        except ValueError as e:
+            for m in e.message:
+                errors.append(m)
+
+        if errors:
+            raise ValueError(errors)
+
+        db.session.add(self)
 
     def remove(self, time=None):
 
         if self.removed:
-            raise RuntimeError("Drop point already removed.")
+            raise RuntimeError({"DropPoint": "Drop point already removed."})
 
         if time and not isinstance(time, datetime):
-            raise TypeError("Removal time not a datetime object.")
+            raise TypeError({"DropPoint": "Removal time not a datetime object."})
 
         if time and time > datetime.today():
-            raise ValueError("Removal time in the future.")
+            raise ValueError({"DropPoint": "Removal time in the future."})
 
         self.removed = time if time else datetime.today()
 
@@ -229,7 +244,7 @@ class DropPoint(db.Model):
                 "type": "Feature",
                 "properties": {
                     "number": dp.number,
-                    "location": dp.get_current_location().description,
+                    "description": dp.get_current_location().description,
                     "reports_total": dp.get_total_report_count(),
                     "reports_new": dp.get_new_report_count(),
                     "priority": dp.get_priority(),
@@ -240,8 +255,8 @@ class DropPoint(db.Model):
                 "geometry": {
                     "type": "Point",
                     "coordinates": [
-                        dp.get_current_location().coordinate_x,
-                        dp.get_current_location().coordinate_y
+                        dp.get_current_location().lng,
+                        dp.get_current_location().lat
                     ]
                 }
             })
@@ -286,55 +301,70 @@ class Location(db.Model):
 
     start_time = db.Column(db.DateTime)
     description = db.Column(db.String(max_description))
-    coordinate_x = db.Column(db.Float)
-    coordinate_y = db.Column(db.Float)
-    coordinate_z = db.Column(db.Float)
-
-    def coords(self):
-        return self.coordinate_x, self.coordinate_y, self.coordinate_z
+    lat = db.Column(db.Float)
+    lng = db.Column(db.Float)
+    level = db.Column(db.Float)
 
     def __init__(
             self,
             dp,
             start_time=None,
             description=None,
-            coords=None
+            lat=None,
+            lng=None,
+            level=None
     ):
 
+        errors = []
+
         if not isinstance(dp, DropPoint):
-            raise TypeError("Not a drop point object.")
+            errors.append({"Location": "Not given a drop point object."})
 
         self.dp = dp
 
         if start_time and not isinstance(start_time, datetime):
-            raise TypeError("Start time not a datetime object.")
+            errors.append({"Location": "Start time not a datetime object."})
 
         if start_time and start_time > datetime.today():
-            raise ValueError("Start time in the future.")
+            errors.append({"Location": "Start time in the future."})
 
         if dp.locations and start_time and \
                 start_time < dp.locations[-1].start_time:
-            raise ValueError("Location older than current.")
+            errors.append({"Location": "Location older than current."})
 
         self.start_time = start_time if start_time else datetime.today()
 
-        if coords and not \
-                (all(isinstance(n, (int, long, float)) for n in coords) and
-                    len(coords) is 3):
-            raise TypeError("Invalid coordinates given.")
+        try:
+            self.lat = float(lat)
+        except (TypeError, ValueError):
+            errors.append({"lat": "Latitude is not a floating point number."})
+        else:
+            if not -90 < self.lat < 90:
+                errors.append({"lat": "Latitude is not between 90 degrees N/S."})
 
-        if coords:
-            self.coordinate_x = coords[0]
-            self.coordinate_y = coords[1]
-            self.coordinate_z = coords[2]
+        try:
+            self.lng = float(lng)
+        except (TypeError, ValueError):
+            errors.append({"lng": "Longitude is not a floating point number."})
+        else:
+            if not -180 < self.lng < 180:
+                errors.append({"lat": "Longitude is not between 180 degrees W/E."})
 
-        if description and not isinstance(description, str):
-            raise TypeError("Description not a string.")
+        try:
+            self.level = int(level)
+        except (TypeError, ValueError):
+            errors.append({"level": "Building level is not a number."})
 
-        if description and len(description) > self.max_description:
-            raise ValueError("Description too long.")
+        try:
+            self.description = str(description)
+        except (TypeError, ValueError):
+            errors.append({"description": "Room description is not a string."})
+        else:
+            if len(self.description) > self.max_description:
+                errors.append({"description": "Room description is too long."})
 
-        self.description = description
+        if errors:
+            raise ValueError(errors)
 
         db.session.add(self)
 
@@ -384,30 +414,38 @@ class Capacity(db.Model):
             crates=default_crate_count
     ):
 
+        errors = []
+
         if not isinstance(dp, DropPoint):
-            raise TypeError("Not a drop point object.")
+            errors.append({"Capacity": "Not given a drop point object."})
 
         self.dp = dp
 
         if start_time and not isinstance(start_time, datetime):
-            raise TypeError("Start time not a datetime object.")
+            errors.append({"Capacity": "Start time not a datetime object."})
 
         if start_time and start_time > datetime.today():
-            raise ValueError("Start time in the future.")
+            errors.append({"Capacity": "Start time in the future."})
 
         if dp.capacities and start_time and \
                 start_time < dp.capacities[-1].start_time:
-            raise ValueError("Capacity older than current.")
+            errors.append({"Capacity": "Capacity older than current."})
 
         self.start_time = start_time if start_time else datetime.today()
 
         if crates is None:
             crates = self.default_crate_count
+        else:
+            try:
+                self.crates = int(crates)
+            except (TypeError, ValueError):
+                errors.append({"crates": "Crate count is not a number."})
+            else:
+                if self.crates < 0:
+                    errors.append({"crates": "Crate count is not positive."})
 
-        if not (isinstance(crates, (int, long)) and crates >= 0):
-            raise TypeError("Invalid crate count.")
-
-        self.crates = crates
+        if errors:
+            raise ValueError(errors)
 
         db.session.add(self)
 

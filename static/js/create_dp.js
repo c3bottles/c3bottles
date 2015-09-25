@@ -36,13 +36,13 @@ function set_info_from_marker(latlng) {
     $("#lng").val(lng);
     var room = get_room([lng, lat]);
     if (room != null) {
-        $("#location_description").val(room.name);
-        $("#dp_number").val(get_next_free_dp_num(room.level));
+        $("#description").val(room.name);
+        $("#number").val(get_next_free_dp_num(room.level));
         $("input[name='level'][value=" + room.level + "]").prop("checked", true);
     } else {
         var level = get_level([lng, lat]);
         if (level != null) {
-            $("#dp_number").val(get_next_free_dp_num(level));
+            $("#number").val(get_next_free_dp_num(level));
             $("input[name='level'][value=" + level + "]").prop("checked", true);
         }
     }

@@ -1,6 +1,6 @@
 import json
 
-from flask import render_template
+from flask import render_template, request
 
 from c3bottles import c3bottles, db
 from model import DropPoint
@@ -79,9 +79,45 @@ def dp_visit(dp_number):
     return "TODO: Visit drop point " + str(dp_number)
 
 
-@c3bottles.route("/create")
+@c3bottles.route("/create", methods=("GET", "POST"))
 @c3bottles.route("/create/<string:lat>/<string:lng>")
-def create_dp(lat=None, lng=None):
+def create_dp(
+        number=None, description=None, lat=None,
+        lng=None, level=None, crates=None, errors=None,
+        success=None, center_lat=None, center_lng=None
+):
+
+    if request.method == "POST":
+
+        number=request.form.get("number")
+        description=request.form.get("description")
+        lat=request.form.get("lat")
+        lng=request.form.get("lng")
+        level=request.form.get("level")
+        crates=request.form.get("crates")
+
+        try:
+            DropPoint(
+                number=number, description=description, lat=lat,
+                lng=lng, level=level, crates=crates
+            )
+        except ValueError as e:
+            errors = e.message
+        else:
+            db.session.commit()
+            if request.form.get("action") == "stay":
+                center_lat = lat
+                center_lng = lng
+                number = None
+                description = None
+                lat = None
+                lng = None
+                level = None
+                crates = None
+                success = True
+            else:
+                return render_template("creation_finished.html")
+
     try:
         lat_f = float(lat)
         lng_f = float(lng)
@@ -89,11 +125,27 @@ def create_dp(lat=None, lng=None):
         lat_f = None
         lng_f = None
 
+    if errors is not None:
+        error_list={v for d in errors for v in d.values()}
+        error_fields={k for d in errors for k in d.keys()}
+    else:
+        error_list = {}
+        error_fields = {}
+
     return render_template(
         "create_dp.html",
         all_dps_geojson=DropPoint.get_all_dps_as_geojson(),
+        number=number,
+        description=description,
+        center_lat=center_lat,
+        center_lng=center_lng,
         lat=lat_f,
-        lng=lng_f
+        lng=lng_f,
+        level=level,
+        crates=crates,
+        error_list=error_list,
+        error_fields=error_fields,
+        success=success
     )
 
 
