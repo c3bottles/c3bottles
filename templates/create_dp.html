@@ -52,25 +52,25 @@
                 <div class="radio">
                     <label>
                         <input type="radio" name="level" value="2">
-                        1st level (Heaven, Hackcenter)
+                        1st floor (Heaven, Hackcenter)
                     </label>
                 </div>
                 <div class="radio">
                     <label>
                         <input type="radio" name="level" value="3">
-                        2nd level (HF1/2/G)
+                        2nd floor (HF1/2/G)
                     </label>
                 </div>
                 <div class="radio">
                     <label>
                         <input type="radio" name="level" value="4">
-                        3rd level (ZF1/2)
+                        3rd floor (ZF1/2)
                     </label>
                 </div>
                 <div class="radio">
                     <label>
                         <input type="radio" name="level" value="5">
-                        4th level (RF1/2)
+                        4th floor (RF1/2)
                     </label>
                 </div>
             </div>
@@ -79,7 +79,7 @@
             <label for="level" class="col-sm-2 control-label">Drop point number</label>
             <div class="col-sm-1">
                 <div class="input-group">
-                    <input type="text" class="form-control" name="number">
+                    <input type="text" class="form-control" name="dp_number" id="dp_number">
                 </div>
             </div>
         </div>
@@ -114,11 +114,12 @@
 </script>
 <script src="{{ url_for('static', filename='vendor/leaflet/js/leaflet.min.js') }}"></script>
 <script src="{{ url_for('static', filename='js/map.js') }}"></script>
+<script src="{{ url_for('static', filename='js/areas.js') }}"></script>
 <script src="{{ url_for('static', filename='js/create_dp.js') }}"></script>
 {% if lat is not none and lng is not none %}
 <script type="text/javascript">
-    var lat = {{ lat }};
-    var lng = {{ lng }};
+    var lat = {{ lat|round(2) }};
+    var lng = {{ lng|round(2) }};
     if (lat < -90 || lat > 90 || lng < -180 || lng > 180) {
         var alert = $("<div></div>")
                 .addClass("alert alert-danger")
@@ -132,8 +133,7 @@
             });
     } else {
         draw_new_dp({{ lat }}, {{ lng }});
-        $("#lat").val(lat);
-        $("#lng").val(lng);
+        set_info_from_marker({"lat": {{ lat }}, "lng": {{ lng }}});
     }
 </script>
 {% endif %}

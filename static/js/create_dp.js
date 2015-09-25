@@ -1,5 +1,10 @@
 var new_dp_marker = null;
 
+var used_dp_numbers = [];
+for (var i in all_dps_geojson) {
+    used_dp_numbers.push(all_dps_geojson[i].properties.number);
+}
+
 function get_marker(latlng) {
     var marker = L.marker(latlng, {
         icon: get_icon("NEW"),
@@ -12,10 +17,7 @@ function get_marker(latlng) {
         }
     });
     marker.on("drag", function () {
-        lat = this._latlng.lat;
-        lng = this._latlng.lng
-        $("#lat").val(lat);
-        $("#lng").val(lng);
+        set_info_from_marker(this._latlng);
     });
     map.addLayer(marker);
     return marker;
@@ -27,12 +29,38 @@ function draw_new_dp(lat, lng) {
     map.setView(new_dp_marker._latlng, 5);
 }
 
+function set_info_from_marker(latlng) {
+    lat = latlng.lat.toFixed(2);
+    lng = latlng.lng.toFixed(2);
+    $("#lat").val(lat);
+    $("#lng").val(lng);
+    var room = get_room([lng, lat]);
+    if (room != null) {
+        $("#location_description").val(room.name);
+        $("#dp_number").val(get_next_free_dp_num(room.level));
+        $("input[name='level'][value=" + room.level + "]").prop("checked", true);
+    } else {
+        var level = get_level([lng, lat]);
+        if (level != null) {
+            $("#dp_number").val(get_next_free_dp_num(level));
+            $("input[name='level'][value=" + level + "]").prop("checked", true);
+        }
+    }
+}
+
+function get_next_free_dp_num(level) {
+    for (var i = level*100; i < level*100 + 100; i++) {
+        if ($.inArray(i, used_dp_numbers) < 0) {
+            return i;
+        }
+    }
+}
+
 map.on("click", function (e) {
     if (!new_dp_marker) {
         var latlng = e.latlng;
         new_dp_marker = get_marker(latlng);
-        $("#lat").val(latlng.lat);
-        $("#lng").val(latlng.lng);
+        set_info_from_marker(latlng);
     }
 });
 
