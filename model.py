@@ -33,16 +33,18 @@ class DropPoint(db.Model):
         primary_key=True,
         autoincrement=False)
 
+    time = db.Column(db.DateTime)
+
     removed = db.Column(db.DateTime)
 
     locations = db.relationship(
         "Location",
-        order_by="Location.start_time"
+        order_by="Location.time"
     )
 
     capacities = db.relationship(
         "Capacity",
-        order_by="Capacity.start_time"
+        order_by="Capacity.time"
     )
 
     reports = db.relationship(
@@ -63,7 +65,7 @@ class DropPoint(db.Model):
             lng=None,
             level=None,
             crates=None,
-            start_time=None
+            time=None
     ):
 
         errors = []
@@ -78,10 +80,18 @@ class DropPoint(db.Model):
             if db.session.query(DropPoint).get(self.number):
                 errors.append({"number": "That drop point already exists."})
 
+        if time and not isinstance(time, datetime):
+            errors.append({"DropPoint": "Creation time not a datetime object."})
+
+        if time and time > datetime.today():
+            errors.append({"DropPoint": "Creation time in the future."})
+
+        self.time = time if time else datetime.today()
+
         try:
             Location(
                 self,
-                start_time=start_time,
+                time=self.time,
                 description=description,
                 lat=lat,
                 lng=lng,
@@ -94,7 +104,7 @@ class DropPoint(db.Model):
         try:
             Capacity(
                 self,
-                start_time=start_time,
+                time=self.time,
                 crates=crates
             )
         except ValueError as e:
@@ -306,16 +316,16 @@ class Location(db.Model):
 
     dp = db.relationship("DropPoint")
 
-    start_time = db.Column(db.DateTime)
+    time = db.Column(db.DateTime)
     description = db.Column(db.String(max_description))
     lat = db.Column(db.Float)
     lng = db.Column(db.Float)
-    level = db.Column(db.Float)
+    level = db.Column(db.Integer)
 
     def __init__(
             self,
             dp,
-            start_time=None,
+            time=None,
             description=None,
             lat=None,
             lng=None,
@@ -329,17 +339,17 @@ class Location(db.Model):
 
         self.dp = dp
 
-        if start_time and not isinstance(start_time, datetime):
+        if time and not isinstance(time, datetime):
             errors.append({"Location": "Start time not a datetime object."})
 
-        if start_time and start_time > datetime.today():
+        if time and time > datetime.today():
             errors.append({"Location": "Start time in the future."})
 
-        if dp.locations and start_time and \
-                start_time < dp.locations[-1].start_time:
+        if dp.locations and time and \
+                time < dp.locations[-1].time:
             errors.append({"Location": "Location older than current."})
 
-        self.start_time = start_time if start_time else datetime.today()
+        self.time = time if time else datetime.today()
 
         try:
             self.lat = float(lat)
@@ -378,7 +388,7 @@ class Location(db.Model):
     def __repr__(self):
         return "Location %s of drop point %s (%s since %s)" % (
             self.loc_id, self.dp_id,
-            self.description, self.start_time
+            self.description, self.time
         )
 
 
@@ -411,13 +421,13 @@ class Capacity(db.Model):
 
     dp = db.relationship("DropPoint")
 
-    start_time = db.Column(db.DateTime)
+    time = db.Column(db.DateTime)
     crates = db.Column(db.Integer, default=default_crate_count)
 
     def __init__(
             self,
             dp,
-            start_time=None,
+            time=None,
             crates=default_crate_count
     ):
 
@@ -428,17 +438,17 @@ class Capacity(db.Model):
 
         self.dp = dp
 
-        if start_time and not isinstance(start_time, datetime):
+        if time and not isinstance(time, datetime):
             errors.append({"Capacity": "Start time not a datetime object."})
 
-        if start_time and start_time > datetime.today():
+        if time and time > datetime.today():
             errors.append({"Capacity": "Start time in the future."})
 
-        if dp.capacities and start_time and \
-                start_time < dp.capacities[-1].start_time:
+        if dp.capacities and time and \
+                time < dp.capacities[-1].time:
             errors.append({"Capacity": "Capacity older than current."})
 
-        self.start_time = start_time if start_time else datetime.today()
+        self.time = time if time else datetime.today()
 
         if crates is None:
             crates = self.default_crate_count
@@ -459,7 +469,7 @@ class Capacity(db.Model):
     def __repr__(self):
         return "Capacity %s of drop point %s (%s crates since %s)" % (
             self.cap_id, self.dp_id,
-            self.crates, self.start_time
+            self.crates, self.time
         )
 
 
