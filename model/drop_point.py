@@ -167,10 +167,15 @@ class DropPoint(db.Model):
                 return "EMPTY"
             else:
                 return last_report.state
-        elif last_report is not None:
+
+        if last_report is not None:
             return last_report.state
-        else:
-            return "UNKNOWN"
+
+        if last_visit is not None:
+            if last_visit.action == "EMPTIED":
+                return "EMPTY"
+
+        return "UNKNOWN"
 
     def get_last_report(self):
         return self.reports.order_by(Report.time.desc()).first()
