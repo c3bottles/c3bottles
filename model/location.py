@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from c3bottles import db
-import droppoint
+import drop_point
 
 
 class Location(db.Model):
@@ -51,7 +51,7 @@ class Location(db.Model):
 
         errors = []
 
-        if not isinstance(dp, droppoint.DropPoint):
+        if not isinstance(dp, drop_point.DropPoint):
             errors.append({"Location": "Not given a drop point object."})
 
         self.dp = dp

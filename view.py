@@ -1,7 +1,7 @@
 from flask import render_template, request
 
 from c3bottles import c3bottles, db
-from model.droppoint import DropPoint
+from model.drop_point import DropPoint
 
 
 @c3bottles.route("/")
