@@ -22,25 +22,20 @@ def statistics():
 @c3bottles.route("/list")
 def dp_list():
     all_dps = []
-    all_locations = []
-    for dp in db.session.query(DropPoint).order_by(DropPoint.number).all():
-        loc = dp.get_current_location()
-        all_dps.append({
-            "number": dp.number,
-            "location": loc,
-            "reports_total": dp.get_total_report_count(),
-            "reports_new": dp.get_new_report_count(),
-            "priority": dp.get_priority(),
-            "last_state": dp.get_last_state(),
-            "crates": dp.get_current_crate_count(),
-            "removed": True if dp.removed else False
-        })
-        if loc.description not in all_locations and not dp.removed:
-            all_locations.append(loc.description)
+    for dp in db.session.query(DropPoint).all():
+        if not dp.removed:
+            all_dps.append({
+                "number": dp.number,
+                "location": dp.get_current_location(),
+                "reports_total": dp.get_total_report_count(),
+                "reports_new": dp.get_new_report_count(),
+                "priority": dp.get_priority(),
+                "last_state": dp.get_last_state(),
+                "crates": dp.get_current_crate_count(),
+            })
     return render_template(
         "list.html",
         all_dps=sorted(all_dps, key=lambda k: k["priority"], reverse=True),
-        all_locations=sorted(all_locations),
         all_dps_geojson=DropPoint.get_all_dps_as_geojson()
     )
 

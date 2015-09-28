@@ -1,53 +1,27 @@
 {% extends "layout.html" %}
 {% set title = "List of Bottle Drop Points" %}
+{% block header %}
+    <link href="{{ url_for('static', filename='vendor/datatables/css/datatables.min.css') }}"
+          rel="stylesheet">
+    <style type="text/css">
+    table.dataTable thead > tr > th {
+    padding-left: 30px !important;
+    padding-right: initial !important;
+}
+
+table.dataTable thead .sorting:after,
+table.dataTable thead .sorting_asc:after,
+table.dataTable thead .sorting_desc:after {
+    left: 8px !important;
+    right: auto !important;
+}
+    </style>
+{% endblock %}
 {% block content %}
     <div class="page-header">
         <h1>{{ title }}</h1>
     </div>
-    <div class="row">
-        <div class="col-sm-8">
-            <div class="btn-group" role="group" aria-label="filters">
-                <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-default dropdown-toggle"
-                            data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">
-                        Filter location <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" role="menu">
-                    {% for location in all_locations %}
-                        <li><a href="#">{{ location }}</a></li>
-                    {% endfor %}
-                    </ul>
-                </div>
-                <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-default dropdown-toggle"
-                            data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">
-                        Filter state <span class="caret"></span>
-                    </button>
-                    <!-- TODO: implement state filter -->
-                </div>
-                <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-default dropdown-toggle"
-                            data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">
-                        more <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a data-toggle="collapse" data-target=".dp-removed"
-                               href="#">Show removed drop points</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-4 text-right">
-            <a class="btn btn-primary" href="{{ url_for("create_dp") }}">
-                Create a new drop point
-            </a>
-        </div>
-    </div>
-    <p></p>
-    <table class="table table-hover">
+    <table class="table table-hover" id="dp_list">
         <thead>
         <tr>
             <th>Number</th>
@@ -62,26 +36,34 @@
         </thead>
         <tbody>
         {% for dp in all_dps %}
-            <tr{{ {"class": "dp-removed collapse"}|xmlattr if dp.removed }}>
-                <td>
-                    {{ "<s>"|safe if dp.removed }}{{ dp.number }}{{ "</s>"|safe if dp.removed }}</td>
-                <td>
-                    {{ "<s>"|safe if dp.removed }}{{ dp.location.description if dp.location.description else "unknown" }}{{ "</s>"|safe if dp.removed }}</td>
-                <td>{{ "<s>"|safe if dp.removed }}
-                    {% if dp.last_state == "OVERFLOW" %}
+            <tr>
+                <td>{{ dp.number }}</td>
+                <td>{{ dp.location.description if dp.location.description else "unknown" }}</td>
+                {% if dp.last_state == "OVERFLOW" %}
+                    <td data-order="1">
                         <span class="label label-danger">Overflowing</span>
-                    {% elif dp.last_state == "FULL" %}
+                    </td>
+                {% elif dp.last_state == "FULL" %}
+                    <td data-order="2">
                         <span class="label label-warning">Full</span>
-                    {% elif dp.last_state == "REASONABLY_FULL" %}
+                    </td>
+                {% elif dp.last_state == "REASONABLY_FULL" %}
+                    <td data-order="3">
                         <span class="label label-info">Reasonably full</span>
-                    {% elif dp.last_state == "SOME_BOTTLES" %}
+                    </td>
+                {% elif dp.last_state == "SOME_BOTTLES" %}
+                    <td data-order="4">
                         <span class="label label-primary">Some bottles</span>
-                    {% elif dp.last_state == "EMPTY" %}
+                    </td>
+                {% elif dp.last_state == "EMPTY" %}
+                    <td data-order="5">
                         <span class="label label-success">Empty</span>
-                    {% else %}
+                    </td>
+                {% else %}
+                    <td data-order="0">
                         <span class="label label-warning">Unknown</span>
-                    {% endif %}
-                    {{ "</s>"|safe if dp.removed }}</td>
+                    </td>
+                {% endif %}
                 <td>
                     <span class="clickable glyphicon glyphicon-search"
                           title="View drop point details"
@@ -100,10 +82,8 @@
                           data-dp_modal_pane="visit"
                           data-dp_number="{{ dp.number }}"></span>
                 </td>
-                <td class="hidden-xs">
-                    {{ "<s>"|safe if dp.removed }}{{ "%0.2f"|format(dp.priority) }}{{ "</s>"|safe if dp.removed }}</td>
-                <td class="hidden-xs">
-                    {{ "<s>"|safe if dp.removed }}{{ dp.reports_new }}{{ "</s>"|safe if dp.removed }}</td>
+                <td class="hidden-xs">{{ "%0.2f"|format(dp.priority) }}</td>
+                <td class="hidden-xs">{{ dp.reports_new }}</td>
             </tr>
         {% endfor %}
         </tbody>
@@ -112,8 +92,22 @@
 {% endblock %}
 {% block scripts %}
 <script src="{{ url_for('static', filename='js/dp_modals.js') }}"></script>
+<script src="{{ url_for('static', filename='vendor/datatables/js/datatables.min.js') }}"></script>
 <script type="text/javascript">
     var all_dps_geojson = {{ all_dps_geojson|safe }};
+    $('#dp_list').DataTable({
+        "columns": [
+            null,
+            null,
+            null,
+            { "orderable": false },
+            { "orderable": false },
+            { "orderable": false },
+            null,
+            null
+        ],
+        "order": [[ 6, "desc" ]]
+    });
 </script>
 {% endblock %}
 {# vim: set expandtab ts=4 sw=4: #}
