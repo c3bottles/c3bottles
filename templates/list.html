@@ -111,6 +111,7 @@
 {% include "dp_modals.html" %}
 {% endblock %}
 {% block scripts %}
+<script src="{{ url_for('static', filename='js/dp_modals.js') }}"></script>
 <script type="text/javascript">
     var all_dps_geojson = {{ all_dps_geojson|safe }};
 </script>

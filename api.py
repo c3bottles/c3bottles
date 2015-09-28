@@ -17,7 +17,7 @@ def process():
 
 def report():
     try:
-        dp = db.session.query(DropPoint).get(request.values.get("dp_number"))
+        dp = db.session.query(DropPoint).get(request.values.get("number"))
     except TypeError:
         return Response("Missing drop point number.", status=400)
 
@@ -36,7 +36,7 @@ def report():
 
 def visit():
     try:
-        dp = db.session.query(DropPoint).get(request.values.get("dp_number"))
+        dp = db.session.query(DropPoint).get(request.values.get("number"))
     except TypeError:
         return Response("Missing drop point number.", status=400)
 

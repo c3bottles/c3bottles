@@ -1,30 +1,4 @@
 /*
- * Add an event handler to the buttons over the drop point table in the list
- * to toggle table rows based on classes for the location or state of the
- * drop points.
- *
- * On a click, this function not only toggles the visibility of the table rows
- * affected but also adds/removes classes to the buttons accordingly,
- *
- */
-$("body").on("click", "a[data-toggle=collapse]", function () {
-    var _self = $(this);
-    var _group = _self.parent().parent().parent();
-    var _button = _group.children("button");
-    var _target = $(_self.attr("data-target"));
-    if (_target.hasClass("in")) {
-        _self.parent().removeClass("active");
-    } else {
-        _self.parent().addClass("active");
-    }
-    if (_group.find("li.active").length > 0) {
-        _button.removeClass("btn-default").addClass("btn-primary");
-    } else {
-        _button.removeClass("btn-primary").addClass("btn-default");
-    }
-});
-
-/*
  * When hiding any of the drop point modals (details, reporting, visiting),
  * the modal must be destroyed to be re-constructed on the next show instead
  * of simply hiding it and displaying the same instance again.
@@ -74,7 +48,7 @@ function report_dp(num, state) {
         url: apiurl,
         data: {
             action: "report",
-            dp_number: num,
+            number: num,
             state: state
         },
         success: function () {
@@ -151,7 +125,7 @@ function visit_dp(num, action) {
         url: apiurl,
         data: {
             action: "visit",
-            dp_number: num,
+            number: num,
             maintenance: action
         },
         success: function () {
