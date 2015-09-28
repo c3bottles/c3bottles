@@ -27,10 +27,8 @@ def process():
 def report():
     try:
         Report(
-            # dp=DropPoint.get(request.values.get("number")),
-            dp=0,
-            # state=request.values.get("state")
-            state=None
+            dp=DropPoint.get(request.values.get("number")),
+            state=request.values.get("state")
         )
     except ValueError as e:
         return Response(
