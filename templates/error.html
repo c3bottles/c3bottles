@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% set title = "Error" %}
+{% block content %}
+    <div class="jumbotron">
+        <div class="row">
+            <div class="col-xs-1">
+                <h1>
+                    <span class="text-danger">
+                        <span class="glyphicon glyphicon-exclamation-sign"
+                              aria-hidden="true"></span>
+                    </span>
+                </h1>
+            </div>
+            <div class="col-xs-11">
+                <h1>
+                    <span class="text-danger">
+                        Oh no!
+                    </span>
+                </h1>
+                <h2>
+                    {{ text }}
+                </h2>
+                {% if errors is not none %}
+                    <ul>
+                    {% for error in errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{# vim: set expandtab ts=4 sw=4: #}

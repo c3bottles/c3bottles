@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% set title = "Report Drop Point" %}
+{% block content %}
+    {% if dp != None %}
+        <div class="page-header">
+            <h1>Report Drop Point {{ dp.number }}</h1>
+        </div>
+        <div class="row">
+        <div class="col-md-2 col-md-offset-4">
+        <div style="width: 300px;">
+            <form action="{{ url_for("report") }}" method="POST">
+                <input type="hidden" name="number" value="{{ dp.number }}">
+                {% include "report_buttons.html" %}
+            </form>
+        </div>
+        </div>
+        </div>
+    {% else %}
+        <div class="page-header">
+            <h1>{{ title }}</h1>
+        </div>
+        <p>Drop point not found.</p>
+    {% endif %}
+{% endblock %}
+{# vim: set expandtab ts=4 sw=4: #}

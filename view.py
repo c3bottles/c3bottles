@@ -1,5 +1,3 @@
-import json
-
 from flask import render_template, request
 
 from c3bottles import c3bottles, db
@@ -55,23 +53,44 @@ def dp_map():
     )
 
 
-@c3bottles.route("/view/<int:dp_number>")
-def dp_view(dp_number):
+@c3bottles.route("/view/<int:number>")
+@c3bottles.route("/view")
+def dp_view(number=None):
     return render_template(
         "view.html",
-        dp=db.session.query(DropPoint).get(dp_number)
+        dp=DropPoint.get(number)
     )
 
 
-@c3bottles.route("/view")
-def dp_view_base():
-    return dp_view(0)
-
-
-@c3bottles.route("/report/<int:dp_number>")
-@c3bottles.route("/<int:dp_number>")
-def dp_report(dp_number):
-    return "TODO: Report drop point " + str(dp_number)
+@c3bottles.route("/report", methods=("GET", "POST"))
+@c3bottles.route("/<int:number>")
+def report(number=None):
+    if number:
+        dp = DropPoint.get(number)
+    else:
+        dp = DropPoint.get(request.values.get("number"))
+    state = request.values.get("state")
+    if state:
+        from model import Report
+        try:
+            Report(dp=dp, state=state)
+        except ValueError as e:
+            return render_template(
+                "error.html",
+                text="Errors occurred while processing your report:",
+                errors=[v for d in e.message for v in d.values()]
+            )
+        else:
+            db.session.commit()
+            return render_template(
+                "success.html",
+                text="Your report has been received successfully."
+            )
+    else:
+        return render_template(
+            "report.html",
+            dp=dp
+        )
 
 
 @c3bottles.route("/visit/<int:dp_number>")
@@ -89,12 +108,12 @@ def create_dp(
 
     if request.method == "POST":
 
-        number=request.form.get("number")
-        description=request.form.get("description")
-        lat=request.form.get("lat")
-        lng=request.form.get("lng")
-        level=request.form.get("level")
-        crates=request.form.get("crates")
+        number = request.form.get("number")
+        description = request.form.get("description")
+        lat = request.form.get("lat")
+        lng = request.form.get("lng")
+        level = request.form.get("level")
+        crates = request.form.get("crates")
 
         try:
             DropPoint(
@@ -129,11 +148,11 @@ def create_dp(
         lng_f = None
 
     if errors is not None:
-        error_list={v for d in errors for v in d.values()}
-        error_fields={k for d in errors for k in d.keys()}
+        error_list = [v for d in errors for v in d.values()]
+        error_fields = [k for d in errors for k in d.keys()]
     else:
-        error_list = {}
-        error_fields = {}
+        error_list = []
+        error_fields = []
 
     return render_template(
         "create_dp.html",
