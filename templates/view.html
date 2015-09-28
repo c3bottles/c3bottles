@@ -13,6 +13,15 @@
             <dt>Number of crates:</dt>
             <dd>{{ dp.get_current_crate_count() }}</dd>
         </dl>
+        {% if debug %}
+            <h2>History</h2>
+            <hr>
+            <ul>
+            {% for event in history %}
+            <li>{{ event.time.strftime("%Y-%m-%d %H:%M:%S") }}: {{ event.message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
     {% else %}
         <div class="page-header">
             <h1>{{ title }}</h1>

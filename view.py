@@ -51,11 +51,17 @@ def dp_map():
 @c3bottles.route("/view/<int:number>")
 @c3bottles.route("/view")
 def dp_view(number=None):
+    dp = DropPoint.get(number)
+    if dp:
+        history = dp.get_history()
+    else:
+        history = None
     return render_template(
         "view.html",
-        dp=DropPoint.get(number)
+        dp=dp,
+        debug=c3bottles.debug,
+        history=history
     )
-
 
 @c3bottles.route("/report", methods=("GET", "POST"))
 @c3bottles.route("/<int:number>")

@@ -188,6 +188,42 @@ class DropPoint(db.Model):
         else:
             return self.reports.order_by(Report.time.desc()).all()
 
+    def get_history(self):
+        history = []
+
+        for visit in self.visits.all():
+            history.append({
+                "time": visit.time,
+                "message": "Visited and maintenance performed: " + visit.action
+            })
+
+        for report in self.reports.all():
+            history.append({
+                "time": report.time,
+                "message": "Reported as: " + report.state
+            })
+
+        for location in self.locations:
+            history.append({
+                "time": location.time,
+                "message": "Location set to " + str(location.lat) + "," +
+                           str(location.lng) + " (" + location.description +
+                           " on level " + str(location.level) + ")"
+            })
+
+        for capacity in self.capacities:
+            history.append({
+                "time": capacity.time,
+                "message": "Capacity set to " + str(capacity.crates)
+            })
+
+        history.append({
+            "time": self.time,
+            "message": "Drop point created."
+        })
+
+        return sorted(history, key=lambda k: k["time"], reverse=True)
+
     def get_visit_interval(self):
         """Get the visit interval for this drop point.
 
