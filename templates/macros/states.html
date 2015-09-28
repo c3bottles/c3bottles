@@ -1,0 +1,17 @@
+{% macro num(state) %}{%  if state == "OVERFLOW" %}
+1{% elif state == "FULL" %}
+2{% elif state == "REASONABLY_FULL" %}
+3{% elif state == "SOME_BOTTLES" %}
+4{% elif state == "EMPTY" %}
+5{% else %}
+0{% endif %}{% endmacro %}
+
+{% macro label(state) %}{%  if state == "OVERFLOW" %}
+<span class="label label-danger">Overflowing</span>{% elif state == "FULL" %}
+<span class="label label-warning">Full</span>{% elif state == "REASONABLY_FULL" %}
+<span class="label label-info">Reasonably full</span>{% elif state == "SOME_BOTTLES" %}
+<span class="label label-primary">Some bottles</span>{% elif state == "EMPTY" %}
+<span class="label label-success">Empty</span>{% else %}
+<span class="label label-warning">Unknown</span>{% endif %}{% endmacro %}
+
+{# vim: set expandtab ts=4 sw=4: #}

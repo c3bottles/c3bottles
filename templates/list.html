@@ -18,6 +18,7 @@ table.dataTable thead .sorting_desc:after {
     </style>
 {% endblock %}
 {% block content %}
+{% import "macros/states.html" as states %}
     <div class="page-header">
         <h1>{{ title }}</h1>
     </div>
@@ -39,31 +40,9 @@ table.dataTable thead .sorting_desc:after {
             <tr>
                 <td>{{ dp.number }}</td>
                 <td>{{ dp.location.description if dp.location.description else "unknown" }}</td>
-                {% if dp.last_state == "OVERFLOW" %}
-                    <td data-order="1">
-                        <span class="label label-danger">Overflowing</span>
-                    </td>
-                {% elif dp.last_state == "FULL" %}
-                    <td data-order="2">
-                        <span class="label label-warning">Full</span>
-                    </td>
-                {% elif dp.last_state == "REASONABLY_FULL" %}
-                    <td data-order="3">
-                        <span class="label label-info">Reasonably full</span>
-                    </td>
-                {% elif dp.last_state == "SOME_BOTTLES" %}
-                    <td data-order="4">
-                        <span class="label label-primary">Some bottles</span>
-                    </td>
-                {% elif dp.last_state == "EMPTY" %}
-                    <td data-order="5">
-                        <span class="label label-success">Empty</span>
-                    </td>
-                {% else %}
-                    <td data-order="0">
-                        <span class="label label-warning">Unknown</span>
-                    </td>
-                {% endif %}
+                <td data-order="{{ states.num(dp.last_state) }}">
+                    {{ states.label(dp.last_state) }}
+                </td>
                 <td>
                     <span class="clickable glyphicon glyphicon-search"
                           title="View drop point details"
