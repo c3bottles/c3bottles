@@ -65,7 +65,7 @@ function report_dp(num, state) {
                     add_alert(
                         "danger",
                         "Oh no!",
-                        "An error occured while processing your report: " +
+                        "An error occurred while processing your report: " +
                         errors[i][key]
                     );
                 }
@@ -134,7 +134,7 @@ function visit_dp(num, action) {
                     add_alert(
                         "danger",
                         "Oh no!",
-                        "An error occured while processing your visit: " +
+                        "An error occurred while processing your visit: " +
                         errors[i][key]
                     );
                 }
