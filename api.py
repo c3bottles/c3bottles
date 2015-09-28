@@ -3,7 +3,9 @@ import json
 from flask import request, Response
 
 from c3bottles import c3bottles, db
-from model import DropPoint, Report, Visit
+from model.droppoint import DropPoint
+from model.report import Report
+from model.visit import Visit
 
 
 def process():

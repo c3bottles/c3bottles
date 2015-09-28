@@ -1,7 +1,7 @@
 from flask import render_template, request
 
 from c3bottles import c3bottles, db
-from model import DropPoint
+from model.droppoint import DropPoint
 
 
 @c3bottles.route("/")
@@ -66,7 +66,7 @@ def report(number=None):
         dp = DropPoint.get(request.values.get("number"))
     state = request.values.get("state")
     if state:
-        from model import Report
+        from model.report import Report
         try:
             Report(dp=dp, state=state)
         except ValueError as e:
