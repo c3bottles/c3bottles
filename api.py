@@ -1,7 +1,9 @@
+import json
+
 from flask import request, Response
 
-from c3bottles import db
-from model import DropPoint, Report, Visit, report_states, visit_actions
+from c3bottles import c3bottles, db
+from model import DropPoint, Report, Visit
 
 
 def process():
@@ -12,45 +14,56 @@ def process():
     elif request.values.get("action") == "dp_json":
         return dp_json()
 
-    return Response("Invalid or missing API action.", status=400)
+    return Response(
+        json.dumps(
+            "Invalid or missing API action.",
+            indent=4 if c3bottles.debug else None
+        ),
+        mimetype="application/json",
+        status=400
+    )
 
 
 def report():
     try:
-        dp = db.session.query(DropPoint).get(request.values.get("number"))
-    except TypeError:
-        return Response("Missing drop point number.", status=400)
-
-    if not isinstance(dp, DropPoint):
-        return Response("Invalid drop point number.", status=404)
-
-    reported_state = request.values.get("state")
-    if reported_state not in report_states:
-        return Response("Invalid or missing reported state", status=404)
-
-    Report(dp, state=reported_state)
-    db.session.commit()
-
-    return Response("Success.")
+        Report(
+            # dp=DropPoint.get(request.values.get("number")),
+            dp=0,
+            # state=request.values.get("state")
+            state=None
+        )
+    except ValueError as e:
+        return Response(
+            json.dumps(e.message, indent=4 if c3bottles.debug else None),
+            mimetype="application/json",
+            status=400
+        )
+    else:
+        db.session.commit()
+        return Response(
+            json.dumps("Success.", indent=4 if c3bottles.debug else None),
+            mimetype="application/json"
+        )
 
 
 def visit():
     try:
-        dp = db.session.query(DropPoint).get(request.values.get("number"))
-    except TypeError:
-        return Response("Missing drop point number.", status=400)
-
-    if not isinstance(dp, DropPoint):
-        return Response("Invalid drop point number.", status=404)
-
-    performed_maintenance = request.values.get("maintenance")
-    if performed_maintenance not in visit_actions:
-        return Response("Invalid or missing maintenance action.", status=404)
-
-    Visit(dp, action=performed_maintenance)
-    db.session.commit()
-
-    return Response("Success.")
+        Visit(
+            dp=DropPoint.get(request.values.get("number")),
+            action=request.values.get("maintenance")
+        )
+    except ValueError as e:
+        return Response(
+            json.dumps(e.message, indent=4 if c3bottles.debug else None),
+            mimetype="application/json",
+            status=400
+        )
+    else:
+        db.session.commit()
+        return Response(
+            json.dumps("Success.", indent=4 if c3bottles.debug else None),
+            mimetype="application/json"
+        )
 
 
 def dp_json():

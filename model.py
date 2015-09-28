@@ -234,6 +234,13 @@ class DropPoint(db.Model):
         return round(priority, 2)
 
     @staticmethod
+    def get(number):
+        try:
+            return db.session.query(DropPoint).get(number)
+        except TypeError:
+            return None
+
+    @staticmethod
     def get_all_dps_as_geojson():
         """Get all drop points as a GeoJSON string."""
 
@@ -494,13 +501,29 @@ class Report(db.Model):
     )
 
     def __init__(self, dp, time=None, state=None):
+
+        errors = []
+
         self.dp = dp
+
+        if not isinstance(dp, DropPoint):
+            errors.append({"Report": "Not given a drop point object."})
+
+        if time and not isinstance(time, datetime):
+            errors.append({"Report": "Time not a datetime object."})
+
+        if time and time > datetime.today():
+            errors.append({"Report": "Start time in the future."})
+
         self.time = time if time else datetime.today()
 
         if state in report_states:
             self.state = state
         else:
-            self.state = report_states[0]
+            errors.append({"Report": "Invalid or missing reported state."})
+
+        if errors:
+            raise ValueError(errors)
 
         db.session.add(self)
 
@@ -581,13 +604,29 @@ class Visit(db.Model):
     )
 
     def __init__(self, dp, time=None, action=None):
+
+        errors = []
+
         self.dp = dp
+
+        if not isinstance(dp, DropPoint):
+            errors.append({"Visit": "Not given a drop point object."})
+
+        if time and not isinstance(time, datetime):
+            errors.append({"Visit": "Time not a datetime object."})
+
+        if time and time > datetime.today():
+            errors.append({"Visit": "Start time in the future."})
+
         self.time = time if time else datetime.today()
 
         if action in visit_actions:
             self.action = action
         else:
-            self.action = visit_actions[0]
+            errors.append({"Visit": "Invalid or missing maintenance action."})
+
+        if errors:
+            raise ValueError(errors)
 
         db.session.add(self)
 

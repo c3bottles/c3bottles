@@ -52,32 +52,24 @@ function report_dp(num, state) {
             state: state
         },
         success: function () {
-            var alert = $("<div></div>")
-                .addClass("alert alert-success collapse")
-                .html("<button type=\"button\" class=\"close alert-hide\">\
-                        <span aria-hidden=\"true\">&times;</span></button>\
-                        <strong>Thank you!</strong> Your report has been\
-                        received successfully.");
-            $("#alerts").prepend(alert);
-            $(".alert-hide").on("click", function () {
-                $(this).parent().slideUp();
-            });
-            alert.slideDown();
-            setTimeout(function() { alert.slideUp() }, 5000);
+            add_alert(
+                "success",
+                "Thank you!",
+                "Your report has been received successfully."
+            );
         },
         error: function (response) {
-            var alert = $("<div></div>")
-                .addClass("alert alert-danger collapse")
-                .html("<button type=\"button\" class=\"close alert-hide\">\
-                        <span aria-hidden=\"true\">&times;</span></button>\
-                        <strong>Oh no!</strong> An error occured while\
-                        processing your report: " + response.responseText);
-            $("#alerts").prepend(alert);
-            $(".alert-hide").on("click", function () {
-                $(this).parent().slideUp();
-            });
-            alert.slideDown();
-            setTimeout(function() { alert.slideUp() }, 5000);
+            var errors = $.parseJSON(response.responseText);
+            for (var i in errors) {
+                for (var key in errors[i]) {
+                    add_alert(
+                        "danger",
+                        "Oh no!",
+                        "An error occured while processing your report: " +
+                        errors[i][key]
+                    );
+                }
+            }
         }
     });
 }
@@ -129,32 +121,24 @@ function visit_dp(num, action) {
             maintenance: action
         },
         success: function () {
-            var alert = $("<div></div>")
-                .addClass("alert alert-success collapse")
-                .html("<button type=\"button\" class=\"close alert-hide\">\
-                        <span aria-hidden=\"true\">&times;</span></button>\
-                        <strong>Thank you!</strong> Your visit has been\
-                        logged successfully.");
-            $("#alerts").prepend(alert);
-            $(".alert-hide").on("click", function () {
-                $(this).parent().slideUp();
-            });
-            alert.slideDown();
-            setTimeout(function() { alert.slideUp() }, 5000);
+             add_alert(
+                "success",
+                 "Thank you!",
+                 "Your visit has been logged successfully."
+             );
         },
         error: function (response) {
-            var alert = $("<div></div>")
-                .addClass("alert alert-danger collapse")
-                .html("<button type=\"button\" class=\"close alert-hide\">\
-                        <span aria-hidden=\"true\">&times;</span></button>\
-                        <strong>Oh no!</strong> An error occured while\
-                        processing your visit: " + response.responseText);
-            $("#alerts").prepend(alert);
-            $(".alert-hide").on("click", function () {
-                $(this).parent().slideUp();
-            });
-            alert.slideDown();
-            setTimeout(function() { alert.slideUp() }, 5000);
+            var errors = $.parseJSON(response.responseText);
+            for (var i in errors) {
+                for (var key in errors[i]) {
+                    add_alert(
+                        "danger",
+                        "Oh no!",
+                        "An error occured while processing your visit: " +
+                        errors[i][key]
+                    );
+                }
+            }
         }
     });
 }
@@ -164,7 +148,7 @@ function visit_dp(num, action) {
  * in the drop point table.
  *
  */
-$("[data-dp_modal_pane]").on("click", function(e) {
+$("[data-dp_modal_pane]").on("click", function (e) {
     var num = $(e.currentTarget).data("dp_number");
     var pane = $(e.currentTarget).data("dp_modal_pane");
     show_dp_modal(num, pane);
@@ -196,7 +180,7 @@ function show_dp_modal(num, pane) {
  *
  */
 function show_dp_modal_pane(pane) {
-    for (var arr= ["details", "report", "visit"], i = 0; i < arr.length; i++) {
+    for (var arr = ["details", "report", "visit"], i = 0; i < arr.length; i++) {
         $("#dp_modal_" + arr[i] + "_tab").removeClass("active");
         $("#dp_modal_" + arr[i] + "_link").removeClass("active");
     }
@@ -214,6 +198,20 @@ function get_dp_info(num) {
             return all_dps_geojson[i].properties;
         }
     }
+}
+
+function add_alert(type, title, message) {
+    var alert = $("<div></div>")
+        .addClass("alert alert-" + type + " collapse")
+        .html("<button type=\"button\" class=\"close alert-hide\">\
+                        <span aria-hidden=\"true\">&times;</span></button>\
+                        <strong>" + title + "</strong> " + message);
+    $("#alerts").prepend(alert);
+    $(".alert-hide").on("click", function () {
+        $(this).parent().slideUp();
+    });
+    alert.slideDown();
+    setTimeout(function() { alert.slideUp() }, 5000);
 }
 
 /* vim: set expandtab ts=4 sw=4: */
