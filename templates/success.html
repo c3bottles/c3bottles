@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% set title = "Success" %}
+{% block content %}
+    <div class="jumbotron">
+        <div class="row">
+            <div class="col-xs-1">
+                <h1>
+                    <span class="text-success">
+                        <span class="glyphicon glyphicon-ok"
+                              aria-hidden="true"></span>
+                    </span>
+                </h1>
+            </div>
+            <div class="col-xs-11">
+                <h1>
+                    <span class="text-success">
+                        Success!
+                    </span>
+                </h1>
+                <h2>
+                    {{ text }}
+                </h2>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{# vim: set expandtab ts=4 sw=4: #}

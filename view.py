@@ -116,7 +116,10 @@ def create_dp(
                 crates = None
                 success = True
             else:
-                return render_template("creation_finished.html")
+                return render_template(
+                    "success.html",
+                    text="Your drop point has been created successfully."
+                )
 
     try:
         lat_f = float(lat)
