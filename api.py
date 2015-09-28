@@ -1,4 +1,5 @@
 import json
+from datetime import datetime
 
 from flask import request, Response
 
@@ -67,8 +68,23 @@ def visit():
 
 
 def dp_json():
+    ts = request.values.get("ts")
+    if ts:
+        try:
+            dps = DropPoint.get_dps_as_geojson(
+                datetime.fromtimestamp(float(ts))
+            )
+        except ValueError as e:
+            return Response(
+                json.dumps(e.message, indent=4 if c3bottles.debug else None),
+                mimetype="application/json",
+                status=400
+            )
+    else:
+        dps = DropPoint.get_dps_as_geojson()
+
     return Response(
-        DropPoint.get_all_dps_as_geojson(),
+        dps,
         mimetype="application/json"
     )
 

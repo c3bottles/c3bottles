@@ -36,7 +36,7 @@ def dp_list():
     return render_template(
         "list.html",
         all_dps=sorted(all_dps, key=lambda k: k["priority"], reverse=True),
-        all_dps_geojson=DropPoint.get_all_dps_as_geojson()
+        all_dps_geojson=DropPoint.get_dps_as_geojson()
     )
 
 
@@ -44,7 +44,7 @@ def dp_list():
 def dp_map():
     return render_template(
         "map.html",
-        all_dps_geojson=DropPoint.get_all_dps_as_geojson()
+        all_dps_geojson=DropPoint.get_dps_as_geojson()
     )
 
 
@@ -157,7 +157,7 @@ def create_dp(
 
     return render_template(
         "create_dp.html",
-        all_dps_geojson=DropPoint.get_all_dps_as_geojson(),
+        all_dps_geojson=DropPoint.get_dps_as_geojson(),
         number=number,
         description=description,
         center_lat=center_lat,

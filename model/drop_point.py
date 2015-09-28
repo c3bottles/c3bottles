@@ -296,12 +296,29 @@ class DropPoint(db.Model):
             return None
 
     @staticmethod
-    def get_all_dps_as_geojson():
-        """Get all drop points as a GeoJSON string."""
+    def get_dps_as_geojson(time=None):
+        """Get drop points as a GeoJSON string.
+
+        If a time has been given as optional parameters, only drop points are
+        returned that have changes since that time stamp.
+        """
+
+        if time is None:
+            dps = db.session.query(DropPoint).all()
+        else:
+            dp_set = set()
+            dp_set.update(
+                [dp for dp in DropPoint.query.filter(DropPoint.time > time).all()],
+                [l.dp for l in Location.query.filter(Location.time > time).all()],
+                [c.dp for c in Capacity.query.filter(Capacity.time > time).all()],
+                [v.dp for v in Visit.query.filter(Visit.time > time).all()],
+                [r.dp for r in Report.query.filter(Report.time > time).all()]
+            )
+            dps = list(dp_set)
 
         arr = []
 
-        for dp in db.session.query(DropPoint).all():
+        for dp in dps:
             arr.append({
                 "type": "Feature",
                 "properties": {
@@ -324,6 +341,8 @@ class DropPoint(db.Model):
             })
 
         return json.dumps(arr, indent=4 if c3bottles.debug else None)
+
+
 
     def __repr__(self):
         return "Drop point %s (%s)" % (
