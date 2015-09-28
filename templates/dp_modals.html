@@ -1,0 +1,45 @@
+<div class="modal fade" tabindex="-1" role="dialog"
+     id="dp_modal">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Drop Point <span
+                        class="modal_dp_number"></span></h4>
+            </div>
+            <div class="modal-body">
+                <div class="text-center">
+                    <ul class="nav nav-pills"
+                        style="margin-bottom: 10px; display: inline-block;">
+                        <li id="dp_modal_details_link">
+                            <a href="#dp_modal_details_tab"
+                               data-toggle="tab">Details</a>
+                        </li>
+                        <li id="dp_modal_report_link">
+                            <a href="#dp_modal_report_tab"
+                               data-toggle="tab">Report</a>
+                        </li>
+                        <li id="dp_modal_visit_link">
+                            <a href="#dp_modal_visit_tab"
+                               data-toggle="tab">Visit</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tab-content">
+                    <div class="tab-pane" id="dp_modal_details_tab">
+                        {% include "details_tab.html" %}
+                    </div>
+                    <div class="tab-pane" id="dp_modal_report_tab">
+                        {% include "report_buttons.html" %}
+                    </div>
+                    <div class="tab-pane" id="dp_modal_visit_tab">
+                       {% include "visit_buttons.html" %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{# vim: set expandtab ts=4 sw=4: #}
