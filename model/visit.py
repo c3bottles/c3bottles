@@ -14,7 +14,7 @@ class Visit(db.Model):
     """
 
     actions = (
-        "EMPTIED",
+        "EMPTIED",          # 0 should be the action that empties a drop point
         "ADDED_CRATE",
         "REMOVED_CRATE",
         "RELOCATED",

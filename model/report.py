@@ -13,15 +13,18 @@ class Report(db.Model):
     about the state of the drop point in question.
     """
 
-    states = (
-        "DEFAULT",  # The default state should be treated as UNKNOWN
-        "NO_CRATES",
-        "EMPTY",
-        "SOME_BOTTLES",
-        "REASONABLY_FULL",
-        "FULL",
-        "OVERFLOW"
-    )
+    state_weights = [
+        ["DEFAULT", 5.0],   # 0 should be the default/unknown state
+        ["NEW", 1.0],       # 1 should be the state of new drop points
+        ["NO_CRATES", 5.0],
+        ["SOME_BOTTLES", 1.0],
+        ["REASONABLY_FULL", 2.0],
+        ["FULL", 3.0],
+        ["OVERFLOW", 5.0],
+        ["EMPTY", 0.0]      # -1 should be the EMPTY state
+    ]
+
+    states = [e[0] for e in state_weights]
 
     rep_id = db.Column(db.Integer, primary_key=True)
 
@@ -98,7 +101,14 @@ class Report(db.Model):
         # - weight should depend on the viewer (supervisor: problem-
         #   focused, collector: collection-focused)
 
-        return 1
+        return self.get_state_weight(self.state)
+
+    @classmethod
+    def get_state_weight(cls, state):
+        for elem in cls.state_weights:
+            if elem[0] == state:
+                return elem[1]
+        return float(cls.state_weights[0][1])
 
     def __repr__(self):
         return "Report %s of drop point %s (state %s at %s)" % (

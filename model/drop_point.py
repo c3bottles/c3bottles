@@ -163,8 +163,8 @@ class DropPoint(db.Model):
 
         if last_report is not None and last_visit is not None:
             if last_visit.time > last_report.time \
-                    and last_visit.action == "EMPTIED":
-                return "EMPTY"
+                    and last_visit.action == Visit.actions[0]:
+                return Report.states[-1]
             else:
                 return last_report.state
 
@@ -172,10 +172,10 @@ class DropPoint(db.Model):
             return last_report.state
 
         if last_visit is not None:
-            if last_visit.action == "EMPTIED":
-                return "EMPTY"
+            if last_visit.action == Visit.actions[0]:
+                return Report.states[-1]
 
-        return Report.states[0]
+        return Report.states[1]
 
     def get_last_report(self):
         return self.reports.order_by(Report.time.desc()).first()
@@ -267,20 +267,24 @@ class DropPoint(db.Model):
         # number of standing default reports ensuring that every
         # drop point's priority increases slowly if it is not
         # visited even if no real reports come in.
-        priority = 1
+        priority = c3bottles.config.get("DEFAULT_VISIT_PRIORITY", 1)
 
+        i = 0
         for report in new_reports:
-            priority += report.get_weight()
+            priority += report.get_weight() / 2**i
+            i += 1
 
         if self.get_current_crate_count() >= 1:
-            priority *= (1 + 0.1 * self.get_current_crate_count())
+            priority *= (1 + c3bottles.config.get("SIZE_IMPACT_FACTOR", 0.1) *
+                         (self.get_current_crate_count() - 1))
 
         if self.get_last_visit():
             priority *= (datetime.today() -
                          self.get_last_visit().time).total_seconds() \
                         / self.get_visit_interval()
         else:
-            priority *= 3
+            priority *= (datetime.today() - self.time).total_seconds() \
+                         / self.get_visit_interval()
 
         return round(priority, 2)
 
@@ -337,8 +341,6 @@ class DropPoint(db.Model):
             })
 
         return json.dumps(arr, indent=4 if c3bottles.debug else None)
-
-
 
     def __repr__(self):
         return "Drop point %s (%s)" % (
