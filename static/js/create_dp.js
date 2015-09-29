@@ -7,7 +7,7 @@ for (var i in all_dps_geojson) {
 
 function get_marker(latlng) {
     var marker = L.marker(latlng, {
-        icon: get_icon("NEW"),
+        icon: get_icon("CREATED"),
         draggable: true
     });
     $(map).one("zoomend", function (e) {
