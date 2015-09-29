@@ -7,7 +7,7 @@ var levels = {
     "features": [
         {
             "type": "Feature",
-            "properties": {"level": 5},
+            "properties": {"level": 4},
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [[
@@ -20,7 +20,7 @@ var levels = {
         },
         {
             "type": "Feature",
-            "properties": {"level": 4},
+            "properties": {"level": 3},
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [[
@@ -33,7 +33,7 @@ var levels = {
         },
         {
             "type": "Feature",
-            "properties": {"level": 3},
+            "properties": {"level": 2},
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [[
@@ -46,7 +46,7 @@ var levels = {
         },
         {
             "type": "Feature",
-            "properties": {"level": 2},
+            "properties": {"level": 1},
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [[
@@ -59,7 +59,7 @@ var levels = {
         },
         {
             "type": "Feature",
-            "properties": {"level": 1},
+            "properties": {"level": 0},
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [[
@@ -84,7 +84,7 @@ var rooms = {
             "type": "Feature",
             "properties": {
                 "name": "Elevators 4. OG",
-                "level": 5
+                "level": 4
             },
             "geometry": {
                 "type": "Polygon",
@@ -98,7 +98,7 @@ var rooms = {
             "type": "Feature",
             "properties": {
                 "name": "Rangfoyer 1",
-                "level": 5
+                "level": 4
             },
             "geometry": {
                 "type": "Polygon",
@@ -114,7 +114,7 @@ var rooms = {
             "type": "Feature",
             "properties": {
                 "name": "Rangfoyer 2",
-                "level": 5
+                "level": 4
             },
             "geometry": {
                 "type": "Polygon",
@@ -130,7 +130,7 @@ var rooms = {
             "type": "Feature",
             "properties": {
                 "name": "Elevators 3. OG",
-                "level": 4
+                "level": 3
             },
             "geometry": {
                 "type": "Polygon",
@@ -144,7 +144,7 @@ var rooms = {
             "type": "Feature",
             "properties": {
                 "name": "Zwischenfoyer 1",
-                "level": 4
+                "level": 3
             },
             "geometry": {
                 "type": "Polygon",
@@ -161,7 +161,7 @@ var rooms = {
             "type": "Feature",
             "properties": {
                 "name": "Zwischenfoyer 2",
-                "level": 4
+                "level": 3
             },
             "geometry": {
                 "type": "Polygon",
@@ -178,7 +178,7 @@ var rooms = {
             "type": "Feature",
             "properties": {
                 "name": "Elevators 2. OG",
-                "level": 3
+                "level": 2
             },
             "geometry": {
                 "type": "Polygon",
@@ -192,7 +192,7 @@ var rooms = {
             "type": "Feature",
             "properties": {
                 "name": "Hauptfoyer 1",
-                "level": 3
+                "level": 2
             },
             "geometry": {
                 "type": "Polygon",
@@ -207,7 +207,7 @@ var rooms = {
             "type": "Feature",
             "properties": {
                 "name": "Hauptfoyer 2",
-                "level": 3
+                "level": 2
             },
             "geometry": {
                 "type": "Polygon",
@@ -222,7 +222,7 @@ var rooms = {
             "type": "Feature",
             "properties": {
                 "name": "Foyer G",
-                "level": 3
+                "level": 2
             },
             "geometry": {
                 "type": "Polygon",
@@ -237,7 +237,7 @@ var rooms = {
             "type": "Feature",
             "properties": {
                 "name": "Elevators 1. OG",
-                "level": 2
+                "level": 1
             },
             "geometry": {
                 "type": "Polygon",
@@ -251,7 +251,7 @@ var rooms = {
             "type": "Feature",
             "properties": {
                 "name": "Garderobe 1",
-                "level": 2
+                "level": 1
             },
             "geometry": {
                 "type": "Polygon",
@@ -265,7 +265,7 @@ var rooms = {
             "type": "Feature",
             "properties": {
                 "name": "Garderobe 2",
-                "level": 2
+                "level": 1
             },
             "geometry": {
                 "type": "Polygon",
@@ -280,7 +280,7 @@ var rooms = {
             "type": "Feature",
             "properties": {
                 "name": "Heaven",
-                "level": 2
+                "level": 1
             },
             "geometry": {
                 "type": "Polygon",
@@ -294,7 +294,7 @@ var rooms = {
             "type": "Feature",
             "properties": {
                 "name": "Foyer ABC",
-                "level": 2
+                "level": 1
             },
             "geometry": {
                 "type": "Polygon",
@@ -309,7 +309,7 @@ var rooms = {
             "type": "Feature",
             "properties": {
                 "name": "Elevators EG",
-                "level": 1
+                "level": 0
             },
             "geometry": {
                 "type": "Polygon",
@@ -323,7 +323,7 @@ var rooms = {
             "type": "Feature",
             "properties": {
                 "name": "Lobby",
-                "level": 1
+                "level": 0
             },
             "geometry": {
                 "type": "Polygon",
@@ -337,7 +337,7 @@ var rooms = {
             "type": "Feature",
             "properties": {
                 "name": "Saal 3",
-                "level": 1
+                "level": 0
             },
             "geometry": {
                 "type": "Polygon",
@@ -351,7 +351,7 @@ var rooms = {
             "type": "Feature",
             "properties": {
                 "name": "Foyer 3",
-                "level": 1
+                "level": 0
             },
             "geometry": {
                 "type": "Polygon",
@@ -366,7 +366,7 @@ var rooms = {
             "type": "Feature",
             "properties": {
                 "name": "Saal 4",
-                "level": 1
+                "level": 0
             },
             "geometry": {
                 "type": "Polygon",
@@ -381,7 +381,7 @@ var rooms = {
             "type": "Feature",
             "properties": {
                 "name": "Foyer 4",
-                "level": 1
+                "level": 0
             },
             "geometry": {
                 "type": "Polygon",

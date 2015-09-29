@@ -49,7 +49,7 @@ function set_info_from_marker(latlng) {
 }
 
 function get_next_free_dp_num(level) {
-    for (var i = level*100; i < level*100 + 100; i++) {
+    for (var i = level*100 + 1; i < level*100 + 100; i++) {
         if ($.inArray(i, used_dp_numbers) < 0) {
             return i;
         }
