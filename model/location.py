@@ -59,12 +59,11 @@ class Location(db.Model):
 
         if time and not isinstance(time, datetime):
             errors.append({"Location": "Start time not a datetime object."})
-            raise ValueError(errors)
 
-        if time and time > datetime.today():
+        if isinstance(time, datetime) and time > datetime.today():
             errors.append({"Location": "Start time in the future."})
 
-        if dp.locations and time and \
+        if dp.locations and isinstance(time, datetime) and \
                 time < dp.locations[-1].time:
             errors.append({"Location": "Location older than current."})
 

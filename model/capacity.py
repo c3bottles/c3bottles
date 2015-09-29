@@ -53,12 +53,11 @@ class Capacity(db.Model):
 
         if time and not isinstance(time, datetime):
             errors.append({"Capacity": "Start time not a datetime object."})
-            raise ValueError(errors)
 
-        if time and time > datetime.today():
+        if isinstance(time, datetime) and time > datetime.today():
             errors.append({"Capacity": "Start time in the future."})
 
-        if dp.capacities and time and \
+        if dp.capacities and isinstance(time, datetime) and \
                 time < dp.capacities[-1].time:
             errors.append({"Capacity": "Capacity older than current."})
 

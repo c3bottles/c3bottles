@@ -14,7 +14,7 @@ class Report(db.Model):
     """
 
     states = (
-        "DEFAULT",
+        "DEFAULT",  # The default state should be treated as UNKNOWN
         "NO_CRATES",
         "EMPTY",
         "SOME_BOTTLES",
@@ -52,7 +52,7 @@ class Report(db.Model):
         if time and not isinstance(time, datetime):
             errors.append({"Report": "Time not a datetime object."})
 
-        if time and time > datetime.today():
+        if isinstance(time, datetime) and time > datetime.today():
             errors.append({"Report": "Start time in the future."})
 
         self.time = time if time else datetime.today()

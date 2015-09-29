@@ -51,7 +51,7 @@ class Visit(db.Model):
         if time and not isinstance(time, datetime):
             errors.append({"Visit": "Time not a datetime object."})
 
-        if time and time > datetime.today():
+        if isinstance(time, datetime) and time > datetime.today():
             errors.append({"Visit": "Start time in the future."})
 
         self.time = time if time else datetime.today()

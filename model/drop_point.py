@@ -87,7 +87,7 @@ class DropPoint(db.Model):
         if time and not isinstance(time, datetime):
             errors.append({"DropPoint": "Creation time not a datetime object."})
 
-        if time and time > datetime.today():
+        if isinstance(time, datetime) and time > datetime.today():
             errors.append({"DropPoint": "Creation time in the future."})
 
         self.time = time if time else datetime.today()
@@ -175,7 +175,7 @@ class DropPoint(db.Model):
             if last_visit.action == "EMPTIED":
                 return "EMPTY"
 
-        return "UNKNOWN"
+        return Report.states[0]
 
     def get_last_report(self):
         return self.reports.order_by(Report.time.desc()).first()
