@@ -53,11 +53,13 @@ class Location(db.Model):
 
         if not isinstance(dp, drop_point.DropPoint):
             errors.append({"Location": "Not given a drop point object."})
+            raise ValueError(errors)
 
         self.dp = dp
 
         if time and not isinstance(time, datetime):
             errors.append({"Location": "Start time not a datetime object."})
+            raise ValueError(errors)
 
         if time and time > datetime.today():
             errors.append({"Location": "Start time in the future."})
@@ -82,7 +84,7 @@ class Location(db.Model):
             errors.append({"lng": "Longitude is not a floating point number."})
         else:
             if not -180 < self.lng < 180:
-                errors.append({"lat": "Longitude is not between 180 degrees W/E."})
+                errors.append({"lng": "Longitude is not between 180 degrees W/E."})
 
         try:
             self.level = int(level)

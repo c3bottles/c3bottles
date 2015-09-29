@@ -8,10 +8,12 @@ from datetime import datetime, timedelta
 from flask.ext.sqlalchemy import BaseQuery
 
 from c3bottles import c3bottles, db
-from model import DropPoint, Location, Capacity, Report, Visit
+from model.drop_point import DropPoint
+from model.location import Location
+from model.capacity import Capacity
 
 
-class c3bottlesModelTestCase(unittest.TestCase):
+class C3bottlesModelTestCase(unittest.TestCase):
     def setUp(self):
         self.tmp_fd, self.tmp_name = tempfile.mkstemp()
         c3bottles.config['SQLALCHEMY_DATABASE_URI'] = \
@@ -29,8 +31,23 @@ class c3bottlesModelTestCase(unittest.TestCase):
     def test_drop_point_construction(self):
 
         dp_number = 1
+        time = datetime.today() - timedelta(hours=1)
+        description = "somewhere"
+        lat = 20
+        lng = 10
+        level = 2
+        crate_count = 3
 
-        dp = DropPoint(dp_number)
+        dp = DropPoint(
+            dp_number,
+            time=time,
+            description=description,
+            lat=lat,
+            lng=lng,
+            level=level,
+            crates=crate_count
+        )
+
         db.session.commit()
 
         self.assertEqual(
@@ -41,16 +58,6 @@ class c3bottlesModelTestCase(unittest.TestCase):
         self.assertEqual(
             dp.number, dp_number,
             "Wrong drop point number"
-        )
-
-        self.assertFalse(
-            dp.locations,
-            "Drop point has a location."
-        )
-
-        self.assertFalse(
-            dp.capacities,
-            "Drop point has a capacity."
         )
 
         self.assertFalse(
@@ -78,36 +85,92 @@ class c3bottlesModelTestCase(unittest.TestCase):
             "Drop point has visits."
         )
 
+        self.assertIsInstance(
+            dp.locations[0], Location,
+            "Drop point has no Location object."
+        )
+
+        self.assertIsInstance(
+            dp.capacities[0], Capacity,
+            "Drop point has no Capacity object."
+        )
+
+        self.assertEqual(
+            dp.time, time,
+            "Drop point creation time not as expected."
+        )
+
+        self.assertEqual(
+            dp.locations[0].description, description,
+            "Location description not as expected."
+        )
+
+        self.assertEqual(
+            dp.locations[0].lat, lat,
+            "Latitude not as expected."
+        )
+
+        self.assertEqual(
+            dp.locations[0].lng, lng,
+            "Longitude not as expected."
+        )
+
+        self.assertEqual(
+            dp.locations[0].level, level,
+            "Building level not as expected."
+        )
+
+        self.assertEqual(
+            dp.locations[0].time, time,
+            "Location start time not as expected."
+        )
+
+        self.assertEqual(
+            dp.get_current_crate_count(), crate_count,
+            "Drop point crate count not as expected."
+        )
+
+        self.assertEqual(
+            dp.capacities[0].crates, crate_count,
+            "Capacity crate count not as expected."
+        )
+
+        self.assertEqual(
+            dp.capacities[0].time, time,
+            "Capacity start time not as expected."
+        )
+
     def test_drop_point_construction_exceptions(self):
 
-        numbers = (-1, 3.14, "foo")
+        dp_number = 1
 
-        for num in numbers:
-            with self.assertRaisesRegexp(TypeError, "number"):
-                DropPoint(num)
+        DropPoint(dp_number, lat=0, lng=0, level=1)
 
-        DropPoint(1)
         db.session.commit()
 
         with self.assertRaisesRegexp(ValueError, "already exists"):
-            DropPoint(1)
+            DropPoint(dp_number, lat=0, lng=0, level=1)
+
+        numbers = (-1, "foo", None)
+
+        for num in numbers:
+            with self.assertRaisesRegexp(ValueError, "number"):
+                DropPoint(num, lat=0, lng=0, level=1)
 
     def test_drop_point_getters(self):
 
-        dp_number = 1
-        default_priority = 3
+        dp = DropPoint(1, lat=0, lng=0, level=1)
 
-        dp = DropPoint(dp_number)
         db.session.commit()
 
-        self.assertIsNone(
-            dp.get_current_location(),
-            "get_current_location() did not return None."
+        self.assertIsInstance(
+            dp.get_current_location(), Location,
+            "get_current_location() is not a Location object."
         )
 
         self.assertEquals(
-            dp.get_current_crate_count(), 0,
-            "get_current_crate_count() did not return 0."
+            dp.get_current_crate_count(), Capacity.default_crate_count,
+            "get_current_crate_count() did not return the default crate count."
         )
 
         self.assertEquals(
@@ -135,92 +198,27 @@ class c3bottlesModelTestCase(unittest.TestCase):
             "get_visit_interval() returned a value <= 0."
         )
 
-        self.assertEqual(
-            dp.get_priority(), default_priority,
-            "get_priority() did not return the default priority."
-        )
-
-    def test_drop_point_construction_with_placement(self):
-
-        dp_number = 2
-        location_description = "somewhere"
-        location_coordinates = (23.5, 0, -42)
-        crate_count = 3
-        start_time = datetime.today() - timedelta(hours=1)
-
-        dp = DropPoint(
-            dp_number,
-            placed=True,
-            loc_desc=location_description,
-            loc_coords=location_coordinates,
-            crates=crate_count,
-            start_time=start_time
-        )
-
-        db.session.commit()
-
-        self.assertIsInstance(
-            dp.locations[0], Location,
-            "Drop point has no Location object."
-        )
-
-        self.assertIsInstance(
-            dp.capacities[0], Capacity,
-            "Drop point has no Capacity object."
-        )
-
-        self.assertEqual(
-            dp.locations[0].description, location_description,
-            "Location description not as expected."
-        )
-
-        coords = (
-            dp.locations[0].coordinate_x,
-            dp.locations[0].coordinate_y,
-            dp.locations[0].coordinate_z
-        )
-
-        self.assertEqual(
-            coords, location_coordinates,
-            "Location coordinates not as expected."
-        )
-
-        self.assertEqual(
-            dp.locations[0].start_time, start_time,
-            "Location start time not as expected."
-        )
-
-        self.assertEqual(
-            dp.get_current_crate_count(), crate_count,
-            "Drop point crate count not as expected."
-        )
-
-        self.assertEqual(
-            dp.capacities[0].crates, crate_count,
-            "Capacity crate count not as expected."
-        )
-
-        self.assertEqual(
-            dp.capacities[0].start_time, start_time,
-            "Capacity start time not as expected."
-        )
-
     def test_location_addition_to_drop_point(self):
 
         dp_number = 3
-        first_location_description = "here"
-        first_location_coordinates = (-23.5, 42, 0.1337)
-        second_location_description = "there"
-        second_location_coordinates = (42.23, -0.5, -3.14159)
+        first_description = "here"
+        first_lat = -23.5
+        first_lng = 84
+        first_level = 3
+        second_description = "there"
+        second_lat = 3.14
+        second_lng = -2.71828
+        second_level = 2
         first_time = datetime.today() - timedelta(hours=2)
         second_time = datetime.today() - timedelta(hours=2 - 1)
 
         dp = DropPoint(
             dp_number,
-            placed=True,
-            loc_desc=first_location_description,
-            loc_coords=first_location_coordinates,
-            start_time=first_time
+            description=first_description,
+            lat=first_lat,
+            lng=first_lng,
+            level=first_level,
+            time=first_time
         )
 
         db.session.commit()
@@ -237,9 +235,11 @@ class c3bottlesModelTestCase(unittest.TestCase):
 
         second_location = Location(
             dp,
-            description=second_location_description,
-            coords=second_location_coordinates,
-            start_time=second_time
+            description=second_description,
+            lat=second_lat,
+            lng=second_lng,
+            level=second_level,
+            time=second_time
         )
 
         db.session.commit()
@@ -260,49 +260,54 @@ class c3bottlesModelTestCase(unittest.TestCase):
         )
 
         self.assertEqual(
-            dp.locations[1].start_time -
-            dp.locations[0].start_time,
+            dp.locations[1].time -
+            dp.locations[0].time,
             second_time - first_time,
             "Wrong time difference between locations."
         )
 
     def test_location_construction_exceptions(self):
 
-        dp = DropPoint(1)
+        dp = DropPoint(1, lat=0, lng=0, level=1)
 
-        with self.assertRaisesRegexp(TypeError, "drop point"):
+        with self.assertRaisesRegexp(ValueError, "drop point"):
             Location("foo")
 
         time_in_future = datetime.today() + timedelta(hours=1)
 
         with self.assertRaisesRegexp(ValueError, "future"):
-            Location(dp, time_in_future)
+            Location(dp, time=time_in_future, lat=0, lng=0, level=1)
 
-        with self.assertRaisesRegexp(TypeError, "not a datetime"):
-            Location(dp, "foo")
+        with self.assertRaisesRegexp(ValueError, "not a datetime"):
+            Location(dp, time="foo", lat=0, lng=0, level=1)
 
         start_time = datetime.today()
 
         with self.assertRaisesRegexp(ValueError, "older than current"):
-            Location(dp, start_time=start_time)
+            Location(dp, time=start_time, lat=0, lng=0, level=1)
             db.session.commit()
-            Location(dp, start_time=start_time - timedelta(hours=1))
+            Location(dp, time=start_time - timedelta(hours=1))
 
-        invalid_coords = ((1, 2), (2, -3, "foo"), "bar")
+        invalid_lat = ("foo", -180, 91, None)
+        invalid_lng = ("bar", -181, 251.5, None)
+        invalid_level = ("quux", None)
 
-        for coords in invalid_coords:
-            with self.assertRaisesRegexp(TypeError, "coordinates"):
-                Location(dp, coords=coords)
+        for lat in invalid_lat:
+            with self.assertRaisesRegexp(ValueError, "lat"):
+                Location(dp, lat=lat, lng=0, level=1)
 
-        invalid_description = 3.14
+        for lng in invalid_lng:
+            with self.assertRaisesRegexp(ValueError, "lng"):
+                Location(dp, lat=0, lng=lng, level=1)
 
-        with self.assertRaisesRegexp(TypeError, "not a string"):
-            Location(dp, description=invalid_description)
+        for level in invalid_level:
+            with self.assertRaisesRegexp(ValueError, "level"):
+                Location(dp, lat=0, lng=0, level=level)
 
-        too_long_description = "a" * (Location.max_description + 1)
+        too_long = "a" * (Location.max_description + 1)
 
         with self.assertRaisesRegexp(ValueError, "too long"):
-            Location(dp, description=too_long_description)
+            Location(dp, lat=0, lng=0, level=1, description=too_long)
 
     def test_capacity_addition_to_drop_point(self):
 
@@ -314,9 +319,9 @@ class c3bottlesModelTestCase(unittest.TestCase):
 
         dp = DropPoint(
             dp_number,
-            placed=True,
             crates=first_crate_count,
-            start_time=first_time
+            time=first_time,
+            lat=0, lng=0, level=1
         )
 
         db.session.commit()
@@ -334,7 +339,7 @@ class c3bottlesModelTestCase(unittest.TestCase):
         second_capacity = Capacity(
             dp,
             crates=second_crate_count,
-            start_time=second_time
+            time=second_time
         )
 
         db.session.commit()
@@ -350,26 +355,31 @@ class c3bottlesModelTestCase(unittest.TestCase):
         )
 
         self.assertEqual(
+            dp.capacities[-1], second_capacity,
+            "Current capacity is not the second capacity object."
+        )
+
+        self.assertEqual(
             dp.get_current_crate_count(), second_crate_count,
             "Current crate count is not second crate count."
         )
 
         self.assertEqual(
-            dp.capacities[1].start_time -
-            dp.capacities[0].start_time,
+            dp.capacities[1].time -
+            dp.capacities[0].time,
             second_time - first_time,
             "Wrong time difference between capacities."
         )
 
     def test_capacity_construction(self):
 
-        dp = DropPoint(1)
+        dp = DropPoint(1, lat=0, lng=0, level=1)
 
         capacity = Capacity(dp)
         db.session.commit()
 
         self.assertEqual(
-            dp.capacities[0], capacity,
+            dp.capacities[-1], capacity,
             "Capacity of drop point not capacity object created."
         )
 
@@ -380,9 +390,9 @@ class c3bottlesModelTestCase(unittest.TestCase):
 
     def test_capacity_construction_exceptions(self):
 
-        dp = DropPoint(1)
+        dp = DropPoint(1, lat=0, lng=0, level=1)
 
-        with self.assertRaisesRegexp(TypeError, "drop point"):
+        with self.assertRaisesRegexp(ValueError, "drop point"):
             Capacity("foo")
 
         time_in_future = datetime.today() + timedelta(hours=1)
@@ -390,25 +400,25 @@ class c3bottlesModelTestCase(unittest.TestCase):
         with self.assertRaisesRegexp(ValueError, "future"):
             Capacity(dp, time_in_future)
 
-        with self.assertRaisesRegexp(TypeError, "not a datetime"):
+        with self.assertRaisesRegexp(ValueError, "not a datetime"):
             Capacity(dp, "foo")
 
         start_time = datetime.today()
 
         with self.assertRaisesRegexp(ValueError, "older than current"):
-            Capacity(dp, start_time=start_time)
+            Capacity(dp, time=start_time)
             db.session.commit()
-            Capacity(dp, start_time=start_time - timedelta(hours=1))
+            Capacity(dp, time=start_time - timedelta(hours=1))
 
-        invalid_crate_counts = (-1, 2.5, "some")
+        invalid_crate_counts = (-1, "some")
 
         for count in invalid_crate_counts:
-            with self.assertRaisesRegexp(TypeError, "crate count"):
+            with self.assertRaisesRegexp(ValueError, "count"):
                 Capacity(dp, crates=count)
 
     def test_drop_point_removal(self):
 
-        dp = DropPoint(1)
+        dp = DropPoint(1, lat=0, lng=0, level=1)
 
         self.assertFalse(
             dp.removed,
@@ -429,7 +439,7 @@ class c3bottlesModelTestCase(unittest.TestCase):
             "Removal time of drop point not time given."
         )
 
-        dp = DropPoint(2)
+        dp = DropPoint(2, lat=0, lng=0, level=1)
 
         dp.remove()
 
@@ -445,7 +455,7 @@ class c3bottlesModelTestCase(unittest.TestCase):
 
     def test_drop_point_removal_exceptions(self):
 
-        dp = DropPoint(1)
+        dp = DropPoint(1, lat=0, lng=0, level=1)
 
         time_in_future = datetime.today() + timedelta(hours=1)
 

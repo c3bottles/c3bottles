@@ -47,11 +47,13 @@ class Capacity(db.Model):
 
         if not isinstance(dp, drop_point.DropPoint):
             errors.append({"Capacity": "Not given a drop point object."})
+            raise ValueError(errors)
 
         self.dp = dp
 
         if time and not isinstance(time, datetime):
             errors.append({"Capacity": "Start time not a datetime object."})
+            raise ValueError(errors)
 
         if time and time > datetime.today():
             errors.append({"Capacity": "Start time in the future."})
