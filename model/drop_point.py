@@ -241,11 +241,7 @@ class DropPoint(db.Model):
         combination of those.
         """
 
-        # TODO:
-        # currently fixed at 2 hours (in seconds). the base interval
-        # should be stored in the configuration or something.
-
-        return 120 * 60
+        return 60 * c3bottles.config.get("BASE_VISIT_INTERVAL", 120)
 
     def get_priority(self):
         """Get the priority to visit this drop point.
