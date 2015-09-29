@@ -199,32 +199,30 @@ class DropPoint(db.Model):
         for visit in self.visits.all():
             history.append({
                 "time": visit.time,
-                "message": "Visited and maintenance performed: " + visit.action
+                "visit": visit
             })
 
         for report in self.reports.all():
             history.append({
                 "time": report.time,
-                "message": "Reported as: " + report.state
+                "report": report
             })
 
         for location in self.locations:
             history.append({
                 "time": location.time,
-                "message": "Location set to " + str(location.lat) + "," +
-                           str(location.lng) + " (" + location.description +
-                           " on level " + str(location.level) + ")"
+                "location": location
             })
 
         for capacity in self.capacities:
             history.append({
                 "time": capacity.time,
-                "message": "Capacity set to " + str(capacity.crates)
+                "capacity": capacity
             })
 
         history.append({
             "time": self.time,
-            "message": "Drop point created."
+            "drop_point": self
         })
 
         return sorted(history, key=lambda k: k["time"], reverse=True)

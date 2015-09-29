@@ -1,5 +1,6 @@
 {% extends "layout.html" %}
 {% set title = "List of Bottle Drop Points" %}
+{% import "macros/states.html" as states %}
 {% block header %}
     <link href="{{ url_for('static', filename='vendor/datatables/css/datatables.min.css') }}"
           rel="stylesheet">
@@ -18,7 +19,6 @@ table.dataTable thead .sorting_desc:after {
     </style>
 {% endblock %}
 {% block content %}
-{% import "macros/states.html" as states %}
     <div class="page-header">
         <h1>{{ title }}</h1>
     </div>
@@ -39,7 +39,7 @@ table.dataTable thead .sorting_desc:after {
         {% for dp in all_dps %}
             <tr>
                 <td>{{ dp.number }}</td>
-                <td>{{ dp.location.description if dp.location.description else "unknown" }}</td>
+                <td>{{ dp.location.description if dp.location.description else "somewhere on level " + dp.location.level|string }}</td>
                 <td data-order="{{ states.num(dp.last_state) }}">
                     {{ states.label(dp.last_state) }}
                 </td>
