@@ -11,6 +11,8 @@ from c3bottles import c3bottles, db
 from model.drop_point import DropPoint
 from model.location import Location
 from model.capacity import Capacity
+from model.report import Report
+from model.visit import Visit
 
 
 class C3bottlesModelTestCase(unittest.TestCase):
@@ -157,28 +159,63 @@ class C3bottlesModelTestCase(unittest.TestCase):
             with self.assertRaisesRegexp(ValueError, "number"):
                 DropPoint(num, lat=0, lng=0, level=1)
 
+        time_in_future = datetime.today() + timedelta(hours=1)
+
+        with self.assertRaisesRegexp(ValueError, "future"):
+            DropPoint(dp_number, time=time_in_future, lat=0, lng=0, level=1)
+
+        with self.assertRaisesRegexp(ValueError, "not a datetime"):
+            DropPoint(dp_number, time="foo", lat=0, lng=0, level=1)
+
     def test_drop_point_getters(self):
 
-        dp = DropPoint(1, lat=0, lng=0, level=1)
+        dp_number = 1
+        time = datetime.today()
+
+        dp = DropPoint(
+            dp_number,
+            time=time,
+            lat=0,
+            lng=0,
+            level=1
+        )
 
         db.session.commit()
+
+        self.assertEquals(
+            DropPoint.get(dp_number), dp,
+            "DropPoint.get() did not return the drop point created."
+        )
+
+        wrong_numbers = (dp_number+1, -1, "foo", None)
+
+        for number in wrong_numbers:
+            self.assertIsNone(
+                DropPoint.get(number),
+                "DropPoint.get() for wrong number number did not return None."
+            )
 
         self.assertIsInstance(
             dp.get_current_location(), Location,
             "get_current_location() is not a Location object."
         )
 
-        self.assertEquals(
+        self.assertEqual(
             dp.get_current_crate_count(), Capacity.default_crate_count,
             "get_current_crate_count() did not return the default crate count."
         )
 
-        self.assertEquals(
+        self.assertEqual(
+            dp.get_last_state(), Report.states[0],
+            "get_last_state() did not return the default state."
+        )
+
+        self.assertEqual(
             dp.get_total_report_count(), 0,
             "get_total_report_count() did not return 0."
         )
 
-        self.assertEquals(
+        self.assertEqual(
             dp.get_new_report_count(), 0,
             "get_new_report_count() did not return 0."
         )
@@ -189,6 +226,11 @@ class C3bottlesModelTestCase(unittest.TestCase):
         )
 
         self.assertFalse(
+            dp.get_last_report(),
+            "get_last_report() returned something not False."
+        )
+
+        self.assertFalse(
             dp.get_new_reports(),
             "get_new_reports() returned something not False."
         )
@@ -196,6 +238,58 @@ class C3bottlesModelTestCase(unittest.TestCase):
         self.assertGreater(
             dp.get_visit_interval(), 0,
             "get_visit_interval() returned a value <= 0."
+        )
+
+        self.assertIsInstance(
+            dp.get_history(), list,
+            "get_history() did not return a list."
+        )
+
+        for elem in dp.get_history():
+            self.assertIsInstance(
+                elem, dict,
+                "get_history() did not return a list of dicts."
+            )
+
+        # The history should have 3 entries:
+        # 1. drop point creation
+        # 2. location setting
+        # 3. capacity setting
+        assumed_history_length = 3
+
+        self.assertEqual(
+            len(dp.get_history()), assumed_history_length,
+            "get_history() does not have a length of 3."
+        )
+
+        self.assertIsInstance(
+            DropPoint.get_dps_as_geojson(), str,
+            "get_dps_as_geojson() did not return a string."
+        )
+
+        self.assertGreater(
+            len(DropPoint.get_dps_as_geojson()), 1,
+            "get_dps_as_geojson() did return a string too short."
+        )
+
+        self.assertEqual(
+            DropPoint.get_dps_as_geojson(datetime.today()), "[]",
+            "get_dps_as_geojson() for now did not return an empty JSON array."
+        )
+
+        self.assertEqual(
+            DropPoint.get_dps_as_geojson(datetime.today()), "[]",
+            "get_dps_as_geojson() JSON array for now not empty."
+        )
+
+        self.assertEqual(
+            DropPoint.get_dps_as_geojson(time), "[]",
+            "get_dps_as_geojson() JSON array for creation time not empty."
+        )
+
+        self.assertNotEqual(
+            DropPoint.get_dps_as_geojson(time - timedelta(seconds=1)), "[]",
+            "get_dps_as_geojson() JSON array for time < creation time empty."
         )
 
     def test_location_addition_to_drop_point(self):
@@ -470,19 +564,228 @@ class C3bottlesModelTestCase(unittest.TestCase):
             dp.remove()
 
     def test_drop_point_reporting(self):
-        pass  # TODO
+
+        states = Report.states
+
+        dp = DropPoint(1, lat=0, lng=0, level=1)
+
+        first_time = datetime.today()
+        first_state = states[0]
+        first_report = Report(dp, state=first_state, time=first_time)
+
+        db.session.commit()
+
+        self.assertEqual(
+            first_report.time, first_time,
+            "Report creation time not as expected."
+        )
+
+        self.assertEqual(
+            first_report.state, first_state,
+            "Report state not as expected."
+        )
+
+        self.assertEqual(
+            dp.reports[0], first_report,
+            "First report not first report of associated drop point."
+        )
+
+        self.assertEqual(
+            dp.get_last_report(), first_report,
+            "get_last_report() did not return first report."
+        )
+
+        self.assertEqual(
+            dp.get_last_state(), first_state,
+            "get_last_state() did not return state."
+        )
+
+        self.assertEqual(
+            dp.get_total_report_count(), 1,
+            "get_total_report_count() not as expected."
+        )
+
+        self.assertEqual(
+            dp.get_new_report_count(), 1,
+            "get_new_report_count() not as expected."
+        )
+
+        self.assertEqual(
+            dp.get_new_reports()[0], first_report,
+            "First element returned by get_new_reports() not the report wanted."
+        )
+
+        second_time = datetime.today()
+        second_state = states[1]
+        second_report = Report(dp, state=second_state, time=second_time)
+
+        db.session.commit()
+
+        self.assertEqual(
+            second_report.state, second_state,
+            "Report state not as expected."
+        )
+
+        self.assertEqual(
+            dp.reports[-1], second_report,
+            "Second report not last report of associated drop point."
+        )
+
+        self.assertEqual(
+            dp.get_last_report(), second_report,
+            "get_last_report() did not return second report."
+        )
+
+        self.assertEqual(
+            dp.get_last_state(), second_state,
+            "get_last_state() did not return second state."
+        )
+
+        self.assertEqual(
+            dp.get_total_report_count(), 2,
+            "get_total_report_count() not as expected."
+        )
+
+        self.assertEqual(
+            dp.get_new_report_count(), 2,
+            "get_new_report_count() not as expected."
+        )
+
+        self.assertEqual(
+            dp.get_new_reports()[0], second_report,
+            "First element returned by get_new_reports() not the report wanted."
+        )
 
     def test_report_construction_exceptions(self):
-        pass  # TODO
+
+        states = Report.states
+
+        dp = DropPoint(1, lat=0, lng=0, level=1)
+
+        with self.assertRaisesRegexp(ValueError, "drop point"):
+            Report(None)
+
+        with self.assertRaisesRegexp(ValueError, "state"):
+            Report(dp)
+
+        time_in_future = datetime.today() + timedelta(hours=1)
+
+        with self.assertRaisesRegexp(ValueError, "future"):
+            Report(dp, time=time_in_future, state=states[0])
+
+        with self.assertRaisesRegexp(ValueError, "not a datetime"):
+            Report(dp, time="foo", state=states[0])
+
+        with self.assertRaisesRegexp(ValueError, "state"):
+            Report(dp, state="whatever")
 
     def test_report_weight_calculation(self):
         pass  # TODO
 
     def test_drop_point_visiting(self):
-        pass  # TODO
+
+        actions = Visit.actions
+
+        dp = DropPoint(1, lat=0, lng=0, level=1)
+
+        first_time = datetime.today()
+        first_action = actions[1]
+        first_visit = Visit(dp, action=first_action, time=first_time)
+
+        db.session.commit()
+
+        self.assertEqual(
+            first_visit.time, first_time,
+            "Visit creation time not as expected."
+        )
+
+        self.assertEqual(
+            first_visit.action, first_action,
+            "Visit action not as expected."
+        )
+
+        self.assertEqual(
+            dp.visits[0], first_visit,
+            "First visit not first visit of associated drop point."
+        )
+
+        self.assertEquals(
+            dp.get_last_visit(), first_visit,
+            "get_last_visit() did not return first visit."
+        )
+
+        report_time = datetime.today()
+        report_state = Report.states[1]
+        report = Report(dp, state=report_state, time=report_time)
+
+        second_time = datetime.today()
+        second_action = actions[0]
+        second_visit = Visit(dp, action=second_action, time=second_time)
+
+        db.session.commit()
+
+        self.assertEqual(
+            second_visit.action, second_action,
+            "Visit action not as expected."
+        )
+
+        self.assertEqual(
+            dp.visits[-1], second_visit,
+            "Second visit not last visit of associated drop point."
+        )
+
+        self.assertEqual(
+            dp.get_last_visit(), second_visit,
+            "get_last_visit() did not return second visit."
+        )
+
+        self.assertNotEqual(
+            dp.get_last_state(), report_state,
+            "get_last_state() returns unchanged state after visit."
+        )
+
+        self.assertEqual(
+            dp.get_new_report_count(), 0,
+            "get_new_report_count() nonzero after visit."
+        )
+
+        self.assertFalse(
+            dp.get_new_reports(),
+            "get_new_reports() returned something not False after visit."
+        )
+
+        self.assertEqual(
+            dp.get_last_report(), report,
+            "get_last_report() did not return report after visit."
+        )
+
+        self.assertEqual(
+            dp.get_total_report_count(), 1,
+            "get_total_report_count() not as expected after visit."
+        )
 
     def test_visit_construction_exceptions(self):
-        pass  # TODO
+
+        actions = Visit.actions
+
+        dp = DropPoint(1, lat=0, lng=0, level=1)
+
+        with self.assertRaisesRegexp(ValueError, "drop point"):
+            Visit(None)
+
+        with self.assertRaisesRegexp(ValueError, "action"):
+            Visit(dp)
+
+        time_in_future = datetime.today() + timedelta(hours=1)
+
+        with self.assertRaisesRegexp(ValueError, "future"):
+            Visit(dp, time=time_in_future, action=actions[0])
+
+        with self.assertRaisesRegexp(ValueError, "not a datetime"):
+            Visit(dp, time="foo", action=actions[0])
+
+        with self.assertRaisesRegexp(ValueError, "action"):
+            Visit(dp, action="whatever")
 
     def test_drop_point_visit_priority_calculation(self):
         pass  # TODO
