@@ -14,6 +14,7 @@
 #}
 {% extends "layout.html" %}
 {% set title = "FAQ" %}
+{% import "macros/states.html" as states %}
 {% block content %}
     <div class="page-header">
         <h1>Frequently Asked Questions</h1>
@@ -173,7 +174,78 @@
     </p>
     <div id="what-are-report-states" class="collapse">
         <p>
-            TODO: Answer me!
+            Every drop point at all times has a state that describes its
+            filling level. When drop points are being reported, the reporters
+            should select a state roughly corresponding to the situation they
+            see. The state column in the drop point list as well as the markers
+            in the map indicate the current (last reported) state of the drop
+            point in question:
+            <table class="table">
+                <tr>
+                    <td><img src="{{ url_for("static", filename="img/markers/UNKNOWN.svg") }}" style="height: 2em;"></td>
+                    <td>{{ states.label("UNKNOWN") }}</td>
+                    <td>
+                       The drop point has been reported, however, the reporter
+                       was not sure which state to choose and reported the
+                       default state instead.
+                    </td>
+                </tr>
+                <tr>
+                    <td><img src="{{ url_for("static", filename="img/markers/NEW.svg") }}" style="height: 2em;"></td>
+                    <td>{{ states.label("NEW") }}</td>
+                    <td>
+                        The drop point has been just created and has not been
+                        reported yet.
+                    </td>
+                </tr>
+                <tr>
+                    <td><img src="{{ url_for("static", filename="img/markers/EMPTY.svg") }}" style="height: 2em;"></td>
+                    <td>{{ states.label("EMPTY") }}</td>
+                    <td>
+                        The drop point has been emptied recently by the
+                        bottle collection team and hasn't been reported since
+                        or has been reported as empty.
+                    </td>
+                </tr>
+                <tr>
+                    <td><img src="{{ url_for("static", filename="img/markers/SOME_BOTTLES.svg") }}" style="height: 2em;"></td>
+                    <td>{{ states.label("SOME_BOTTLES") }}</td>
+                    <td>
+                        The drop point contains a few bottles, but no action
+                        is necessary yet.
+                    </td>
+                </tr>
+                <tr>
+                    <td><img src="{{ url_for("static", filename="img/markers/REASONABLY_FULL.svg") }}" style="height: 2em;"></td>
+                    <td>{{ states.label("REASONABLY_FULL") }}</td>
+                    <td>
+                        The drop point contains a reasonable amount of bottles
+                        and should be visited by the bottle collection team
+                        soon.
+                    </td>
+                </tr>
+                <tr>
+                    <td><img src="{{ url_for("static", filename="img/markers/FULL.svg") }}" style="height: 2em;"></td>
+                    <td>{{ states.label("FULL") }}</td>
+                    <td>
+                        The drop point is more or less full and should be
+                        visited as soon as possible by the bottle collection
+                        team to prevent overflowing.
+                    </td>
+                </tr>
+                <tr>
+                    <td><img src="{{ url_for("static", filename="img/markers/OVERFLOW.svg") }}" style="height: 2em;"></td>
+                    <td>{{ states.label("OVERFLOW") }}</td>
+                    <td>
+                        The drop point is overflowing, i.e. not only the crates
+                        at the drop point are completely filled but additional
+                        bottles are laying around. Cleaning up the mess can be
+                        troublesome, so the team should try to prevent drop
+                        points from reaching this state.
+                    </td>
+                </tr>
+
+            </table>
         </p>
         <hr/>
     </div>
