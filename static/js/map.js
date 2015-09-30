@@ -1,16 +1,28 @@
-var all_dps_geojson = []
+/*
+ * Initialize the map object.
+ *
+ */
+var map = L.map('map', {
+    attributionControl: false
+}).fitWorld();
 
-for (var i in drop_points) {
-    all_dps_geojson.push({
-        type: "Feature",
-        properties: drop_points[i],
-        geometry: {
-            type: "Point",
-            coordinates: [drop_points[i].lng, drop_points[i].lat]
-        }
-    });
-}
+/*
+ * Add the background layer to the map.
+ *
+ */
+L.tileLayer(imgdir + '/tiles/{z}/{x}/{y}.png', {
+    // Have a look in static/img/tiles.
+    // The directories present there correspond to zoom levels.
+    minZoom: 0,
+    maxZoom: 6,
+    tms: true,
+    noWrap: true
+}).addTo(map);
 
+/*
+ * Get an properly sized icon for a given marker type at the current zoom level.
+ *
+ */
 function get_icon(type) {
     var size = 12;
     var zoom = map.getZoom();
@@ -22,10 +34,15 @@ function get_icon(type) {
     });
 }
 
-var map = L.map('map', {
-    attributionControl: false
-}).fitWorld();
-
+/*
+ * Enable the drop point creation on the map.
+ *
+ * This function registers an event on the map that fires when the user clicks
+ * somewhere. A new, draggable marker is placed with a popup that allows
+ * creation of a drop point in the current location of the marker. If the user
+ * clicks on the map away from the marker, the marker is removed.
+ *
+ */
 function allow_dp_creation_from_map() {
     map.on("click", function (e) {
         var latlng = e.latlng;
@@ -34,7 +51,7 @@ function allow_dp_creation_from_map() {
                 icon: get_icon("CREATED"),
                 draggable: true
             });
-            $(map).one("zoomend", function (e) {
+            $(map).one("zoomend", function () {
                 if (map.hasLayer(marker)) {
                     map.removeLayer(marker);
                     get_marker(marker._latlng);
@@ -69,63 +86,68 @@ function allow_dp_creation_from_map() {
     });
 }
 
-L.tileLayer(imgdir + '/tiles/{z}/{x}/{y}.png', {
-    // Have a look in static/img/tiles.
-    // The directories present there correspond to zoom levels.
-    minZoom: 0,
-    maxZoom: 6,
-    tms: true,
-    noWrap: true
-}).addTo(map);
-
-function get_dp_layer() {
-    var layer = L.geoJson(all_dps_geojson, {
-        filter: function (feature) {
-            return feature.geometry.coordinates[0] != null &&
-                feature.geometry.coordinates[0] != null;
-        },
-        pointToLayer: function (feature, latlng) {
-            var marker = L.marker(latlng, {
-                icon: get_icon(feature.properties.last_state)
-            });
-            marker.on("click",
-                function (e) {
-                    var dp = e.target.feature;
-                    show_dp_modal(dp.properties.number, "report");
-                }
-            );
-            return marker;
-        }
+/*
+ * Draw the marker for a given drop point.
+ *
+ * The function first checks if the marker has already been added to the map
+ * and removes it if necessary. It then creates a GeoJSON object from the
+ * drop point's metadata and draws it into the map. An event is added that
+ * triggers re-drawing the marker once the zoom factor changes.
+ *
+ */
+function draw_marker(num) {
+    if (map.hasLayer(drop_points[num]["layer"])) {
+        map.removeLayer(drop_points[num]["layer"]);
+    }
+    drop_points[num]["layer"] = L.geoJson({
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [drop_points[num].lng, drop_points[num].lat]
+            },
+            properties: {
+                last_state: drop_points[num].last_state,
+                number: parseInt(num)
+            }
+        }, {
+            filter: function (feature) {
+                return feature.geometry.coordinates[0] != null &&
+                    feature.geometry.coordinates[1] != null;
+            },
+            pointToLayer: function (feature, latlng) {
+                var marker = L.marker(latlng, {
+                    icon: get_icon(feature.properties.last_state)
+                });
+                marker.on("click",
+                    function (e) {
+                        var dp = e.target.feature;
+                        show_dp_modal(dp.properties.number, "report");
+                    }
+                );
+                return marker;
+            }
     });
     $(map).one("zoomend", function () {
-        if (map.hasLayer(layer)) {
-            map.removeLayer(layer);
-            dp_layer = get_dp_layer();
-            map.addLayer(dp_layer);
-        }
+        draw_marker(num);
     });
-    return layer;
+    map.addLayer(drop_points[num]["layer"]);
 }
 
+/*
+ * Redraw the marker of a given drop point for a new state.
+ *
+ */
 function redraw_marker(num, state) {
-    for (var i in all_dps_geojson) {
-        if (all_dps_geojson[i].properties.number == num) {
-            all_dps_geojson[i].properties.last_state = state;
-            draw_map();
-            return;
-        }
-    }
+    drop_points[num].last_state = state;
+    draw_marker(num);
 }
 
-var dp_layer = null;
-function draw_map() {
-    if (map.hasLayer(dp_layer)) {
-        map.removeLayer(dp_layer)
-    }
-    dp_layer = get_dp_layer();
-    map.addLayer(dp_layer);
+/*
+ * Draw all drop points into the map.
+ *
+ */
+for (var i in drop_points) {
+    draw_marker(i);
 }
-
-draw_map();
 
 /* vim: set expandtab ts=4 sw=4: */
