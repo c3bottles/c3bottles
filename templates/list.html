@@ -70,10 +70,10 @@ table.dataTable thead .sorting_desc:after {
 {% include "dp_modals.html" %}
 {% endblock %}
 {% block scripts %}
+{% include "dp_js.html" %}
 <script src="{{ url_for('static', filename='js/dp_modals.js') }}"></script>
 <script src="{{ url_for('static', filename='vendor/datatables/js/datatables.min.js') }}"></script>
 <script type="text/javascript">
-    var drop_points = {{ all_dps_json|safe }};
     $('#dp_list').DataTable({
         "columns": [
             null,
