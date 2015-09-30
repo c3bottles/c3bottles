@@ -85,14 +85,34 @@ function get_dp_layer() {
         }
     });
     $(map).one("zoomend", function () {
-        map.removeLayer(layer);
-        dp_layer = get_dp_layer();
-        map.addLayer(dp_layer);
+        if (map.hasLayer(layer)) {
+            map.removeLayer(layer);
+            dp_layer = get_dp_layer();
+            map.addLayer(dp_layer);
+        }
     });
     return layer;
 }
 
-var dp_layer = get_dp_layer();
-map.addLayer(dp_layer);
+function redraw_marker(num, state) {
+    for (var i in all_dps_geojson) {
+        if (all_dps_geojson[i].properties.number == num) {
+            all_dps_geojson[i].properties.last_state = state;
+            draw_map();
+            return;
+        }
+    }
+}
+
+var dp_layer = null;
+function draw_map() {
+    if (map.hasLayer(dp_layer)) {
+        map.removeLayer(dp_layer)
+    }
+    dp_layer = get_dp_layer();
+    map.addLayer(dp_layer);
+}
+
+draw_map();
 
 /* vim: set expandtab ts=4 sw=4: */

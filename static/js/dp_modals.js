@@ -57,6 +57,9 @@ function report_dp(num, state) {
                 "Thank you!",
                 "Your report has been received successfully."
             );
+            if (typeof map != "undefined") {
+                redraw_marker(num, state);
+            }
         },
         error: function (response) {
             var errors = $.parseJSON(response.responseText);
@@ -126,6 +129,9 @@ function visit_dp(num, action) {
                  "Thank you!",
                  "Your visit has been logged successfully."
              );
+            if (typeof map != "undefined" && action == "EMPTIED") {
+                redraw_marker(num, "EMPTY");
+            }
         },
         error: function (response) {
             var errors = $.parseJSON(response.responseText);
