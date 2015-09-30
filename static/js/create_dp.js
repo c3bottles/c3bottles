@@ -1,10 +1,5 @@
 var new_dp_marker = null;
 
-var used_dp_numbers = [];
-for (var i in all_dps_geojson) {
-    used_dp_numbers.push(all_dps_geojson[i].properties.number);
-}
-
 function get_marker(latlng) {
     var marker = L.marker(latlng, {
         icon: get_icon("CREATED"),
@@ -50,7 +45,7 @@ function set_info_from_marker(latlng) {
 
 function get_next_free_dp_num(level) {
     for (var i = level*100 + 1; i < level*100 + 100; i++) {
-        if ($.inArray(i, used_dp_numbers) < 0) {
+        if (typeof drop_points[i] == "undefined") {
             return i;
         }
     }

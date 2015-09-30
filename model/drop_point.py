@@ -294,8 +294,8 @@ class DropPoint(db.Model):
             return None
 
     @staticmethod
-    def get_dps_as_geojson(time=None):
-        """Get drop points as a GeoJSON string.
+    def get_dps_json(time=None):
+        """Get drop points as a JSON string.
 
         If a time has been given as optional parameters, only drop points are
         returned that have changes since that time stamp.
@@ -314,31 +314,24 @@ class DropPoint(db.Model):
             )
             dps = list(dp_set)
 
-        arr = []
+        ret = {}
 
         for dp in dps:
-            arr.append({
-                "type": "Feature",
-                "properties": {
-                    "number": dp.number,
-                    "description": dp.get_current_location().description,
-                    "reports_total": dp.get_total_report_count(),
-                    "reports_new": dp.get_new_report_count(),
-                    "priority": dp.get_priority(),
-                    "last_state": dp.get_last_state(),
-                    "crates": dp.get_current_crate_count(),
-                    "removed": True if dp.removed else False
-                },
-                "geometry": {
-                    "type": "Point",
-                    "coordinates": [
-                        dp.get_current_location().lng,
-                        dp.get_current_location().lat
-                    ]
-                }
-            })
+            ret[dp.number] = {
+                "number": dp.number,
+                "description": dp.get_current_location().description,
+                "reports_total": dp.get_total_report_count(),
+                "reports_new": dp.get_new_report_count(),
+                "priority": dp.get_priority(),
+                "last_state": dp.get_last_state(),
+                "crates": dp.get_current_crate_count(),
+                "removed": True if dp.removed else False,
+                "lat": dp.get_current_location().lat,
+                "lng": dp.get_current_location().lng,
+                "level": dp.get_current_location().level
+            }
 
-        return json.dumps(arr, indent=4 if c3bottles.debug else None)
+        return json.dumps(ret, indent=4 if c3bottles.debug else None)
 
     def __repr__(self):
         return "Drop point %s (%s)" % (

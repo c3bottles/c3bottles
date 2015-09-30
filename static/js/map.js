@@ -1,3 +1,16 @@
+var all_dps_geojson = []
+
+for (var i in drop_points) {
+    all_dps_geojson.push({
+        type: "Feature",
+        properties: drop_points[i],
+        geometry: {
+            type: "Point",
+            coordinates: [drop_points[i].lng, drop_points[i].lat]
+        }
+    });
+}
+
 function get_icon(type) {
     var size = 12;
     var zoom = map.getZoom();

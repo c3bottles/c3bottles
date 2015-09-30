@@ -164,19 +164,19 @@ $("[data-dp_modal_pane]").on("click", function (e) {
  * When showing any pane of the drop point modal (details, reporting,
  * visiting), all elements displaying details of the drop point in question are
  * filled with the correct details before the modal is made visible to the user.
- * All the details are read from the drop point GeoJSON object.
+ * All the details are read from the drop point JSON object.
  *
  * In addition, the correct pane of the modal is selected and the modal is
  * shown.
  *
  */
 function show_dp_modal(num, pane) {
-    var details = get_dp_info(num);
+    var details = drop_points[num]
     for (var key in details) {
         $(".modal_dp_" + key).text(details[key]);
     }
     var link = $("#modal_dp_link");
-    link.attr("href", link.data("baseurl") + "/" + details.number);
+    link.attr("href", link.data("baseurl") + "/" + num);
     show_dp_modal_pane(pane);
     $("#dp_modal").modal("show");
 }
@@ -192,18 +192,6 @@ function show_dp_modal_pane(pane) {
     }
     $("#dp_modal_" + pane + "_tab").addClass("active");
     $("#dp_modal_" + pane + "_link").addClass("active");
-}
-
-/*
- * Get all the information for a specific drop point from the GeoJSON.
- *
- */
-function get_dp_info(num) {
-    for (var i in all_dps_geojson) {
-        if (all_dps_geojson[i].properties.number == num) {
-            return all_dps_geojson[i].properties;
-        }
-    }
 }
 
 function add_alert(type, title, message) {

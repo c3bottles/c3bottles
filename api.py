@@ -71,7 +71,7 @@ def dp_json():
     ts = request.values.get("ts")
     if ts:
         try:
-            dps = DropPoint.get_dps_as_geojson(
+            dps = DropPoint.get_dps_json(
                 datetime.fromtimestamp(float(ts))
             )
         except ValueError as e:
@@ -81,7 +81,7 @@ def dp_json():
                 status=400
             )
     else:
-        dps = DropPoint.get_dps_as_geojson()
+        dps = DropPoint.get_dps_json()
 
     return Response(
         dps,

@@ -73,7 +73,7 @@ table.dataTable thead .sorting_desc:after {
 <script src="{{ url_for('static', filename='js/dp_modals.js') }}"></script>
 <script src="{{ url_for('static', filename='vendor/datatables/js/datatables.min.js') }}"></script>
 <script type="text/javascript">
-    var all_dps_geojson = {{ all_dps_geojson|safe }};
+    var drop_points = {{ all_dps_json|safe }};
     $('#dp_list').DataTable({
         "columns": [
             null,

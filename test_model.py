@@ -206,7 +206,7 @@ class C3bottlesModelTestCase(unittest.TestCase):
         )
 
         self.assertEqual(
-            dp.get_last_state(), Report.states[0],
+            dp.get_last_state(), Report.states[1],
             "get_last_state() did not return the default state."
         )
 
@@ -263,33 +263,33 @@ class C3bottlesModelTestCase(unittest.TestCase):
         )
 
         self.assertIsInstance(
-            DropPoint.get_dps_as_geojson(), str,
-            "get_dps_as_geojson() did not return a string."
+            DropPoint.get_dps_json(), str,
+            "get_dps_json() did not return a string."
         )
 
         self.assertGreater(
-            len(DropPoint.get_dps_as_geojson()), 1,
-            "get_dps_as_geojson() did return a string too short."
+            len(DropPoint.get_dps_json()), 1,
+            "get_dps_json() did return a string too short."
         )
 
         self.assertEqual(
-            DropPoint.get_dps_as_geojson(datetime.today()), "[]",
-            "get_dps_as_geojson() for now did not return an empty JSON array."
+            DropPoint.get_dps_json(datetime.today()), "{}",
+            "get_dps_json() for now did not return an empty JSON object."
         )
 
         self.assertEqual(
-            DropPoint.get_dps_as_geojson(datetime.today()), "[]",
-            "get_dps_as_geojson() JSON array for now not empty."
+            DropPoint.get_dps_json(datetime.today()), "{}",
+            "get_dps_json() JSON object for now not empty."
         )
 
         self.assertEqual(
-            DropPoint.get_dps_as_geojson(time), "[]",
-            "get_dps_as_geojson() JSON array for creation time not empty."
+            DropPoint.get_dps_json(time), "{}",
+            "get_dps_json() JSON object for creation time not empty."
         )
 
         self.assertNotEqual(
-            DropPoint.get_dps_as_geojson(time - timedelta(seconds=1)), "[]",
-            "get_dps_as_geojson() JSON array for time < creation time empty."
+            DropPoint.get_dps_json(time - timedelta(seconds=1)), "{}",
+            "get_dps_json() JSON object for time < creation time empty."
         )
 
     def test_location_addition_to_drop_point(self):
@@ -616,7 +616,7 @@ class C3bottlesModelTestCase(unittest.TestCase):
         )
 
         second_time = datetime.today()
-        second_state = states[1]
+        second_state = states[-1]
         second_report = Report(dp, state=second_state, time=second_time)
 
         db.session.commit()
@@ -715,7 +715,7 @@ class C3bottlesModelTestCase(unittest.TestCase):
         )
 
         report_time = datetime.today()
-        report_state = Report.states[1]
+        report_state = Report.states[0]
         report = Report(dp, state=report_state, time=report_time)
 
         second_time = datetime.today()

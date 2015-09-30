@@ -17,7 +17,7 @@
 <script type="text/javascript">
     var create_dp_url = "{{ url_for("create_dp") }}";
     var imgdir = "{{ url_for('static', filename='img') }}";
-    var all_dps_geojson = {{ all_dps_geojson|safe }};
+    var drop_points = {{ all_dps_json|safe }};
 </script>
 <script src="{{ url_for('static', filename='js/dp_modals.js') }}"></script>
 <script src="{{ url_for('static', filename='vendor/leaflet/js/leaflet.min.js') }}"></script>
