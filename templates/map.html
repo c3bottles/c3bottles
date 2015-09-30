@@ -7,8 +7,11 @@
           rel="stylesheet">
 {% endblock %}
 {% block replacement %}
-    <div id="map" class="map"></div>
-    {% include "dp_modals.html" %}
+<div class="container over-map">
+    <div id="alerts"></div>
+</div>
+<div id="map" class="map"></div>
+{% include "dp_modals.html" %}
 {% endblock %}
 {% block scripts %}
 <script type="text/javascript">

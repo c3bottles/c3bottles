@@ -3,6 +3,12 @@
     height: calc(100% - 51px - 60px);
     position: absolute;
     top: 51px;
+    z-index: 1;
+}
+
+.over-map {
+    position: relative;
+    z-index: 2;
 }
 
 /* vim: set expandtab ts=4 sw=4: */
