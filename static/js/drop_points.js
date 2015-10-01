@@ -1,29 +1,44 @@
-var last_update = Date.now()/1000;
-
-function refresh_drop_points() {
-    return $.ajax({
+/*
+ * Get all drop points via the API that have changed since the time given.
+ */
+function update_drop_points(ts) {
+    $.ajax({
         type: "POST",
         url: apiurl,
         data: {
             action: "dp_json",
-            ts: last_update
+            ts: ts
         },
         success: function (response) {
             last_update = Date.now() / 1000;
             drop_points = $.extend(drop_points, response);
-            if (typeof map != "undefined") {
-                for (var num in response) {
-                    redraw_marker(num, response[num].last_state);
-                }
+            for (var num in response) {
+                refresh_drop_point(num);
             }
         },
         complete: function () {
-            setTimeout(function() { refresh_drop_points() }, 120000);
+            setTimeout(function() {
+                update_drop_points(Date.now()/1000);
+            }, 120000);
         },
         dataType: "json"
     });
 }
 
-setTimeout(function() { refresh_drop_points() }, 120000);
+/*
+ * Refresh the given drop point in the map, list etc.
+ *
+ * This function is intended to be called whenever the drop point has changed,
+  * either by an update from the API or locally.
+ */
+function refresh_drop_point(num) {
+    if (typeof map != "undefined") {
+        redraw_marker(num, drop_points[num].last_state);
+    }
+}
+
+setTimeout(function() {
+    update_drop_points(Date.now()/1000);
+}, 120000);
 
 /* vim: set expandtab ts=4 sw=4: */
