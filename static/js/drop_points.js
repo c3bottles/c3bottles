@@ -33,7 +33,10 @@ function update_drop_points(ts) {
  */
 function refresh_drop_point(num) {
     if (typeof map != "undefined") {
-        redraw_marker(num, drop_points[num].last_state);
+        draw_marker(num);
+    }
+    if (typeof dt != "undefined") {
+        draw_row(num);
     }
 }
 

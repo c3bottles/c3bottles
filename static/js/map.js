@@ -134,15 +134,6 @@ function draw_marker(num) {
 }
 
 /*
- * Redraw the marker of a given drop point for a new state.
- *
- */
-function redraw_marker(num, state) {
-    drop_points[num].last_state = state;
-    draw_marker(num);
-}
-
-/*
  * Draw all drop points into the map.
  *
  */
