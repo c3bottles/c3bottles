@@ -51,13 +51,14 @@ function report_dp(num, state) {
             number: num,
             state: state
         },
-        success: function () {
+        dataType: "json",
+        success: function (response) {
             add_alert(
                 "success",
                 "Thank you!",
                 "Your report has been received successfully."
             );
-            drop_points[num].last_state = state;
+            $.extend(true, drop_points, response);
             refresh_drop_point(num);
         },
         error: function (response) {
@@ -122,16 +123,15 @@ function visit_dp(num, action) {
             number: num,
             maintenance: action
         },
-        success: function () {
+        dataType: "json",
+        success: function (response) {
              add_alert(
                 "success",
                  "Thank you!",
                  "Your visit has been logged successfully."
              );
-            if (action == "EMPTIED") {
-                drop_points[num].last_state = "EMPTY";
-                refresh_drop_point(num);
-            }
+            $.extend(true, drop_points, response);
+            refresh_drop_point(num);
         },
         error: function (response) {
             var errors = $.parseJSON(response.responseText);

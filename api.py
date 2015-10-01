@@ -28,9 +28,10 @@ def process():
 
 
 def report():
+    number = request.values.get("number")
     try:
         Report(
-            dp=DropPoint.get(request.values.get("number")),
+            dp=DropPoint.get(number),
             state=request.values.get("state")
         )
     except ValueError as e:
@@ -42,15 +43,16 @@ def report():
     else:
         db.session.commit()
         return Response(
-            json.dumps("Success.", indent=4 if c3bottles.debug else None),
+            DropPoint.get_dp_json(number),
             mimetype="application/json"
         )
 
 
 def visit():
+    number = request.values.get("number")
     try:
         Visit(
-            dp=DropPoint.get(request.values.get("number")),
+            dp=DropPoint.get(number),
             action=request.values.get("maintenance")
         )
     except ValueError as e:
@@ -62,7 +64,7 @@ def visit():
     else:
         db.session.commit()
         return Response(
-            json.dumps("Success.", indent=4 if c3bottles.debug else None),
+            DropPoint.get_dp_json(number),
             mimetype="application/json"
         )
 

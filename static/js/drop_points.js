@@ -2,6 +2,7 @@
  * Get all drop points via the API that have changed since the time given.
  */
 function update_drop_points(ts) {
+    var date = Date.now()/1000;
     $.ajax({
         type: "POST",
         url: apiurl,
@@ -9,19 +10,18 @@ function update_drop_points(ts) {
             action: "dp_json",
             ts: ts
         },
+        dataType: "json",
         success: function (response) {
-            last_update = Date.now() / 1000;
-            drop_points = $.extend(drop_points, response);
+            $.extend(true, drop_points, response);
             for (var num in response) {
                 refresh_drop_point(num);
             }
         },
         complete: function () {
             setTimeout(function() {
-                update_drop_points(Date.now()/1000);
+                update_drop_points(date);
             }, 120000);
-        },
-        dataType: "json"
+        }
     });
 }
 

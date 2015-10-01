@@ -293,6 +293,33 @@ class DropPoint(db.Model):
         except TypeError:
             return None
 
+    @classmethod
+    def get_dp_info(cls, number):
+        dp = cls.get(number)
+        if dp is not None:
+            return {
+                "number": dp.number,
+                "description": dp.get_current_location().description,
+                "reports_total": dp.get_total_report_count(),
+                "reports_new": dp.get_new_report_count(),
+                "priority": dp.get_priority(),
+                "last_state": dp.get_last_state(),
+                "crates": dp.get_current_crate_count(),
+                "removed": True if dp.removed else False,
+                "lat": dp.get_current_location().lat,
+                "lng": dp.get_current_location().lng,
+                "level": dp.get_current_location().level
+            }
+        else:
+            return None
+
+    @classmethod
+    def get_dp_json(cls, number):
+        return json.dumps(
+            {number: cls.get_dp_info(number)},
+            indent=4 if c3bottles.debug else None
+        )
+
     @staticmethod
     def get_dps_json(time=None):
         """Get drop points as a JSON string.
@@ -317,19 +344,7 @@ class DropPoint(db.Model):
         ret = {}
 
         for dp in dps:
-            ret[dp.number] = {
-                "number": dp.number,
-                "description": dp.get_current_location().description,
-                "reports_total": dp.get_total_report_count(),
-                "reports_new": dp.get_new_report_count(),
-                "priority": dp.get_priority(),
-                "last_state": dp.get_last_state(),
-                "crates": dp.get_current_crate_count(),
-                "removed": True if dp.removed else False,
-                "lat": dp.get_current_location().lat,
-                "lng": dp.get_current_location().lng,
-                "level": dp.get_current_location().level
-            }
+            ret[dp.number] = DropPoint.get_dp_info(dp.number)
 
         return json.dumps(ret, indent=4 if c3bottles.debug else None)
 
