@@ -150,17 +150,6 @@ function visit_dp(num, action) {
 }
 
 /*
- * Add an event opening the drop point modal to all the links
- * in the drop point table.
- *
- */
-$("[data-dp_modal_pane]").on("click", function (e) {
-    var num = $(e.currentTarget).data("dp_number");
-    var pane = $(e.currentTarget).data("dp_modal_pane");
-    show_dp_modal(num, pane);
-});
-
-/*
  * When showing any pane of the drop point modal (details, reporting,
  * visiting), all elements displaying details of the drop point in question are
  * filled with the correct details before the modal is made visible to the user.

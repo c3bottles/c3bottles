@@ -4,19 +4,8 @@
 {% block header %}
     <link href="{{ url_for('static', filename='vendor/datatables/css/datatables.min.css') }}"
           rel="stylesheet">
-    <style type="text/css">
-    table.dataTable thead > tr > th {
-    padding-left: 30px !important;
-    padding-right: initial !important;
-}
-
-table.dataTable thead .sorting:after,
-table.dataTable thead .sorting_asc:after,
-table.dataTable thead .sorting_desc:after {
-    left: 8px !important;
-    right: auto !important;
-}
-    </style>
+    <link href="{{ url_for('static', filename='css/list.css') }}"
+          rel="stylesheet">
 {% endblock %}
 {% block content %}
     <div class="page-header">
@@ -35,58 +24,16 @@ table.dataTable thead .sorting_desc:after {
             <th class="hidden-xs">Reports</th>
         </tr>
         </thead>
-        <tbody>
-        {% for dp in all_dps %}
-            <tr>
-                <td>{{ dp.number }}</td>
-                <td>{{ dp.location.description if dp.location.description else "somewhere on level " + dp.location.level|string }}</td>
-                <td data-order="{{ states.num(dp.last_state) }}">
-                    {{ states.label(dp.last_state) }}
-                </td>
-                <td>
-                    <span class="clickable glyphicon glyphicon-search"
-                          title="View drop point details"
-                          data-dp_modal_pane="details"
-                          data-dp_number="{{ dp.number }}"></span>
-                </td>
-                <td>
-                    <span class="clickable glyphicon glyphicon-bullhorn"
-                          title="Report this drop point"
-                          data-dp_modal_pane="report"
-                          data-dp_number="{{ dp.number }}"></span>
-                </td>
-                <td>
-                    <span class="clickable glyphicon glyphicon-wrench"
-                          title="Log a drop point visit"
-                          data-dp_modal_pane="visit"
-                          data-dp_number="{{ dp.number }}"></span>
-                </td>
-                <td class="hidden-xs">{{ "%0.2f"|format(dp.priority) }}</td>
-                <td class="hidden-xs">{{ dp.reports_new }}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
     </table>
 {% include "dp_modals.html" %}
 {% endblock %}
 {% block scripts %}
 {% include "dp_js.html" %}
-<script src="{{ url_for('static', filename='js/dp_modals.js') }}"></script>
 <script src="{{ url_for('static', filename='vendor/datatables/js/datatables.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/dp_modals.js') }}"></script>
 <script type="text/javascript">
-    $('#dp_list').DataTable({
-        "columns": [
-            null,
-            null,
-            null,
-            { "orderable": false },
-            { "orderable": false },
-            { "orderable": false },
-            null,
-            null
-        ],
-        "order": [[ 6, "desc" ]]
-    });
+    {{ states.label_js() }}
 </script>
+<script src="{{ url_for('static', filename='js/list.js') }}"></script>
 {% endblock %}
 {# vim: set expandtab ts=4 sw=4: #}

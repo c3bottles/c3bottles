@@ -17,4 +17,13 @@
 <span class="label label-default">New</span>{% else %}
 <span class="label label-warning">Unknown</span>{% endif %}{% endmacro %}
 
+{%  macro label_js() %}
+var labels = {
+    {% for state in ["OVERFLOW", "FULL", "REASONABLY_FULL", "SOME_BOTTLES", "EMPTY", "NEW", "DEFAULT", "UNKNOWN"] %}
+    {{ state }}: $('{{ label(state) }}'),
+    {% endfor %}
+
+}
+{% endmacro %}
+
 {# vim: set expandtab ts=4 sw=4: #}
