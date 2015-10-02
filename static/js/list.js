@@ -81,13 +81,13 @@ var dt = $('#dp_list').DataTable({
             }
         },
         {
-            data: "priority", sort: "desc",
+            data: "priority", sort: "desc", className: "hidden-xs",
             render: function(data) {
                 return data.toFixed(2);
             }
         },
         {
-            data: "reports_new"
+            data: "reports_new", className: "hidden-xs"
         }
     ]
 });
