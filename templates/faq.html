@@ -180,10 +180,11 @@
             see. The state column in the drop point list as well as the markers
             in the map indicate the current (last reported) state of the drop
             point in question:
+        </p>
             <table class="table">
                 <tr>
-                    <td><img src="{{ url_for("static", filename="img/markers/UNKNOWN.svg") }}" style="height: 2em;"></td>
-                    <td>{{ states.label("UNKNOWN") }}</td>
+                    <td><img src="{{ url_for("static", filename="img/markers/DEFAULT.svg") }}" style="height: 2em;"></td>
+                    <td>{{ states.label("DEFAULT") }}</td>
                     <td>
                        The drop point has been reported, however, the reporter
                        was not sure which state to choose and reported the
@@ -244,9 +245,17 @@
                         points from reaching this state.
                     </td>
                 </tr>
-
+                <tr>
+                    <td><img src="{{ url_for("static", filename="img/markers/NO_CRATES.svg") }}" style="height: 2em;"></td>
+                    <td>{{ states.label("NO_CRATES") }}</td>
+                    <td>
+                        The drop point is missing crates to put bottles in. This
+                        is a grave situation since visitors will probably just
+                        drop their empty bottles on the ground. Empty crates
+                        should be supplied immediately.
+                    </td>
+                </tr>
             </table>
-        </p>
         <hr/>
     </div>
     <p class="lead collapse-toggle" data-toggle="collapse"
