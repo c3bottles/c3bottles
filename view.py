@@ -85,6 +85,7 @@ def report(number=None):
             db.session.commit()
             return render_template(
                 "success.html",
+                heading="Thank you!",
                 text="Your report has been received successfully."
             )
     else:
