@@ -89,7 +89,12 @@ var dt = $('#dp_list').DataTable({
 });
 
 function draw_row(num) {
-    dt.row(drop_points[num].row).data(drop_points[num]).draw()
+    if (drop_points[num] && drop_points[num]["row"]) {
+        dt.row(drop_points[num].row).data(drop_points[num]).draw(false);
+    } else if (drop_points[num]) {
+        dt.row.add(drop_points[num]).draw(false);
+    }
+
 }
 
 /* vim: set expandtab ts=4 sw=4: */
