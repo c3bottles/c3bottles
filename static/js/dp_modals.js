@@ -9,27 +9,12 @@ $("#dp_modal").on("hidden.bs.modal", function () {
 });
 
 /*
- * This dict contains all the states for drop points which can be reported. The
- * states are mapped to classes of buttons triggering the respective report.
- *
- */
-var report_states = {
-    ".report-default": "DEFAULT",
-    ".report-nocrates": "NO_CRATES",
-    ".report-empty": "EMPTY",
-    ".report-somebottles": "SOME_BOTTLES",
-    ".report-reasonablyfull": "REASONABLY_FULL",
-    ".report-full": "FULL",
-    ".report-overflow": "OVERFLOW"
-};
-
-/*
  * Add an event handler to all the report buttons.
  *
  */
-$.each(report_states, function (cls, state) {
-    $(cls).on("click", function () {
-        report_dp($(".modal_dp_number").first().text(), state);
+$(".report-button").each(function () {
+    $(this).on("click", function (e) {
+        report_dp($(".modal_dp_number").first().text(), $(e.target).val());
     });
 });
 
@@ -78,26 +63,11 @@ function report_dp(num, state) {
 }
 
 /*
- * This dict contains all actions which can be performed by the bottle
- * collection team when visiting a drop point. The actions are mapped to the
- * classes of buttons triggering the respective action.
- *
- */
-var visit_actions = {
-    ".visit-emptied": "EMPTIED",
-    ".visit-addedcrates": "ADDED_CRATE",
-    ".visit-removedcrates": "REMOVED_CRATE",
-    ".visit-relocated": "RELOCATED",
-    ".visit-removed": "REMOVED",
-    ".visit-noaction": "NO_ACTION"
-};
-
-/*
  * Add an event handler to all the visit buttons.
  */
-$.each(visit_actions, function (cls, action) {
-    $(cls).on("click", function () {
-        visit_dp($(".modal_dp_number").first().text(), action);
+$(".visit-button").each(function () {
+    $(this).on("click", function (e) {
+        visit_dp($(".modal_dp_number").first().text(), $(e.target).val());
     });
 });
 
