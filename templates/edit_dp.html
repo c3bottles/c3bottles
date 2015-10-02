@@ -1,0 +1,122 @@
+{% extends "layout.html" %}
+{% set title = "Edit Drop Point " + number %}
+{% block header %}
+    <link href="{{ url_for('static', filename='vendor/leaflet/css/leaflet.css') }}"
+          rel="stylesheet">
+{% endblock %}
+{% block alerts %}
+{% if error_list %}
+{% for error in error_list %}
+    <div class="alert alert-danger">
+        <strong>An error occured!</strong>
+        {{ error }}
+    </div>
+{% endfor %}
+{% endif %}
+{% endblock %}
+{% block content %}
+    <div class="page-header">
+        <h1>{{ title }}</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <h4>Change the position by dragging the black marker on the map:</h4>
+            <hr>
+            <div id="map" class="map" style="height: 400px; width: 100%;"></div>
+        </div>
+    <div class="col-md-6">
+            <h4>Change the details of the drop point:</h4>
+            <hr>
+            <form class="form-horizontal" action="{{ url_for("edit_dp", number=number) }}" method="POST">
+                <input type="hidden" class="form-control" name="lat" id="lat" value="{{ lat }}">
+                <input type="hidden" class="form-control" name="lng" id="lng" value="{{ lng }}">
+                <div class="form-group{{ " has-error" if "level" in error_fields }}">
+                    <label for="level" class="col-sm-4 control-label">Building level</label>
+                    <div class="col-sm-8">
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="level" value="0"{{ {"checked": "checked"}|xmlattr if level == "0" }}>
+                                Ground floor (Lobby, Hackcenter)
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="level" value="1"{{ {"checked": "checked"}|xmlattr if level == "1" }}>
+                                1st floor (Heaven, Hackcenter)
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="level" value="2"{{ {"checked": "checked"}|xmlattr if level == "2" }}>
+                                2nd floor (HF1/2/G)
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="level" value="3"{{ {"checked": "checked"}|xmlattr if level == "3" }}>
+                                3rd floor (ZF1/2)
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="level" value="4"{{ {"checked": "checked"}|xmlattr if level == "4" }}>
+                                4th floor (RF1/2)
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group{{ " has-error" if "description" in error_fields }}">
+                    <label for="room" class="col-sm-4 control-label">Location</label>
+                    <div class="col-sm-8{{ " has-error" if "description" in error_fields }}">
+                        <input type="text" class="form-control" name="description" id="description" value="{{ description }}">
+                    </div>
+                </div>
+                <div class="form-group{{ " has-error" if "number" in error_fields }}">
+                    <label for="level" class="col-sm-4 control-label">Drop point number</label>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" value="{{ number }}" readonly>
+                    </div>
+                </div>
+                <div class="form-group{{ " has-error" if "crates" in error_fields }}">
+                    <label for="level" class="col-sm-4 control-label">Crate count</label>
+                    <div class="col-sm-4">
+                        <div class="input-group{{ " has-error" if "crates" in error_fields }}">
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-primary btn-number" data-type="minus" data-field="crates">
+                                    <span class="glyphicon glyphicon-minus"></span>
+                                </button>
+                            </span>
+                            <input type="text" class="form-control input-number" name="crates" value="{{ crates }}" min="0" max="10">
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-primary btn-number" data-type="plus" data-field="crates">
+                                    <span class="glyphicon glyphicon-plus"></span>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="spacer"></div>
+                <div class="text-right">
+                    <button type="submit" class="btn btn-primary" name="action">Submit changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+{% block scripts %}
+{% include "dp_js.html" %}
+<script type="text/javascript">
+    var imgdir = "{{ url_for('static', filename='img') }}";
+</script>
+<script src="{{ url_for('static', filename='vendor/leaflet/js/leaflet.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/map.js') }}"></script>
+<script src="{{ url_for('static', filename='js/areas.js') }}"></script>
+<script src="{{ url_for('static', filename='js/create_dp.js') }}"></script>
+<script type="text/javascript">
+    var lat = {{ lat }};
+    var lng = {{ lng }};
+    map.setView([{{ lat }}, {{ lng }}], 5);
+    draw_new_dp({{ lat }}, {{ lng }});
+</script>
+{% endblock %}
+{# vim: set expandtab ts=4 sw=4: #}

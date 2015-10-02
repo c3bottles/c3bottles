@@ -1,11 +1,10 @@
 {% extends "layout.html" %}
-{% set title = "Drop Point Details" %}
+{% set title = "Details of Drop Point " + dp.number|string %}
 {% import "macros/states.html" as states %}
 {% import "macros/actions.html" as actions %}
 {% block content %}
-    {% if dp != None %}
         <div class="page-header">
-            <h1>Details of Drop Point {{ dp.number }}</h1>
+            <h1>{{ title }}</h1>
         </div>
         <div class="row">
             <div class="col-sm-8">
@@ -41,7 +40,7 @@
                 {% elif event.capacity %}
                     Number of crates set to {{ event.capacity.crates }}
                 {% elif event.location %}
-                    Location set to {{ event.location.description if event.location.description else "somewhere" }}
+                    Location changed to {{ event.location.description if event.location.description else "somewhere" }}
                     on level {{ event.location.level|string }}
                 {% elif event.report %}
                     Report submitted and drop point seen as: {{ states.label(event.report.state) }}
@@ -53,11 +52,5 @@
         {% endfor %}
         </tbody>
         </table>
-    {% else %}
-        <div class="page-header">
-            <h1>{{ title }}</h1>
-        </div>
-        <p>Drop point not found.</p>
-    {% endif %}
 {% endblock %}
 {# vim: set expandtab ts=4 sw=4: #}

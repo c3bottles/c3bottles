@@ -8,18 +8,10 @@
         Emptied the drop point
     </button>
     <hr/>
-    <button class="btn btn-block btn-primary visit-button">
-        Added some crate(s)
-    </button>
-    <button class="btn btn-block btn-info visit-button">
-        Removed some crate(s)
-    </button>
-    <button class="btn btn-block btn-warning visit-button">
-        Relocated the drop point
-    </button>
-    <button class="btn btn-block btn-danger visit-button">
-        Removed the drop point
-    </button>
+    <a class="btn btn-block btn-warning modal_dp_link"
+       data-baseurl="{{ url_for("edit_dp") }}">
+        Modified the drop point
+    </a>
     <hr/>
     <button class="btn btn-block btn-default visit-button" value="NO_ACTION">
         No action necessary

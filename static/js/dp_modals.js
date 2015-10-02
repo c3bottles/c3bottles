@@ -134,8 +134,10 @@ function show_dp_modal(num, pane) {
     for (var key in details) {
         $(".modal_dp_" + key).text(details[key]);
     }
-    var link = $("#modal_dp_link");
-    link.attr("href", link.data("baseurl") + "/" + num);
+    var links = $(".modal_dp_link");
+    for (var i = 0; i < links.length; i++) {
+        $(links[i]).attr("href", $(links[i]).data("baseurl") + "/" + num);
+    }
     show_dp_modal_pane(pane);
     $("#dp_modal").modal("show");
 }
