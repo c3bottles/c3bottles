@@ -32,8 +32,12 @@ var dt = $('#dp_list').DataTable({
         },
         {
             data: null,
-            render: function (data) {
-                return labels[data.last_state][0].outerHTML;
+            render: function (data, type) {
+                if (type == "sort") {
+                    return labels[data.last_state][0];
+                } else {
+                    return labels[data.last_state][1][0].outerHTML;
+                }
             }
         },
         {
