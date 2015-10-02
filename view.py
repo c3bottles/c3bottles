@@ -115,11 +115,12 @@ def create_dp(
 
     if request.method == "POST":
 
-        description_new = request.form.get("description")
-        lat_new = request.form.get("lat")
-        lng_new = request.form.get("lng")
-        level_new = request.form.get("level")
-        crates_new = request.form.get("crates")
+        number = request.form.get("number")
+        description = request.form.get("description")
+        lat = request.form.get("lat")
+        lng = request.form.get("lng")
+        level = request.form.get("level")
+        crates = request.form.get("crates")
 
         try:
             DropPoint(
