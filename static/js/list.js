@@ -81,9 +81,12 @@ var dt = $('#dp_list').DataTable({
             }
         },
         {
-            data: "priority", sort: "desc", className: "hidden-xs",
-            render: function(data) {
-                return data.toFixed(2);
+            data: null, sort: "desc", className: "hidden-xs",
+            render: function(data, type) {
+                var prio = (Date.now() / 1000 - data["base_time"]) *
+                    data["priority_factor"];
+                drop_points[data.number].priority = prio.toFixed(2);
+                return prio.toFixed(2);
             }
         },
         {
@@ -98,7 +101,13 @@ function draw_row(num) {
     } else if (drop_points[num]) {
         dt.row.add(drop_points[num]).draw(false);
     }
-
 }
+
+function redraw_table() {
+    dt.rows().invalidate().draw(false);
+    setTimeout(function() { redraw_table(); }, 10000);
+}
+
+setTimeout(function() { redraw_table(); }, 10000);
 
 /* vim: set expandtab ts=4 sw=4: */

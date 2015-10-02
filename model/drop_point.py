@@ -241,18 +241,7 @@ class DropPoint(db.Model):
 
         return 60 * c3bottles.config.get("BASE_VISIT_INTERVAL", 120)
 
-    def get_priority(self):
-        """Get the priority to visit this drop point.
-
-        The priority to visit a drop point mainly depends on the
-        number and weight of reports since the last visit and
-        the capacity of the drop point (larger: more important).
-
-        In addition, priority increases with time since the last
-        visit even if the states of reports indicate a low priority.
-        This ensures that every drop point is visited from time to
-        time.
-        """
+    def get_priority_factor(self):
 
         # The priority of a removed drop point obviously is always 0.
         if self.removed:
@@ -276,13 +265,31 @@ class DropPoint(db.Model):
             priority *= (1 + c3bottles.config.get("SIZE_IMPACT_FACTOR", 0.1) *
                          (self.get_current_crate_count() - 1))
 
+        priority /= self.get_visit_interval()
+
+        return priority
+
+    def get_priority_base_time(self):
         if self.get_last_visit():
-            priority *= (datetime.today() -
-                         self.get_last_visit().time).total_seconds() \
-                        / self.get_visit_interval()
+            return self.get_last_visit().time
         else:
-            priority *= (datetime.today() - self.time).total_seconds() \
-                         / self.get_visit_interval()
+            return self.time
+
+    def get_priority(self):
+        """Get the priority to visit this drop point.
+
+        The priority to visit a drop point mainly depends on the
+        number and weight of reports since the last visit and
+        the capacity of the drop point (larger: more important).
+
+        In addition, priority increases with time since the last
+        visit even if the states of reports indicate a low priority.
+        This ensures that every drop point is visited from time to
+        time.
+        """
+
+        priority = self.get_priority_factor() * \
+            (datetime.today() - self.get_priority_base_time()).total_seconds()
 
         return round(priority, 2)
 
@@ -303,6 +310,8 @@ class DropPoint(db.Model):
                 "reports_total": dp.get_total_report_count(),
                 "reports_new": dp.get_new_report_count(),
                 "priority": dp.get_priority(),
+                "priority_factor": dp.get_priority_factor(),
+                "base_time": dp.get_priority_base_time().strftime("%s"),
                 "last_state": dp.get_last_state(),
                 "crates": dp.get_current_crate_count(),
                 "removed": True if dp.removed else False,
