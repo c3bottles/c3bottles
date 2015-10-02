@@ -75,7 +75,16 @@ def report(number=None):
         dp = DropPoint.get(number)
     else:
         dp = DropPoint.get(request.values.get("number"))
+
+    if not dp:
+        return render_template(
+            "error.html",
+            heading="Error!",
+            text="Drop point not found.",
+        )
+
     state = request.values.get("state")
+
     if state:
         from model.report import Report
         try:
