@@ -1,13 +1,17 @@
 # c3bottles example configuration file
 #
 # Copy this file to config.py and edit it as needed. In any case, you have
-# to set a proper SQLALCHEMY_DATABASE_URI. The other settings are optional.
+# to set a proper SQLALCHEMY_DATABASE_URI and a SECRET_KEY. The other settings
+# are optional.
 
 # Example SQLAlchemy database URI for PostgreSQL.
 # SQLALCHEMY_DATABASE_URI = "postgresql://username:password@host/database"
 
 # Example SQLAlchemy database URI for SQLite (relative path).
 # SQLALCHEMY_DATABASE_URI = "sqlite:///c3bottles.db"
+
+# The secret key used for signing the session cookie.
+# SECRET_KEY = "changeme"
 
 # Base interval at which drop points should be visited by the bottle collection
 # team. (default: 2 hours)

@@ -18,40 +18,48 @@ In order to install c3bottles, you will need:
 
 # Installation
 
-0.  Make sure all the dependencies are installed.
+1.  Make sure all the dependencies are installed.
     On Debian using Apache, you can do:
 
         $ apt-get install python-flask python-flask-sqlalchemy \
                           python-flask-login libapache2-mod-wsgi imagemagick \
                           gdal-bin python-gdal
 
-1.  Copy the files into some directory readable by the web server.
+2.  Copy the files into some directory readable by the web server.
     You can clone the repository from Github:
 
         $ git clone https://github.com/der-michik/c3bottles.git
 
-2.  Create a configuriation file `config.py`. You will find a template for the
+3.  Create a configuriation file `config.py`. You will find a template for the
     configuration in the file `config.default.py`. c3bottles will not work if
-    no config.py with the required settings is present.
+    no config.py with the required settings is present. You have to configure
+    at least a database URI and a secret key.
 
-3.  Configure your database accordingly. The user for c3bottles needs full
+4.  Configure your database accordingly. The user for c3bottles needs full
     access to the database. If you use SQLite, the web server needs write
     access to the directory containing the `*.db` file and the file itself.
 
-4.  Initialize the database using the Python interpreter:
+5.  Initialize the database using the Python interpreter:
 
         $ cd /path/to/c3bottles
         $ python
         >>> from c3bottles import db
         >>> db.create_all()
 
-5.  Configure your webserver accordingly to run the WSGI application. Apache
+6.  Configure the users needed and their passwords in `model/user.py` as
+    needed. To generate password hashes, you can do the following:
+
+        $ python
+        >>> from werkzeug.security import generate_password_hash
+        >>> generate_password_hash("foo")
+
+7.  Configure your webserver accordingly to run the WSGI application. Apache
     needs something like this to run c3bottles as the document root of a host:
 
         WSGIScriptAlias / /path/to/c3bottles/c3bottles.wsgi
         Alias /static /path/to/c3bottles/static
 
-6.  To be able to use the drop point map, you first have to generate the map
+8.  To be able to use the drop point map, you first have to generate the map
     tiles. The standard source file for the map is `static/img/map.png`. For
     tile generation, the image has to be a square whose height/width is a
     power of 2. It is useful to resize and enlarge the image to the next power
