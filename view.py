@@ -117,12 +117,14 @@ def report(number=None):
 
 
 @c3bottles.route("/visit/<int:dp_number>")
+@login_required
 def dp_visit(dp_number):
     return "TODO: Visit drop point " + str(dp_number)
 
 
 @c3bottles.route("/create", methods=("GET", "POST"))
 @c3bottles.route("/create/<string:lat>/<string:lng>")
+@login_required
 def create_dp(
         number=None, description=None, lat=None,
         lng=None, level=None, crates=None, errors=None,
@@ -196,6 +198,7 @@ def create_dp(
 
 @c3bottles.route("/edit/<string:number>", methods=("GET", "POST"))
 @c3bottles.route("/edit")
+@login_required
 def edit_dp(
         number=None, description=None, lat=None,
         lng=None, level=None, crates=None, errors=None,
@@ -211,7 +214,7 @@ def edit_dp(
         return render_template(
             "error.html",
             heading="Error!",
-            text="Drop point not found.",
+            text="Drop point not found."
         )
 
     description_old = str(dp.get_current_location().description)
@@ -304,8 +307,8 @@ def login():
     else:
         return render_template(
             "error.html",
-            heading="Error!",
-            text="Wrong user name or password.",
+            heading="Login failed!",
+            text="Wrong user name or password."
         )
 
 
@@ -313,6 +316,24 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for("index"))
+
+
+@c3bottles.errorhandler(401)
+def unauthorized(e):
+    return render_template(
+        "error.html",
+        heading="Unauthorized!",
+        text="You do not have permission to view this page."
+    ), 401
+
+
+@c3bottles.errorhandler(404)
+def not_found(e):
+    return render_template(
+        "error.html",
+        heading="Not found",
+        text="The requested URL was not found on the server."
+    ), 404
 
 
 @c3bottles.route("/api", methods=("POST", "GET"))
