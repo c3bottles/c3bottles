@@ -22,8 +22,10 @@
 <script src="{{ url_for('static', filename='js/dp_modals.js') }}"></script>
 <script src="{{ url_for('static', filename='vendor/leaflet/js/leaflet.min.js') }}"></script>
 <script src="{{ url_for('static', filename='js/map.js') }}"></script>
+{% if g.user.is_authenticated() and g.user.can_edit(): %}
 <script type="text/javascript">
     allow_dp_creation_from_map();
 </script>
+{% endif %}
 {% endblock %}
 {# vim: set expandtab ts=4 sw=4: #}
