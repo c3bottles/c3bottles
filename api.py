@@ -1,7 +1,7 @@
 import json
 from datetime import datetime
 
-from flask import request, Response
+from flask import request, Response, g
 
 from c3bottles import c3bottles, db
 from model.drop_point import DropPoint
@@ -49,6 +49,15 @@ def report():
 
 
 def visit():
+    if not (g.user.is_authenticated() and g.user.can_visit()):
+        return Response(
+            json.dumps(
+                [{"msg": "Not logged in or unsufficient privileges."}],
+                indent=4 if c3bottles.debug else None
+            ),
+            mimetype="application/json",
+            status=401
+        )
     number = request.values.get("number")
     try:
         Visit(
