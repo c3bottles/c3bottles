@@ -1,6 +1,7 @@
 from flask import render_template, request, redirect, url_for, g
 from flask.ext.login import current_user, login_required, login_user, logout_user
 from werkzeug.security import check_password_hash
+from werkzeug.routing import BuildError
 
 from c3bottles import c3bottles, db
 from model.drop_point import DropPoint
@@ -295,7 +296,10 @@ def edit_dp(
 
 @c3bottles.route("/login", methods=("POST", "GET"))
 def login():
-    back = redirect(url_for(request.form.get("return")))
+    try:
+        back = redirect(url_for(request.form.get("return")))
+    except BuildError:
+        back = redirect(url_for("index"))
     username = request.form.get("username")
     password = request.form.get("password")
     if g.user and g.user.is_authenticated():
