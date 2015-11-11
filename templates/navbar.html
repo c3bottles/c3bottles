@@ -24,6 +24,23 @@
                     </li>
                 {% endfor %}
             </ul>
+            {% if g.user.is_authenticated() %}
+            <form class="navbar-form navbar-right" action="{{ url_for("logout") }}" method="GET">
+                <button type="submit" class="btn btn-danger">Logout</button>
+            </form>
+            <p class="navbar-text navbar-right">You are logged in as {{ g.user.name }}</p>
+            {% else %}
+            <form class="navbar-form navbar-right" action="{{ url_for("login") }}" method="POST">
+                <input type="hidden" name="return" value="{{ request.endpoint }}">
+                <div class="form-group">
+                    <input type="text" name="username" placeholder="User name" class="form-control">
+                </div>
+                <div class="form-group">
+                    <input type="password" name="password" placeholder="Password" class="form-control">
+                </div>
+                <button type="submit" class="btn btn-success">Login</button>
+            </form>
+            {% endif %}
         </div>
     </div>
 </nav>

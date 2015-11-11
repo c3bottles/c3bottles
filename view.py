@@ -1,9 +1,16 @@
-from flask import render_template, request
+from flask import render_template, request, redirect, url_for, g
+from flask.ext.login import current_user, login_required, login_user, logout_user
+from werkzeug.security import check_password_hash
 
 from c3bottles import c3bottles, db
 from model.drop_point import DropPoint
 from model.location import Location
 from model.capacity import Capacity
+from model.user import User, load_user
+
+@c3bottles.before_request
+def before_request():
+    g.user = current_user
 
 
 @c3bottles.route("/")
@@ -281,6 +288,31 @@ def edit_dp(
         error_list=error_list,
         error_fields=error_fields
     )
+
+
+@c3bottles.route("/login", methods=("POST", "GET"))
+def login():
+    back = redirect(url_for(request.form.get("return")))
+    username = request.form.get("username")
+    password = request.form.get("password")
+    if g.user and g.user.is_authenticated():
+        return back
+    user = User.get(username)
+    if user and user.validate_password(password):
+        login_user(user, remember=True)
+        return back
+    else:
+        return render_template(
+            "error.html",
+            heading="Error!",
+            text="Wrong user name or password.",
+        )
+
+
+@c3bottles.route("/logout")
+def logout():
+    logout_user()
+    return redirect(url_for("index"))
 
 
 @c3bottles.route("/api", methods=("POST", "GET"))

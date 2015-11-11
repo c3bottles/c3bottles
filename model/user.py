@@ -6,6 +6,7 @@ class User():
 
     def __init__(self, user_id):
         if user_id in users:
+            self._id = user_id
             self._name = users[user_id]["name"]
             self._can_visit = users[user_id]["can_visit"]
             self._can_edit = users[user_id]["can_edit"]
@@ -13,32 +14,30 @@ class User():
         else:
             raise ValueError("User not found.")
 
-    @property
+    def get_id(self):
+        return self._id
+
     def is_authenticated(self):
         return True
 
-    @property
     def is_active(self):
         return True
 
-    @property
     def is_anonymous(self):
         return False
 
-    @property
-    def name(self):
-        return self._name
-
-    @property
     def can_visit(self):
         return self._can_visit
 
-    @property
     def can_edit(self):
         return self._can_edit
 
     def validate_password(self, password):
         return check_password_hash(self._password, password)
+
+    @property
+    def name(self):
+        return self._name
 
     @classmethod
     def get(cls, user_id):

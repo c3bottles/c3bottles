@@ -16,7 +16,6 @@ lm = LoginManager(c3bottles)
 c3bottles.jinja_env.trim_blocks = True
 c3bottles.jinja_env.lstrip_blocks = True
 
-import model.user
 from view import *
 
 if __name__ == "__main__":
