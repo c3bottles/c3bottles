@@ -1,29 +1,37 @@
-/*
- * Initialize the map object.
- *
- */
-var map = L.map('map', {
-    attributionControl: false
-}).fitWorld();
+L = require("leaflet");
+require("./areas.js");
 
 /*
- * Add the background layer to the map.
+ * Initialize the map object, add the background layer and draw all the
+ * drop points into the map.
  *
  */
-L.tileLayer(imgdir + '/tiles/{z}/{x}/{y}.png', {
-    // Have a look in static/img/tiles.
-    // The directories present there correspond to zoom levels.
-    minZoom: 0,
-    maxZoom: 6,
-    tms: true,
-    noWrap: true
-}).addTo(map);
+
+global.map = undefined;
+global.init_map = function() {
+    map = L.map('map', {
+        attributionControl: false
+    }).fitWorld();
+
+    L.tileLayer(imgdir + '/tiles/{z}/{x}/{y}.png', {
+        // Have a look in static/img/tiles.
+        // The directories present there correspond to zoom levels.
+        minZoom: 0,
+        maxZoom: 6,
+        tms: true,
+        noWrap: true
+    }).addTo(map);
+
+    for (var i in drop_points) {
+        draw_marker(i);
+    }
+}
 
 /*
  * Get an properly sized icon for a given marker type at the current zoom level.
  *
  */
-function get_icon(type) {
+global.get_icon = function(type) {
     var size = 12;
     var zoom = map.getZoom();
     return L.icon({
@@ -43,7 +51,7 @@ function get_icon(type) {
  * clicks on the map away from the marker, the marker is removed.
  *
  */
-function allow_dp_creation_from_map() {
+global.allow_dp_creation_from_map = function() {
     map.on("click", function (e) {
         var latlng = e.latlng;
         function get_marker(latlng) {
@@ -95,7 +103,7 @@ function allow_dp_creation_from_map() {
  * triggers re-drawing the marker once the zoom factor changes.
  *
  */
-function draw_marker(num) {
+global.draw_marker = function(num) {
     if (map.hasLayer(drop_points[num]["layer"])) {
         map.removeLayer(drop_points[num]["layer"]);
     }
@@ -131,14 +139,6 @@ function draw_marker(num) {
         draw_marker(num);
     });
     map.addLayer(drop_points[num]["layer"]);
-}
-
-/*
- * Draw all drop points into the map.
- *
- */
-for (var i in drop_points) {
-    draw_marker(i);
 }
 
 /* vim: set expandtab ts=4 sw=4: */

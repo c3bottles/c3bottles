@@ -113,10 +113,8 @@
 {% include "dp_js.html" %}
 <script type="text/javascript">
     var imgdir = "{{ url_for('static', filename='img') }}";
+    init_map();
 </script>
-<script src="{{ url_for('static', filename='vendor/leaflet/js/leaflet.min.js') }}"></script>
-<script src="{{ url_for('static', filename='js/map.js') }}"></script>
-<script src="{{ url_for('static', filename='js/areas.js') }}"></script>
 <script src="{{ url_for('static', filename='js/create_dp.js') }}"></script>
 {% if lat is not none and lng is not none %}
 <script type="text/javascript">
