@@ -2,8 +2,8 @@
   "name": "c3bottles",
   "version": "0.0.0",
   "description": " Bottle drop and collection management system for chaos events",
-  "scripts": {
-    "build:deps": "browserify assets/js/**.js | uglifyjs -m > static/js/lib.js",
+   "scripts": {
+    "build:deps": "mkdir -p static/lib/js/ static/lib/css/ && browserify assets/js/**.js | uglifyjs -m > static/lib/js/lib.js && cp -r node_modules/bootstrap/dist/fonts/ static/lib/ && cp node_modules/bootstrap/dist/css/* static/lib/css/",
     "build:tiles": "convert static/img/map.png -background white -compose Copy -gravity center -resize 16384x16384 -extent 16384x16384 static/img/map_sq.png && gdal_translate -of vrt static/img/map_sq.png static/img/map_sq.vrt && gdal2tiles.py -w none -p raster static/img/map_sq.vrt static/img/tiles/"
   },
   "repository": "der-michik/c3bottles",
