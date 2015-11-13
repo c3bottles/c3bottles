@@ -2,6 +2,8 @@ from flask import render_template, request, redirect, url_for, g
 from flask.ext.login import current_user, login_required, login_user, logout_user
 from werkzeug.security import check_password_hash
 from werkzeug.routing import BuildError
+from json import loads
+from re import sub
 
 from c3bottles import c3bottles, db
 from model.drop_point import DropPoint
@@ -126,7 +128,7 @@ def dp_visit(dp_number):
 
 
 @c3bottles.route("/create", methods=("GET", "POST"))
-@c3bottles.route("/create/<string:lat>/<string:lng>")
+@c3bottles.route("/create/<string:lat>/<string:lng>", methods=("GET", "POST"))
 @login_required
 def create_dp(
         number=None, description=None, lat=None,
@@ -305,7 +307,12 @@ def edit_dp(
 @c3bottles.route("/login", methods=("POST", "GET"))
 def login():
     try:
-        back = redirect(url_for(request.form.get("return")))
+        back = redirect(
+            url_for(
+                request.form.get("return"),
+                **loads(sub("( u)?'", "\"", request.form.get("args")))
+            )
+        )
     except BuildError:
         back = redirect(url_for("index"))
     username = request.form.get("username")

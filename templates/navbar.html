@@ -32,6 +32,7 @@
             {% else %}
             <form class="navbar-form navbar-right" action="{{ url_for("login") }}" method="POST">
                 <input type="hidden" name="return" value="{{ request.endpoint }}">
+                <input type="hidden" name="args" value="{{ request.view_args|safe }}">
                 <div class="form-group">
                     <input type="text" name="username" placeholder="User name" class="form-control">
                 </div>
