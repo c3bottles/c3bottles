@@ -104,7 +104,7 @@ global.init_table = function() {
 
 }
 
-function draw_row(num) {
+global.draw_row = function(num) {
     if (drop_points[num] && drop_points[num]["row"]) {
         dt.row(drop_points[num].row).data(drop_points[num]).draw(false);
     } else if (drop_points[num]) {
