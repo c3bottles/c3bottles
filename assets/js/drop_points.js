@@ -1,3 +1,5 @@
+var $ = require("jquery");
+
 /*
  * Get all drop points via the API that have changed since the time given.
  */
@@ -31,7 +33,7 @@ function update_drop_points(ts) {
  * This function is intended to be called whenever the drop point has changed,
   * either by an update from the API or locally.
  */
-function refresh_drop_point(num) {
+global.refresh_drop_point = function(num) {
     if (typeof map != "undefined") {
         draw_marker(num);
     }
@@ -40,8 +42,10 @@ function refresh_drop_point(num) {
     }
 }
 
-setTimeout(function() {
-    update_drop_points(Date.now()/1000);
-}, 120000);
+global.init_drop_point_refreshing = function() {
+    setTimeout(function() {
+        update_drop_points(Date.now()/1000);
+    }, 120000);
+}
 
 /* vim: set expandtab ts=4 sw=4: */

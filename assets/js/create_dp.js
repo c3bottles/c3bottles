@@ -1,3 +1,7 @@
+var $ = require("jquery");
+var L = require("leaflet");
+require("./map.js");
+
 var new_dp_marker = null;
 
 function get_marker(latlng) {
@@ -18,13 +22,13 @@ function get_marker(latlng) {
     return marker;
 }
 
-function draw_new_dp(lat, lng) {
+global.draw_new_dp = function(lat, lng) {
     var latlng = L.latLng(lat, lng);
     new_dp_marker = get_marker(latlng);
     map.setView(new_dp_marker._latlng, 5);
 }
 
-function set_info_from_marker(latlng) {
+global.set_info_from_marker = function(latlng) {
     lat = latlng.lat.toFixed(2);
     lng = latlng.lng.toFixed(2);
     $("#lat").val(lat);
@@ -51,13 +55,15 @@ function get_next_free_dp_num(level) {
     }
 }
 
-map.on("click", function (e) {
-    if (!new_dp_marker) {
-        var latlng = e.latlng;
-        new_dp_marker = get_marker(latlng);
-        set_info_from_marker(latlng);
-    }
-});
+global.init_dp_creation = function() {
+    map.on("click", function (e) {
+        if (!new_dp_marker) {
+            var latlng = e.latlng;
+            new_dp_marker = get_marker(latlng);
+            set_info_from_marker(latlng);
+        }
+    });
+}
 
 $(".btn-number").click(function () {
     var field = $(this).data("field");

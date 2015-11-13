@@ -1,3 +1,5 @@
+var $ = require("jquery");
+
 /*
  * When hiding any of the drop point modals (details, reporting, visiting),
  * the modal must be destroyed to be re-constructed on the next show instead
@@ -129,7 +131,7 @@ function visit_dp(num, action) {
  * shown.
  *
  */
-function show_dp_modal(num, pane) {
+global.show_dp_modal = function(num, pane) {
     var details = drop_points[num]
     for (var key in details) {
         $(".modal_dp_" + key).text(details[key]);

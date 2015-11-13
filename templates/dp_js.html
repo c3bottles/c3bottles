@@ -1,6 +1,6 @@
 <script type="text/javascript">
     var apiurl = "{{ url_for('api') }}"
     var drop_points = {{ all_dps_json|safe }};
+    init_drop_point_refreshing();
 </script>
-<script src="{{ url_for('static', filename='js/drop_points.js') }}"></script>
 {# vim: set expandtab ts=4 sw=4: #}

@@ -114,10 +114,8 @@
 <script type="text/javascript">
     var imgdir = "{{ url_for('static', filename='img') }}";
     init_map();
-</script>
-<script src="{{ url_for('static', filename='js/create_dp.js') }}"></script>
+    init_dp_creation();
 {% if lat is not none and lng is not none %}
-<script type="text/javascript">
     var lat = {{ lat|round(2) }};
     var lng = {{ lng|round(2) }};
     if (lat < -90 || lat > 90 || lng < -180 || lng > 180) {
@@ -137,12 +135,10 @@
             set_info_from_marker({"lat": {{ lat }}, "lng": {{ lng }}});
         }
     }
-</script>
 {% endif %}
 {% if center_lat is not none and center_lng is not none %}
-<script type="text/javascript">
     map.setView([{{ center_lat }}, {{ center_lng }}], 5);
-</script>
 {% endif %}
+</script>
 {% endblock %}
 {# vim: set expandtab ts=4 sw=4: #}

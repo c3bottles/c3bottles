@@ -1,4 +1,5 @@
-L = require("leaflet");
+var $ = require("jquery");
+var L = require("leaflet");
 require("./areas.js");
 
 /*

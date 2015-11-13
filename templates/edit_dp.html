@@ -108,9 +108,7 @@
 <script type="text/javascript">
     var imgdir = "{{ url_for('static', filename='img') }}";
     init_map();
-</script>
-<script src="{{ url_for('static', filename='js/create_dp.js') }}"></script>
-<script type="text/javascript">
+    init_dp_creation();
     var lat = {{ lat }};
     var lng = {{ lng }};
     map.setView([{{ lat }}, {{ lng }}], 5);
