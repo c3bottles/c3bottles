@@ -1,6 +1,7 @@
 config.py
 **/*.pyc
 **/*.db
+.idea/
 **/.*.swp
 static/img/map_sq.*
 static/img/*.vrt
