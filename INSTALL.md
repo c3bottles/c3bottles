@@ -16,7 +16,7 @@ In order to install c3bottles, you will need:
 *   ImageMagick, GDAL and the gdal2tiles.py script to generate the map tiles
     (imagemagick, gdal-bin and python-gdal)
 
-*   the Node.js package manager `npm` (npm)
+*   the Node.js package manager (npm)
 
 # Installation
 
@@ -70,7 +70,7 @@ In order to install c3bottles, you will need:
     tiles. If you don't care and just want to stick to the defaults, you can
     do this with:
 
-        npm run build:tiles
+        $ npm run build:tiles
 
     The standard source file for the map is `static/img/map.png`. For
     tile generation, the image has to be a square whose height/width is a
