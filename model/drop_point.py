@@ -162,10 +162,14 @@ class DropPoint(db.Model):
         last_visit = self.get_last_visit()
 
         if last_report is not None and last_visit is not None:
-            if last_visit.time > last_report.time \
-                    and last_visit.action == Visit.actions[0]:
-                return Report.states[-1]
-            else:
+            if last_visit.time > last_report.time:
+                visits = self.visits. \
+                    filter(Visit.time > last_report.time). \
+                    order_by(Visit.time.desc()). \
+                    all()
+                for visit in visits:
+                    if visit.action == Visit.actions[0]:
+                        return Report.states[-1]
                 return last_report.state
 
         if last_report is not None:
