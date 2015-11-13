@@ -130,7 +130,7 @@ global.draw_marker = function(num) {
                 marker.on("click",
                     function (e) {
                         var dp = e.target.feature;
-                        show_dp_modal(dp.properties.number, "report");
+                        show_dp_modal(dp.properties.number, pane_on_click);
                     }
                 );
                 return marker;
