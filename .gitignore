@@ -3,6 +3,8 @@ config.py
 **/*.db
 .idea/
 **/.*.swp
+node_modules/
 static/img/map_sq.*
 static/img/*.vrt
 static/img/tiles/
+static/js/lib.js

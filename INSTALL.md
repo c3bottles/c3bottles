@@ -16,6 +16,8 @@ In order to install c3bottles, you will need:
 *   ImageMagick, GDAL and the gdal2tiles.py script to generate the map tiles
     (imagemagick, gdal-bin and python-gdal)
 
+*   the Node.js package manager `npm` (npm)
+
 # Installation
 
 1.  Make sure all the dependencies are installed.
@@ -23,44 +25,54 @@ In order to install c3bottles, you will need:
 
         $ apt-get install python-flask python-flask-sqlalchemy \
                           python-flask-login libapache2-mod-wsgi imagemagick \
-                          gdal-bin python-gdal
+                          gdal-bin python-gdal npm
 
 2.  Copy the files into some directory readable by the web server.
     You can clone the repository from Github:
 
         $ git clone https://github.com/der-michik/c3bottles.git
 
-3.  Create a configuriation file `config.py`. You will find a template for the
+3.  Fetch all the dependencies and build them:
+
+        $ npm install
+        $ npm run build:deps
+
+4.  Create a configuriation file `config.py`. You will find a template for the
     configuration in the file `config.default.py`. c3bottles will not work if
     no config.py with the required settings is present. You have to configure
     at least a database URI and a secret key.
 
-4.  Configure your database accordingly. The user for c3bottles needs full
+5.  Configure your database accordingly. The user for c3bottles needs full
     access to the database. If you use SQLite, the web server needs write
     access to the directory containing the `*.db` file and the file itself.
 
-5.  Initialize the database using the Python interpreter:
+6.  Initialize the database using the Python interpreter:
 
         $ cd /path/to/c3bottles
         $ python
         >>> from c3bottles import db
         >>> db.create_all()
 
-6.  Configure the users needed and their passwords in `model/user.py` as
+7.  Configure the users needed and their passwords in `model/user.py` as
     needed. To generate password hashes, you can do the following:
 
         $ python
         >>> from werkzeug.security import generate_password_hash
         >>> generate_password_hash("foo")
 
-7.  Configure your webserver accordingly to run the WSGI application. Apache
+8.  Configure your webserver accordingly to run the WSGI application. Apache
     needs something like this to run c3bottles as the document root of a host:
 
         WSGIScriptAlias / /path/to/c3bottles/c3bottles.wsgi
         Alias /static /path/to/c3bottles/static
 
-8.  To be able to use the drop point map, you first have to generate the map
-    tiles. The standard source file for the map is `static/img/map.png`. For
+9.  To be able to use the drop point map, you first have to generate the map
+    tiles. If you don't care and just want to stick to the defaults, you can
+    do this with:
+
+        npm run build:tiles
+
+    The standard source file for the map is `static/img/map.png`. For
     tile generation, the image has to be a square whose height/width is a
     power of 2. It is useful to resize and enlarge the image to the next power
     of 2. This can be done with ImageMagick's `convert` utility as follows,
