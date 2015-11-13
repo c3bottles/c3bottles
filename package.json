@@ -7,7 +7,7 @@
     "prebuild:js": "npm run prebuild",
     "build:js": "browserify assets/js/**.js | uglifyjs -m > static/lib/js/lib.js",
     "prebuild:css": "npm run prebuild",
-    "build:css": "cp node_modules/bootstrap/dist/css/* node_modules/leaflet/dist/leaflet.css static/lib/css/",
+    "build:css": "cp node_modules/bootstrap/dist/css/* node_modules/datatables-bootstrap3-plugin/media/css/*.css node_modules/leaflet/dist/leaflet.css static/lib/css/",
     "prebuild:fonts": "npm run prebuild",
     "build:fonts": "cp -r node_modules/bootstrap/dist/fonts/* static/lib/fonts/",
     "build:deps": "npm-run-all build:js build:css build:fonts",
@@ -26,6 +26,8 @@
   "dependencies": {
     "bootstrap": "^3.3.5",
     "browserify": "latest",
+    "datatables": "^1.10.9",
+    "datatables-bootstrap3-plugin": "^0.4.0",
     "jquery": "^2.1.4",
     "leaflet": "^0.7.7",
     "npm-run-all": "^1.2.13",

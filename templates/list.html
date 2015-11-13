@@ -2,7 +2,7 @@
 {% set title = "List of Bottle Drop Points" %}
 {% import "macros/states.html" as states %}
 {% block header %}
-    <link href="{{ url_for('static', filename='vendor/datatables/css/datatables.min.css') }}"
+    <link href="{{ url_for('static', filename='lib/css/datatables-bootstrap3.min.css') }}"
           rel="stylesheet">
     <link href="{{ url_for('static', filename='css/list.css') }}"
           rel="stylesheet">
@@ -29,10 +29,9 @@
 {% endblock %}
 {% block scripts %}
 {% include "dp_js.html" %}
-<script src="{{ url_for('static', filename='vendor/datatables/js/datatables.min.js') }}"></script>
 <script type="text/javascript">
     {{ states.label_js() }}
+    init_table();
 </script>
-<script src="{{ url_for('static', filename='js/list.js') }}"></script>
 {% endblock %}
 {# vim: set expandtab ts=4 sw=4: #}
