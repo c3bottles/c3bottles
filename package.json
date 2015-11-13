@@ -3,8 +3,19 @@
   "version": "0.0.0",
   "description": " Bottle drop and collection management system for chaos events",
   "scripts": {
-    "build:deps": "mkdir -p static/lib/js/ static/lib/css/ && browserify assets/js/**.js | uglifyjs -m > static/lib/js/lib.js && cp -r node_modules/bootstrap/dist/fonts/ static/lib/ && cp node_modules/bootstrap/dist/css/* static/lib/css/ && cp node_modules/leaflet/dist/leaflet.css static/lib/css/",
-    "build:tiles": "convert static/img/map.png -background white -compose Copy -gravity center -resize 16384x16384 -extent 16384x16384 static/img/map_sq.png && gdal_translate -of vrt static/img/map_sq.png static/img/map_sq.vrt && gdal2tiles.py -w none -p raster static/img/map_sq.vrt static/img/tiles/"
+    "prebuild": "mkdir -p static/lib/js/ static/lib/css/ static/lib/fonts/",
+    "prebuild:js": "npm run prebuild",
+    "build:js": "browserify assets/js/**.js | uglifyjs -m > static/lib/js/lib.js",
+    "prebuild:css": "npm run prebuild",
+    "build:css": "cp node_modules/bootstrap/dist/css/* node_modules/leaflet/dist/leaflet.css static/lib/css/",
+    "prebuild:fonts": "npm run prebuild",
+    "build:fonts": "cp -r node_modules/bootstrap/dist/fonts/* static/lib/fonts/",
+    "build:deps": "npm-run-all build:js build:css build:fonts",
+    "build:map:sq": "convert static/img/map.png -background white -compose Copy -gravity center -resize 16384x16384 -extent 16384x16384 static/img/map_sq.png",
+    "build:map:vrt": "gdal_translate -of vrt static/img/map_sq.png static/img/map_sq.vrt",
+    "build:map:tiles": "gdal2tiles.py -w none -p raster static/img/map_sq.vrt static/img/tiles/",
+    "build:map": "npm-run-all build:map:sq build:map:vrt build:map:tiles",
+    "build": "npm-run-all build:deps build:map"
   },
   "repository": "der-michik/c3bottles",
   "author": "MichiK <michik@michik.net>",
@@ -13,10 +24,11 @@
     "url": "https://github.com/der-michik/c3bottles/issues"
   },
   "dependencies": {
-    "jquery": "^2.1.4",
     "bootstrap": "^3.3.5",
-    "leaflet": "^0.7.7",
     "browserify": "latest",
+    "jquery": "^2.1.4",
+    "leaflet": "^0.7.7",
+    "npm-run-all": "^1.2.13",
     "uglifyjs": "latest"
   }
 }
