@@ -17,6 +17,8 @@ c3bottles.jinja_env.trim_blocks = True
 c3bottles.jinja_env.lstrip_blocks = True
 
 from view import *
+from api import api
+c3bottles.register_blueprint(api)
 
 if __name__ == "__main__":
     c3bottles.run(debug=True)

@@ -354,10 +354,4 @@ def not_found(e):
         text="The requested URL was not found on the server."
     ), 404
 
-
-@c3bottles.route("/api", methods=("POST", "GET"))
-def api():
-    import api
-    return api.process()
-
 # vim: set expandtab ts=4 sw=4:
