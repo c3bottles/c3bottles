@@ -26,11 +26,6 @@ def faq():
     return render_template("faq.html")
 
 
-@c3bottles.route("/numbers")
-def statistics():
-    return "TODO: Show some nice statistics"
-
-
 @c3bottles.route("/list")
 def dp_list():
     all_dps = []

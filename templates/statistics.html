@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% set title = "Numbers" %}
+{% import "macros/states.html" as states %}
+{% block content %}
+    <div class="page-header">
+        <h1>{{ title }}</h1>
+    </div>
+    <div class="row">
+        <div class="col-xs-4 text-center">
+            <p class="h1">{{ stats.drop_point_count }}</p>
+            <p>drop points in the database</p>
+        </div>
+        <div class="col-xs-4 text-center">
+            <p class="h1">{{ stats.report_count }}</p>
+            <p>state reports by helpful visitors</p>
+        </div>
+        <div class="col-xs-4 text-center">
+            <p class="h1">{{ stats.visit_count }}</p>
+            <p>visits by the bottle collectors</p>
+        </div>
+        <div class="col-xs-12 text-center">
+            <div class="spacer"></div>
+            <div class="spacer"></div>
+            <p>that means an average of
+            <span class="h2">{{ (stats.report_count / stats.drop_point_count)|round(1) }}</span>
+            reports per drop point and
+            <span class="h2">{{ (stats.visit_count / stats.drop_point_count)|round(1) }}</span>
+            visits per drop point</p>
+        </div>
+    </div>
+<!--    <table class="table">
+{% for state in stats.reports_by_state %}
+        <tr>
+            <td><img src="{{ url_for("static", filename="img/markers/" + state + ".svg") }}" style="height: 2em;"></td>
+            <td>{{ states.label(state) }}</td>
+            <td>{{ stats.reports_by_state[state] }}</td>
+        </tr>
+{% endfor %}
+    </table>-->
+{% endblock %}
+{# vim: set expandtab ts=4 sw=4: #}
