@@ -6,12 +6,25 @@
         <h1>{{ title }}</h1>
     </div>
     <div class="row">
-        <div class="col-sm-3 col-sm-offset-2 col-xs-12 text-center">
+        <div class="col-md-4 col-md-offset-1 col-sm-4 col-xs-12 text-center">
             <p><label for="drop_points_by_state">Drop points by state</label></p>
             <canvas class="piechart" id="drop_points_by_state"></canvas>
             <div class="spacer"></div>
         </div>
-        <div class="col-sm-3 col-sm-offset-2 col-xs-12 text-center">
+        <div class="col-md-2 col-sm-4 col-xs-12">
+            <table class="table table-condensed">
+                {% set d = stats.drop_points_by_state %}
+                {% set r = stats.reports_by_state %}
+                {% for s in d: %}
+                <tr>
+                    <td class="text-right">{{ d[s] }}</td>
+                    <td class="text-center">{{ states.label(s) }}</td>
+                    <td class="text-right">{{ r[s] }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-12 text-center">
             <p><label for="reports_by_state">Reports by state</label></p>
             <canvas class="piechart" id="reports_by_state"></canvas>
             <div class="spacer"></div>
@@ -19,25 +32,25 @@
     </div>
     <div class="row">
         <div class="col-sm-4 col-xs-12 text-center">
-            <p class="large-icon">{{ stats.drop_point_count }}</p>
+            <p class="large-icon sum">{{ stats.drop_point_count }}</p>
             <p>drop points in the database</p>
         </div>
         <div class="col-sm-4 col-xs-6 text-center">
-            <p class="large-icon">{{ stats.report_count }}</p>
+            <p class="large-icon sum">{{ stats.report_count }}</p>
             <p>state reports by helpful visitors</p>
         </div>
         <div class="col-sm-4 col-xs-6 text-center">
-            <p class="large-icon">{{ stats.visit_count }}</p>
+            <p class="large-icon sum">{{ stats.visit_count }}</p>
             <p>visits by the bottle collectors</p>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-3 col-sm-offset-2 col-xs-6 text-center">
-            <p class="large-icon">{{ (stats.report_count / stats.drop_point_count)|round(1) }}</p>
+            <p class="large-icon average">{{ (stats.report_count / stats.drop_point_count)|round(1) }}</p>
             <p>reports per drop point</p>
         </div>
         <div class="col-sm-3 col-sm-offset-2 col-xs-6 text-center">
-            <p class="large-icon">{{ (stats.visit_count / stats.drop_point_count)|round(1) }}</p>
+            <p class="large-icon average">{{ (stats.visit_count / stats.drop_point_count)|round(1) }}</p>
             <p>visits per drop point</p>
         </div>
     </div>

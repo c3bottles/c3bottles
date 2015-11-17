@@ -42,4 +42,24 @@ body {
     height: 200px;
 }
 
+.sum:before {
+    content: "Σ";
+    opacity: 0.1;
+}
+
+.sum:after {
+    content: "Σ";
+    visibility: hidden;
+}
+
+.average:before {
+    content: "Ø";
+    opacity: 0.1;
+}
+
+.average:after {
+    content: "Ø";
+    visibility: hidden;
+}
+
 /* vim: set expandtab ts=4 sw=4: */

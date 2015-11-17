@@ -2,6 +2,7 @@ var $ = require("jquery");
 var Chart = require("chart.js");
 
 Chart.defaults.global.animation = false;
+Chart.defaults.Doughnut.percentageInnerCutout = 40;
 
 global.draw_drop_points_by_state = function(_data) {
     data = []; 
