@@ -6,6 +6,7 @@ from json import loads
 from re import sub
 
 from c3bottles import c3bottles, db
+from forms import LoginForm
 from model.drop_point import DropPoint
 from model.location import Location
 from model.capacity import Capacity
@@ -13,6 +14,7 @@ from model.user import User, load_user
 
 @c3bottles.before_request
 def before_request():
+    g.login_form = LoginForm()
     g.user = current_user
 
 
@@ -301,29 +303,32 @@ def edit_dp(
 
 @c3bottles.route("/login", methods=("POST", "GET"))
 def login():
-    try:
-        back = redirect(
-            url_for(
-                request.form.get("return"),
-                **loads(sub("( u)?'", "\"", request.form.get("args")))
+    if request.method == "GET":
+        return redirect(url_for("index"))
+    form = LoginForm()
+    if form.validate_on_submit():
+        try:
+            back = redirect(
+                url_for(
+                    form.back.data,
+                    **loads(sub("( u)?'", "\"", form.args.data))
+                )
             )
-        )
-    except BuildError:
-        back = redirect(url_for("index"))
-    username = request.form.get("username")
-    password = request.form.get("password")
-    if g.user and g.user.is_authenticated():
-        return back
-    user = User.get(username)
-    if user and user.validate_password(password):
-        login_user(user, remember=True)
-        return back
-    else:
-        return render_template(
-            "error.html",
-            heading="Login failed!",
-            text="Wrong user name or password."
-        )
+        except BuildError:
+            back = redirect(url_for("index"))
+        if g.user and g.user.is_authenticated():
+            return back
+        user = User.get(form.username.data)
+        if user and user.validate_password(form.password.data):
+            login_user(user, remember=True)
+            return back
+    return render_template(
+        "error.html",
+        heading="Login failed!",
+        text="Wrong user name or password.",
+        back=form.back.data,
+        args=form.args.data
+    )
 
 
 @c3bottles.route("/logout")

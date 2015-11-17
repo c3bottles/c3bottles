@@ -1,3 +1,4 @@
+{% set login_form = g.login_form if not login_form %}
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -31,13 +32,14 @@
             <p class="navbar-text navbar-right">You are logged in as {{ g.user.name }}</p>
             {% else %}
             <form class="navbar-form navbar-right" action="{{ url_for("login") }}" method="POST">
-                <input type="hidden" name="return" value="{{ request.endpoint }}">
-                <input type="hidden" name="args" value="{{ request.view_args|safe }}">
+                {{ login_form.back(value=back if back else request.endpoint) }}
+                {{ login_form.args(value=args if args else request.view_args) }}
+                {{ login_form.csrf_token }}
                 <div class="form-group">
-                    <input type="text" name="username" placeholder="User name" class="form-control">
+                    {{ login_form.username(placeholder="User name", class="form-control") }}
                 </div>
                 <div class="form-group">
-                    <input type="password" name="password" placeholder="Password" class="form-control">
+                    {{ login_form.password(placeholder="Password", class="form-control") }}
                 </div>
                 <button type="submit" class="btn btn-success">Login</button>
             </form>

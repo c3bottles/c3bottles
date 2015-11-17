@@ -8,6 +8,8 @@ In order to install c3bottles, you will need:
 
 *   Flask-Login (python-flask-login)
 
+*   Flask-WTF (python-flaskext.wtf)
+
 *   a WSGI-capable webserver (e.g. Apache)
 
 *   some SQL server supported by SQLAlchemy
@@ -27,7 +29,8 @@ In order to install c3bottles, you will need:
     On Debian using Apache, you can do:
 
         $ apt-get install python-flask python-flask-sqlalchemy \
-                          python-flask-login libapache2-mod-wsgi imagemagick \
+                          python-flask-login python-flaskext.wtf \
+                          libapache2-mod-wsgi imagemagick \
                           gdal-bin python-gdal npm node-legacy
 
 2.  Copy the files into some directory readable by the web server.
