@@ -6,35 +6,37 @@
         <h1>{{ title }}</h1>
     </div>
     <div class="row">
-        <div class="col-xs-3 col-xs-offset-2 text-center">
+        <div class="col-sm-3 col-sm-offset-2 col-xs-12 text-center">
             <p><label for="drop_points_by_state">Drop points by state</label></p>
             <canvas class="piechart" id="drop_points_by_state"></canvas>
+            <div class="spacer"></div>
         </div>
-        <div class="col-xs-3 col-xs-offset-2 text-center">
+        <div class="col-sm-3 col-sm-offset-2 col-xs-12 text-center">
             <p><label for="reports_by_state">Reports by state</label></p>
             <canvas class="piechart" id="reports_by_state"></canvas>
+            <div class="spacer"></div>
         </div>
     </div>
     <div class="row">
-        <div class="col-xs-4 text-center">
+        <div class="col-sm-4 col-xs-12 text-center">
             <p class="large-icon">{{ stats.drop_point_count }}</p>
             <p>drop points in the database</p>
         </div>
-        <div class="col-xs-4 text-center">
+        <div class="col-sm-4 col-xs-6 text-center">
             <p class="large-icon">{{ stats.report_count }}</p>
             <p>state reports by helpful visitors</p>
         </div>
-        <div class="col-xs-4 text-center">
+        <div class="col-sm-4 col-xs-6 text-center">
             <p class="large-icon">{{ stats.visit_count }}</p>
             <p>visits by the bottle collectors</p>
         </div>
     </div>
     <div class="row">
-        <div class="col-xs-3 col-xs-offset-2 text-center">
+        <div class="col-sm-3 col-sm-offset-2 col-xs-6 text-center">
             <p class="large-icon">{{ (stats.report_count / stats.drop_point_count)|round(1) }}</p>
             <p>reports per drop point</p>
         </div>
-        <div class="col-xs-3 col-xs-offset-2 text-center">
+        <div class="col-sm-3 col-sm-offset-2 col-xs-6 text-center">
             <p class="large-icon">{{ (stats.visit_count / stats.drop_point_count)|round(1) }}</p>
             <p>visits per drop point</p>
         </div>
