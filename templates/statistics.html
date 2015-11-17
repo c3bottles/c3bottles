@@ -6,36 +6,45 @@
         <h1>{{ title }}</h1>
     </div>
     <div class="row">
+        <div class="col-xs-3 col-xs-offset-2 text-center">
+            <p><label for="drop_points_by_state">Drop points by state</label></p>
+            <canvas class="piechart" id="drop_points_by_state"></canvas>
+        </div>
+        <div class="col-xs-3 col-xs-offset-2 text-center">
+            <p><label for="reports_by_state">Reports by state</label></p>
+            <canvas class="piechart" id="reports_by_state"></canvas>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-xs-4 text-center">
-            <p class="h1">{{ stats.drop_point_count }}</p>
+            <p class="large-icon">{{ stats.drop_point_count }}</p>
             <p>drop points in the database</p>
         </div>
         <div class="col-xs-4 text-center">
-            <p class="h1">{{ stats.report_count }}</p>
+            <p class="large-icon">{{ stats.report_count }}</p>
             <p>state reports by helpful visitors</p>
         </div>
         <div class="col-xs-4 text-center">
-            <p class="h1">{{ stats.visit_count }}</p>
+            <p class="large-icon">{{ stats.visit_count }}</p>
             <p>visits by the bottle collectors</p>
         </div>
-        <div class="col-xs-12 text-center">
-            <div class="spacer"></div>
-            <div class="spacer"></div>
-            <p>that means an average of
-            <span class="h2">{{ (stats.report_count / stats.drop_point_count)|round(1) }}</span>
-            reports per drop point and
-            <span class="h2">{{ (stats.visit_count / stats.drop_point_count)|round(1) }}</span>
-            visits per drop point</p>
+    </div>
+    <div class="row">
+        <div class="col-xs-3 col-xs-offset-2 text-center">
+            <p class="large-icon">{{ (stats.report_count / stats.drop_point_count)|round(1) }}</p>
+            <p>reports per drop point</p>
+        </div>
+        <div class="col-xs-3 col-xs-offset-2 text-center">
+            <p class="large-icon">{{ (stats.visit_count / stats.drop_point_count)|round(1) }}</p>
+            <p>visits per drop point</p>
         </div>
     </div>
-<!--    <table class="table">
-{% for state in stats.reports_by_state %}
-        <tr>
-            <td><img src="{{ url_for("static", filename="img/markers/" + state + ".svg") }}" style="height: 2em;"></td>
-            <td>{{ states.label(state) }}</td>
-            <td>{{ stats.reports_by_state[state] }}</td>
-        </tr>
-{% endfor %}
-    </table>-->
+{% endblock %}
+{% block scripts %}
+<script type="text/javascript">
+    {{ states.label_js() }}
+    draw_drop_points_by_state({{ stats.drop_points_by_state|tojson }});
+    draw_reports_by_state({{ stats.reports_by_state|tojson }});
+</script>
 {% endblock %}
 {# vim: set expandtab ts=4 sw=4: #}

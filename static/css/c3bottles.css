@@ -37,4 +37,9 @@ body {
     height: 20px;
 }
 
+.piechart {
+    width: 200px;
+    height: 200px;
+}
+
 /* vim: set expandtab ts=4 sw=4: */

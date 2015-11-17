@@ -29,6 +29,16 @@ class Statistics():
         return Visit.query.count()
 
     @property
+    def drop_points_by_state(self):
+        ret = {}
+        for state in Report.states:
+            ret[state] = 0
+        for dp in DropPoint.query.all():
+            s = dp.get_last_state()
+            ret[s] = ret[s] + 1 if s in ret else 1
+        return ret
+
+    @property
     def reports_by_state(self):
         ret = {}
         for state in Report.states:
