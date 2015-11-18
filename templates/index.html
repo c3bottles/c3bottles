@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% set title = "Home" %}
 {% block content %}
-    <div class="jumbotron">
+    <div class="jumbotron"><div class="container">
         <h1>Welcome to c3bottles!</h1>
 
         <p class="lead">
@@ -10,14 +10,19 @@
             the links below!
         </p>
 
-        <p>
-
-        <form class="form-inline" action="{{ url_for("report") }}" method="POST">
+        <div class="spacer"></div>
+        <form class="form" action="{{ url_for("report") }}" method="POST">
+        <div class="row">
+            <div class="col-xs-8 col-sm-5 col-md-4 col-lg-3">
             <input type="text" name="number" class="form-control"
                    placeholder="Enter a drop point number">
+            </div>
+            <div class="col-xs-4">
             <button type="submit" class="btn btn-success">Report</button>
+            </div>
+        </div>
         </form>
-    </div>
+    </div></div>
     <div class="row">
         <div class="col-md-3 col-sm-6 text-center">
             <div class="large-icon hidden-xs">
@@ -62,7 +67,7 @@
                 <span class="glyphicon glyphicon-stats"
                       aria-hidden="true"></span>
             </div>
-            <h3>Show me the numbers!</h3>
+            <h3>I want the numbers!</h3>
 
             <p>
                 The sheer beauty of numbers and diagrams amazes you? Good news:
@@ -81,7 +86,7 @@
                 <span class="glyphicon glyphicon-education text-center"
                       aria-hidden="true"></span>
             </div>
-            <h3>WTF is this sh*t?</h3>
+            <h3>WTF is this?</h3>
 
             <p>
                 You have no clue what this is about or how it works?
