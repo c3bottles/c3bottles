@@ -13,11 +13,8 @@ global.draw_drop_points_by_state = function(_data) {
             label: $(labels[state][1]).text()
         }); 
     }   
-    console.log(data);
     var ctx = $("#drop_points_by_state").get(0).getContext("2d");
-    var chart =  new Chart(ctx).Doughnut(data);
-    console.log(ctx);
-    console.log(chart);
+    new Chart(ctx).Doughnut(data);
 };
 
 global.draw_reports_by_state = function(_data) {
@@ -29,11 +26,8 @@ global.draw_reports_by_state = function(_data) {
             label: $(labels[state][1]).text()
         });
     }
-    console.log(data);
     var ctx = $("#reports_by_state").get(0).getContext("2d");
-    var chart =  new Chart(ctx).Doughnut(data);
-    console.log(ctx);
-    console.log(chart);
+    new Chart(ctx).Doughnut(data);
 };
 
 /* vim: set expandtab ts=4 sw=4: */
