@@ -4,7 +4,7 @@
   "description": " Bottle drop and collection management system for chaos events",
   "scripts": {
     "prebuild": "mkdir -p static/lib/js/ static/lib/css/ static/lib/fonts/",
-    "prebuild:js": "npm run prebuild",
+    "prebuild:js": "npm run prebuild && jshint assets/js/**.js",
     "build:js": "browserify assets/js/**.js | uglifyjs -m > static/lib/js/lib.js",
     "prebuild:css": "npm run prebuild",
     "build:css": "cp node_modules/bootstrap/dist/css/* node_modules/datatables-bootstrap3-plugin/media/css/*.css node_modules/leaflet/dist/leaflet.css static/lib/css/",
@@ -32,6 +32,12 @@
     "jquery": "^2.1.4",
     "leaflet": "^0.7.7",
     "npm-run-all": "^1.2.13",
-    "uglifyjs": "latest"
+    "uglifyjs": "latest",
+    "jshint": "^2.9.1-rc1"
+  },
+  "jshintConfig": {
+    "curly": true,
+    "latedef": "nofunc",
+    "unused": true
   }
 }

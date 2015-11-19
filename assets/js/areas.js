@@ -400,10 +400,12 @@ var rooms = {
  *
  */
 function point_in_polygon(poly, point) {
-    for (var c = false, i = -1, l = poly.length, j = l - 1; ++i < l; j = i)
-        ((poly[i][0] <= point[0] && point[0] < poly[j][0]) || (poly[j][0] <= point[0] && point[0] < poly[i][0]))
-        && (point[1] < (poly[j][1] - poly[i][1]) * (point[0] - poly[i][0]) / (poly[j][0] - poly[i][0]) + poly[i][1])
-        && (c = !c);
+    for (var c = false, i = -1, l = poly.length, j = l - 1; ++i < l; j = i) {
+        if (((poly[i][0] <= point[0] && point[0] < poly[j][0]) || (poly[j][0] <= point[0] && point[0] < poly[i][0])) &&
+            (point[1] < (poly[j][1] - poly[i][1]) * (point[0] - poly[i][0]) / (poly[j][0] - poly[i][0]) + poly[i][1])) {
+            (c = !c);
+        }
+    }
     return c;
 }
 
@@ -420,7 +422,7 @@ global.get_level = function(point) {
         }
     }
     return null;
-}
+};
 
 /*
  * Gets the room for a point by checking all possible room polygons.
@@ -435,6 +437,6 @@ global.get_room = function(point) {
         }
     }
     return null;
-}
+};
 
 /* vim: set expandtab ts=4 sw=4: */

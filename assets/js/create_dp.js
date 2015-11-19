@@ -9,7 +9,7 @@ function get_marker(latlng) {
         icon: get_icon("CREATED"),
         draggable: true
     });
-    $(map).one("zoomend", function (e) {
+    $(map).one("zoomend", function (undefined) {
         if (map.hasLayer(marker)) {
             map.removeLayer(marker);
             get_marker(marker._latlng);
@@ -26,7 +26,7 @@ global.draw_new_dp = function(lat, lng) {
     var latlng = L.latLng(lat, lng);
     new_dp_marker = get_marker(latlng);
     map.setView(new_dp_marker._latlng, 5);
-}
+};
 
 global.set_info_from_marker = function(latlng) {
     lat = latlng.lat.toFixed(2);
@@ -34,18 +34,18 @@ global.set_info_from_marker = function(latlng) {
     $("#lat").val(lat);
     $("#lng").val(lng);
     var room = get_room([lng, lat]);
-    if (room != null) {
+    if (room !== null) {
         $("#description").val(room.name);
         $("#number").val(get_next_free_dp_num(room.level));
         $("input[name='level'][value=" + room.level + "]").prop("checked", true);
     } else {
         var level = get_level([lng, lat]);
-        if (level != null) {
+        if (level !== null) {
             $("#number").val(get_next_free_dp_num(level));
             $("input[name='level'][value=" + level + "]").prop("checked", true);
         }
     }
-}
+};
 
 function get_next_free_dp_num(level) {
     for (var i = level*100 + 1; i < level*100 + 100; i++) {
@@ -63,7 +63,7 @@ global.init_dp_creation = function() {
             set_info_from_marker(latlng);
         }
     });
-}
+};
 
 $(".btn-number").click(function () {
     var field = $(this).data("field");

@@ -26,7 +26,7 @@ global.init_map = function() {
     for (var i in drop_points) {
         draw_marker(i);
     }
-}
+};
 
 /*
  * Get an properly sized icon for a given marker type at the current zoom level.
@@ -41,7 +41,7 @@ global.get_icon = function(type) {
         iconUrl: imgdir + '/markers/' + type + '.svg',
         popupAnchor: [0, -size * zoom]
     });
-}
+};
 
 /*
  * Enable the drop point creation on the map.
@@ -93,7 +93,7 @@ global.allow_dp_creation_from_map = function() {
         var marker = get_marker(latlng);
         marker.openPopup();
     });
-}
+};
 
 /*
  * Draw the marker for a given drop point.
@@ -105,10 +105,10 @@ global.allow_dp_creation_from_map = function() {
  *
  */
 global.draw_marker = function(num) {
-    if (map.hasLayer(drop_points[num]["layer"])) {
-        map.removeLayer(drop_points[num]["layer"]);
+    if (map.hasLayer(drop_points[num].layer)) {
+        map.removeLayer(drop_points[num].layer);
     }
-    drop_points[num]["layer"] = L.geoJson({
+    drop_points[num].layer = L.geoJson({
             type: "Feature",
             geometry: {
                 type: "Point",
@@ -120,8 +120,8 @@ global.draw_marker = function(num) {
             }
         }, {
             filter: function (feature) {
-                return feature.geometry.coordinates[0] != null &&
-                    feature.geometry.coordinates[1] != null;
+                return feature.geometry.coordinates[0] !== null &&
+                    feature.geometry.coordinates[1] !== null;
             },
             pointToLayer: function (feature, latlng) {
                 var marker = L.marker(latlng, {
@@ -139,7 +139,7 @@ global.draw_marker = function(num) {
     $(map).one("zoomend", function () {
         draw_marker(num);
     });
-    map.addLayer(drop_points[num]["layer"]);
-}
+    map.addLayer(drop_points[num].layer);
+};
 
 /* vim: set expandtab ts=4 sw=4: */

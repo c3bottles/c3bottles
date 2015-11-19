@@ -132,8 +132,8 @@ function visit_dp(num, action) {
  *
  */
 global.show_dp_modal = function(num, pane) {
-    var prio = (Date.now() / 1000 - drop_points[num]["base_time"]) *
-        drop_points[num]["priority_factor"];
+    var prio = (Date.now() / 1000 - drop_points[num].base_time) *
+        drop_points[num].priority_factor;
     drop_points[num].priority = prio.toFixed(2);
     var details = drop_points[num];
     for (var key in details) {
@@ -145,7 +145,7 @@ global.show_dp_modal = function(num, pane) {
     }
     show_dp_modal_pane(pane);
     $("#dp_modal").modal("show");
-}
+};
 
 /*
  * Select a specific given pane in the drop point modal.
@@ -163,15 +163,15 @@ function show_dp_modal_pane(pane) {
 function add_alert(type, title, message) {
     var alert = $("<div></div>")
         .addClass("alert alert-" + type + " collapse")
-        .html("<button type=\"button\" class=\"close alert-hide\">\
-                        <span aria-hidden=\"true\">&times;</span></button>\
-                        <strong>" + title + "</strong> " + message);
+        .html("<button type=\"button\" class=\"close alert-hide\">" +
+              "<span aria-hidden=\"true\">&times;</span></button>" +
+              "<strong>" + title + "</strong> " + message);
     $("#alerts").prepend(alert);
     $(".alert-hide").on("click", function () {
         $(this).parent().slideUp();
     });
     alert.slideDown();
-    setTimeout(function() { alert.slideUp() }, 5000);
+    setTimeout(function() { alert.slideUp(); }, 5000);
 }
 
 /* vim: set expandtab ts=4 sw=4: */

@@ -40,12 +40,12 @@ global.refresh_drop_point = function(num) {
     if (typeof dt != "undefined") {
         draw_row(num);
     }
-}
+};
 
 global.init_drop_point_refreshing = function() {
     setTimeout(function() {
         update_drop_points(Date.now()/1000);
     }, 120000);
-}
+};
 
 /* vim: set expandtab ts=4 sw=4: */

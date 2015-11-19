@@ -19,7 +19,7 @@ global.init_table = function() {
         data: get_table_data(),
         order: [[6, "desc"]],
         createdRow: function(row, data) {
-            drop_points[data.number]["row"] = row;
+            drop_points[data.number].row = row;
         },
         columns: [
             {
@@ -31,7 +31,7 @@ global.init_table = function() {
                     if (data.description) {
                         return data.description;
                     } else {
-                        return "somewhere on level " + data.level
+                        return "somewhere on level " + data.level;
                     }
                 }
             },
@@ -48,7 +48,7 @@ global.init_table = function() {
             {
                 data: null, orderable: false, defaultContent: "",
                 createdCell: function (td, cd, rd) {
-                    rd["details_cell"] = td;
+                    rd.details_cell = td;
                 },
                 render: function(data) {
                     var my_icon = icon_details.clone();
@@ -61,7 +61,7 @@ global.init_table = function() {
             {
                 data: null, orderable: false, defaultContent: "",
                 createdCell: function (td, cd, rd) {
-                    rd["report_cell"] = td;
+                    rd.report_cell = td;
                 },
                 render: function(data) {
                     var my_icon = icon_report.clone();
@@ -75,7 +75,7 @@ global.init_table = function() {
             {
                 data: null, orderable: false, defaultContent: "",
                 createdCell: function (td, cd, rd) {
-                    rd["visit_cell"] = td;
+                    rd.visit_cell = td;
                 },
                 render: function(data) {
                     var my_icon = icon_visit.clone();
@@ -87,9 +87,9 @@ global.init_table = function() {
             },
             {
                 data: null, sort: "desc", className: "hidden-xs",
-                render: function(data, type) {
-                    var prio = (Date.now() / 1000 - data["base_time"]) *
-                        data["priority_factor"];
+                render: function(data, undefined) {
+                    var prio = (Date.now() / 1000 - data.base_time) *
+                        data.priority_factor;
                     drop_points[data.number].priority = prio.toFixed(2);
                     return prio.toFixed(2);
                 }
@@ -102,15 +102,15 @@ global.init_table = function() {
 
     setTimeout(function() { redraw_table(); }, 10000);
 
-}
+};
 
 global.draw_row = function(num) {
-    if (drop_points[num] && drop_points[num]["row"]) {
+    if (drop_points[num] && drop_points[num].row) {
         dt.row(drop_points[num].row).data(drop_points[num]).draw(false);
     } else if (drop_points[num]) {
         dt.row.add(drop_points[num]).draw(false);
     }
-}
+};
 
 function redraw_table() {
     dt.rows().invalidate().draw(false);

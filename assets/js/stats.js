@@ -18,7 +18,7 @@ global.draw_drop_points_by_state = function(_data) {
     var chart =  new Chart(ctx).Doughnut(data);
     console.log(ctx);
     console.log(chart);
-}
+};
 
 global.draw_reports_by_state = function(_data) {
     data = [];
@@ -34,6 +34,6 @@ global.draw_reports_by_state = function(_data) {
     var chart =  new Chart(ctx).Doughnut(data);
     console.log(ctx);
     console.log(chart);
-}
+};
 
 /* vim: set expandtab ts=4 sw=4: */
