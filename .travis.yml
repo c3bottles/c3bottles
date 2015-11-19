@@ -13,4 +13,4 @@ install:
  - npm install
 script:
  - python test_model.py
- - npm run build:js
+ - npm run build:deps
