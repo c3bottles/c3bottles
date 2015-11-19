@@ -14,13 +14,15 @@ from model.capacity import Capacity
 from model.report import Report
 from model.visit import Visit
 
+def load_config(tmp_name):
+    c3bottles.config['SQLALCHEMY_DATABASE_URI'] = \
+        "sqlite:///" + tmp_name
+    c3bottles.config['TESTING'] = True
 
 class C3bottlesModelTestCase(unittest.TestCase):
     def setUp(self):
         self.tmp_fd, self.tmp_name = tempfile.mkstemp()
-        c3bottles.config['SQLALCHEMY_DATABASE_URI'] = \
-            "sqlite:///" + self.tmp_name
-        c3bottles.config['TESTING'] = True
+        load_config(self.tmp_name)
         self.c3bottles = c3bottles.test_client()
         db.create_all()
 

@@ -81,8 +81,9 @@ class DropPoint(db.Model):
         else:
             if self.number < 1:
                 errors.append({"number": "Drop point number is not positive."})
-            if db.session.query(DropPoint).get(self.number):
-                errors.append({"number": "That drop point already exists."})
+            with db.session.no_autoflush:
+                if db.session.query(DropPoint).get(self.number):
+                    errors.append({"number": "That drop point already exists."})
 
         if time and not isinstance(time, datetime):
             errors.append({"DropPoint": "Creation time not a datetime object."})

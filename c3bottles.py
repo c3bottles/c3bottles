@@ -5,7 +5,9 @@ from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.login import LoginManager
 
 c3bottles = Flask(__name__)
-c3bottles.config.from_object("config")
+
+def load_config():
+    c3bottles.config.from_object("config")
 
 db = SQLAlchemy(c3bottles)
 
@@ -23,6 +25,7 @@ c3bottles.register_blueprint(api)
 c3bottles.register_blueprint(stats)
 
 if __name__ == "__main__":
+    load_config()
     c3bottles.run(debug=True)
 
 # vim: set expandtab ts=4 sw=4:

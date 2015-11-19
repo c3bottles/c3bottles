@@ -1,0 +1,5 @@
+Flask>=0.10.1
+Flask-SQLAlchemy>=1.0
+Flask-Login>=0.2.6
+Flask-WTF>=0.6
+GDAL>=1.10.0
