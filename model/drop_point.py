@@ -3,10 +3,10 @@ import json
 from datetime import datetime
 
 from controller import c3bottles, db
-from location import Location
-from capacity import Capacity
-from report import Report
-from visit import Visit
+from model.location import Location
+from model.capacity import Capacity
+from model.report import Report
+from model.visit import Visit
 
 
 class DropPoint(db.Model):

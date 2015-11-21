@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from controller import db
-import drop_point
+import model.drop_point
 
 
 class Visit(db.Model):
