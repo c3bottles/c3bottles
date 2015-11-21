@@ -119,7 +119,7 @@ def report(number=None):
 @c3bottles.route("/visit/<int:dp_number>")
 @login_required
 def dp_visit(dp_number):
-    if not g.user.can_visit():
+    if not g.user.can_visit:
         return unauthorized(None)
     return "TODO: Visit drop point " + str(dp_number)
 
@@ -133,7 +133,7 @@ def create_dp(
         success=None, center_lat=None, center_lng=None
 ):
 
-    if not g.user.can_edit():
+    if not g.user.can_edit:
         return unauthorized(None)
 
     if request.method == "POST":
@@ -210,7 +210,7 @@ def edit_dp(
         success=None, center_lat=None, center_lng=None
 ):
 
-    if not g.user.can_edit():
+    if not g.user.can_edit:
         return unauthorized(None)
 
     if number:
@@ -316,7 +316,7 @@ def login():
             )
         except BuildError:
             back = redirect(url_for("index"))
-        if g.user and g.user.is_authenticated():
+        if g.user and g.user.is_authenticated:
             return back
         user = User.get(form.username.data)
         if user and user.validate_password(form.password.data):

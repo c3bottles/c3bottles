@@ -6,7 +6,8 @@ In order to install c3bottles, you will need:
 
 *   Flask-SQLAlchemy (python-flask-sqlalchemy)
 
-*   Flask-Login (python-flask-login)
+*   Flask-Login >= 0.3.0 (versions <0.3.0 will not work since a breaking
+    change has been done in the API) (python-flask-login)
 
 *   Flask-WTF (python-flaskext.wtf)
 

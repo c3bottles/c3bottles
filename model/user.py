@@ -17,18 +17,23 @@ class User():
     def get_id(self):
         return self._id
 
+    @property
     def is_authenticated(self):
         return True
 
+    @property
     def is_active(self):
         return True
 
+    @property
     def is_anonymous(self):
         return False
 
+    @property
     def can_visit(self):
         return self._can_visit
 
+    @property
     def can_edit(self):
         return self._can_edit
 

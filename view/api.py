@@ -52,7 +52,7 @@ def report():
 
 
 def visit():
-    if not (g.user.is_authenticated() and g.user.can_visit()):
+    if not (g.user.is_authenticated and g.user.can_visit):
         return Response(
             json.dumps(
                 [{"msg": "Not logged in or unsufficient privileges."}],

@@ -51,7 +51,7 @@ class Location(db.Model):
 
         errors = []
 
-        if not isinstance(dp, drop_point.DropPoint):
+        if not isinstance(dp, model.drop_point.DropPoint):
             errors.append({"Location": "Not given a drop point object."})
             raise ValueError(errors)
 

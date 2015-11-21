@@ -1,4 +1,4 @@
-{% if g.user.is_authenticated() and g.user.can_visit(): %}
+{% if g.user.is_authenticated and g.user.can_visit: %}
 <p>
     Please use the buttons below to log the action taken
     on your visit of this drop point.
@@ -9,7 +9,7 @@
         Emptied the drop point
     </button>
     <hr/>
-    {% if g.user.is_authenticated() and g.user.can_edit(): %}
+    {% if g.user.is_authenticated and g.user.can_edit: %}
     <a class="btn btn-block btn-warning modal_dp_link"
        data-baseurl="{{ url_for("edit_dp") }}">
         Modified the drop point
