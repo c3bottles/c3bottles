@@ -103,7 +103,7 @@ class DropPoint(db.Model):
                 level=level
             )
         except ValueError as e:
-            for m in e.message:
+            for m in e.args[0]:
                 errors.append(m)
 
         try:
@@ -113,7 +113,7 @@ class DropPoint(db.Model):
                 crates=crates
             )
         except ValueError as e:
-            for m in e.message:
+            for m in e.args[0]:
                 errors.append(m)
 
         if errors:
