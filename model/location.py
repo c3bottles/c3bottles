@@ -99,7 +99,7 @@ class Location(db.Model):
                 errors.append({"description": "Room description is too long."})
 
         if errors:
-            raise ValueError(errors)
+            raise ValueError(*errors)
 
         db.session.add(self)
 

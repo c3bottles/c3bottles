@@ -100,7 +100,7 @@ def report(number=None):
             return render_template(
                 "error.html",
                 text="Errors occurred while processing your report:",
-                errors=[v for d in e.message for v in d.values()]
+                errors=[v for d in e.args for v in d.values()]
             )
         else:
             db.session.commit()
@@ -151,7 +151,7 @@ def create_dp(
                 lng=lng, level=level, crates=crates
             )
         except ValueError as e:
-            errors = e.message
+            errors = e.args
         else:
             db.session.commit()
             if request.form.get("action") == "stay":
@@ -258,7 +258,7 @@ def edit_dp(
                 )
 
         except ValueError as e:
-            errors = e.message
+            errors = e.args
         else:
             db.session.commit()
             return render_template(

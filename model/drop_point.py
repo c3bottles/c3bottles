@@ -103,8 +103,7 @@ class DropPoint(db.Model):
                 level=level
             )
         except ValueError as e:
-            for m in e.args[0]:
-                errors.append(m)
+            errors += e.args
 
         try:
             Capacity(
@@ -113,11 +112,10 @@ class DropPoint(db.Model):
                 crates=crates
             )
         except ValueError as e:
-            for m in e.args[0]:
-                errors.append(m)
+            errors += e.args
 
         if errors:
-            raise ValueError(errors)
+            raise ValueError(*errors)
 
         db.session.add(self)
 

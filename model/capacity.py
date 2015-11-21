@@ -75,7 +75,7 @@ class Capacity(db.Model):
                     errors.append({"crates": "Crate count is not positive."})
 
         if errors:
-            raise ValueError(errors)
+            raise ValueError(*errors)
 
         db.session.add(self)
 

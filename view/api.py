@@ -39,7 +39,7 @@ def report():
         )
     except ValueError as e:
         return Response(
-            json.dumps(e.message, indent=4 if c3bottles.debug else None),
+            json.dumps(e.args, indent=4 if c3bottles.debug else None),
             mimetype="application/json",
             status=400
         )
@@ -69,7 +69,7 @@ def visit():
         )
     except ValueError as e:
         return Response(
-            json.dumps(e.message, indent=4 if c3bottles.debug else None),
+            json.dumps(e.args, indent=4 if c3bottles.debug else None),
             mimetype="application/json",
             status=400
         )
@@ -90,7 +90,7 @@ def dp_json():
             )
         except ValueError as e:
             return Response(
-                json.dumps(e.message, indent=4 if c3bottles.debug else None),
+                json.dumps(e.args, indent=4 if c3bottles.debug else None),
                 mimetype="application/json",
                 status=400
             )
