@@ -5,8 +5,8 @@ from werkzeug.routing import BuildError
 from json import loads
 from re import sub
 
-from c3bottles import c3bottles, db
-from forms import LoginForm
+from controller import c3bottles, db
+from model.forms import LoginForm
 from model.drop_point import DropPoint
 from model.location import Location
 from model.capacity import Capacity

@@ -43,20 +43,21 @@ In order to install c3bottles, you will need:
         $ npm install
         $ npm run build
 
-4.  Create a configuriation file `config.py`. You will find a template for the
-    configuration in the file `config.default.py`. c3bottles will not work if
-    no config.py with the required settings is present. You have to configure
-    at least a database URI and a secret key.
+4.  Create a configuriation file `controller/config.py`. You will find a
+    template for the configuration in the file `controller/config.default.py`.
+    c3bottles will not work if no config.py with the required settings is
+    present. You have to configure at least a database URI and a secret key.
 
 5.  Configure your database accordingly. The user for c3bottles needs full
     access to the database. If you use SQLite, the web server needs write
-    access to the directory containing the `*.db` file and the file itself.
+    access to the directory containing the `*.db` file and to the file itself.
 
 6.  Initialize the database using the Python interpreter:
 
         $ cd /path/to/c3bottles
         $ python
-        >>> from c3bottles import db
+        >>> from controller import db, load_config
+        >>> load_config()
         >>> db.create_all()
 
 7.  Configure the users needed and their passwords in `model/user.py` as
@@ -69,7 +70,7 @@ In order to install c3bottles, you will need:
 8.  Configure your webserver accordingly to run the WSGI application. Apache
     needs something like this to run c3bottles as the document root of a host:
 
-        WSGIScriptAlias / /path/to/c3bottles/c3bottles.wsgi
+        WSGIScriptAlias / /path/to/c3bottles/wsgi.py
         Alias /static /path/to/c3bottles/static
 
 # Map

@@ -4,10 +4,13 @@ from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.login import LoginManager
 
-c3bottles = Flask(__name__)
+c3bottles = Flask(__name__,
+    static_folder="../static",
+    template_folder="../templates"
+)
 
 def load_config():
-    c3bottles.config.from_object("config")
+    c3bottles.config.from_object("controller.config")
 
 db = SQLAlchemy(c3bottles)
 
@@ -18,14 +21,10 @@ lm = LoginManager(c3bottles)
 c3bottles.jinja_env.trim_blocks = True
 c3bottles.jinja_env.lstrip_blocks = True
 
-from view import *
-from api import api
-from statistics import stats
+from view.legacy import *
+from view.api import api
+from view.statistics import stats
 c3bottles.register_blueprint(api)
 c3bottles.register_blueprint(stats)
-
-if __name__ == "__main__":
-    load_config()
-    c3bottles.run(debug=True)
 
 # vim: set expandtab ts=4 sw=4:

@@ -2,7 +2,7 @@ import json
 
 from datetime import datetime
 
-from c3bottles import c3bottles, db
+from controller import c3bottles, db
 from location import Location
 from capacity import Capacity
 from report import Report

@@ -3,7 +3,7 @@ from datetime import datetime
 
 from flask import request, Response, g, Blueprint
 
-from c3bottles import c3bottles, db
+from controller import c3bottles, db
 from model.drop_point import DropPoint
 from model.report import Report
 from model.visit import Visit

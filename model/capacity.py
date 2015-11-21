@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from c3bottles import db
+from controller import db
 import drop_point
 
 

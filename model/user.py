@@ -1,6 +1,6 @@
 from werkzeug.security import check_password_hash
 
-from c3bottles import lm
+from controller import lm
 
 class User():
 
