@@ -1,7 +1,6 @@
 #!/usr/bin/python
 
-import os
-import tempfile
+import sys
 import unittest
 
 from datetime import datetime, timedelta
@@ -13,6 +12,8 @@ from model.location import Location
 from model.capacity import Capacity
 from model.report import Report
 from model.visit import Visit
+
+print("Tests running with Python %s.%s" % (sys.version_info[0], sys.version_info[1]))
 
 def load_config():
     c3bottles.config['SQLALCHEMY_DATABASE_URI'] = "sqlite://"
