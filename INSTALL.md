@@ -44,10 +44,10 @@ In order to install c3bottles, you will need:
         $ npm install
         $ npm run build
 
-4.  Create a configuriation file `controller/config.py`. You will find a
-    template for the configuration in the file `controller/config.default.py`.
-    c3bottles will not work if no config.py with the required settings is
-    present. You have to configure at least a database URI and a secret key.
+4.  Create a configuriation file `config.py`. You will find a template for
+    the configuration in the file `config.default.py`. c3bottles will not
+    work if no config.py with the required settings is present. You have to
+    configure at least a database URI and a secret key.
 
 5.  Configure your database accordingly. The user for c3bottles needs full
     access to the database. If you use SQLite, the web server needs write

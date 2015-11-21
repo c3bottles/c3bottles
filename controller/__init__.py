@@ -10,7 +10,7 @@ c3bottles = Flask(__name__,
 )
 
 def load_config():
-    c3bottles.config.from_object("controller.config")
+    c3bottles.config.from_object("config")
 
 db = SQLAlchemy(c3bottles)
 
