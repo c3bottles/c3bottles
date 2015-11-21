@@ -7,30 +7,26 @@ import unittest
 from datetime import datetime, timedelta
 from flask.ext.sqlalchemy import BaseQuery
 
-from c3bottles import c3bottles, db
+from controller import c3bottles, db
 from model.drop_point import DropPoint
 from model.location import Location
 from model.capacity import Capacity
 from model.report import Report
 from model.visit import Visit
 
-def load_config(tmp_name):
-    c3bottles.config['SQLALCHEMY_DATABASE_URI'] = \
-        "sqlite:///" + tmp_name
+def load_config():
+    c3bottles.config['SQLALCHEMY_DATABASE_URI'] = "sqlite://"
     c3bottles.config['TESTING'] = True
 
 class C3bottlesModelTestCase(unittest.TestCase):
     def setUp(self):
-        self.tmp_fd, self.tmp_name = tempfile.mkstemp()
-        load_config(self.tmp_name)
+        load_config()
         self.c3bottles = c3bottles.test_client()
         db.create_all()
 
     def tearDown(self):
         db.session.remove()
         db.drop_all()
-        os.close(self.tmp_fd)
-        os.unlink(self.tmp_name)
 
     def test_drop_point_construction(self):
 
@@ -184,7 +180,7 @@ class C3bottlesModelTestCase(unittest.TestCase):
 
         db.session.commit()
 
-        self.assertEquals(
+        self.assertEqual(
             DropPoint.get(dp_number), dp,
             "DropPoint.get() did not return the drop point created."
         )
@@ -711,7 +707,7 @@ class C3bottlesModelTestCase(unittest.TestCase):
             "First visit not first visit of associated drop point."
         )
 
-        self.assertEquals(
+        self.assertEqual(
             dp.get_last_visit(), first_visit,
             "get_last_visit() did not return first visit."
         )
