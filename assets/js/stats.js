@@ -4,7 +4,7 @@ var Chart = require("chart.js");
 Chart.defaults.global.animation = false;
 Chart.defaults.Doughnut.percentageInnerCutout = 40;
 
-global.draw_drop_points_by_state = function(_data) {
+exports.draw_drop_points_by_state = function(_data) {
     data = []; 
     for (var state in _data) {
         data.push({
@@ -17,7 +17,7 @@ global.draw_drop_points_by_state = function(_data) {
     new Chart(ctx).Doughnut(data);
 };
 
-global.draw_reports_by_state = function(_data) {
+exports.draw_reports_by_state = function(_data) {
     data = [];
     for (var state in _data) {
         data.push({

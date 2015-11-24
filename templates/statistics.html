@@ -62,8 +62,8 @@
 {% block scripts %}
 <script type="text/javascript">
     {{ states.label_js() }}
-    draw_drop_points_by_state({{ stats.drop_points_by_state|tojson }});
-    draw_reports_by_state({{ stats.reports_by_state|tojson }});
+    stats.draw_drop_points_by_state({{ stats.drop_points_by_state|tojson }});
+    stats.draw_reports_by_state({{ stats.reports_by_state|tojson }});
 </script>
 {% endblock %}
 {# vim: set expandtab ts=4 sw=4: #}
