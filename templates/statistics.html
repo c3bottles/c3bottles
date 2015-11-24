@@ -16,7 +16,7 @@
             <table class="table table-condensed">
                 {% set d = stats.drop_points_by_state %}
                 {% set r = stats.reports_by_state %}
-                {% for s in d: %}
+                {% for s in ["DEFAULT", "NO_CRATES", "OVERFLOW", "FULL", "REASONABLY_FULL", "SOME_BOTTLES", "EMPTY", "NEW"]: %}
                 <tr>
                     <td class="text-right">{{ d[s] }}</td>
                     <td class="text-center">{{ states.label(s) }}</td>

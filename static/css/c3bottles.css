@@ -62,4 +62,8 @@ body {
     visibility: hidden;
 }
 
+.label-unknown {
+    background-color: #6f5499;
+}
+
 /* vim: set expandtab ts=4 sw=4: */

@@ -16,11 +16,11 @@
 <span class="label label-success">Empty</span>{%  elif state == "NEW" %}
 <span class="label label-default">New</span>{%  elif state == "NO_CRATES" %}
 <span class="label label-danger">No crates</span>{% else %}
-<span class="label label-warning">Unknown</span>{% endif %}{% endmacro %}
+<span class="label label-unknown">Unknown</span>{% endif %}{% endmacro %}
 
 {%  macro label_js() %}
 var labels = {
-    {% for state in ["OVERFLOW", "FULL", "REASONABLY_FULL", "SOME_BOTTLES", "EMPTY", "NEW", "NO_CRATES", "DEFAULT", "UNKNOWN"] %}
+    {% for state in ["OVERFLOW", "NO_CRATES", "FULL", "REASONABLY_FULL", "SOME_BOTTLES", "EMPTY", "NEW", "DEFAULT", "UNKNOWN"] %}
     {{ state }}: [{{ num(state) }}, $('{{ label(state) }}')],
     {% endfor %}
 

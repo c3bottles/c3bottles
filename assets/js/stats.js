@@ -6,9 +6,9 @@ Chart.defaults.Doughnut.percentageInnerCutout = 40;
 
 exports.draw_drop_points_by_state = function(_data) {
     data = []; 
-    for (var state in _data) {
+    for (var state in labels) {
         data.push({
-            value: _data[state],
+            value: typeof _data[state] === "number"? _data[state] : 0,
             color: $(labels[state][1]).css("background-color"),
             label: $(labels[state][1]).text()
         }); 
@@ -19,9 +19,9 @@ exports.draw_drop_points_by_state = function(_data) {
 
 exports.draw_reports_by_state = function(_data) {
     data = [];
-    for (var state in _data) {
+    for (var state in labels) {
         data.push({
-            value: _data[state],
+            value: typeof _data[state] === "number"? _data[state] : 0,
             color: $(labels[state][1]).css("background-color"),
             label: $(labels[state][1]).text()
         });
