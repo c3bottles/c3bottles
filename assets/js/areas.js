@@ -415,7 +415,7 @@ function point_in_polygon(poly, point) {
  * in none.
  *
  */
-global.get_level = function(point) {
+exports.get_level = function(point) {
     for (var i in levels.features) {
         if (point_in_polygon(levels.features[i].geometry.coordinates[0], point)) {
             return levels.features[i].properties.level;
@@ -430,7 +430,7 @@ global.get_level = function(point) {
  * in none.
  *
  */
-global.get_room = function(point) {
+exports.get_room = function(point) {
     for (var i in rooms.features) {
         if (point_in_polygon(rooms.features[i].geometry.coordinates[0], point)) {
             return rooms.features[i].properties;

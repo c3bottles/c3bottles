@@ -1,6 +1,5 @@
 var $ = require("jquery");
 var L = require("leaflet");
-require("./areas.js");
 
 /*
  * Initialize the map object, add the background layer and draw all the

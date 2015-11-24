@@ -1,6 +1,7 @@
 var $ = require("jquery");
 var L = require("leaflet");
 require("./map.js");
+var areas = require("./areas.js");
 
 var new_dp_marker = null;
 
@@ -33,13 +34,13 @@ global.set_info_from_marker = function(latlng) {
     lng = latlng.lng.toFixed(2);
     $("#lat").val(lat);
     $("#lng").val(lng);
-    var room = get_room([lng, lat]);
+    var room = areas.get_room([lng, lat]);
     if (room !== null) {
         $("#description").val(room.name);
         $("#number").val(get_next_free_dp_num(room.level));
         $("input[name='level'][value=" + room.level + "]").prop("checked", true);
     } else {
-        var level = get_level([lng, lat]);
+        var level = areas.get_level([lng, lat]);
         if (level !== null) {
             $("#number").val(get_next_free_dp_num(level));
             $("input[name='level'][value=" + level + "]").prop("checked", true);
