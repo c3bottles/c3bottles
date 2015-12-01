@@ -21,8 +21,12 @@ lm = LoginManager(c3bottles)
 c3bottles.jinja_env.trim_blocks = True
 c3bottles.jinja_env.lstrip_blocks = True
 
-from view.legacy import *
 from view.api import api
+from view.main import index, faq, dp_list, dp_map, dp_view
+from view.create import create_dp
+from view.edit import edit_dp
+from view.report import report
+from view.visit import visit
 from view.user import login, logout
 from view.statistics import stats
 c3bottles.register_blueprint(api)
