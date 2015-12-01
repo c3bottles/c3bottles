@@ -1,5 +1,5 @@
 from flask import render_template, request, redirect, url_for, g
-from flask.ext.login import current_user, login_required, login_user, logout_user
+from flask.ext.login import login_required, login_user, logout_user
 from werkzeug.security import check_password_hash
 from werkzeug.routing import BuildError
 from json import loads
@@ -11,12 +11,6 @@ from model.drop_point import DropPoint
 from model.location import Location
 from model.capacity import Capacity
 from model.user import User, load_user
-
-@c3bottles.before_request
-def before_request():
-    g.login_form = LoginForm()
-    g.user = current_user
-
 
 @c3bottles.route("/")
 def index():
@@ -314,7 +308,7 @@ def login():
                     **loads(sub("( u)?'", "\"", form.args.data))
                 )
             )
-        except BuildError:
+        except (BuildError, ValueError):
             back = redirect(url_for("index"))
         if g.user and g.user.is_authenticated:
             return back
@@ -335,23 +329,5 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for("index"))
-
-
-@c3bottles.errorhandler(401)
-def unauthorized(e):
-    return render_template(
-        "error.html",
-        heading="Unauthorized!",
-        text="You do not have permission to view this page."
-    ), 401
-
-
-@c3bottles.errorhandler(404)
-def not_found(e):
-    return render_template(
-        "error.html",
-        heading="Not found",
-        text="The requested URL was not found on the server."
-    ), 404
 
 # vim: set expandtab ts=4 sw=4:
