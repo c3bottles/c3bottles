@@ -23,6 +23,7 @@ c3bottles.jinja_env.lstrip_blocks = True
 
 from view.legacy import *
 from view.api import api
+from view.user import login, logout
 from view.statistics import stats
 c3bottles.register_blueprint(api)
 c3bottles.register_blueprint(stats)
