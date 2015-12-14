@@ -46,6 +46,8 @@
                     Report submitted and drop point seen as: {{ states.label(event.report.state) }}
                 {% elif event.visit %}
                     Drop point visited and maintenance performed: {{ actions.label(event.visit.action) }}
+                {% elif event.removed %}
+                    Drop point marked as removed
                 {% endif %}
             </td>
         </tr>

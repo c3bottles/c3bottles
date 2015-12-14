@@ -228,6 +228,12 @@ class DropPoint(db.Model):
             "drop_point": self
         })
 
+        if self.removed:
+            history.append({
+                "time": self.removed,
+                "removed": True
+            })
+
         return sorted(history, key=lambda k: k["time"], reverse=True)
 
     def get_visit_interval(self):

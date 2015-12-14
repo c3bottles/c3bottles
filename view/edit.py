@@ -1,3 +1,4 @@
+from datetime import datetime
 from flask import render_template, request, g, abort
 from flask.ext.login import login_required
 
@@ -43,6 +44,7 @@ def edit_dp(
         lng = request.form.get("lng")
         level = request.form.get("level")
         crates = request.form.get("crates")
+        remove = request.form.get("remove")
 
         try:
 
@@ -61,6 +63,11 @@ def edit_dp(
                     dp,
                     crates=crates
                 )
+
+            print "remove is", remove
+            if remove == "yes":
+                print "marked as removed"
+                dp.removed = datetime.now()
 
         except ValueError as e:
             errors = e.args
