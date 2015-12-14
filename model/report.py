@@ -51,6 +51,9 @@ class Report(db.Model):
 
         if not isinstance(dp, model.drop_point.DropPoint):
             errors.append({"Report": "Not given a drop point object."})
+        else:
+            if dp.removed:
+                errors.append({"Report": "Drop point has been removed."})
 
         if time and not isinstance(time, datetime):
             errors.append({"Report": "Time not a datetime object."})

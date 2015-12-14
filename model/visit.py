@@ -47,6 +47,9 @@ class Visit(db.Model):
 
         if not isinstance(dp, model.drop_point.DropPoint):
             errors.append({"Visit": "Not given a drop point object."})
+        else:
+            if dp.removed:
+                errors.append({"Visit": "Drop point has been removed."})
 
         if time and not isinstance(time, datetime):
             errors.append({"Visit": "Time not a datetime object."})

@@ -64,9 +64,7 @@ def edit_dp(
                     crates=crates
                 )
 
-            print "remove is", remove
             if remove == "yes":
-                print "marked as removed"
                 dp.removed = datetime.now()
 
         except ValueError as e:

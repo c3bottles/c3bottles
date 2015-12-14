@@ -11,7 +11,7 @@ def report(number=None):
     else:
         dp = DropPoint.get(request.values.get("number"))
 
-    if not dp:
+    if not dp or dp.removed:
         return render_template(
             "error.html",
             heading="Error!",
