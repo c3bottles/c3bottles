@@ -8,7 +8,9 @@ var icon_visit = $("<span></span>").addClass("clickable glyphicon glyphicon-wren
 function get_table_data() {
     var arr = [];
     for (var num in drop_points) {
-        arr.push(drop_points[num]);
+        if (!drop_points[num].removed) {
+            arr.push(drop_points[num]);
+        }
     }
     return arr;
 }

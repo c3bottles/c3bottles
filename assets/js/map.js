@@ -23,7 +23,9 @@ global.init_map = function() {
     }).addTo(map);
 
     for (var i in drop_points) {
-        draw_marker(i);
+        if (!drop_points[i].removed) {
+            draw_marker(i);
+        }
     }
 };
 
