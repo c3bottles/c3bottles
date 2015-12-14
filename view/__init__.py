@@ -1,3 +1,4 @@
+from datetime import datetime
 from flask import render_template, g
 from flask.ext.login import current_user
 
@@ -8,6 +9,7 @@ from model.forms import LoginForm
 def before_request():
     g.login_form = LoginForm()
     g.user = current_user
+    g.now = datetime.now()
 
 
 @c3bottles.errorhandler(401)

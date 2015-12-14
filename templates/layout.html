@@ -24,6 +24,9 @@
 </div>
 {% endblock %}
 {% include 'footer.html' %}
+<script type="text/javascript">
+    var offset = {{ g.now.strftime("%s.%f") }} - Date.now() / 1000
+</script>
 <script src="{{ url_for('static', filename='lib/js/lib.js') }}"></script>
 {% block scripts %}{% endblock %}
 </body>

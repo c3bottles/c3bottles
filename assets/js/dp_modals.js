@@ -132,7 +132,7 @@ function visit_dp(num, action) {
  *
  */
 global.show_dp_modal = function(num, pane) {
-    var prio = (Date.now() / 1000 - drop_points[num].base_time) *
+    var prio = (Date.now() / 1000 + offset - drop_points[num].base_time) *
         drop_points[num].priority_factor;
     drop_points[num].priority = prio.toFixed(2);
     var details = drop_points[num];

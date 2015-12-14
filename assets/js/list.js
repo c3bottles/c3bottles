@@ -88,7 +88,7 @@ global.init_table = function() {
             {
                 data: null, sort: "desc", className: "hidden-xs",
                 render: function(data, undefined) {
-                    var prio = (Date.now() / 1000 - data.base_time) *
+                    var prio = (Date.now() / 1000 + offset - data.base_time) *
                         data.priority_factor;
                     drop_points[data.number].priority = prio.toFixed(2);
                     return prio.toFixed(2);
