@@ -15,6 +15,8 @@ In order to install c3bottles, you will need:
 
 *   PyPDF (python-pypdf)
 
+*   Python-QRCode (python-qrcode)
+
 *   a WSGI-capable webserver (e.g. Apache)
 
 *   some SQL server supported by SQLAlchemy
@@ -35,7 +37,7 @@ In order to install c3bottles, you will need:
 
         $ apt-get install python-flask python-flask-sqlalchemy \
                           python-flask-login python-flaskext.wtf \
-                          python-cairosvg python-pypdf \
+                          python-cairosvg python-pypdf python-qrcode \
                           libapache2-mod-wsgi imagemagick \
                           gdal-bin python-gdal npm node-legacy
 

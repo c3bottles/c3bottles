@@ -1,4 +1,4 @@
-from flask import render_template, Response
+from flask import render_template, Response, request
 
 from controller import c3bottles, db
 from model.drop_point import DropPoint
@@ -66,11 +66,7 @@ def dp_view(number=None):
 def dp_label(number=None):
     dp = DropPoint.get(number)
     if dp:
-        from cairosvg import svg2pdf
-        return Response(
-            svg2pdf(render_template("label.svg", number=number)),
-            mimetype="application/pdf"
-        )
+        return Response(_pdf(number), mimetype="application/pdf")
     else:
         return render_template(
             "error.html",
@@ -82,19 +78,28 @@ def dp_label(number=None):
 @c3bottles.route("/label/all.pdf")
 def dp_all_labels():
     from StringIO import StringIO
-    from cairosvg import svg2pdf
     from pyPdf import PdfFileReader, PdfFileWriter
     output = PdfFileWriter()
     for dp in db.session.query(DropPoint).all():
         if not dp.removed:
-            output.addPage(PdfFileReader(StringIO(
-                svg2pdf(render_template("label.svg", number=dp.number))
-            )).getPage(0))
+            output.addPage(PdfFileReader(StringIO(_pdf(dp.number))).getPage(0))
     f = StringIO()
     output.write(f)
     return Response(
         f.getvalue(),
         mimetype="application/pdf"
     )
+
+
+def _pdf(number):
+    import qrcode as qr
+    from base64 import b64encode
+    from StringIO import StringIO
+    from cairosvg import svg2pdf
+    img = qr.make(request.url_root + str(number))
+    f = StringIO()
+    img.save(f)
+    b64 = b64encode(f.getvalue())
+    return svg2pdf(render_template("label.svg", number=number, qr=b64))
 
 # vim: set expandtab ts=4 sw=4:
