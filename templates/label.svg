@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="297mm" height="210mm" viewBox="0 0 1052.3622 744.09448">
+  <path d="M295.358 340.262c8.077-.105 9.21 1.627 9.972 6.232v62.324h14.957c5.153-.457 10.493-.458 12.465-8.725v-72.296c-.735-7.887-1.807-16.226-12.465-37.394-.81-1.362-.782-2.64 0-3.74l1.247-1.246v-8.725h-16.197l-.037 8.742 1.276 1.23c.804 1.373.922 2.253 0 3.74-6.357 10.092-10.21 22.884-12.465 37.393v11.22c.17.908.762.973 1.248 1.245z"/>
+  <path d="M260.456 352.727v57.338c1.027 4.153 5.86 6.58 8.657 6.245h20.046c2.652-.2 7.765-2.5 7.444-7.492v-56.09c-.002 0-3.712-6.25-3.702-6.234l-28.702.004c-.007.02-3.73 6.235-3.744 6.23z"/>
+  <path d="M340.23 366.438v19.946l17.45.003c18.7.007 18.693 38.643.002 38.636H233.034v-22.437l-38.64 32.408 38.64 32.41v-21.19h124.648c18.684-.005 34.905-18.698 34.9-37.396 0-24.922-16.203-42.375-34.9-42.38h-17.45z"/>
+  <text style="line-height:110.00000238%;-inkscape-font-specification:Sans;text-align:start" x="421.675" y="643.927" font-size="43.627" font-family="Tahoma" letter-spacing="0" word-spacing="0" transform="translate(0 -308.268)">
+    <tspan x="421.675" y="643.927">Bottle Drop Point {{ number }}</tspan>
+  </text>
+  <text style="line-height:110.00000238%;-inkscape-font-specification:Sans;text-align:start" x="421.958" y="698.421" font-size="43.627" font-family="Tahoma" letter-spacing="0" word-spacing="0" transform="translate(0 -308.268)">
+    <tspan x="421.958" y="698.421" font-size="28.046">If full, please report at</tspan><tspan x="421.958" y="729.271" font-size="28.046">{{ request.url_root }}{{ number }}</tspan>
+  </text>
+</svg>

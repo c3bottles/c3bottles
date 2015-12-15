@@ -15,12 +15,21 @@
                     <dd>{{ "%0.2f"|format(dp.get_priority()) }}</dd>
                     <dt>Number of crates:</dt>
                     <dd>{{ dp.get_current_crate_count() }}</dd>
+                    {% if g.user.can_visit %}
+                    <dt>Label:</dt>
+                    <dd>
+                        <a href="{{ url_for("dp_label", number=dp.number) }}">
+                            <span class="glyphicon glyphicon-file" aria-hidden="true"></span> Download PDF
+                        </a>
+                    </dd>
+                    {% endif %}
                 </dl>
             </div>
             <div class="col-sm-4 text-right">
                 <span class="h1">{{ states.label(dp.get_last_state()) }}</span>
             </div>
         </div>
+
         <h2>History</h2>
         <hr>
         <table class="table table-hover">

@@ -1,7 +1,8 @@
-from flask import render_template
+from flask import render_template, Response
 
 from controller import c3bottles, db
 from model.drop_point import DropPoint
+
 
 @c3bottles.route("/")
 def index():
@@ -52,6 +53,23 @@ def dp_view(number=None):
             "view.html",
             dp=dp,
             history=history
+        )
+    else:
+        return render_template(
+            "error.html",
+            heading="Error!",
+            text="Drop point not found.",
+        )
+
+
+@c3bottles.route("/label/<int:number>.pdf")
+def dp_label(number=None):
+    dp = DropPoint.get(number)
+    if dp:
+        from cairosvg import svg2pdf
+        return Response(
+            svg2pdf(render_template("label.svg", number=number)),
+            mimetype="application/pdf"
         )
     else:
         return render_template(

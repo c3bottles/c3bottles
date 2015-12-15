@@ -11,6 +11,8 @@ In order to install c3bottles, you will need:
 
 *   Flask-WTF (python-flaskext.wtf)
 
+*   CairoSVG (python-cairosvg)
+
 *   a WSGI-capable webserver (e.g. Apache)
 
 *   some SQL server supported by SQLAlchemy
@@ -31,7 +33,7 @@ In order to install c3bottles, you will need:
 
         $ apt-get install python-flask python-flask-sqlalchemy \
                           python-flask-login python-flaskext.wtf \
-                          libapache2-mod-wsgi imagemagick \
+                          python-cairosvg libapache2-mod-wsgi imagemagick \
                           gdal-bin python-gdal npm node-legacy
 
 2.  Copy the files into some directory readable by the web server.
