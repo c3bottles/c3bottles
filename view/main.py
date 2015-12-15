@@ -78,4 +78,23 @@ def dp_label(number=None):
             text="Drop point not found.",
         )
 
+
+@c3bottles.route("/label/all.pdf")
+def dp_all_labels():
+    from StringIO import StringIO
+    from cairosvg import svg2pdf
+    from pyPdf import PdfFileReader, PdfFileWriter
+    output = PdfFileWriter()
+    for dp in db.session.query(DropPoint).all():
+        if not dp.removed:
+            output.addPage(PdfFileReader(StringIO(
+                svg2pdf(render_template("label.svg", number=dp.number))
+            )).getPage(0))
+    f = StringIO()
+    output.write(f)
+    return Response(
+        f.getvalue(),
+        mimetype="application/pdf"
+    )
+
 # vim: set expandtab ts=4 sw=4:
