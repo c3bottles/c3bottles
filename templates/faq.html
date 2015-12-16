@@ -264,7 +264,22 @@
     </p>
     <div id="what-is-priority" class="collapse">
         <p>
-            TODO: Answer me!
+            Each drop point gets assigned a visit priority and the idea is
+            that the bottle collectors visit the drop points in order of
+            their priority.
+        </p>
+
+        <p>
+            The priority is calculated by taking the time since the last
+            visit as a base value relative to a base visit interval that
+            determines how often a typical drop point should be visited.
+            Each report of a drop point adds to the priority, where the
+            severity of the report (the most severe is obviously
+            "overflowing"). The latest report counts the most and
+            earlier reports count less and less. The crate count of the
+            drop point gives an additional bonus so that larger drop
+            points get a slight increase in priority since a higher
+            throughput is expected in such locations.
         </p>
         <hr/>
     </div>
