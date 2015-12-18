@@ -28,8 +28,9 @@
             <h4>Change the details of the drop point:</h4>
             <hr>
             <form class="form-horizontal" action="{{ url_for("edit_dp", number=number) }}" method="POST">
-                <input type="hidden" class="form-control" name="lat" id="lat" value="{{ lat }}">
-                <input type="hidden" class="form-control" name="lng" id="lng" value="{{ lng }}">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <input type="hidden" name="lat" id="lat" value="{{ lat }}">
+                <input type="hidden" name="lng" id="lng" value="{{ lng }}">
                 <div class="form-group{{ " has-error" if "level" in error_fields }}">
                     <label for="level" class="col-sm-4 control-label">Building level</label>
                     <div class="col-sm-8">

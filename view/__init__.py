@@ -1,5 +1,5 @@
 from datetime import datetime
-from flask import render_template, g
+from flask import render_template, g, request, Response
 from flask.ext.login import current_user
 
 from controller import c3bottles
@@ -12,11 +12,26 @@ def before_request():
     g.now = datetime.now()
 
 
+@c3bottles.errorhandler(400)
+def bad_request(e):
+    before_request()
+    if request.path == "/api":
+        return Response(
+            "[{\"e\": \"API request failed.\"}]",
+            mimetype="application/json",
+            status=400)
+    return render_template(
+        "error.html",
+        heading="Bad request",
+        text="Your browser sent an invalid request."
+    ), 400
+
+
 @c3bottles.errorhandler(401)
 def unauthorized(e):
     return render_template(
         "error.html",
-        heading="Unauthorized!",
+        heading="Unauthorized",
         text="You do not have permission to view this page."
     ), 401
 

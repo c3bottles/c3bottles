@@ -33,8 +33,9 @@
             <h4>2. Enter the details of your newly created drop point</h4>
             <hr>
             <form class="form-horizontal" action="{{ url_for("create_dp") }}" method="POST">
-                <input type="hidden" class="form-control" name="lat" id="lat" value="{{ lat if lat is not none }}">
-                <input type="hidden" class="form-control" name="lng" id="lng" value="{{ lng if lng is not none }}">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <input type="hidden" name="lat" id="lat" value="{{ lat if lat is not none }}">
+                <input type="hidden" name="lng" id="lng" value="{{ lng if lng is not none }}">
                 <div class="form-group{{ " has-error" if "level" in error_fields }}">
                     <label for="level" class="col-sm-4 control-label">Building level</label>
                     <div class="col-sm-8">

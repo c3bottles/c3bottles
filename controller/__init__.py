@@ -3,6 +3,7 @@
 from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.login import LoginManager
+from flask.ext.wtf import CsrfProtect
 
 c3bottles = Flask(__name__,
     static_folder="../static",
@@ -15,6 +16,8 @@ def load_config():
 db = SQLAlchemy(c3bottles)
 
 lm = LoginManager(c3bottles)
+
+csrf = CsrfProtect(c3bottles)
 
 # Trim and strip blocks in jinja2 so no unnecessary
 # newlines and tabs appear in the output:
