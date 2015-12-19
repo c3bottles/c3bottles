@@ -52,7 +52,8 @@ def dp_view(number=None):
         return render_template(
             "view.html",
             dp=dp,
-            history=history
+            history=history,
+            all_dps_json=DropPoint.get_dps_json()
         )
     else:
         return render_template(

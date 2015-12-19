@@ -2,13 +2,19 @@
 {% set title = "Details of Drop Point " + dp.number|string %}
 {% import "macros/states.html" as states %}
 {% import "macros/actions.html" as actions %}
+{% block header %}
+    <link href="{{ url_for('static', filename='lib/css/leaflet.css') }}"
+          rel="stylesheet">
+{% endblock %}
 {% block content %}
         <div class="page-header">
             <h1>{{ title }}</h1>
         </div>
         <div class="row">
-            <div class="col-sm-8">
+            <div class="col-md-6 col-sm-12">
                 <dl class="dl-horizontal">
+                    <dt>Current state:</dt>
+                    <dd>{{ states.label(dp.get_last_state()) }}</dd>
                     <dt>Current location:</dt>
                     <dd>{{ dp.get_current_location().description if dp.get_current_location().description else "somewhere" }} on level {{ dp.get_current_location().level|string }}</dd>
                     <dt>Visit priority:</dt>
@@ -25,8 +31,8 @@
                     {% endif %}
                 </dl>
             </div>
-            <div class="col-sm-4 text-right">
-                <span class="h1">{{ states.label(dp.get_last_state()) }}</span>
+            <div class="col-md-6 col-sm-12">
+                <div id="map" class="map" style="height: 400px; width: 100%;"></div>
             </div>
         </div>
 
@@ -63,5 +69,13 @@
         {% endfor %}
         </tbody>
         </table>
+{% endblock %}
+{% block scripts %}
+{% include "dp_js.html" %}
+<script type="text/javascript">
+    var imgdir = "{{ url_for('static', filename='img') }}";
+    init_map();
+    map.setView([{{ dp.get_current_location().lat }}, {{ dp.get_current_location().lng }}], 5);
+</script>
 {% endblock %}
 {# vim: set expandtab ts=4 sw=4: #}
