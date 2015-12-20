@@ -13,6 +13,7 @@
                 <div class="text-center">
                     <ul class="nav nav-pills"
                         style="margin-bottom: 10px; display: inline-block;">
+                        {% block links %}
                         <li id="dp_modal_details_link">
                             <a href="#dp_modal_details_tab"
                                data-toggle="tab">Details</a>
@@ -25,17 +26,35 @@
                             <a href="#dp_modal_visit_tab"
                                data-toggle="tab">Visit</a>
                         </li>
+                        {% endblock %}
                     </ul>
                 </div>
                 <div class="tab-content">
                     <div class="tab-pane" id="dp_modal_details_tab">
-                        {% include "details_tab.html" %}
+                        {% block details_tab %}
+                        <table class="table table-bordered">
+                            <tr>
+                                <td>Visit priority:</td>
+                                <td class="modal_dp_priority"></td>
+                            </tr>
+                            <tr>
+                                <td>Number of crates:</td>
+                                <td class="modal_dp_crates"></td>
+                            </tr>
+                        </table>
+                        <div class="text-center">
+                            <a class="btn btn-primary modal_dp_link"
+                               data-baseurl="{{ url_for("dp_view") }}">
+                                View more details
+                            </a>
+                        </div>
+                        {% endblock %}
                     </div>
                     <div class="tab-pane" id="dp_modal_report_tab">
-                        {% include "report_buttons.html" %}
+                        {% block report_tab %}{% include "report_buttons.html" %}{% endblock %}
                     </div>
                     <div class="tab-pane" id="dp_modal_visit_tab">
-                       {% include "visit_buttons.html" %}
+                        {% block visit_tab %}{% include "visit_buttons.html" %}{% endblock %}
                     </div>
                 </div>
             </div>

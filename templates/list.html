@@ -6,6 +6,8 @@
           rel="stylesheet">
     <link href="{{ url_for('static', filename='css/list.css') }}"
           rel="stylesheet">
+    <link href="{{ url_for('static', filename='lib/css/leaflet.css') }}"
+              rel="stylesheet">
 {% endblock %}
 {% block content %}
     <div class="page-header">
@@ -25,13 +27,15 @@
         </tr>
         </thead>
     </table>
-{% include "dp_modals.html" %}
+{% include "dp_modals_list.html" %}
 {% endblock %}
 {% block scripts %}
 {% include "dp_js.html" %}
 <script type="text/javascript">
     {{ states.label_js() }}
     init_table();
+    var imgdir = "{{ url_for('static', filename='img') }}";
+    init_map();
 </script>
 {% endblock %}
 {# vim: set expandtab ts=4 sw=4: #}

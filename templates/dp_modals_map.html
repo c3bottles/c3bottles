@@ -1,0 +1,24 @@
+{% extends "dp_modals.html" %}
+{% block details_tab %}
+<table class="table table-bordered">
+	<tr>
+        <td>Location:</td>
+        <td><span class="modal_dp_description"></span> on level <span class="modal_dp_level"></span></td>
+	</tr>
+    <tr>
+        <td>Visit priority:</td>
+        <td class="modal_dp_priority"></td>
+    </tr>
+    <tr>
+        <td>Number of crates:</td>
+        <td class="modal_dp_crates"></td>
+    </tr>
+</table>
+<div class="text-center">
+    <a class="btn btn-primary modal_dp_link"
+       data-baseurl="{{ url_for("dp_view") }}">
+        View more details
+    </a>
+</div>
+{% endblock %}
+{# vim: set expandtab ts=4 sw=4: #}
