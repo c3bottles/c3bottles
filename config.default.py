@@ -13,6 +13,9 @@
 # The secret key used for signing the session cookie.
 # SECRET_KEY = "changeme"
 
+# Show error messages in the web server log file instead of just "500".
+# PROPAGATE_EXCEPTIONS = True
+
 # Base interval at which drop points should be visited by the bottle collection
 # team. (default: 2 hours)
 # BASE_VISIT_INTERVAL = 120  # in minutes
