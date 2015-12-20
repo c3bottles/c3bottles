@@ -30,6 +30,12 @@
                     </dd>
                     {% endif %}
                 </dl>
+                <div class="btn-group">
+                    <a class="btn btn-default" href="{{ url_for("report", number=dp.number) }}">Report</a>
+                    {% if g.user.is_authenticated and g.user.can_edit %}
+                    <a class="btn btn-default" href="{{ url_for("edit_dp", number=dp.number) }}">Edit</a>
+                    {% endif %}
+                </div>
             </div>
             <div class="col-md-6 col-sm-12">
                 <div id="map" class="map" style="height: 400px; width: 100%;"></div>
