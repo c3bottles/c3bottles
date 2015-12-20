@@ -10,6 +10,8 @@ def before_request():
     g.login_form = LoginForm()
     g.user = current_user
     g.now = datetime.now()
+    g.no_anonymous_reporting = \
+        c3bottles.config.get("NO_ANONYMOUS_REPORTING", False)
 
 
 @c3bottles.errorhandler(400)

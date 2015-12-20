@@ -4,6 +4,11 @@
         <div class="page-header">
             <h1>Report Drop Point {{ dp.number }}</h1>
         </div>
+        {% if g.no_anonymous_reporting and g.user.is_anonymous %}
+        <div class="alert alert-warning">
+            <strong>Attention!</strong> Anonymous reporting has been disabled.
+        </div>
+        {% endif %}
         <div class="row">
         <div class="col-md-2 col-md-offset-4">
         <div style="width: 300px;">

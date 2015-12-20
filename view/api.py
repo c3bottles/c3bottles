@@ -31,6 +31,15 @@ def process():
 
 
 def report():
+    if g.no_anonymous_reporting and g.user.is_anonymous:
+        return Response(
+            json.dumps(
+                [{"msg": "Not logged in or unsufficient privileges."}],
+                indent=4 if c3bottles.debug else None
+            ),
+            mimetype="application/json",
+            status=401
+        )
     number = request.values.get("number")
     try:
         Report(

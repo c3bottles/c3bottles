@@ -1,6 +1,11 @@
 {% extends "layout.html" %}
 {% set title = "Home" %}
 {% block content %}
+    {% if g.no_anonymous_reporting %}
+    <div class="alert alert-warning">
+        <strong>Attention!</strong> Anonymous reporting has been disabled.
+    </div>
+    {% endif %}
     <div class="jumbotron"><div class="container">
         <h1>Welcome to c3bottles!</h1>
 
@@ -15,11 +20,11 @@
         <div class="row">
             <div class="col-xs-8 col-sm-5 col-md-4 col-lg-3">
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-            <input type="text" name="number" class="form-control"
+            <input{{ " disabled" if g.no_anonymous_reporting and g.user.is_anonymous }} type="text" name="number" class="form-control"
                    placeholder="Enter a drop point number">
             </div>
             <div class="col-xs-4">
-            <button type="submit" class="btn btn-success">Report</button>
+            <button{{ " disabled" if g.no_anonymous_reporting and g.user.is_anonymous }} type="submit" class="btn btn-success">Report</button>
             </div>
         </div>
         </form>

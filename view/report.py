@@ -1,4 +1,4 @@
-from flask import render_template, request
+from flask import render_template, request, g, abort
 
 from controller import c3bottles, db
 from model.drop_point import DropPoint
@@ -21,6 +21,8 @@ def report(number=None):
     state = request.values.get("state")
 
     if state:
+        if g.no_anonymous_reporting and g.user.is_anonymous:
+            abort(401)
         from model.report import Report
         try:
             Report(dp=dp, state=state)

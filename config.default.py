@@ -14,7 +14,12 @@
 # SECRET_KEY = "changeme"
 
 # Show error messages in the web server log file instead of just "500".
+# (default: False)
 # PROPAGATE_EXCEPTIONS = True
+
+# Disable anonymous reporting (useful during the setup phase in the beginning
+# of an event. (default: False)
+# NO_ANONYMOUS_REPORTIJG = False
 
 # Base interval at which drop points should be visited by the bottle collection
 # team. (default: 2 hours)
