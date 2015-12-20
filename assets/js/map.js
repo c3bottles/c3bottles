@@ -11,7 +11,7 @@ global.map = undefined;
 global.init_map = function() {
     map = L.map('map', {
         attributionControl: false
-    }).fitWorld();
+    });
 
     L.tileLayer(imgdir + '/tiles/{z}/{x}/{y}.png', {
         // Have a look in static/img/tiles.
