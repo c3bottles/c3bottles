@@ -55,7 +55,6 @@ global.init_table = function() {
                 render: function(data) {
                     var my_icon = icon_details.clone();
                     my_icon.click(function () {
-                        map.setView([data.lat, data.lng], 5);
                         show_dp_modal(data.number, "details");
                     });
                     $(data.details_cell).empty().append(my_icon);

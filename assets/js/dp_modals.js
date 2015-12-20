@@ -143,6 +143,9 @@ global.show_dp_modal = function(num, pane) {
     for (var i = 0; i < links.length; i++) {
         $(links[i]).attr("href", $(links[i]).data("baseurl") + "/" + num);
     }
+    var maplink = $(".modal_map_link");
+    $(maplink).attr("href", $(maplink).data("baseurl") + "#" +
+        drop_points[num].lat + "/" + drop_points[num].lng + "/4");
     show_dp_modal_pane(pane);
     $("#dp_modal").modal("show");
 };
