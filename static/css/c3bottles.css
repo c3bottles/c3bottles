@@ -66,4 +66,8 @@ body {
     background-color: #6f5499;
 }
 
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
 /* vim: set expandtab ts=4 sw=4: */
