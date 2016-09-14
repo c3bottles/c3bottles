@@ -39,7 +39,7 @@ In order to install c3bottles, you will need:
                           python-flask-login python-flaskext.wtf \
                           python-cairosvg python-pypdf python-qrcode \
                           libapache2-mod-wsgi imagemagick \
-                          gdal-bin python-gdal npm node-legacy
+                          gdal-bin python-gdal npm nodejs-legacy
 
 2.  Copy the files into some directory readable by the web server.
     You can clone the repository from Github:
