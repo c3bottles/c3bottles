@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% set title = "Visit Drop Point" %}
+{% block content %}
+        <div class="page-header">
+            <h1>Visit Drop Point {{ dp.number }}</h1>
+        </div>
+        {% if g.user.is_anonymous or not g.user.can_visit %}
+        <div class="alert alert-warning">
+            <strong>Attention!</strong> You are not allowed to visit drop points.
+        </div>
+        {% else %}
+        <div class="row">
+        <div class="col-md-2 col-md-offset-4">
+        <div style="width: 300px;">
+            <form action="{{ url_for("visit") }}" method="POST">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <input type="hidden" name="number" value="{{ dp.number }}">
+                {% include "visit_buttons.html" %}
+            </form>
+        </div>
+        </div>
+        </div>
+        {% endif %}
+{% endblock %}
+{# vim: set expandtab ts=4 sw=4: #}

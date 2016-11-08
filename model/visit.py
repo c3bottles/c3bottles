@@ -65,7 +65,7 @@ class Visit(db.Model):
             errors.append({"Visit": "Invalid or missing maintenance action."})
 
         if errors:
-            raise ValueError(errors)
+            raise ValueError(*errors)
 
         db.session.add(self)
 

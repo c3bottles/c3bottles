@@ -69,7 +69,7 @@ class Report(db.Model):
             errors.append({"Report": "Invalid or missing reported state."})
 
         if errors:
-            raise ValueError(errors)
+            raise ValueError(*errors)
 
         db.session.add(self)
 
