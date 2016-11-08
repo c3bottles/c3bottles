@@ -31,7 +31,9 @@
                     {% endif %}
                 </dl>
                 <div class="btn-group">
+                    {% if not g.no_anonymous_reporting or g.user.is_authenticated %}
                     <a class="btn btn-default" href="{{ url_for("report", number=dp.number) }}">Report</a>
+                    {% endif %}
                     {% if g.user.is_authenticated and g.user.can_edit %}
                     <a class="btn btn-default" href="{{ url_for("edit_dp", number=dp.number) }}">Edit</a>
                     {% endif %}
