@@ -1,4 +1,5 @@
 var $ = require("jquery");
+var offset = $("meta[name='time']").attr("content") - Date.now() / 1000;
 
 /*
  * When hiding any of the drop point modals (details, reporting, visiting),

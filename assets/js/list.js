@@ -1,4 +1,5 @@
 var $ = require("jquery");
+var offset = $("meta[name='time']").attr("content") - Date.now() / 1000;
 require("datatables-bootstrap3-plugin");
 
 var icon_details = $("<span></span>").addClass("clickable glyphicon glyphicon-search dp_modal details");
