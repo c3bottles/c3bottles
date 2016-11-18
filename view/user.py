@@ -1,5 +1,5 @@
 from flask import render_template, url_for, redirect, request, g
-from flask.ext.login import login_user, logout_user
+from flask_login import login_user, logout_user
 from werkzeug.routing import BuildError
 from json import loads
 from re import sub

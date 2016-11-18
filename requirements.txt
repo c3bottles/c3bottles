@@ -1,7 +1,7 @@
-Flask>=0.10.1
-Flask-SQLAlchemy>=1.0
-Flask-Login>=0.3.0
-Flask-WTF>=0.6
-CairoSVG>=1.0.4
+Flask>=0.11.1
+Flask-SQLAlchemy>=2.1
+Flask-Login>=0.4.0
+Flask-WTF>=0.13.1
+CairoSVG>=1.0.22
 pyPdf>=1.13
-qrcode>=4.0.1
+qrcode>=5.3

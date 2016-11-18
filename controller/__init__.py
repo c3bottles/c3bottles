@@ -1,14 +1,17 @@
 #!/usr/bin/python
 
 from flask import Flask
-from flask.ext.sqlalchemy import SQLAlchemy
-from flask.ext.login import LoginManager
-from flask.ext.wtf import CsrfProtect
+from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager
+from flask_wtf import CsrfProtect
 
 c3bottles = Flask(__name__,
     static_folder="../static",
     template_folder="../templates"
 )
+
+# We need to set this here to prevent the depreciation warning
+c3bottles.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 def load_config():
     c3bottles.config.from_object("config")

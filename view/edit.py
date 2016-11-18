@@ -1,6 +1,6 @@
 from datetime import datetime
 from flask import render_template, request, g, abort
-from flask.ext.login import login_required
+from flask_login import login_required
 
 from controller import c3bottles, db
 from model.drop_point import DropPoint
