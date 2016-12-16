@@ -2,6 +2,6 @@ Flask>=0.11.1
 Flask-SQLAlchemy>=2.1
 Flask-Login>=0.4.0
 Flask-WTF>=0.13.1
-CairoSVG>=1.0.22
+CairoSVG>=1.0.22, <2.0
 pyPdf>=1.13
 qrcode>=5.3

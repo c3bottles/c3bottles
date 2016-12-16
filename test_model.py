@@ -4,12 +4,11 @@ import sys
 import unittest
 
 from datetime import datetime, timedelta
-from flask.ext.sqlalchemy import BaseQuery
+from flask_sqlalchemy import BaseQuery
 
 from controller import c3bottles, db
 from model.drop_point import DropPoint
 from model.location import Location
-from model.capacity import Capacity
 from model.report import Report
 from model.visit import Visit
 
@@ -37,7 +36,6 @@ class C3bottlesModelTestCase(unittest.TestCase):
         lat = 20
         lng = 10
         level = 2
-        crate_count = 3
 
         dp = DropPoint(
             dp_number,
@@ -45,8 +43,7 @@ class C3bottlesModelTestCase(unittest.TestCase):
             description=description,
             lat=lat,
             lng=lng,
-            level=level,
-            crates=crate_count
+            level=level
         )
 
         db.session.commit()
@@ -91,11 +88,6 @@ class C3bottlesModelTestCase(unittest.TestCase):
             "Drop point has no Location object."
         )
 
-        self.assertIsInstance(
-            dp.capacities[0], Capacity,
-            "Drop point has no Capacity object."
-        )
-
         self.assertEqual(
             dp.time, time,
             "Drop point creation time not as expected."
@@ -124,21 +116,6 @@ class C3bottlesModelTestCase(unittest.TestCase):
         self.assertEqual(
             dp.locations[0].time, time,
             "Location start time not as expected."
-        )
-
-        self.assertEqual(
-            dp.get_current_crate_count(), crate_count,
-            "Drop point crate count not as expected."
-        )
-
-        self.assertEqual(
-            dp.capacities[0].crates, crate_count,
-            "Capacity crate count not as expected."
-        )
-
-        self.assertEqual(
-            dp.capacities[0].time, time,
-            "Capacity start time not as expected."
         )
 
     def test_drop_point_construction_exceptions(self):
@@ -200,11 +177,6 @@ class C3bottlesModelTestCase(unittest.TestCase):
         )
 
         self.assertEqual(
-            dp.get_current_crate_count(), Capacity.default_crate_count,
-            "get_current_crate_count() did not return the default crate count."
-        )
-
-        self.assertEqual(
             dp.get_last_state(), Report.states[1],
             "get_last_state() did not return the default state."
         )
@@ -250,11 +222,10 @@ class C3bottlesModelTestCase(unittest.TestCase):
                 "get_history() did not return a list of dicts."
             )
 
-        # The history should have 3 entries:
+        # The history should have 2 entries:
         # 1. drop point creation
         # 2. location setting
-        # 3. capacity setting
-        assumed_history_length = 3
+        assumed_history_length = 2
 
         self.assertEqual(
             len(dp.get_history()), assumed_history_length,
@@ -401,113 +372,6 @@ class C3bottlesModelTestCase(unittest.TestCase):
 
         with self.assertRaisesRegexp(ValueError, "too long"):
             Location(dp, lat=0, lng=0, level=1, description=too_long)
-
-    def test_capacity_addition_to_drop_point(self):
-
-        dp_number = 3
-        first_crate_count = 5
-        second_crate_count = 2
-        first_time = datetime.today() - timedelta(hours=2)
-        second_time = datetime.today() - timedelta(hours=2 - 1)
-
-        dp = DropPoint(
-            dp_number,
-            crates=first_crate_count,
-            time=first_time,
-            lat=0, lng=0, level=1
-        )
-
-        db.session.commit()
-
-        self.assertEqual(
-            len(dp.capacities), 1,
-            "Drop point does not have exactly one capacity."
-        )
-
-        self.assertEqual(
-            db.session.query(Capacity).count(), 1,
-            "Not exactly one capacity in the database."
-        )
-
-        second_capacity = Capacity(
-            dp,
-            crates=second_crate_count,
-            time=second_time
-        )
-
-        db.session.commit()
-
-        self.assertEqual(
-            len(dp.capacities), 2,
-            "Drop point does not have exactly two capacities."
-        )
-
-        self.assertEqual(
-            db.session.query(Capacity).count(), 2,
-            "Not exactly two capacities in the database."
-        )
-
-        self.assertEqual(
-            dp.capacities[-1], second_capacity,
-            "Current capacity is not the second capacity object."
-        )
-
-        self.assertEqual(
-            dp.get_current_crate_count(), second_crate_count,
-            "Current crate count is not second crate count."
-        )
-
-        self.assertEqual(
-            dp.capacities[1].time -
-            dp.capacities[0].time,
-            second_time - first_time,
-            "Wrong time difference between capacities."
-        )
-
-    def test_capacity_construction(self):
-
-        dp = DropPoint(1, lat=0, lng=0, level=1)
-
-        capacity = Capacity(dp)
-        db.session.commit()
-
-        self.assertEqual(
-            dp.capacities[-1], capacity,
-            "Capacity of drop point not capacity object created."
-        )
-
-        self.assertEqual(
-            capacity.crates, Capacity.default_crate_count,
-            "Crate count not default crate count."
-        )
-
-    def test_capacity_construction_exceptions(self):
-
-        dp = DropPoint(1, lat=0, lng=0, level=1)
-
-        with self.assertRaisesRegexp(ValueError, "drop point"):
-            Capacity("foo")
-
-        time_in_future = datetime.today() + timedelta(hours=1)
-
-        with self.assertRaisesRegexp(ValueError, "future"):
-            Capacity(dp, time_in_future)
-
-        with self.assertRaisesRegexp(ValueError, "not a datetime"):
-            Capacity(dp, "foo")
-
-        start_time = datetime.today()
-
-        with self.assertRaisesRegexp(ValueError, "older than current"):
-            Capacity(dp, time=start_time)
-            db.session.commit()
-            Capacity(dp, time=start_time - timedelta(hours=1))
-
-        invalid_crate_counts = (-1, "some")
-
-        for count in invalid_crate_counts:
-            with self.assertRaisesRegexp(ValueError, "count"):
-                Capacity(dp, crates=count)
 
     def test_drop_point_removal(self):
 
