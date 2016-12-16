@@ -26,7 +26,6 @@ def dp_list():
                 "reports_new": dp.get_new_report_count(),
                 "priority": dp.get_priority(),
                 "last_state": dp.get_last_state(),
-                "crates": dp.get_current_crate_count(),
             })
     return render_template(
         "list.html",

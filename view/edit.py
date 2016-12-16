@@ -5,14 +5,13 @@ from flask_login import login_required
 from controller import c3bottles, db
 from model.drop_point import DropPoint
 from model.location import Location
-from model.capacity import Capacity
 
 @c3bottles.route("/edit/<string:number>", methods=("GET", "POST"))
 @c3bottles.route("/edit")
 @login_required
 def edit_dp(
         number=None, description=None, lat=None,
-        lng=None, level=None, crates=None, errors=None,
+        lng=None, level=None, errors=None,
         success=None, center_lat=None, center_lng=None
 ):
 
@@ -35,7 +34,6 @@ def edit_dp(
     lat_old = str(dp.get_current_location().lat)
     lng_old = str(dp.get_current_location().lng)
     level_old = str(dp.get_current_location().level)
-    crates_old = str(dp.get_current_crate_count())
 
     if request.method == "POST":
 
@@ -43,7 +41,6 @@ def edit_dp(
         lat = request.form.get("lat")
         lng = request.form.get("lng")
         level = request.form.get("level")
-        crates = request.form.get("crates")
         remove = request.form.get("remove")
 
         try:
@@ -56,12 +53,6 @@ def edit_dp(
                     lat=lat,
                     lng=lng,
                     level=level
-                )
-
-            if crates != crates_old:
-                Capacity(
-                    dp,
-                    crates=crates
                 )
 
             if remove == "yes":
@@ -81,7 +72,6 @@ def edit_dp(
         lat = lat_old
         lng = lng_old
         level = level_old
-        crates = crates_old
 
     try:
         lat_f = float(lat)
@@ -105,7 +95,6 @@ def edit_dp(
         lat=lat_f,
         lng=lng_f,
         level=level,
-        crates=crates,
         error_list=error_list,
         error_fields=error_fields
     )

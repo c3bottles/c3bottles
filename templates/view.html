@@ -19,8 +19,6 @@
                     <dd>{{ dp.get_current_location().description if dp.get_current_location().description else "somewhere" }} on level {{ dp.get_current_location().level|string }}</dd>
                     <dt>Visit priority:</dt>
                     <dd>{{ "%0.2f"|format(dp.get_priority()) }}</dd>
-                    <dt>Number of crates:</dt>
-                    <dd>{{ dp.get_current_crate_count() }}</dd>
                     {% if g.user.can_visit %}
                     <dt>Label:</dt>
                     <dd>
@@ -63,8 +61,6 @@
             <td>
                 {% if event.drop_point %}
                     Drop point {{ event.drop_point.number }} created
-                {% elif event.capacity %}
-                    Number of crates set to {{ event.capacity.crates }}
                 {% elif event.location %}
                     Location changed to {{ event.location.description if event.location.description else "somewhere" }}
                     on level {{ event.location.level|string }}

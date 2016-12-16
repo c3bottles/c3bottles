@@ -33,9 +33,4 @@
 # no reports have been submitted. (default: 1)
 # DEFAULT_VISIT_PRIORITY = 1
 
-# The factor at which the crate count of a drop point impacts the visit
-# priority. A factor of 0.1 means that the priority is increased by 10% for
-# every additional crate. (default: 0.1)
-# SIZE_IMPACT_FACTOR = 0.1
-
 # vim: set expandtab ts=4 sw=4:

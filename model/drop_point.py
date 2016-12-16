@@ -4,7 +4,6 @@ from datetime import datetime
 
 from controller import c3bottles, db
 from model.location import Location
-from model.capacity import Capacity
 from model.report import Report
 from model.visit import Visit
 
@@ -14,22 +13,15 @@ class DropPoint(db.Model):
 
     A drop point consists of a sign "bottle drop point <number>" at the
     wall which tells visitors that a drop point should be present there
-    and a number of empty crates to drop bottles into. The sign is
-    resembled by the location class whereas the crates are resembled by
-    the capacity class. Drop points may exist with capacity zero (i.e.
-    only a sign on the wall, no crates) or a location with valid time but
-    no description or coordinates (i.e. the drop point is present
-    somewhere but the location is unknown).
+    and a number of empty crates to drop bottles into.
 
-    If the `removed` column is not null, the drop
-    point has been removed from the venue completely (numbers are not
-    reassigned).
+    If the `removed` column is not null, the drop point has been removed
+    from the venue (numbers are not reassigned).
 
     Each drop point is referenced by a unique number, which is
     consequently the primary key to identify a specific drop point. Since
-    capacity and location of drop points may change over time, they are
-    not simply saved in the table of drop points but rather classes
-    themselves.
+    the location of drop points may change over time, it is not simply
+    saved in the table of drop points but rather a class itself.
     """
 
     number = db.Column(
@@ -44,11 +36,6 @@ class DropPoint(db.Model):
     locations = db.relationship(
         "Location",
         order_by="Location.time"
-    )
-
-    capacities = db.relationship(
-        "Capacity",
-        order_by="Capacity.time"
     )
 
     reports = db.relationship(
@@ -68,7 +55,6 @@ class DropPoint(db.Model):
             lat=None,
             lng=None,
             level=None,
-            crates=None,
             time=None
     ):
 
@@ -105,15 +91,6 @@ class DropPoint(db.Model):
         except ValueError as e:
             errors += e.args
 
-        try:
-            Capacity(
-                self,
-                time=self.time,
-                crates=crates
-            )
-        except ValueError as e:
-            errors += e.args
-
         if errors:
             raise ValueError(*errors)
 
@@ -140,9 +117,6 @@ class DropPoint(db.Model):
 
     def get_current_location(self):
         return self.locations[-1] if self.locations else None
-
-    def get_current_crate_count(self):
-        return self.capacities[-1].crates if self.capacities else 0
 
     def get_total_report_count(self):
         return self.reports.count()
@@ -217,12 +191,6 @@ class DropPoint(db.Model):
                 "location": location
             })
 
-        for capacity in self.capacities:
-            history.append({
-                "time": capacity.time,
-                "capacity": capacity
-            })
-
         history.append({
             "time": self.time,
             "drop_point": self
@@ -244,8 +212,8 @@ class DropPoint(db.Model):
 
         This is not implemented as a static method or a constant
         since in the future the visit interval might depend on
-        capacity or location of drop points, time of day or a
-        combination of those.
+        the location of drop points, time of day or a combination
+        of those.
         """
 
         return 60 * c3bottles.config.get("BASE_VISIT_INTERVAL", 120)
@@ -270,11 +238,7 @@ class DropPoint(db.Model):
             priority += report.get_weight() / 2**i
             i += 1
 
-        if self.get_current_crate_count() >= 1:
-            priority *= (1 + c3bottles.config.get("SIZE_IMPACT_FACTOR", 0.1) *
-                         (self.get_current_crate_count() - 1))
-
-        priority /= self.get_visit_interval()
+        priority /= (1.0 * self.get_visit_interval())
 
         return priority
 
@@ -288,8 +252,7 @@ class DropPoint(db.Model):
         """Get the priority to visit this drop point.
 
         The priority to visit a drop point mainly depends on the
-        number and weight of reports since the last visit and
-        the capacity of the drop point (larger: more important).
+        number and weight of reports since the last visit.
 
         In addition, priority increases with time since the last
         visit even if the states of reports indicate a low priority.
@@ -322,7 +285,6 @@ class DropPoint(db.Model):
                 "priority_factor": dp.get_priority_factor(),
                 "base_time": dp.get_priority_base_time().strftime("%s"),
                 "last_state": dp.get_last_state(),
-                "crates": dp.get_current_crate_count(),
                 "removed": True if dp.removed else False,
                 "lat": dp.get_current_location().lat,
                 "lng": dp.get_current_location().lng,
@@ -353,7 +315,6 @@ class DropPoint(db.Model):
             dp_set.update(
                 [dp for dp in DropPoint.query.filter(DropPoint.time > time).all()],
                 [l.dp for l in Location.query.filter(Location.time > time).all()],
-                [c.dp for c in Capacity.query.filter(Capacity.time > time).all()],
                 [v.dp for v in Visit.query.filter(Visit.time > time).all()],
                 [r.dp for r in Report.query.filter(Report.time > time).all()]
             )

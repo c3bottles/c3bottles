@@ -9,7 +9,7 @@ from model.drop_point import DropPoint
 @login_required
 def create_dp(
         number=None, description=None, lat=None,
-        lng=None, level=None, crates=None, errors=None,
+        lng=None, level=None, errors=None,
         success=None, center_lat=None, center_lng=None
 ):
 
@@ -23,12 +23,11 @@ def create_dp(
         lat = request.form.get("lat")
         lng = request.form.get("lng")
         level = request.form.get("level")
-        crates = request.form.get("crates")
 
         try:
             DropPoint(
                 number=number, description=description, lat=lat,
-                lng=lng, level=level, crates=crates
+                lng=lng, level=level
             )
         except ValueError as e:
             errors = e.args
@@ -42,7 +41,6 @@ def create_dp(
                 lat = None
                 lng = None
                 level = None
-                crates = None
                 success = True
             else:
                 return render_template(
@@ -74,7 +72,6 @@ def create_dp(
         lat=lat_f,
         lng=lng_f,
         level=level,
-        crates=crates,
         error_list=error_list,
         error_fields=error_fields,
         success=success
