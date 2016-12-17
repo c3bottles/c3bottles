@@ -6,7 +6,7 @@ var options = {
     animation: false,
     legend: { display: false },
     tooltips: { bodyFontSize: 20 }
-}
+};
 
 exports.draw_drop_points_by_state = function(_data) {
     var d = [];
@@ -20,12 +20,7 @@ exports.draw_drop_points_by_state = function(_data) {
         c.push(labels[state][2]);
         l.push($(labels[state][1]).text());
     }
-    global.data = {
-        d: d,
-        l: l,
-        c: c
-    }
-    global.chart = new Chart($("#drop_points_by_state"), {
+    new Chart($("#drop_points_by_state"), {
         type: "doughnut",
         data: {
             labels: l,
