@@ -1,33 +1,68 @@
 var $ = require("jquery");
 var Chart = require("chart.js");
 
-Chart.defaults.global.animation = false;
-Chart.defaults.Doughnut.percentageInnerCutout = 40;
+
+var options = {
+    animation: false,
+    legend: { display: false },
+    tooltips: { bodyFontSize: 20 }
+}
 
 exports.draw_drop_points_by_state = function(_data) {
-    data = []; 
+    var d = [];
+    var l = [];
+    var c = [];
     for (var state in labels) {
-        data.push({
-            value: typeof _data[state] === "number"? _data[state] : 0,
-            color: $(labels[state][1]).css("background-color"),
-            label: $(labels[state][1]).text()
-        }); 
-    }   
-    var ctx = $("#drop_points_by_state").get(0).getContext("2d");
-    new Chart(ctx).Doughnut(data);
+        if (typeof _data[state] !== "number" || _data[state] === 0) {
+            continue;
+        }
+        d.push(_data[state]);
+        c.push(labels[state][2]);
+        l.push($(labels[state][1]).text());
+    }
+    global.data = {
+        d: d,
+        l: l,
+        c: c
+    }
+    global.chart = new Chart($("#drop_points_by_state"), {
+        type: "doughnut",
+        data: {
+            labels: l,
+            datasets: [{
+                data: d,
+                backgroundColor: c,
+                hoverBackgroundColor: c
+            }]
+        },
+        options: options
+    });
 };
 
 exports.draw_reports_by_state = function(_data) {
-    data = [];
+    var d = [];
+    var l = [];
+    var c = [];
     for (var state in labels) {
-        data.push({
-            value: typeof _data[state] === "number"? _data[state] : 0,
-            color: $(labels[state][1]).css("background-color"),
-            label: $(labels[state][1]).text()
-        });
+        if (typeof _data[state] !== "number" || _data[state] === 0) {
+            continue;
+        }
+        d.push(_data[state]);
+        c.push(labels[state][2]);
+        l.push($(labels[state][1]).text());
     }
-    var ctx = $("#reports_by_state").get(0).getContext("2d");
-    new Chart(ctx).Doughnut(data);
+    new Chart($("#reports_by_state"), {
+        type: "doughnut",
+        data: {
+            labels: l,
+            datasets: [{
+                data: d,
+                backgroundColor: c,
+                hoverBackgroundColor: c
+            }]
+        },
+        options: options
+    });
 };
 
 /* vim: set expandtab ts=4 sw=4: */

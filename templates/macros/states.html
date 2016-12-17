@@ -1,4 +1,4 @@
-{% macro num(state) %}{%  if state == "OVERFLOW" %}
+{% macro num(state) %}{% if state == "OVERFLOW" %}
 1{% elif state == "FULL" %}
 2{% elif state == "DEFAULT" %}
 2{% elif state == "REASONABLY_FULL" %}
@@ -8,7 +8,7 @@
 6{% else %}
 0{% endif %}{% endmacro %}
 
-{% macro label(state) %}{%  if state == "OVERFLOW" %}
+{% macro label(state) %}{% if state == "OVERFLOW" %}
 <span class="label label-danger">Overflowing</span>{% elif state == "FULL" %}
 <span class="label label-warning">Full</span>{% elif state == "REASONABLY_FULL" %}
 <span class="label label-info">Reasonably full</span>{% elif state == "SOME_BOTTLES" %}
@@ -18,10 +18,20 @@
 <span class="label label-danger">No crates</span>{% else %}
 <span class="label label-unknown">Unknown</span>{% endif %}{% endmacro %}
 
+{% macro color(state) %}{% if state == "OVERFLOW" %}
+#d9534f{% elif state == "FULL" %}
+#f0ad4e{% elif state == "REASONABLY_FULL" %}
+#5bc0de{% elif state == "SOME_BOTTLES" %}
+#337ab7{% elif state == "EMPTY" %}
+#5cb85c{%  elif state == "NEW" %}
+#777777{%  elif state == "NO_CRATES" %}
+#d9534f{% else %}
+#6f5499{% endif %}{% endmacro %}
+
 {%  macro label_js() %}
 var labels = {
     {% for state in ["OVERFLOW", "NO_CRATES", "FULL", "REASONABLY_FULL", "SOME_BOTTLES", "EMPTY", "NEW", "DEFAULT", "UNKNOWN"] %}
-    {{ state }}: [{{ num(state) }}, $('{{ label(state) }}')],
+    {{ state }}: [{{ num(state) }}, $('{{ label(state) }}'), "{{ color(state) }}"],
     {% endfor %}
 
 }

@@ -38,8 +38,9 @@ body {
 }
 
 .piechart {
-    width: 200px;
-    height: 200px;
+    display: inline-block !important;
+    width: 200px !important;
+    height: 200px !important;
 }
 
 .sum:before {
