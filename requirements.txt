@@ -5,3 +5,4 @@ Flask-WTF>=0.14
 CairoSVG>=1.0.22, <2.0
 pyPdf>=1.13
 qrcode>=5.3
+pillow==4.0.0
