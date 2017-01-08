@@ -3,6 +3,6 @@ Flask-SQLAlchemy>=2.1
 Flask-Login>=0.4.0
 Flask-WTF>=0.14
 CairoSVG>=1.0.22, <2.0
-pyPdf>=1.13
+pyPDF2>=1.23
 qrcode>=5.3
 pillow==4.0.0
