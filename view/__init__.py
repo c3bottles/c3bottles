@@ -5,6 +5,7 @@ from flask_login import current_user
 from controller import c3bottles
 from model.forms import LoginForm
 
+
 @c3bottles.before_request
 def before_request():
     g.login_form = LoginForm()

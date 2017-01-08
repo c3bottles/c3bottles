@@ -4,6 +4,7 @@ from flask_login import login_required
 from controller import c3bottles, db
 from model.drop_point import DropPoint
 
+
 @c3bottles.route("/visit", methods=("GET", "POST"))
 @c3bottles.route("/visit/<int:number>")
 @login_required
