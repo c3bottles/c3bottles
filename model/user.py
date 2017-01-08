@@ -2,6 +2,7 @@ from werkzeug.security import check_password_hash
 
 from controller import lm
 
+
 class User():
 
     def __init__(self, user_id):
@@ -51,20 +52,22 @@ class User():
         except ValueError:
             return None
 
+
 users = {
     "collector": {
         "can_visit": True,
         "can_edit": False,
         "name": "Bottle Collector",
-        "pw": "pbkdf2:sha1:1000$eYZPJm1o$10fea6fce2e9a51dd1f6add59adc964fa17af22f" # "changeme"
+        "pw": "pbkdf2:sha1:1000$eYZPJm1o$10fea6fce2e9a51dd1f6add59adc964fa17af22f"  # "changeme"
     },
     "master": {
         "can_visit": True,
         "can_edit": True,
         "name": "Bottle Master",
-        "pw": "pbkdf2:sha1:1000$eYZPJm1o$10fea6fce2e9a51dd1f6add59adc964fa17af22f" # "changeme"
+        "pw": "pbkdf2:sha1:1000$eYZPJm1o$10fea6fce2e9a51dd1f6add59adc964fa17af22f"  # "changeme"
     }
 }
+
 
 @lm.user_loader
 def load_user(user_id):

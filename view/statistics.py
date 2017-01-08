@@ -1,18 +1,19 @@
 from flask import render_template, Blueprint
 
-from controller import db
 from model.drop_point import DropPoint
 from model.report import Report
 from model.visit import Visit
 
 stats = Blueprint("statistics", __name__)
 
+
 @stats.route("/numbers")
 def statistics():
     return render_template(
         "statistics.html",
         stats=Statistics()
-    )   
+    )
+
 
 class Statistics():
 

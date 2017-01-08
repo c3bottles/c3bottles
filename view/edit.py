@@ -6,6 +6,7 @@ from controller import c3bottles, db
 from model.drop_point import DropPoint
 from model.location import Location
 
+
 @c3bottles.route("/edit/<string:number>", methods=("GET", "POST"))
 @c3bottles.route("/edit")
 @login_required
