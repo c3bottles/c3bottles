@@ -6,12 +6,14 @@ from model.visit import Visit
 
 stats = Blueprint("statistics", __name__)
 
+
 @stats.route("/numbers")
 def statistics():
     return render_template(
         "statistics.html",
         stats=Statistics()
-    )   
+    )
+
 
 class Statistics():
 
