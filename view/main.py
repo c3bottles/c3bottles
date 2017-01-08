@@ -78,7 +78,7 @@ def dp_label(number=None):
 @c3bottles.route("/label/all.pdf")
 def dp_all_labels():
     from StringIO import StringIO
-    from pyPdf import PdfFileReader, PdfFileWriter
+    from PyPDF2 import PdfFileWriter, PdfFileReader
     output = PdfFileWriter()
     for dp in db.session.query(DropPoint).all():
         if not dp.removed:

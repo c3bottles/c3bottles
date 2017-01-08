@@ -13,7 +13,7 @@ In order to install c3bottles, you will need:
 
 *   CairoSVG (python-cairosvg)
 
-*   PyPDF (python-pypdf)
+*   PyPDF2 (python-pypdf2)
 
 *   Python-QRCode (python-qrcode)
 
@@ -37,7 +37,7 @@ In order to install c3bottles, you will need:
 
         $ apt-get install python-flask python-flask-sqlalchemy \
                           python-flask-login python-flaskext.wtf \
-                          python-cairosvg python-pypdf python-qrcode \
+                          python-cairosvg python-pypdf2 python-qrcode \
                           libapache2-mod-wsgi imagemagick \
                           gdal-bin python-gdal npm nodejs-legacy
 
