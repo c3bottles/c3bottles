@@ -19,7 +19,7 @@
 
 # Disable anonymous reporting (useful during the setup phase in the beginning
 # of an event. (default: False)
-# NO_ANONYMOUS_REPORTIJG = False
+# NO_ANONYMOUS_REPORTING = False
 
 # Base interval at which drop points should be visited by the bottle collection
 # team. (default: 2 hours)
