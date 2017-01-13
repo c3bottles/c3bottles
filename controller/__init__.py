@@ -26,6 +26,7 @@ lm = LoginManager(c3bottles)
 csrf = CSRFProtect(c3bottles)
 
 babel = Babel(c3bottles)
+c3bottles.config["BABEL_TRANSLATION_DIRECTORIES"] = "../translations"
 
 languages = ("en", "de")
 locales = {l: Locale(l) for l in languages}
