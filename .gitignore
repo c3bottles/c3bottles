@@ -9,4 +9,4 @@ static/img/*.vrt
 static/img/tiles/
 static/lib/
 translations/messages.pot
-translaitons/**.mo
+translations/**/*.mo
