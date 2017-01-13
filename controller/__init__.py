@@ -1,6 +1,9 @@
 #!/usr/bin/python
 
-from flask import Flask
+from babel import Locale
+
+from flask import Flask, g, session, request
+from flask_babel import Babel
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_wtf import CSRFProtect
@@ -21,6 +24,43 @@ db = SQLAlchemy(c3bottles)
 lm = LoginManager(c3bottles)
 
 csrf = CSRFProtect(c3bottles)
+
+babel = Babel(c3bottles)
+
+languages = ("en", "de")
+locales = {l: Locale(l) for l in languages}
+language_list = sorted(
+    [l for l in languages],
+    key=lambda k: locales[k].get_display_name()
+)
+
+
+def get_locale():
+    """
+    Get the locale from the session. If no locale is available, set it.
+    """
+    if "lang" not in session:
+        set_locale()
+    return session["lang"]
+
+
+def set_locale():
+    """
+    Set the locale in the session to one of the available languages.
+    If a language has been given via the URL, it is set if it is a valid
+    language. If no language has been given via the URL and no language
+    is present in the session, the default language will be determined
+    according to what the user's browser prefers.
+    """
+    if "lang" in request.args and request.args["lang"] in language_list:
+        session["lang"] = request.args["lang"]
+    if "lang" not in session:
+        session["lang"] = request.accept_languages.best_match(language_list)
+    g.languages, g.locales = language_list, locales
+
+
+babel.localeselector(get_locale)
+c3bottles.before_request(set_locale)
 
 # Trim and strip blocks in jinja2 so no unnecessary
 # newlines and tabs appear in the output:
