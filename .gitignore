@@ -8,3 +8,5 @@ static/img/map_sq.*
 static/img/*.vrt
 static/img/tiles/
 static/lib/
+translations/messages.pot
+translaitons/**.mo
