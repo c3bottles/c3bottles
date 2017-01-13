@@ -1,18 +1,16 @@
 {% extends "layout.html" %}
-{% set title = "Home" %}
+{% set title = _("Home") %}
 {% block content %}
     {% if g.no_anonymous_reporting %}
     <div class="alert alert-warning">
-        <strong>Attention!</strong> Anonymous reporting has been disabled.
+        <strong>{{ _("Attention!") }}</strong> {{ _("Anonymous reporting has been disabled.") }}
     </div>
     {% endif %}
     <div class="jumbotron"><div class="container">
-        <h1>Welcome to c3bottles!</h1>
+        <h1>{{ _("Welcome to %(project)s!", project=_("c3bottles")) }}</h1>
 
         <p class="lead">
-            c3bottles is the bottle drop and collection management system of
-            your favourite chaos event. You have no idea what that means? Try
-            the links below!
+            {{ _("%(project)s is the bottle drop and collection management system of your favourite chaos event. You have no idea what that means? Try the links below!", project=_("c3bottles")) }}
         </p>
 
         <div class="spacer"></div>
@@ -21,10 +19,10 @@
             <div class="col-xs-8 col-sm-5 col-md-4 col-lg-3">
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
             <input{{ " disabled" if g.no_anonymous_reporting and g.user.is_anonymous }} type="number" step="1" name="number" class="form-control"
-                   placeholder="Enter a drop point number">
+                   placeholder="{{ _("Enter a drop point number") }}">
             </div>
             <div class="col-xs-4">
-            <button{{ " disabled" if g.no_anonymous_reporting and g.user.is_anonymous }} type="submit" class="btn btn-success">Report</button>
+            <button{{ " disabled" if g.no_anonymous_reporting and g.user.is_anonymous }} type="submit" class="btn btn-success">{{ _("Report this drop point") }}</button>
             </div>
         </div>
         </form>
@@ -35,17 +33,16 @@
                 <span class="glyphicon glyphicon-list"
                       aria-hidden="true"></span>
             </div>
-            <h3>Show me the list!</h3>
+            <h3>{{ _("Show me the list!") }}</h3>
 
             <p>
-                You like working in text-mode? Great! We have a huge list of
-                bottle drop points and all the tools to interact with them!
+                {{ _("You like working in text-mode? Great! We have a huge list of bottle drop points and all the tools to interact with them!") }}
             </p>
 
             <p>
                 <a class="btn btn-primary navbar-btn"
                    href="{{ url_for("dp_list") }}" role="button">
-                    To the list &raquo;
+                    {{ _("To the list") }} &raquo;
                 </a>
             </p>
         </div>
@@ -54,17 +51,16 @@
                 <span class="glyphicon glyphicon-globe text-center"
                       aria-hidden="true"></span>
             </div>
-            <h3>Show me the map!</h3>
+            <h3>{{ _("Show me the map!") }}</h3>
 
             <p>
-                Text is nothing for you? No problem! We have a very cool map
-                which shows all the drop points and their state in real-time!
+                {{ _("Text is nothing for you? No problem! We have a very cool map which shows all the drop points and their state in real-time!") }}
             </p>
 
             <p>
                 <a class="btn btn-primary navbar-btn"
                    href="{{ url_for("dp_map") }}" role="button">
-                    To the map &raquo;
+                    {{ _("To the map") }} &raquo;
                 </a>
             </p>
         </div>
@@ -73,17 +69,16 @@
                 <span class="glyphicon glyphicon-stats"
                       aria-hidden="true"></span>
             </div>
-            <h3>I want the numbers!</h3>
+            <h3>{{ _("I want the numbers!") }}</h3>
 
             <p>
-                The sheer beauty of numbers and diagrams amazes you? Good news:
-                The system allows you to see all the statistics!
+                {{ _("The sheer beauty of numbers and diagrams amazes you? Good news: The system allows you to see all the statistics!") }}
             </p>
 
             <p>
                 <a class="btn btn-primary navbar-btn"
                    href="{{ url_for("statistics.statistics") }}" role="button">
-                    To the numbers &raquo;
+                    {{ _("To the numbers") }} &raquo;
                 </a>
             </p>
         </div>
@@ -92,17 +87,16 @@
                 <span class="glyphicon glyphicon-education text-center"
                       aria-hidden="true"></span>
             </div>
-            <h3>WTF is this?</h3>
+            <h3>{{ _("WTF is this?") }}</h3>
 
             <p>
-                You have no clue what this is about or how it works?
-                Your questions were asked before and can be answered.
+                {{ _("You have no clue what this is about or how it works? Your questions were asked before and can be answered.") }}
             </p>
 
             <p>
                 <a class="btn btn-primary navbar-btn"
                    href="{{ url_for("faq") }}" role="button">
-                    To the FAQ &raquo;
+                    {{ _("To the FAQ") }} &raquo;
                 </a>
             </p>
         </div>
