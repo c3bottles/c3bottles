@@ -1,3 +1,13 @@
+import qrcode
+from base64 import b64encode
+from cairosvg import svg2pdf
+from PyPDF2 import PdfFileWriter, PdfFileReader
+
+try:
+    from StringIO import StringIO as IO
+except ImportError:
+    from io import BytesIO as IO
+
 from flask import render_template, Response, request
 
 from controller import c3bottles, db
@@ -77,13 +87,11 @@ def dp_label(number=None):
 
 @c3bottles.route("/label/all.pdf")
 def dp_all_labels():
-    from StringIO import StringIO
-    from PyPDF2 import PdfFileWriter, PdfFileReader
     output = PdfFileWriter()
     for dp in db.session.query(DropPoint).all():
         if not dp.removed:
-            output.addPage(PdfFileReader(StringIO(_pdf(dp.number))).getPage(0))
-    f = StringIO()
+            output.addPage(PdfFileReader(IO(_pdf(dp.number))).getPage(0))
+    f = IO()
     output.write(f)
     return Response(
         f.getvalue(),
@@ -92,14 +100,7 @@ def dp_all_labels():
 
 
 def _pdf(number):
-    import qrcode as qr
-    from base64 import b64encode
-    try:
-        from StringIO import StringIO as IO
-    except ImportError:
-        from io import BytesIO as IO
-    from cairosvg import svg2pdf
-    img = qr.make(request.url_root + str(number))
+    img = qrcode.make(request.url_root + str(number))
     f = IO()
     img.save(f)
     b64 = b64encode(f.getvalue()).decode("utf-8")
