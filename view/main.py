@@ -94,12 +94,15 @@ def dp_all_labels():
 def _pdf(number):
     import qrcode as qr
     from base64 import b64encode
-    from StringIO import StringIO
+    try:
+        from StringIO import StringIO as IO
+    except ImportError:
+        from io import BytesIO as IO
     from cairosvg import svg2pdf
     img = qr.make(request.url_root + str(number))
-    f = StringIO()
+    f = IO()
     img.save(f)
-    b64 = b64encode(f.getvalue())
+    b64 = b64encode(f.getvalue()).decode("utf-8")
     return svg2pdf(render_template("label.svg", number=number, qr=b64))
 
 # vim: set expandtab ts=4 sw=4:
