@@ -5,20 +5,20 @@
             <button type="button" class="navbar-toggle collapsed"
                     data-toggle="collapse" data-target="#navbar"
                     aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
+                <span class="sr-only">{{ _("Toggle navigation") }}</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{ url_for("index") }}">c3bottles</a>
+            <a class="navbar-brand" href="{{ url_for("index") }}">{{ _("c3bottles") }}</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 {% for _s, _t in (
-                                ("dp_list", "List"),
-                                ("dp_map", "Map"),
-                                ("statistics.statistics", "Numbers"),
-                                ("faq", "FAQ")
+                                ("dp_list", _("List")),
+                                ("dp_map", _("Map")),
+                                ("statistics.statistics", _("Numbers")),
+                                ("faq", _("FAQ"))
                             ) %}
                     <li{{ {"class": "active"}|xmlattr if request.url_rule.endpoint == _s }}>
                         <a href="{{ url_for(_s) }}">{{ _t }}</a>
@@ -27,21 +27,21 @@
             </ul>
             {% if g.user.is_authenticated %}
             <form class="navbar-form navbar-right" action="{{ url_for("logout") }}" method="GET">
-                <button type="submit" class="btn btn-danger">Logout</button>
+                <button type="submit" class="btn btn-danger">{{ _("Logout") }}</button>
             </form>
-            <p class="navbar-text navbar-right">You are logged in as {{ g.user.name }}</p>
+            <p class="navbar-text navbar-right">{{ _("You are logged in as %(user)s", user=g.user.name) }}</p>
             {% else %}
             <form class="navbar-form navbar-right" action="{{ url_for("login") }}" method="POST">
                 {{ login_form.back(value=back if back else request.endpoint) }}
                 {{ login_form.args(value=args if args else request.view_args) }}
                 {{ login_form.csrf_token }}
                 <div class="form-group">
-                    {{ login_form.username(placeholder="User name", class="form-control") }}
+                    {{ login_form.username(placeholder=_("User name"), class="form-control") }}
                 </div>
                 <div class="form-group">
-                    {{ login_form.password(placeholder="Password", class="form-control") }}
+                    {{ login_form.password(placeholder=_("Password"), class="form-control") }}
                 </div>
-                <button type="submit" class="btn btn-success">Login</button>
+                <button type="submit" class="btn btn-success">{{ _("Login") }}</button>
             </form>
             {% endif %}
         </div>

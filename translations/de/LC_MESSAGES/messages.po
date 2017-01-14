@@ -1,17 +1,28 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: c3bottles\n"
-"POT-Creation-Date: 2017-01-13 22:34+0100\n"
-"PO-Revision-Date: 2017-01-13 22:46+0100\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2017-01-14 20:00+0100\n"
+"PO-Revision-Date: 2017-01-14 20:20+0100\n"
 "Last-Translator: \n"
 "Language: de\n"
 "Language-Team: \n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.3.4\n"
 "X-Generator: Poedit 1.8.11\n"
+
+#: templates/footer.html:4
+msgid ""
+"Development takes place on <a href=\"https://github.com/der-michik/c3bottles"
+"\">GitHub</a>. News can be found on <a href=\"https://twitter.com/c3bottles"
+"\">Twitter</a>."
+msgstr ""
+"Die Entwicklung findet auf <a href=\"https://github.com/der-michik/c3bottles"
+"\">GitHub</a> statt. Neuigkeiten gibt es auch auf <a href=\"https://twitter."
+"com/c3bottles\">Twitter</a>."
 
 #: templates/index.html:2
 msgid "Home"
@@ -30,7 +41,8 @@ msgstr "Anonymes Melden wurde deaktiviert."
 msgid "Welcome to %(project)s!"
 msgstr "Willkommen zu %(project)s!"
 
-#: templates/index.html:10 templates/index.html:13
+#: templates/index.html:10 templates/index.html:13 templates/layout.html:9
+#: templates/navbar.html:13
 msgid "c3bottles"
 msgstr "c3bottles"
 
@@ -115,3 +127,44 @@ msgstr ""
 #: templates/index.html:99
 msgid "To the FAQ"
 msgstr "Zur FAQ"
+
+#: templates/navbar.html:8
+msgid "Toggle navigation"
+msgstr "Navigation ein-/ausschalten"
+
+#: templates/navbar.html:18
+msgid "List"
+msgstr "Liste"
+
+#: templates/navbar.html:19
+msgid "Map"
+msgstr "Karte"
+
+#: templates/navbar.html:20
+msgid "Numbers"
+msgstr "Zahlen"
+
+#: templates/navbar.html:21
+msgid "FAQ"
+msgstr "FAQ"
+
+#: templates/navbar.html:30
+msgid "Logout"
+msgstr "Ausloggen"
+
+#: templates/navbar.html:32
+#, python-format
+msgid "You are logged in as %(user)s"
+msgstr "Du bist eingeloggt als %(user)s"
+
+#: templates/navbar.html:39
+msgid "User name"
+msgstr "Benutzername"
+
+#: templates/navbar.html:42
+msgid "Password"
+msgstr "Passwort"
+
+#: templates/navbar.html:44
+msgid "Login"
+msgstr "Einloggen"

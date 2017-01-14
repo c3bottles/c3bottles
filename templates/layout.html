@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf_token" content="{{ csrf_token() }}">
     <meta name="time" content="{{ g.now.strftime("%s.%f") }}">
-    <title>c3bottles{% if title %} - {{ title }}{% endif %}</title>
+    <title>{{ _("c3bottles") }}{% if title %} - {{ title }}{% endif %}</title>
     <link href="{{ url_for('static', filename='lib/css/bootstrap.min.css') }}"
           rel="stylesheet">
     <link href="{{ url_for('static', filename='css/c3bottles.css') }}"
