@@ -1,12 +1,12 @@
 {% extends "layout.html" %}
-{% set title = "Report Drop Point" %}
+{% set title = _("Report Drop Point") %}
 {% block content %}
         <div class="page-header">
-            <h1>Report Drop Point {{ dp.number }}</h1>
+            <h1>{{ _("Report Drop Point %(number)i", number=dp.number) }}</h1>
         </div>
         {% if g.no_anonymous_reporting and g.user.is_anonymous %}
         <div class="alert alert-warning">
-            <strong>Attention!</strong> Anonymous reporting has been disabled.
+            <strong>{{ _("Attention!") }}</strong> {{ _("Anonymous reporting has been disabled.") }}
         </div>
         {% endif %}
         <div class="row">

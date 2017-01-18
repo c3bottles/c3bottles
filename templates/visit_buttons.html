@@ -1,34 +1,32 @@
 {% if g.user.is_authenticated and g.user.can_visit: %}
 <p>
-    Please use the buttons below to log the action taken
-    on your visit of this drop point.
+    {{ _("Please use the buttons below to log the action taken on your visit of this drop point.") }}
 </p>
 
 <div style="width: 80%; margin-left: auto; margin-right: auto;">
     <button class="btn btn-block btn-success visit-button" type="submit" name="maintenance" value="EMPTIED">
-        Emptied the drop point
+        {{ _("Emptied the drop point") }}
     </button>
     <hr/>
     {% if g.user.is_authenticated and g.user.can_edit: %}
     <a class="btn btn-block btn-warning modal_dp_link"
        data-baseurl="{{ url_for("edit_dp") }}">
-        Modified the drop point
+        {{ _("Modified the drop point") }}
     </a>
     {% else %}
     <button class="btn btn-block btn-warning disabled"
-            title="You can not do this. Please contact your supervisor.">
-        Modified the drop point
+            title="{{ _("You can not do this. Please contact your supervisor.") }}">
+        {{ _("Modified the drop point") }}
     </button>
     {% endif %}
     <hr/>
     <button class="btn btn-block btn-default visit-button" type="submit" name="maintenance" value="NO_ACTION">
-        No action necessary
+        {{ _("No action necessary") }}
     </button>
 </div>
 {% else %}
 <p>
-    Please log in as a bottle collector using the login form at the top of
-    this page in order to visit drop points.
+    {{ _("Please log in as a bottle collector using the login form at the top of this page in order to visit drop points.") }}
 </p>
 {% endif %}
 {# vim: set expandtab ts=4 sw=4: #}

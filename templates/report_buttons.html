@@ -1,34 +1,31 @@
 {% set no = g.no_anonymous_reporting and g.user.is_anonymous %}
 <p>
-    Please use the buttons below to report the current
-    state of the drop point. If you are unsure which
-    state to report, refer to the FAQ or simply use the
-    very first button.
+    {{ _("Please use the buttons below to report the current state of the drop point. If you are unsure which state to report, refer to the FAQ or simply use the very first button.") }}
 </p>
 
 <div style="width: 80%; margin-left: auto; margin-right: auto;">
     <button{{ " disabled" if no }} class="btn btn-block btn-default report-button" type="submit" name="state" value="DEFAULT">
-        I'm not sure, just take a look
+        {{ _("I'm not sure, just take a look") }}
     </button>
     <hr/>
     <button{{ " disabled" if no }} class="btn btn-block btn-danger report-button" type="submit" name="state" value="OVERFLOW">
-        Drop point is overflowing
+        {{ _("Drop point is overflowing") }}
     </button>
     <button{{ " disabled" if no }} class="btn btn-block btn-warning report-button" type="submit" name="state" value="FULL">
-        Drop point is 100% full
+        {{ _("Drop point is 100%% full") }}
     </button>
     <button{{ " disabled" if no }} class="btn btn-block btn-info report-button" type="submit" name="state" value="REASONABLY_FULL">
-        Drop point is reasonably full
+        {{ _("Drop point is reasonably full") }}
     </button>
     <button{{ " disabled" if no }} class="btn btn-block btn-primary report-button" type="submit" name="state" value="SOME_BOTTLES">
-        Some bottles are present
+        {{ _("Some bottles are present") }}
     </button>
     <button{{ " disabled" if no }} class="btn btn-block btn-success report-button" type="submit" name="state" value="EMPTY">
-        Drop point is empty
+        {{ _("Drop point is empty") }}
     </button>
     <hr/>
     <button{{ " disabled" if no }} class="btn btn-block btn-default report-button" type="submit" name="state" value="NO_CRATES">
-        There are no crates
+        {{ _("There are no crates") }}
     </button>
 </div>
 {# vim: set expandtab ts=4 sw=4: #}

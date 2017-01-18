@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: c3bottles\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2017-01-14 20:00+0100\n"
-"PO-Revision-Date: 2017-01-14 20:20+0100\n"
+"POT-Creation-Date: 2017-01-18 11:28+0100\n"
+"PO-Revision-Date: 2017-01-18 11:34+0100\n"
 "Last-Translator: \n"
 "Language: de\n"
 "Language-Team: \n"
@@ -13,6 +13,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.3.4\n"
 "X-Generator: Poedit 1.8.11\n"
+
+#: templates/error.html:2
+msgid "Error"
+msgstr "Fehler"
+
+#: templates/error.html:17
+msgid "Oh no!"
+msgstr "Oh nein!"
 
 #: templates/footer.html:4
 msgid ""
@@ -28,11 +36,11 @@ msgstr ""
 msgid "Home"
 msgstr "Start"
 
-#: templates/index.html:6
+#: templates/index.html:6 templates/report.html:9 templates/visit.html:9
 msgid "Attention!"
 msgstr "Achtung!"
 
-#: templates/index.html:6
+#: templates/index.html:6 templates/report.html:9
 msgid "Anonymous reporting has been disabled."
 msgstr "Anonymes Melden wurde deaktiviert."
 
@@ -140,7 +148,7 @@ msgstr "Liste"
 msgid "Map"
 msgstr "Karte"
 
-#: templates/navbar.html:20
+#: templates/navbar.html:20 templates/statistics.html:2
 msgid "Numbers"
 msgstr "Zahlen"
 
@@ -168,3 +176,268 @@ msgstr "Passwort"
 #: templates/navbar.html:44
 msgid "Login"
 msgstr "Einloggen"
+
+#: templates/report.html:2
+msgid "Report Drop Point"
+msgstr "Drop Point melden"
+
+#: templates/report.html:5
+#, python-format
+msgid "Report Drop Point %(number)i"
+msgstr "Drop Point %(number)i melden"
+
+#: templates/report_buttons.html:3
+msgid ""
+"Please use the buttons below to report the current state of the drop point. "
+"If you are unsure which state to report, refer to the FAQ or simply use the "
+"very first button."
+msgstr ""
+"Bitte nutze die Buttons unten um den Status des Drop Points zu melden. Wenn "
+"du dir unsicher bist, welchen Status du angeben sollst, schau in die FAQ "
+"oder nimm den ersten Button."
+
+#: templates/report_buttons.html:8
+msgid "I'm not sure, just take a look"
+msgstr "Ich bin unsicher, schaut mal nach"
+
+#: templates/report_buttons.html:12
+msgid "Drop point is overflowing"
+msgstr "Drop Point läuft über"
+
+#: templates/report_buttons.html:15
+#, python-format
+msgid "Drop point is 100%% full"
+msgstr "Drop Point ist komplett voll"
+
+#: templates/report_buttons.html:18
+msgid "Drop point is reasonably full"
+msgstr "Drop Point ist gut gefüllt"
+
+#: templates/report_buttons.html:21
+msgid "Some bottles are present"
+msgstr "Einige Flaschen sind dort"
+
+#: templates/report_buttons.html:24
+msgid "Drop point is empty"
+msgstr "Drop Point ist leer"
+
+#: templates/report_buttons.html:28
+msgid "There are no crates"
+msgstr "Es gibt keine Kisten"
+
+#: templates/statistics.html:11
+msgid "Drop points by state"
+msgstr "Drop Points nach Status"
+
+#: templates/statistics.html:29
+msgid "Reports by state"
+msgstr "Meldungen nach Status"
+
+#: templates/statistics.html:37
+msgid "drop points in the database"
+msgstr "Drop Points in der Datenbank"
+
+#: templates/statistics.html:41
+msgid "state reports by helpful visitors"
+msgstr "Statusmeldungen von Besuchern"
+
+#: templates/statistics.html:45
+msgid "visits by the bottle collectors"
+msgstr "Besuche von den Flaschensammlern"
+
+#: templates/statistics.html:51
+msgid "reports per drop point"
+msgstr "Meldungen pro Drop Point"
+
+#: templates/statistics.html:55
+msgid "visits per drop point"
+msgstr "Besuche pro Drop Point"
+
+#: templates/statistics.html:59
+msgid ""
+"There are no drop points and/or reports yet. Therefore, no statistics are "
+"available."
+msgstr ""
+"Da es noch keine Drop Points und/oder Meldungen gibt, gibt es auch noch "
+"keine Statistiken."
+
+#: templates/success.html:2
+msgid "Success"
+msgstr "Erfolg"
+
+#: templates/success.html:17
+msgid "Success!"
+msgstr "Erfolg!"
+
+#: templates/view.html:2
+#, python-format
+msgid "Details of Drop Point %(number)i"
+msgstr "Details von Drop Point %(number)i"
+
+#: templates/view.html:16
+msgid "Current state:"
+msgstr "Aktueller Status:"
+
+#: templates/view.html:18
+msgid "Current location:"
+msgstr "Aktueller Ort:"
+
+#: templates/view.html:19 templates/view.html:65
+#, python-format
+msgid "%(location)s on level %(level)i"
+msgstr "%(location)s auf Ebene %(level)i"
+
+#: templates/view.html:19 templates/view.html:65
+msgid "somewhere"
+msgstr "irgendwo"
+
+#: templates/view.html:20
+msgid "Visit priority:"
+msgstr "Besuchspriorität:"
+
+#: templates/view.html:23
+msgid "Label:"
+msgstr "Schild:"
+
+#: templates/view.html:26
+msgid "Download PDF"
+msgstr "PDF herunterladen"
+
+#: templates/view.html:33
+msgid "Report"
+msgstr "Melden"
+
+#: templates/view.html:36
+msgid "Visit"
+msgstr "Besuchen"
+
+#: templates/view.html:39
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#: templates/view.html:48
+msgid "History"
+msgstr "Geschichte"
+
+#: templates/view.html:53
+msgid "Time"
+msgstr "Zeit"
+
+#: templates/view.html:54
+msgid "Event"
+msgstr "Ereignis"
+
+#: templates/view.html:63
+#, python-format
+msgid "Drop point %(number)i created"
+msgstr "Drop Point %(number)i erstellt"
+
+#: templates/view.html:65
+#, python-format
+msgid "Location changed to %(location)s"
+msgstr "Ort zu %(location)s geändert"
+
+#: templates/view.html:67
+#, python-format
+msgid "Report submitted and drop point seen as: %(state)s"
+msgstr "Drop Point gemeldet als: %(state)s"
+
+#: templates/view.html:69
+#, python-format
+msgid "Drop point visited and maintenance performed: %(action)s"
+msgstr "Drop Point besucht und Wartung durchgeführt: %(action)s"
+
+#: templates/view.html:71
+msgid "Drop point marked as removed"
+msgstr "Drop Point als entfernt markiert"
+
+#: templates/visit.html:2
+msgid "Visit Drop Point"
+msgstr "Drop Point besuchen"
+
+#: templates/visit.html:5
+#, python-format
+msgid "Visit Drop Point %(number)i"
+msgstr "Drop Point %(number)i besuchen"
+
+#: templates/visit.html:9
+msgid "You are not allowed to visit drop points."
+msgstr "Du darfst keine Drop Points besuchen."
+
+#: templates/visit_buttons.html:3
+msgid ""
+"Please use the buttons below to log the action taken on your visit of this "
+"drop point."
+msgstr "Bitte nutze die Buttons unten um deinen Besuch zu loggen."
+
+#: templates/visit_buttons.html:8
+msgid "Emptied the drop point"
+msgstr "Drop Point geleert"
+
+#: templates/visit_buttons.html:14 templates/visit_buttons.html:19
+msgid "Modified the drop point"
+msgstr "Drop Point bearbeitet"
+
+#: templates/visit_buttons.html:18
+msgid "You can not do this. Please contact your supervisor."
+msgstr "Du hast nicht die Berechtigung für diese Aktion."
+
+#: templates/visit_buttons.html:24
+msgid "No action necessary"
+msgstr "Keine Aktion nötig"
+
+#: templates/visit_buttons.html:29
+msgid ""
+"Please log in as a bottle collector using the login form at the top of this "
+"page in order to visit drop points."
+msgstr ""
+"Bitte logge dich als Flaschensammler ein, um Besuche von Drop Points zu "
+"loggen."
+
+#: templates/macros/actions.html:2
+msgid "Removed"
+msgstr "Entfernt"
+
+#: templates/macros/actions.html:3
+msgid "Modified"
+msgstr "Bearbeitet"
+
+#: templates/macros/actions.html:4
+msgid "Emptied"
+msgstr "Geleert"
+
+#: templates/macros/actions.html:5
+msgid "No action"
+msgstr "Keine Aktion"
+
+#: templates/macros/actions.html:6 templates/macros/states.html:19
+msgid "Unknown"
+msgstr "Unbekannt"
+
+#: templates/macros/states.html:12
+msgid "Overflowing"
+msgstr "Überfüllt"
+
+#: templates/macros/states.html:13
+msgid "Full"
+msgstr "Voll"
+
+#: templates/macros/states.html:14
+msgid "Reasonably full"
+msgstr "Gut gefüllt"
+
+#: templates/macros/states.html:15
+msgid "Some bottles"
+msgstr "Einige Flaschen"
+
+#: templates/macros/states.html:16
+msgid "Empty"
+msgstr "Leer"
+
+#: templates/macros/states.html:17
+msgid "New"
+msgstr "Neu"
+
+#: templates/macros/states.html:18
+msgid "No crates"
+msgstr "Keine Kisten"

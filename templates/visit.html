@@ -1,12 +1,12 @@
 {% extends "layout.html" %}
-{% set title = "Visit Drop Point" %}
+{% set title = _("Visit Drop Point") %}
 {% block content %}
         <div class="page-header">
-            <h1>Visit Drop Point {{ dp.number }}</h1>
+            <h1>{{ _("Visit Drop Point %(number)i", number=dp.number) }}</h1>
         </div>
         {% if g.user.is_anonymous or not g.user.can_visit %}
         <div class="alert alert-warning">
-            <strong>Attention!</strong> You are not allowed to visit drop points.
+            <strong>{{ _("Attention!") }}</strong> {{ _("You are not allowed to visit drop points.") }}
         </div>
         {% else %}
         <div class="row">

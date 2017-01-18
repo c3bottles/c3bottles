@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% set title = "Error" %}
+{% set title = _("Error") %}
 {% block content %}
     <div class="jumbotron">
         <div class="row">
@@ -14,7 +14,7 @@
             <div class="col-xs-8">
                 <h1>
                     <span class="text-danger">
-                        {{ heading if heading else "Oh no!" }}
+                        {{ heading if heading else _("Oh no!") }}
                     </span>
                 </h1>
                 <h2>

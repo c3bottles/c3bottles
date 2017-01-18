@@ -9,14 +9,14 @@
 0{% endif %}{% endmacro %}
 
 {% macro label(state) %}{% if state == "OVERFLOW" %}
-<span class="label label-danger">Overflowing</span>{% elif state == "FULL" %}
-<span class="label label-warning">Full</span>{% elif state == "REASONABLY_FULL" %}
-<span class="label label-info">Reasonably full</span>{% elif state == "SOME_BOTTLES" %}
-<span class="label label-primary">Some bottles</span>{% elif state == "EMPTY" %}
-<span class="label label-success">Empty</span>{%  elif state == "NEW" %}
-<span class="label label-default">New</span>{%  elif state == "NO_CRATES" %}
-<span class="label label-danger">No crates</span>{% else %}
-<span class="label label-unknown">Unknown</span>{% endif %}{% endmacro %}
+<span class="label label-danger">{{ _("Overflowing") }}</span>{% elif state == "FULL" %}
+<span class="label label-warning">{{ _("Full") }}</span>{% elif state == "REASONABLY_FULL" %}
+<span class="label label-info">{{ _("Reasonably full") }}</span>{% elif state == "SOME_BOTTLES" %}
+<span class="label label-primary">{{ _("Some bottles") }}</span>{% elif state == "EMPTY" %}
+<span class="label label-success">{{ _("Empty") }}</span>{%  elif state == "NEW" %}
+<span class="label label-default">{{ _("New") }}</span>{%  elif state == "NO_CRATES" %}
+<span class="label label-danger">{{ _("No crates") }}</span>{% else %}
+<span class="label label-unknown">{{ _("Unknown") }}</span>{% endif %}{% endmacro %}
 
 {% macro color(state) %}{% if state == "OVERFLOW" %}
 #d9534f{% elif state == "FULL" %}
