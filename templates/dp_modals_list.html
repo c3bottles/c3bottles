@@ -3,7 +3,7 @@
 <p>
 <table class="table table-bordered">
     <tr>
-        <td>Visit priority:</td>
+        <td>{{ _("Visit priority:") }}</td>
         <td class="modal_dp_priority"></td>
     </tr>
 </table>
@@ -11,11 +11,11 @@
     <div class="btn-group">
         <a class="btn btn-default modal_dp_link"
            data-baseurl="{{ url_for("dp_view") }}">
-            View more details
+            {{ _("View more details") }}
         </a>
         <a class="btn btn-default modal_map_link"
            data-baseurl="{{ url_for("dp_map") }}">
-            Show on map
+            {{ _("Show on map") }}
         </a>
     </div>
 </div>

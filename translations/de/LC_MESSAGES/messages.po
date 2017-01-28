@@ -1,18 +1,117 @@
+
 msgid ""
 msgstr ""
-"Project-Id-Version: c3bottles\n"
+"Project-Id-Version:  c3bottles\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2017-01-18 11:28+0100\n"
+"POT-Creation-Date: 2017-01-28 21:24+0100\n"
 "PO-Revision-Date: 2017-01-18 11:34+0100\n"
 "Last-Translator: \n"
 "Language: de\n"
 "Language-Team: \n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.3.4\n"
-"X-Generator: Poedit 1.8.11\n"
+
+#: templates/create_dp.html:2
+msgid "Create a New Bottle Drop Point"
+msgstr ""
+
+#: templates/create_dp.html:11 templates/edit_dp.html:11
+msgid "An error occured!"
+msgstr ""
+
+#: templates/create_dp.html:17 templates/success.html:17
+msgid "Success!"
+msgstr "Erfolg!"
+
+#: templates/create_dp.html:18
+msgid "The drop point has been created successfully."
+msgstr ""
+
+#: templates/create_dp.html:45 templates/edit_dp.html:40
+msgid "Ground floor (Lobby, Hackcenter)"
+msgstr ""
+
+#: templates/create_dp.html:51 templates/edit_dp.html:46
+msgid "1st floor (Heaven, Hackcenter)"
+msgstr ""
+
+#: templates/create_dp.html:57 templates/edit_dp.html:52
+msgid "2nd floor (HF1/2/G)"
+msgstr ""
+
+#: templates/create_dp.html:63 templates/edit_dp.html:58
+msgid "3rd floor (ZF1/2)"
+msgstr ""
+
+#: templates/create_dp.html:69 templates/edit_dp.html:64
+msgid "4th floor (RF1/2)"
+msgstr ""
+
+#: templates/create_dp.html:81 templates/edit_dp.html:76
+msgid "Drop point number"
+msgstr ""
+
+#: templates/create_dp.html:88
+msgid "Create another drop point"
+msgstr ""
+
+#: templates/create_dp.html:89
+msgid "Finish drop point creation"
+msgstr ""
+
+#: templates/dp_modals.html:19
+msgid "Details"
+msgstr ""
+
+#: templates/dp_modals.html:23 templates/view.html:33
+msgid "Report"
+msgstr "Melden"
+
+#: templates/dp_modals.html:27 templates/view.html:36
+msgid "Visit"
+msgstr "Besuchen"
+
+#: templates/dp_modals.html:37 templates/dp_modals_list.html:6
+#: templates/dp_modals_map.html:9 templates/view.html:20
+msgid "Visit priority:"
+msgstr "Besuchspriorität:"
+
+#: templates/dp_modals.html:44 templates/dp_modals_list.html:14
+#: templates/dp_modals_map.html:16
+msgid "View more details"
+msgstr ""
+
+#: templates/dp_modals_list.html:18
+msgid "Show on map"
+msgstr ""
+
+#: templates/dp_modals_map.html:5
+msgid "Location:"
+msgstr ""
+
+#: templates/dp_modals_map.html:6
+msgid "on level"
+msgstr ""
+
+#: templates/edit_dp.html:2
+#, python-format
+msgid "Edit Drop Point %(number)i"
+msgstr ""
+
+#: templates/edit_dp.html:70 templates/list.html:18
+msgid "Location"
+msgstr ""
+
+#: templates/edit_dp.html:86
+msgid "Remove drop point"
+msgstr ""
+
+#: templates/edit_dp.html:93
+msgid "Submit changes"
+msgstr ""
 
 #: templates/error.html:2
 msgid "Error"
@@ -22,15 +121,19 @@ msgstr "Fehler"
 msgid "Oh no!"
 msgstr "Oh nein!"
 
+#: templates/faq.html:16 templates/navbar.html:21
+msgid "FAQ"
+msgstr "FAQ"
+
 #: templates/footer.html:4
 msgid ""
-"Development takes place on <a href=\"https://github.com/der-michik/c3bottles"
-"\">GitHub</a>. News can be found on <a href=\"https://twitter.com/c3bottles"
-"\">Twitter</a>."
+"Development takes place on <a href=\"https://github.com/der-"
+"michik/c3bottles\">GitHub</a>. News can be found on <a "
+"href=\"https://twitter.com/c3bottles\">Twitter</a>."
 msgstr ""
-"Die Entwicklung findet auf <a href=\"https://github.com/der-michik/c3bottles"
-"\">GitHub</a> statt. Neuigkeiten gibt es auch auf <a href=\"https://twitter."
-"com/c3bottles\">Twitter</a>."
+"Die Entwicklung findet auf <a href=\"https://github.com/der-"
+"michik/c3bottles\">GitHub</a> statt. Neuigkeiten gibt es auch auf <a "
+"href=\"https://twitter.com/c3bottles\">Twitter</a>."
 
 #: templates/index.html:2
 msgid "Home"
@@ -136,6 +239,26 @@ msgstr ""
 msgid "To the FAQ"
 msgstr "Zur FAQ"
 
+#: templates/list.html:17
+msgid "Number"
+msgstr ""
+
+#: templates/list.html:19
+msgid "Last state"
+msgstr ""
+
+#: templates/list.html:23
+msgid "Priority"
+msgstr ""
+
+#: templates/list.html:24
+msgid "Reports"
+msgstr ""
+
+#: templates/map.html:2
+msgid "Drop Point Map"
+msgstr ""
+
 #: templates/navbar.html:8
 msgid "Toggle navigation"
 msgstr "Navigation ein-/ausschalten"
@@ -151,10 +274,6 @@ msgstr "Karte"
 #: templates/navbar.html:20 templates/statistics.html:2
 msgid "Numbers"
 msgstr "Zahlen"
-
-#: templates/navbar.html:21
-msgid "FAQ"
-msgstr "FAQ"
 
 #: templates/navbar.html:30
 msgid "Logout"
@@ -193,8 +312,8 @@ msgid ""
 "very first button."
 msgstr ""
 "Bitte nutze die Buttons unten um den Status des Drop Points zu melden. Wenn "
-"du dir unsicher bist, welchen Status du angeben sollst, schau in die FAQ "
-"oder nimm den ersten Button."
+"du dir unsicher bist, welchen Status du angeben sollst, schau in die FAQ oder"
+" nimm den ersten Button."
 
 #: templates/report_buttons.html:8
 msgid "I'm not sure, just take a look"
@@ -258,16 +377,12 @@ msgid ""
 "There are no drop points and/or reports yet. Therefore, no statistics are "
 "available."
 msgstr ""
-"Da es noch keine Drop Points und/oder Meldungen gibt, gibt es auch noch "
-"keine Statistiken."
+"Da es noch keine Drop Points und/oder Meldungen gibt, gibt es auch noch keine"
+" Statistiken."
 
 #: templates/success.html:2
 msgid "Success"
 msgstr "Erfolg"
-
-#: templates/success.html:17
-msgid "Success!"
-msgstr "Erfolg!"
 
 #: templates/view.html:2
 #, python-format
@@ -291,10 +406,6 @@ msgstr "%(location)s auf Ebene %(level)i"
 msgid "somewhere"
 msgstr "irgendwo"
 
-#: templates/view.html:20
-msgid "Visit priority:"
-msgstr "Besuchspriorität:"
-
 #: templates/view.html:23
 msgid "Label:"
 msgstr "Schild:"
@@ -302,14 +413,6 @@ msgstr "Schild:"
 #: templates/view.html:26
 msgid "Download PDF"
 msgstr "PDF herunterladen"
-
-#: templates/view.html:33
-msgid "Report"
-msgstr "Melden"
-
-#: templates/view.html:36
-msgid "Visit"
-msgstr "Besuchen"
 
 #: templates/view.html:39
 msgid "Edit"
@@ -441,3 +544,4 @@ msgstr "Neu"
 #: templates/macros/states.html:18
 msgid "No crates"
 msgstr "Keine Kisten"
+
