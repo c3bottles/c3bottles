@@ -19,7 +19,7 @@ c3bottles.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 def load_config():
     c3bottles.config.from_object("config")
 
-db = SQLAlchemy(c3bottles)
+db = SQLAlchemy(c3bottles, session_options={"autoflush": False})
 
 lm = LoginManager(c3bottles)
 
