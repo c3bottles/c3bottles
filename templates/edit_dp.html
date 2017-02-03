@@ -20,19 +20,19 @@
     </div>
     <div class="row">
         <div class="col-md-6">
-            <h4>Change the position by dragging the black marker on the map:</h4>
+            <h4>{{ _("Change the position by dragging the black marker on the map:") }}</h4>
             <hr>
             <div id="map" class="map" style="height: 400px; width: 100%;"></div>
         </div>
     <div class="col-md-6">
-            <h4>Change the details of the drop point:</h4>
+            <h4>{{ _("Change the details of the drop point:") }}</h4>
             <hr>
             <form class="form-horizontal" action="{{ url_for("edit_dp", number=number) }}" method="POST">
                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                 <input type="hidden" name="lat" id="lat" value="{{ lat }}">
                 <input type="hidden" name="lng" id="lng" value="{{ lng }}">
                 <div class="form-group{{ " has-error" if "level" in error_fields }}">
-                    <label for="level" class="col-sm-4 control-label">Building level</label>
+                    <label for="level" class="col-sm-4 control-label">{{ _("Level") }}</label>
                     <div class="col-sm-8">
                         <div class="radio">
                             <label>
