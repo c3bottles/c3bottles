@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% set title = "Edit Drop Point " + number %}
+{% set title = _("Edit Drop Point %(number)i", number=number) %}
 {% block header %}
     <link href="{{ url_for('static', filename='lib/css/leaflet.css') }}"
           rel="stylesheet">
@@ -8,7 +8,7 @@
 {% if error_list %}
 {% for error in error_list %}
     <div class="alert alert-danger">
-        <strong>An error occured!</strong>
+        <strong>{{ _("An error occured!") }}</strong>
         {{ error }}
     </div>
 {% endfor %}
@@ -37,43 +37,43 @@
                         <div class="radio">
                             <label>
                                 <input type="radio" name="level" value="0"{{ {"checked": "checked"}|xmlattr if level == "0" }}>
-                                Ground floor (Lobby, Hackcenter)
+                                {{ _("Ground floor (Lobby, Hackcenter)") }}
                             </label>
                         </div>
                         <div class="radio">
                             <label>
                                 <input type="radio" name="level" value="1"{{ {"checked": "checked"}|xmlattr if level == "1" }}>
-                                1st floor (Heaven, Hackcenter)
+                                {{ _("1st floor (Heaven, Hackcenter)") }}
                             </label>
                         </div>
                         <div class="radio">
                             <label>
                                 <input type="radio" name="level" value="2"{{ {"checked": "checked"}|xmlattr if level == "2" }}>
-                                2nd floor (HF1/2/G)
+                                {{ _("2nd floor (HF1/2/G)") }}
                             </label>
                         </div>
                         <div class="radio">
                             <label>
                                 <input type="radio" name="level" value="3"{{ {"checked": "checked"}|xmlattr if level == "3" }}>
-                                3rd floor (ZF1/2)
+                                {{ _("3rd floor (ZF1/2)") }}
                             </label>
                         </div>
                         <div class="radio">
                             <label>
                                 <input type="radio" name="level" value="4"{{ {"checked": "checked"}|xmlattr if level == "4" }}>
-                                4th floor (RF1/2)
+                                {{ _("4th floor (RF1/2)") }}
                             </label>
                         </div>
                     </div>
                 </div>
                 <div class="form-group{{ " has-error" if "description" in error_fields }}">
-                    <label for="room" class="col-sm-4 control-label">Location</label>
+                    <label for="room" class="col-sm-4 control-label">{{ _("Location") }}</label>
                     <div class="col-sm-8{{ " has-error" if "description" in error_fields }}">
                         <input type="text" class="form-control" name="description" id="description" value="{{ description }}">
                     </div>
                 </div>
                 <div class="form-group{{ " has-error" if "number" in error_fields }}">
-                    <label for="level" class="col-sm-4 control-label">Drop point number</label>
+                    <label for="level" class="col-sm-4 control-label">{{ _("Drop point number") }}</label>
                     <div class="col-sm-2">
                         <input type="text" class="form-control" value="{{ number }}" readonly>
                     </div>
@@ -83,14 +83,14 @@
                         <div class="checkbox">
                             <label>
                                 <input type="checkbox" name="remove" value="yes">
-                                Remove drop point
+                                {{ _("Remove drop point") }}
                             </label>
                         </div>
                     </div>
                 </div>
                 <div class="spacer"></div>
                 <div class="text-right">
-                    <button type="submit" class="btn btn-primary" name="action">Submit changes</button>
+                    <button type="submit" class="btn btn-primary" name="action">{{ _("Submit changes") }}</button>
                 </div>
             </form>
         </div>
