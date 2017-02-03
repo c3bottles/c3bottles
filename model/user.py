@@ -1,5 +1,7 @@
 from werkzeug.security import check_password_hash
 
+from flask_babel import lazy_gettext as _
+
 from controller import lm
 
 
@@ -13,7 +15,7 @@ class User():
             self._can_edit = users[user_id]["can_edit"]
             self._password = users[user_id]["pw"]
         else:
-            raise ValueError("User not found.")
+            raise ValueError(_("User not found."))
 
     def get_id(self):
         return self._id

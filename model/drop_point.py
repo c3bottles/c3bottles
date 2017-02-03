@@ -2,6 +2,8 @@ import json
 
 from datetime import datetime
 
+from flask_babel import lazy_gettext as _
+
 from controller import c3bottles, db
 from model.location import Location
 from model.report import Report
@@ -63,19 +65,29 @@ class DropPoint(db.Model):
         try:
             self.number = int(number)
         except (TypeError, ValueError):
-            errors.append({"number": "Drop point number is not a number."})
+            errors.append({
+                "number": _("Drop point number is not a number.")
+            })
         else:
             if self.number < 1:
-                errors.append({"number": "Drop point number is not positive."})
+                errors.append({
+                    "number": _("Drop point number is not positive.")
+                })
             with db.session.no_autoflush:
                 if db.session.query(DropPoint).get(self.number):
-                    errors.append({"number": "That drop point already exists."})
+                    errors.append({
+                        "number": _("That drop point already exists.")
+                    })
 
         if time and not isinstance(time, datetime):
-            errors.append({"DropPoint": "Creation time not a datetime object."})
+            errors.append({
+                "DropPoint": _("Creation time not a datetime object.")
+            })
 
         if isinstance(time, datetime) and time > datetime.today():
-            errors.append({"DropPoint": "Creation time in the future."})
+            errors.append({
+                "DropPoint": _("Creation time in the future.")
+            })
 
         self.time = time if time else datetime.today()
 
@@ -99,13 +111,19 @@ class DropPoint(db.Model):
     def remove(self, time=None):
 
         if self.removed:
-            raise RuntimeError({"DropPoint": "Drop point already removed."})
+            raise RuntimeError({
+                "DropPoint": _("Drop point already removed.")
+            })
 
         if time and not isinstance(time, datetime):
-            raise TypeError({"DropPoint": "Removal time not a datetime object."})
+            raise TypeError({
+                "DropPoint": _("Removal time not a datetime object.")
+            })
 
         if time and time > datetime.today():
-            raise ValueError({"DropPoint": "Removal time in the future."})
+            raise ValueError({
+                "DropPoint": _("Removal time in the future.")
+            })
 
         self.removed = time if time else datetime.today()
 

@@ -1,5 +1,7 @@
 from datetime import datetime
 
+from flask_babel import lazy_gettext as _
+
 from controller import db
 import model.drop_point
 
@@ -52,51 +54,73 @@ class Location(db.Model):
         errors = []
 
         if not isinstance(dp, model.drop_point.DropPoint):
-            errors.append({"Location": "Not given a drop point object."})
+            errors.append({
+                "Location": _("Not given a drop point object.")
+            })
             raise ValueError(errors)
 
         self.dp = dp
 
         if time and not isinstance(time, datetime):
-            errors.append({"Location": "Start time not a datetime object."})
+            errors.append({
+                "Location": _("Start time not a datetime object.")
+            })
 
         if isinstance(time, datetime) and time > datetime.today():
-            errors.append({"Location": "Start time in the future."})
+            errors.append({
+                "Location": _("Start time in the future.")
+            })
 
         if dp.locations and isinstance(time, datetime) and \
                 time < dp.locations[-1].time:
-            errors.append({"Location": "Location older than current."})
+            errors.append({
+                "Location": _("Location older than current.")
+            })
 
         self.time = time if time else datetime.today()
 
         try:
             self.lat = float(lat)
         except (TypeError, ValueError):
-            errors.append({"lat": "Latitude is not a floating point number."})
+            errors.append({
+                "lat": _("Latitude is not a floating point number.")
+            })
         else:
             if not -90 < self.lat < 90:
-                errors.append({"lat": "Latitude is not between 90 degrees N/S."})
+                errors.append({
+                    "lat": _("Latitude is not between 90 degrees N/S.")
+                })
 
         try:
             self.lng = float(lng)
         except (TypeError, ValueError):
-            errors.append({"lng": "Longitude is not a floating point number."})
+            errors.append({
+                "lng": _("Longitude is not a floating point number.")
+            })
         else:
             if not -180 < self.lng < 180:
-                errors.append({"lng": "Longitude is not between 180 degrees W/E."})
+                errors.append({
+                    "lng": _("Longitude is not between 180 degrees W/E.")
+                })
 
         try:
             self.level = int(level)
         except (TypeError, ValueError):
-            errors.append({"level": "Building level is not a number."})
+            errors.append({
+                "level": _("Level is not a number.")
+            })
 
         try:
             self.description = str(description)
         except (TypeError, ValueError):
-            errors.append({"description": "Room description is not a string."})
+            errors.append({
+                "description": _("Location description is not a string.")
+            })
         else:
             if len(self.description) > self.max_description:
-                errors.append({"description": "Room description is too long."})
+                errors.append({
+                    "description": _("Location description is too long.")
+                })
 
         if errors:
             raise ValueError(*errors)

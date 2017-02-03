@@ -50,23 +50,33 @@ class Report(db.Model):
         self.dp = dp
 
         if not isinstance(dp, model.drop_point.DropPoint):
-            errors.append({"Report": "Not given a drop point object."})
+            errors.append({
+                "Report": _("Not given a drop point object.")
+            })
         else:
             if dp.removed:
-                errors.append({"Report": "Drop point has been removed."})
+                errors.append({
+                    "Report": _("Drop point has been removed.")
+                })
 
         if time and not isinstance(time, datetime):
-            errors.append({"Report": "Time not a datetime object."})
+            errors.append({
+                "Report": _("Time not a datetime object.")
+            })
 
         if isinstance(time, datetime) and time > datetime.today():
-            errors.append({"Report": "Start time in the future."})
+            errors.append({
+                "Report": _("Start time in the future.")
+            })
 
         self.time = time if time else datetime.today()
 
         if state in Report.states:
             self.state = state
         else:
-            errors.append({"Report": "Invalid or missing reported state."})
+            errors.append({
+                "Report": _("Invalid or missing reported state.")
+            })
 
         if errors:
             raise ValueError(*errors)
