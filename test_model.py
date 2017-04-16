@@ -126,21 +126,21 @@ class C3bottlesModelTestCase(unittest.TestCase):
 
         db.session.commit()
 
-        with self.assertRaisesRegexp(ValueError, "already exists"):
+        with self.assertRaisesRegex(ValueError, "already exists"):
             DropPoint(dp_number, lat=0, lng=0, level=1)
 
         numbers = (-1, "foo", None)
 
         for num in numbers:
-            with self.assertRaisesRegexp(ValueError, "number"):
+            with self.assertRaisesRegex(ValueError, "number"):
                 DropPoint(num, lat=0, lng=0, level=1)
 
         time_in_future = datetime.today() + timedelta(hours=1)
 
-        with self.assertRaisesRegexp(ValueError, "future"):
+        with self.assertRaisesRegex(ValueError, "future"):
             DropPoint(dp_number, time=time_in_future, lat=0, lng=0, level=1)
 
-        with self.assertRaisesRegexp(ValueError, "not a datetime"):
+        with self.assertRaisesRegex(ValueError, "not a datetime"):
             DropPoint(dp_number, time="foo", lat=0, lng=0, level=1)
 
     def test_drop_point_getters(self):
@@ -334,20 +334,20 @@ class C3bottlesModelTestCase(unittest.TestCase):
 
         dp = DropPoint(1, lat=0, lng=0, level=1)
 
-        with self.assertRaisesRegexp(ValueError, "drop point"):
+        with self.assertRaisesRegex(ValueError, "drop point"):
             Location("foo")
 
         time_in_future = datetime.today() + timedelta(hours=1)
 
-        with self.assertRaisesRegexp(ValueError, "future"):
+        with self.assertRaisesRegex(ValueError, "future"):
             Location(dp, time=time_in_future, lat=0, lng=0, level=1)
 
-        with self.assertRaisesRegexp(ValueError, "not a datetime"):
+        with self.assertRaisesRegex(ValueError, "not a datetime"):
             Location(dp, time="foo", lat=0, lng=0, level=1)
 
         start_time = datetime.today()
 
-        with self.assertRaisesRegexp(ValueError, "older than current"):
+        with self.assertRaisesRegex(ValueError, "older than current"):
             Location(dp, time=start_time, lat=0, lng=0, level=1)
             db.session.commit()
             Location(dp, time=start_time - timedelta(hours=1))
@@ -357,20 +357,20 @@ class C3bottlesModelTestCase(unittest.TestCase):
         invalid_level = ("quux", None)
 
         for lat in invalid_lat:
-            with self.assertRaisesRegexp(ValueError, "lat"):
+            with self.assertRaisesRegex(ValueError, "lat"):
                 Location(dp, lat=lat, lng=0, level=1)
 
         for lng in invalid_lng:
-            with self.assertRaisesRegexp(ValueError, "lng"):
+            with self.assertRaisesRegex(ValueError, "lng"):
                 Location(dp, lat=0, lng=lng, level=1)
 
         for level in invalid_level:
-            with self.assertRaisesRegexp(ValueError, "level"):
+            with self.assertRaisesRegex(ValueError, "level"):
                 Location(dp, lat=0, lng=0, level=level)
 
         too_long = "a" * (Location.max_description + 1)
 
-        with self.assertRaisesRegexp(ValueError, "too long"):
+        with self.assertRaisesRegex(ValueError, "too long"):
             Location(dp, lat=0, lng=0, level=1, description=too_long)
 
     def test_drop_point_removal(self):
@@ -416,13 +416,13 @@ class C3bottlesModelTestCase(unittest.TestCase):
 
         time_in_future = datetime.today() + timedelta(hours=1)
 
-        with self.assertRaisesRegexp(ValueError, "future"):
+        with self.assertRaisesRegex(ValueError, "future"):
             dp.remove(time_in_future)
 
-        with self.assertRaisesRegexp(TypeError, "not a datetime"):
+        with self.assertRaisesRegex(TypeError, "not a datetime"):
             dp.remove("foo")
 
-        with self.assertRaisesRegexp(RuntimeError, "already removed"):
+        with self.assertRaisesRegex(RuntimeError, "already removed"):
             dp.remove()
             dp.remove()
 
@@ -525,21 +525,21 @@ class C3bottlesModelTestCase(unittest.TestCase):
 
         dp = DropPoint(1, lat=0, lng=0, level=1)
 
-        with self.assertRaisesRegexp(ValueError, "drop point"):
+        with self.assertRaisesRegex(ValueError, "drop point"):
             Report(None)
 
-        with self.assertRaisesRegexp(ValueError, "state"):
+        with self.assertRaisesRegex(ValueError, "state"):
             Report(dp)
 
         time_in_future = datetime.today() + timedelta(hours=1)
 
-        with self.assertRaisesRegexp(ValueError, "future"):
+        with self.assertRaisesRegex(ValueError, "future"):
             Report(dp, time=time_in_future, state=states[0])
 
-        with self.assertRaisesRegexp(ValueError, "not a datetime"):
+        with self.assertRaisesRegex(ValueError, "not a datetime"):
             Report(dp, time="foo", state=states[0])
 
-        with self.assertRaisesRegexp(ValueError, "state"):
+        with self.assertRaisesRegex(ValueError, "state"):
             Report(dp, state="whatever")
 
     def test_report_weight_calculation(self):
@@ -633,21 +633,21 @@ class C3bottlesModelTestCase(unittest.TestCase):
 
         dp = DropPoint(1, lat=0, lng=0, level=1)
 
-        with self.assertRaisesRegexp(ValueError, "drop point"):
+        with self.assertRaisesRegex(ValueError, "drop point"):
             Visit(None)
 
-        with self.assertRaisesRegexp(ValueError, "action"):
+        with self.assertRaisesRegex(ValueError, "action"):
             Visit(dp)
 
         time_in_future = datetime.today() + timedelta(hours=1)
 
-        with self.assertRaisesRegexp(ValueError, "future"):
+        with self.assertRaisesRegex(ValueError, "future"):
             Visit(dp, time=time_in_future, action=actions[0])
 
-        with self.assertRaisesRegexp(ValueError, "not a datetime"):
+        with self.assertRaisesRegex(ValueError, "not a datetime"):
             Visit(dp, time="foo", action=actions[0])
 
-        with self.assertRaisesRegexp(ValueError, "action"):
+        with self.assertRaisesRegex(ValueError, "action"):
             Visit(dp, action="whatever")
 
     def test_drop_point_visit_priority_calculation(self):
