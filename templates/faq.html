@@ -25,49 +25,26 @@
     </p>
     <div id="what-is-this-about" class="collapse">
         <p>
-{{ _("%(project)s is a bottle drop and collection management system for
-chaos events. Collecting all the empty bottles is a hard task
-at every event since they appear in large numbers at places and
-times you cannot always anticipate beforehand. Bottle collectors
-need to roam the area all the time and check it periodically for
-any left empty bottles.", project=_("c3bottles")) }}
+{{ _("Waste is a trash-management system for
+SHA2017, based on C3Bottles. Collecting all the trash is a hard task
+at the event since trash appears at places and
+times you cannot always anticipate beforehand. The Waste Wizkids
+need to roam the area and check bins periodically", project=_("c3bottles")) }}
         </p>
 
         <p>
-{{ _("To make this job a lot easier, bottle drop points were invented:
-Empty crates are placed at spots in the area where a high level
-of empty bottles is expected, e.g. exits of lecture halls,
-lounges or the main exit/entrance of a building. The visitors
-are advised to leave their bottles not at random but rather
-only at the designated bottle drop points. The bottle collectors
-then only need to visit these points to do their job.") }}
-        </p>
-
-        <p>
-{{ _("However, there are some caveats: In a large building like the
-CCH nobody is able to memorize all the drop points and some of
-them may be forgotten and overflow without anyone noticing. In
-addition, if the planning in advance was not perfect (as always),
-some drop points in popular locations may overflow very quickly
-making the job of the collectors a lot harder. At an overflowing
-drop point, they can't simply exchange a full crate for an empty
-one but instead have to put all the bottles laying on and around
-the more than full crate into their fresh one. In the worst case
-they then have lots of full but no empty crates left in
-locations with a high bottle drop rate. If that ever happens,
-the bottlecalypse is inevitable.") }}
-        </p>
-
-        <p>
-{{ _("%(project)s aims to solve this problem using modern web technology
+{{ _("To make this job a lot easier, this system was developed. Using modern web technology
 combined with crowdsourcing: A database tracks the state of all
-the drop points and visitors noticing full or overflowing drop
-points can report that fact. The bottle collectors will be
+the bins and visitors noticing full or overflowing bins can report that fact.") }}
+        </p>
+
+        <p>
+{{ _("The waste collectors will be
 notified and can react promptly. They track their tour and the
-system can notify them of drop points not visited in a long time
+system can notify them of bins not visited in a long time
 or needing immediate action. Statistical analysis allows for
-continuous optimization of drop point placement by scaling drop
-points according to the demand or abandoning drop points in
+continuous optimization of bin placement by scaling drop
+points according to the demand or abandoning bins in
 remote locations which are not used much anyway.", project=_("c3bottles")) }}
         </p>
         <hr/>
@@ -78,38 +55,38 @@ remote locations which are not used much anyway.", project=_("c3bottles")) }}
     </p>
     <div id="how-does-it-work" class="collapse">
         <p>
-{{ _("During placement of bottle drop points, every drop point is
+{{ _("During placement of waste bins, every bin is
 registered in the database with its number and position.
 It gets a label telling the
-visitors to report full drop points using a URL specific for
-every drop point. On the website, the visitor can report the drop
+visitors to report full bins using a URL specific for
+every Bin. On the website, the visitor can report the drop
 point as needing attention by simply clicking a button.
-Optionally, the visitor may inform the bottle collectors about
-the filling level of the drop point.") }}
+Optionally, the visitor may inform the waste collectors about
+the filling level of the Bin.") }}
         </p>
 
         <p>
-{{ _("The other end of the web interface shows a list of drop points to
-visit ordered by priority: Drop points reported a lot lately get
-a high priority which is even higher if the respective drop point
+{{ _("The other end of the web interface shows a list of Bins to
+visit ordered by priority: Bins reported a lot lately get
+a high priority which is even higher if the respective Bin
 experiences a lot or traffic and is
-reported multiple times. Drop points not visited for a long time
+reported multiple times. Bins not visited for a long time
 get a high priority too, so the collectors can check their current
 state.") }}
         </p>
 
         <p>
-{{ _("A map shows the location of all the drop points so new members of
-the bottle collector team can find them easily and visitors can
-always find the nearest drop point to their current location.") }}
+{{ _("A map shows the location of all the Bins so new members of
+the waste collector team can find them easily and visitors can
+always find the nearest Bin to their current location.") }}
         </p>
 
         <p>
-{{ _("The bottle collectors track their actions when visiting drop
-points by clicking a button whenever they empty a drop point.
-In addition to that, bottle collection supervisors can add and
-remove drop points or change the location of existing
-drop points if needed.") }}
+{{ _("The waste collectors track their actions when visiting drop
+points by clicking a button whenever they empty a Bin.
+In addition to that, waste collection supervisors can add and
+remove Bins or change the location of existing
+Bins if needed.") }}
         </p>
         <hr/>
     </div>
@@ -119,25 +96,25 @@ drop points if needed.") }}
     </p>
     <div id="help-as-visitor" class="collapse">
         <p>
-{{ _("Great! Helping is easy: If you spot a bottle drop point that seems
+{{ _("Great! Helping is easy: If you spot a waste bin that seems
 to need attention, just visit the URL printed on the sign posted
 there. You are presented with a website containing a few buttons.
 Just click on the one you think fits most. Congratulations! :)") }}
         </p>
 
         <p>
-{{ _("Please do not abuse the system like reporting the same drop point
+{{ _("Please do not abuse the system like reporting the same bin
 multiple times since it can only work as good as its input is. If
 you accidentally pressed the wrong button and e.g. reported an
-overflowing drop point as empty, don't hesitate to report it again
+overflowing bin as empty, don't hesitate to report it again
 with the correct state. The system will react to this accordingly.") }}
         </p>
 
         <p>
-{{ _("Any report of a drop point is helpful, even if it is not overflowing.
-Reports of empty or only sparsely used drop points help the bottle
+{{ _("Any report of a bin is helpful, even if it is not overflowing.
+Reports of empty or only sparsely used bins help the waste
 collectors prioritize their visits, plan their tours optimally and
-rearrange crates or moving drop points as they see fit. The
+rearrange crates or moving bins as they see fit. The
 optimization works better the more detailed the reporting is.
 Last but not least, the statistics gets more impressive with
 larger numbers.") }}
@@ -146,14 +123,14 @@ larger numbers.") }}
     </div>
     <p class="lead collapse-toggle" data-toggle="collapse"
        data-target="#help-as-angel">
-        {{ _("I need some manual labor and bottle collection sounds like a thing for me. What should I do?") }}
+        {{ _("I need some manual labor and waste collection sounds like a thing for me. What should I do?") }}
     </p>
     <div id="help-as-angel" class="collapse">
         <p>
-{{ _("The bottle collectors are volunteers and help is always appreciated.
+{{ _("The waste collectors are volunteers and help is always appreciated.
 More hands collect and sort more bottles more quickly. If this is a
 congress and you already are an angel, just search and register for
-bottle collection shifts in the angel system. If this is a congress
+waste collection shifts in the angel system. If this is a congress
 and you are not yet an angel, ask for heaven, go there and tell the
 friendly people there want to help.") }}
         </p>
@@ -162,7 +139,7 @@ friendly people there want to help.") }}
 {{ _("If this is any other event in the chaos family, it should work
 similarly to congress but the names heaven and angels might differ.
 Just ask some people who look like they could know what's up. In
-doubt, just report your nearest drop point and wait for the
+doubt, just report your nearest bin and wait for the
 collector team to show up. They should know what they're doing.") }}
         </p>
         <hr/>
@@ -173,10 +150,10 @@ collector team to show up. They should know what they're doing.") }}
     </p>
     <div id="what-are-report-states" class="collapse">
         <p>
-{{ _("Every drop point at all times has a state that describes its
-filling level. When drop points are being reported, the reporters
+{{ _("Every bin at all times has a state that describes its
+filling level. When bins are being reported, the reporters
 should select a state roughly corresponding to the situation they
-see. The state column in the drop point list as well as the markers
+see. The state column in the bin list as well as the markers
 in the map indicate the current (last reported) state of the drop
 point in question:") }}
         </p>
@@ -185,7 +162,7 @@ point in question:") }}
                     <td><img src="{{ url_for("static", filename="img/markers/DEFAULT.svg") }}" style="height: 2em;"></td>
                     <td>{{ states.label("DEFAULT") }}</td>
                     <td>
-{{ _("The drop point has been reported, however, the reporter
+{{ _("The bin has been reported, however, the reporter
 was not sure which state to choose and reported the
 default state instead.") }}
                     </td>
@@ -194,15 +171,15 @@ default state instead.") }}
                     <td><img src="{{ url_for("static", filename="img/markers/NEW.svg") }}" style="height: 2em;"></td>
                     <td>{{ states.label("NEW") }}</td>
                     <td>
-{{ _("The drop point has been just created and has not been reported yet.") }}
+{{ _("The Bin has been just created and has not been reported yet.") }}
                     </td>
                 </tr>
                 <tr>
                     <td><img src="{{ url_for("static", filename="img/markers/EMPTY.svg") }}" style="height: 2em;"></td>
                     <td>{{ states.label("EMPTY") }}</td>
                     <td>
-{{ _("The drop point has been emptied recently by the
-bottle collection team and hasn't been reported since
+{{ _("The bin has been emptied recently by the
+waste collection team and hasn't been reported since
 or has been reported as empty.") }}
                     </td>
                 </tr>
@@ -210,23 +187,23 @@ or has been reported as empty.") }}
                     <td><img src="{{ url_for("static", filename="img/markers/SOME_BOTTLES.svg") }}" style="height: 2em;"></td>
                     <td>{{ states.label("SOME_BOTTLES") }}</td>
                     <td>
-{{ _("The drop point contains a few bottles, but no action is necessary yet.") }}
+{{ _("The Bin contains a few bottles, but no action is necessary yet.") }}
                     </td>
                 </tr>
                 <tr>
                     <td><img src="{{ url_for("static", filename="img/markers/REASONABLY_FULL.svg") }}" style="height: 2em;"></td>
                     <td>{{ states.label("REASONABLY_FULL") }}</td>
                     <td>
-{{ _("The drop point contains a reasonable amount of bottles
-and should be visited by the bottle collection team soon.") }}
+{{ _("The Bin contains a reasonable amount of bottles
+and should be visited by the waste collection team soon.") }}
                     </td>
                 </tr>
                 <tr>
                     <td><img src="{{ url_for("static", filename="img/markers/FULL.svg") }}" style="height: 2em;"></td>
                     <td>{{ states.label("FULL") }}</td>
                     <td>
-{{ _("The drop point is more or less full and should be
-visited as soon as possible by the bottle collection
+{{ _("The Bin is more or less full and should be
+visited as soon as possible by the waste collection
 team to prevent overflowing.") }}
                     </td>
                 </tr>
@@ -234,18 +211,16 @@ team to prevent overflowing.") }}
                     <td><img src="{{ url_for("static", filename="img/markers/OVERFLOW.svg") }}" style="height: 2em;"></td>
                     <td>{{ states.label("OVERFLOW") }}</td>
                     <td>
-{{ _("The drop point is overflowing, i.e. not only the crates
-at the drop point are completely filled but additional
-bottles are laying around. Cleaning up the mess can be
-troublesome, so the team should try to prevent drop
-points from reaching this state.") }}
+{{ _("The Bin is overflowing, i.e. not only the bin is completely filled but additional
+bags are laying around. Cleaning up the mess can be
+troublesome, so the team should try to prevent bins from reaching this state.") }}
                     </td>
                 </tr>
                 <tr>
                     <td><img src="{{ url_for("static", filename="img/markers/NO_CRATES.svg") }}" style="height: 2em;"></td>
                     <td>{{ states.label("NO_CRATES") }}</td>
                     <td>
-{{ _("The drop point is missing crates to put bottles in. This
+{{ _("The bin is missing crates to put bottles in. This
 is a grave situation since visitors will probably just
 drop their empty bottles on the ground. Empty crates
 should be supplied immediately.") }}
@@ -260,20 +235,20 @@ should be supplied immediately.") }}
     </p>
     <div id="what-is-priority" class="collapse">
         <p>
-{{ _("Each drop point gets assigned a visit priority and the idea is
-that the bottle collectors visit the drop points in order of
+{{ _("Each Bin gets assigned a visit priority and the idea is
+that the waste collectors visit the Bins in order of
 their priority.") }}
         </p>
 
         <p>
 {{ _("The priority is calculated by taking the time since the last
 visit as a base value relative to a base visit interval that
-determines how often a typical drop point should be visited.
-Each report of a drop point adds to the priority, where the
+determines how often a typical Bin should be visited.
+Each report of a Bin adds to the priority, where the
 severity of the report (the most severe is obviously
 \"overflowing\"). The latest report counts the most and
 earlier reports count less and less. The crate count of the
-drop point gives an additional bonus so that larger drop
+Bin gives an additional bonus so that larger drop
 points get a slight increase in priority since a higher
 throughput is expected in such locations.") }}
         </p>

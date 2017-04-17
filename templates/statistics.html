@@ -8,7 +8,7 @@
 {% if stats.drop_point_count > 0 and stats.report_count > 0: %}
     <div class="row">
         <div class="col-md-4 col-md-offset-1 col-sm-4 col-xs-12 text-center">
-            <p><label for="drop_points_by_state">{{ _("Drop points by state") }}</label></p>
+            <p><label for="drop_points_by_state">{{ _("Bins by state") }}</label></p>
             <canvas class="piechart" id="drop_points_by_state"></canvas>
             <div class="spacer"></div>
         </div>
@@ -34,7 +34,7 @@
     <div class="row">
         <div class="col-sm-4 col-xs-12 text-center">
             <p class="large-icon sum">{{ stats.drop_point_count }}</p>
-            <p>{{ _("drop points in the database") }}</p>
+            <p>{{ _("bins in the database") }}</p>
         </div>
         <div class="col-sm-4 col-xs-6 text-center">
             <p class="large-icon sum">{{ stats.report_count }}</p>
@@ -42,21 +42,21 @@
         </div>
         <div class="col-sm-4 col-xs-6 text-center">
             <p class="large-icon sum">{{ stats.visit_count }}</p>
-            <p>{{ _("visits by the bottle collectors") }}</p>
+            <p>{{ _("visits by the trash-collectors") }}</p>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-3 col-sm-offset-2 col-xs-6 text-center">
             <p class="large-icon average">{{ (stats.report_count / stats.drop_point_count)|round(1) }}</p>
-            <p>{{ _("reports per drop point") }}</p>
+            <p>{{ _("reports per bin") }}</p>
         </div>
         <div class="col-sm-3 col-sm-offset-2 col-xs-6 text-center">
             <p class="large-icon average">{{ (stats.visit_count / stats.drop_point_count)|round(1) }}</p>
-            <p>{{ _("visits per drop point") }}</p>
+            <p>{{ _("visits per bin") }}</p>
         </div>
     </div>
 {% else %}
-<p>{{ _("There are no drop points and/or reports yet. Therefore, no statistics are available.") }}</p>
+<p>{{ _("There are no bins and/or reports yet. Therefore, no statistics are available.") }}</p>
 {% endif %}
 {% endblock %}
 {% block scripts %}
