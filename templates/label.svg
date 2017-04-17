@@ -1,14 +1,273 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="297mm" height="210mm" viewBox="0 0 1052.3622 744.09448">
-  <g transform="translate(0 -308.268)">
-    <path d="M295.358 648.53c8.077-.105 9.21 1.626 9.972 6.232v62.324h14.957c5.153-.457 10.493-.46 12.465-8.725v-72.295c-.735-7.888-1.807-16.227-12.465-37.394-.81-1.362-.782-2.638 0-3.74l1.247-1.245v-8.726h-16.197l-.037 8.742 1.276 1.23c.804 1.373.922 2.253 0 3.74-6.357 10.09-10.21 22.884-12.465 37.393v11.218c.17.91.762.975 1.248 1.247z"/>
-    <path d="M260.456 660.995v57.338c1.027 4.153 5.86 6.58 8.657 6.244h20.046c2.652-.2 7.765-2.5 7.444-7.49v-56.092c-.002.002-3.712-6.25-3.702-6.233l-28.702.004c-.007.02-3.73 6.235-3.744 6.23z"/>
-    <path d="M340.23 674.706v19.946l17.45.002c18.7.008 18.693 38.644.002 38.636H233.034v-22.436l-38.64 32.408 38.64 32.41V754.48h124.648c18.684-.003 34.905-18.697 34.9-37.394 0-24.922-16.203-42.375-34.9-42.38h-17.45z"/>
-    <text style="line-height:110.00000238%;-inkscape-font-specification:Sans;text-align:start" x="421.675" y="643.927" font-size="43.627" font-family="Tahoma" letter-spacing="0" word-spacing="0">
-      <tspan x="421.675" y="643.927">Bottle Drop Point {{ number }}</tspan>
-    </text>
-    <text style="line-height:110.00000238%;-inkscape-font-specification:Sans;text-align:start" x="421.958" y="698.421" font-size="43.627" font-family="Tahoma" letter-spacing="0" word-spacing="0">
-      <tspan x="421.958" y="698.421" font-size="28.046">If full, please report at</tspan><tspan x="421.958" y="729.271" font-size="28.046">{{ request.url_root }}{{ number }}</tspan>
-    </text>
-    <image y="662.592" x="887.474" xlink:href="data:image/png;base64,{{ qr }}" preserveAspectRatio="none" height="85.31" width="85.31"/>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.2"
+   width="297mm"
+   height="420mm"
+   viewBox="0 0 1052.3622 1488.189"
+   id="svg2"
+   inkscape:version="0.48.5 r10040"
+   sodipodi:docname="label.svg">
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1440"
+     inkscape:window-height="834"
+     id="namedview93"
+     showgrid="false"
+     inkscape:zoom="0.44853766"
+     inkscape:cx="782.81178"
+     inkscape:cy="654.9158"
+     inkscape:window-x="0"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg2" />
+  <metadata
+     id="metadata87">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs26">
+    <marker
+       refX="0"
+       refY="0"
+       orient="auto"
+       id="Arrow1Lstart"
+       style="overflow:visible">
+      <path
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         transform="matrix(0.8,0,0,0.8,10,0)"
+         id="path4191"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt" />
+    </marker>
+  </defs>
+  <g
+     transform="matrix(1,0,0,1.3691108,-3.7388391e-6,1311.0237)"
+     id="g3272">
+    <rect
+       width="175.39371"
+       height="129.40176"
+       x="0"
+       y="0"
+       id="rect3274"
+       style="fill:#146126;fill-opacity:1;stroke:none" />
+    <rect
+       width="175.39371"
+       height="129.40176"
+       x="175.39371"
+       y="0"
+       id="rect3276"
+       style="fill:#062ed1;fill-opacity:1;stroke:none" />
+    <rect
+       width="175.39371"
+       height="129.40176"
+       x="350.78741"
+       y="0"
+       id="rect3278"
+       style="fill:#ce99c2;fill-opacity:1;stroke:none" />
+    <rect
+       width="175.39371"
+       height="129.40176"
+       x="526.18115"
+       y="0"
+       id="rect3280"
+       style="fill:#7b7d11;fill-opacity:1;stroke:none" />
+    <rect
+       width="175.39371"
+       height="129.40176"
+       x="701.57483"
+       y="0"
+       id="rect3282"
+       style="fill:#c44583;fill-opacity:1;stroke:none" />
+    <rect
+       width="175.39371"
+       height="129.40176"
+       x="876.96851"
+       y="0"
+       id="rect3284"
+       style="fill:#55399e;fill-opacity:1;stroke:none" />
   </g>
+  <text
+     x="83.53511"
+     y="454.86194"
+     id="text12"
+     style="font-size:104.03382874px;text-align:start;line-height:110.00000238%;letter-spacing:0;word-spacing:0;font-family:Tahoma;-inkscape-font-specification:Sans"
+     sodipodi:linespacing="110%">
+    <tspan
+       x="83.53511"
+       y="454.86194"
+       id="tspan14"
+       style="font-weight:bold">Waste bin {{ number }}</tspan>
+  </text>
+  <text
+     x="89.431282"
+     y="534.14337"
+     id="text16"
+     style="font-size:87.86772919px;text-align:start;line-height:110.00000238%;letter-spacing:0;word-spacing:0;font-family:Tahoma;-inkscape-font-specification:Sans"
+     sodipodi:linespacing="110%">
+    <tspan
+       x="89.431282"
+       y="534.14337"
+       id="tspan18"
+       style="font-size:56.48653793px">If full, please <tspan
+   id="tspan4173"
+   style="font-weight:bold">report</tspan>
+ at</tspan>
+    <tspan
+       x="89.431282"
+       y="596.27728"
+       id="tspan20"
+       style="font-size:56.48653793px">{{ request.url_root }}{{ number }}</tspan>
+  </text>
+  <image
+     xlink:href="data:image/png;base64,{{ qr }}"
+     x="352.67899"
+     y="608.76123"
+     width="347.00424"
+     height="347.00424"
+     preserveAspectRatio="none"
+     id="image22" />
+  <g
+     transform="scale(1,2.7382216)"
+     id="g4477">
+    <rect
+       width="175.39371"
+       height="129.40176"
+       x="0"
+       y="0"
+       id="rect4183"
+       style="fill:#146126;fill-opacity:1;stroke:none" />
+    <rect
+       width="175.39371"
+       height="129.40176"
+       x="175.39371"
+       y="0"
+       id="rect4185"
+       style="fill:#062ed1;fill-opacity:1;stroke:none" />
+    <rect
+       width="175.39371"
+       height="129.40176"
+       x="350.78741"
+       y="0"
+       id="rect4455"
+       style="fill:#ce99c2;fill-opacity:1;stroke:none" />
+    <rect
+       width="175.39371"
+       height="129.40176"
+       x="526.18115"
+       y="0"
+       id="rect4457"
+       style="fill:#7b7d11;fill-opacity:1;stroke:none" />
+    <rect
+       width="175.39371"
+       height="129.40176"
+       x="701.57483"
+       y="0"
+       id="rect4459"
+       style="fill:#c44583;fill-opacity:1;stroke:none" />
+    <rect
+       width="175.39371"
+       height="129.40176"
+       x="876.96851"
+       y="0"
+       id="rect4461"
+       style="fill:#55399e;fill-opacity:1;stroke:none" />
+  </g>
+  <g
+     transform="translate(53.600028,149.4589)"
+     id="text4485"
+     style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:sans-serif">
+    <path
+       d="m 747.48724,1207.5901 14.98536,0 0,12.7002 -14.98536,0 0,17.1826 -13.84277,0 0,-17.1826 -15.0293,0 0,-12.7002 15.0293,0 0,-16.6992 13.84277,0 0,16.6992 z"
+       id="path4178"
+       style="font-size:90px;font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;fill:#ffffff;font-family:Roboto;-inkscape-font-specification:Roboto Heavy"
+       inkscape:connector-curvature="0" />
+    <path
+       d="m 795.03607,1178.9817 q 3.7793,0 6.72363,0.6592 2.94434,0.6152 6.50391,2.0215 l -2.46094,10.8105 q -3.07617,-0.9229 -5.40527,-1.3623 -2.28516,-0.4834 -5.27344,-0.4834 -5.27344,0 -8.48144,3.7353 -3.16407,3.6915 -3.03223,10.8106 l 0.13184,0.2197 q 1.93359,-2.1972 5.1416,-3.4277 3.20801,-1.2305 7.29492,-1.2305 8.56934,0 13.31543,6.1963 4.79004,6.1524 4.79004,15.7764 0,9.4922 -6.32813,15.8203 -6.28418,6.2842 -16.08398,6.2842 -10.50293,0 -16.96289,-6.8994 -6.45996,-6.8995 -6.45996,-18.8965 l 0,-12.876 q 0,-12.6563 7.42676,-19.9072 7.4707,-7.251 19.16015,-7.251 z m -2.94433,33.0908 q -3.07618,0 -5.31739,0.835 -2.19726,0.8349 -3.47168,2.3291 l 0,3.7793 q 0,6.9433 2.24121,10.6787 2.28516,3.6914 6.32813,3.6914 3.33984,0 5.44922,-3.1641 2.10937,-3.164 2.10937,-7.5146 0,-4.878 -2.06543,-7.7344 -2.02148,-2.9004 -5.27343,-2.9004 z"
+       id="path4180"
+       style="font-size:90px;font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;fill:#ffffff;font-family:Roboto;-inkscape-font-specification:Roboto Heavy"
+       inkscape:connector-curvature="0" />
+    <path
+       d="m 865.34857,1218.6204 q 0,12.9638 -6.02051,19.5996 -6.0205,6.5918 -16.21582,6.5918 -10.2832,0 -16.30371,-6.5918 -6.02051,-6.6358 -6.02051,-19.5996 l 0,-13.4473 q 0,-12.9639 5.97657,-19.5557 5.97656,-6.6357 16.25976,-6.6357 10.23926,0 16.25977,6.6357 6.06445,6.6358 6.06445,19.5557 l 0,13.4473 z m -14.80957,-14.458 q 0,-7.3389 -1.93359,-10.5469 -1.9336,-3.208 -5.58106,-3.208 -3.6914,0 -5.58105,3.208 -1.8457,3.208 -1.8457,10.5469 l 0,15.3808 q 0,7.4707 1.88964,10.6787 1.88965,3.1641 5.625,3.1641 3.64746,0 5.53711,-3.1641 1.88965,-3.208 1.88965,-10.6787 l 0,-15.3808 z"
+       id="path4182"
+       style="font-size:90px;font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;fill:#ffffff;font-family:Roboto;-inkscape-font-specification:Roboto Heavy"
+       inkscape:connector-curvature="0" />
+    <path
+       d="m 924.05951,1221.4329 0.0879,0.2636 q -0.43945,11.25 -6.67969,17.1827 -6.19629,5.9326 -18.01758,5.9326 -11.86523,0 -19.29199,-7.295 -7.42676,-7.2949 -7.42676,-18.9404 l 0,-13.3594 q 0,-11.6015 7.11914,-18.8964 7.16309,-7.3389 18.58887,-7.3389 12.12891,0 18.54492,6.1084 6.41602,6.1084 7.25098,17.3584 l -0.0879,0.2637 -14.45801,0 q -0.30762,-6.2403 -2.8125,-9.2725 -2.46094,-3.0322 -8.4375,-3.0322 -5.05371,0 -7.9541,4.0869 -2.90039,4.043 -2.90039,10.6348 l 0,13.4472 q 0,6.6358 3.16406,10.7227 3.16406,4.0869 8.70117,4.0869 5.36133,0 7.60254,-2.8565 2.24121,-2.8564 2.54883,-9.0966 l 14.45801,0 z"
+       id="path4184"
+       style="font-size:90px;font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;fill:#ffffff;font-family:Roboto;-inkscape-font-specification:Roboto Heavy"
+       inkscape:connector-curvature="0" />
+    <path
+       d="m 932.05756,1243.8889 0,-63.9844 21.97265,0 q 11.90918,0 18.58887,4.4385 6.67969,4.3945 6.67969,13.1397 0,4.5703 -2.15332,8.1298 -2.15332,3.5596 -6.63575,5.3614 5.625,1.2744 8.30567,5.1416 2.68066,3.8232 2.68066,8.833 0,9.3603 -6.28418,14.1504 -6.28418,4.79 -18.01758,4.79 l -25.13671,0 z m 14.89746,-27.4658 0,16.04 10.23925,0 q 4.7461,0 7.11915,-1.8457 2.37304,-1.8896 2.37304,-5.7568 0,-4.1748 -2.06543,-6.2842 -2.02148,-2.1533 -6.59179,-2.1533 l -11.07422,0 z m 0,-9.8438 7.38281,0 q 5.05371,-0.088 7.55859,-1.9335 2.50489,-1.8897 2.50489,-5.4932 0,-4.0869 -2.54883,-5.9326 -2.54883,-1.8897 -7.82227,-1.8897 l -7.07519,0 0,15.249 z"
+       id="path4186"
+       style="font-size:90px;font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;fill:#ffffff;font-family:Roboto;-inkscape-font-specification:Roboto Heavy"
+       inkscape:connector-curvature="0" />
+  </g>
+  <text
+     xml:space="preserve"
+     style="font-size:258.46914673px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+     x="69.442909"
+     y="322.52252"
+     id="text3070"
+     sodipodi:linespacing="125%"><tspan
+       sodipodi:role="line"
+       id="tspan3072"
+       x="69.442909"
+       y="322.52252"
+       style="font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;fill:#f9f9f9;font-family:Roboto;-inkscape-font-specification:Roboto Heavy">W♲STE</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+     x="91.408157"
+     y="995.18207"
+     id="text3848"
+     sodipodi:linespacing="125%"><tspan
+       sodipodi:role="line"
+       id="tspan3850"
+       x="91.408157"
+       y="995.18207">Please NO hazardous materials:</tspan><tspan
+       sodipodi:role="line"
+       x="91.408157"
+       y="1045.1821"
+       id="tspan3852">♲ Sharp objects</tspan><tspan
+       sodipodi:role="line"
+       x="91.408157"
+       y="1095.1821"
+       id="tspan3854">♲ Stuff that's on fire (or hot)</tspan><tspan
+       sodipodi:role="line"
+       x="91.408157"
+       y="1145.1821"
+       id="tspan3856">♲ Biohazards, so no zombies :'( </tspan><tspan
+       sodipodi:role="line"
+       x="91.408157"
+       y="1195.1821"
+       id="tspan3858">♲ No hamsters. Definitly no hamsters!</tspan><tspan
+       sodipodi:role="line"
+       x="91.408157"
+       y="1245.1821"
+       id="tspan3860" /><tspan
+       sodipodi:role="line"
+       x="91.408157"
+       y="1295.1821"
+       id="tspan3862">Real trouble? Call DIRT (3478)!</tspan></text>
 </svg>
