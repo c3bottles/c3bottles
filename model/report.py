@@ -1,5 +1,7 @@
 from datetime import datetime
 
+from flask_babel import lazy_gettext as _
+
 from controller import db
 import model.drop_point
 
