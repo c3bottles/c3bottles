@@ -86,7 +86,7 @@ class User(db.Model, UserMixin):
         if type(_id) is int:
             return cls.query.get(_id)
         elif type(_id) is str:
-            return cls.query.filter(cls.name == _id.lower()).first()
+            return cls.query.filter(cls.name == _id).first()
         else:
             return None
 
