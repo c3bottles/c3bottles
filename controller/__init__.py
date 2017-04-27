@@ -4,6 +4,7 @@ from babel import Locale
 
 from flask import Flask, g, session, request
 from flask_babel import Babel
+from flask_bcrypt import Bcrypt
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_wtf import CSRFProtect
@@ -22,6 +23,8 @@ def load_config():
 db = SQLAlchemy(c3bottles, session_options={"autoflush": False})
 
 lm = LoginManager(c3bottles)
+
+bcrypt = Bcrypt(c3bottles)
 
 csrf = CSRFProtect(c3bottles)
 

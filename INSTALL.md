@@ -68,12 +68,14 @@ In order to install c3bottles, you will need:
         >>> load_config()
         >>> db.create_all()
 
-7.  Configure the users needed and their passwords in `model/user.py` as
-    needed. To generate password hashes, you can do the following:
+7.  In order to use c3bottles, you need at least one admin user. You can
+    creare one like this:
 
         $ python
-        >>> from werkzeug.security import generate_password_hash
-        >>> generate_password_hash("foo")
+        >>> from controller import db, load_config
+        >>> load_config()
+        >>> db.session.add(User("admin", "password", True, True, True, False)
+        >>> db.session.commit()
 
 8.  Configure your webserver accordingly to run the WSGI application. Apache
     needs something like this to run c3bottles as the document root of a host:

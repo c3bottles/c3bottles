@@ -1,5 +1,6 @@
 Flask>=0.11.1
 Flask-Babel>=0.11.1
+Flask-Bcrypt>=0.7.1
 Flask-SQLAlchemy>=2.1
 Flask-Login>=0.4.0
 Flask-WTF>=0.14
@@ -9,3 +10,4 @@ pyPDF2>=1.23
 qrcode>=5.3
 pillow==4.0.0
 pytest
+pwgen>=0.7
