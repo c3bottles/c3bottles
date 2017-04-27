@@ -123,7 +123,7 @@ class Anonymous(AnonymousUserMixin):
 
     @property
     def name(self):
-        return lazy_gettext("Unknown")
+        return _("Unknown")
 
     @property
     def user_id(self):
