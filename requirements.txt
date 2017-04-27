@@ -8,3 +8,4 @@ CairoSVG>=1.0.22, <2.0
 pyPDF2>=1.23
 qrcode>=5.3
 pillow==4.0.0
+pytest

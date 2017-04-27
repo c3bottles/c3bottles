@@ -10,3 +10,4 @@ static/img/tiles/
 static/lib/
 translations/messages.pot
 translations/**/*.mo
+.cache
