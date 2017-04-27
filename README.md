@@ -1,4 +1,4 @@
-#c3bottles
+# c3bottles
 
 [![Build Status](https://travis-ci.org/der-michik/c3bottles.svg)](https://travis-ci.org/der-michik/c3bottles)
 
