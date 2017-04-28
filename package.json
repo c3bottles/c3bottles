@@ -5,9 +5,9 @@
   "scripts": {
     "refresh:babel": "pybabel extract -F translations/babel.cfg -k lazy_gettext -w 80 -o translations/messages.pot . && pybabel update -i translations/messages.pot -w 80 -d translations/",
     "prebuild": "mkdir -p static/lib/js/ static/lib/css/ static/lib/fonts/",
-    "prebuild:js": "npm run prebuild && jshint assets/js/**.js",
-    "build:js": "browserify assets/js/**.js | uglifyjs -m > static/lib/js/lib.js",
-    "build:js:debug": "browserify assets/js/**.js > static/lib/js/lib.js",
+    "prebuild:js": "npm run prebuild && jshint js/**.js",
+    "build:js": "browserify js/**.js | uglifyjs -m > static/lib/js/lib.js",
+    "build:js:debug": "browserify js/**.js > static/lib/js/lib.js",
     "prebuild:css": "npm run prebuild",
     "build:css": "cp node_modules/bootstrap/dist/css/* node_modules/datatables-bootstrap3-plugin/media/css/*.css node_modules/leaflet/dist/leaflet.css static/lib/css/",
     "prebuild:fonts": "npm run prebuild",

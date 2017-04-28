@@ -93,7 +93,7 @@ two ways are described below in the "Internal map" and "OpenStreetMap" sections,
 respectively.
 
 *Attention:* No map source is defined by default! Please have a look in
-`assets/js/map.js`. This file contains the definition for the two map sources.
+`js/map.js`. This file contains the definition for the two map sources.
 Just uncomment the one you want to use.
 
 ## Internal map
