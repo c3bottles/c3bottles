@@ -69,7 +69,7 @@ In order to install c3bottles, you will need:
         >>> db.create_all()
 
 7.  In order to use c3bottles, you need at least one admin user. You can
-    creare one like this:
+    create one like this:
 
         $ python
         >>> from controller import db, load_config
@@ -86,10 +86,22 @@ In order to install c3bottles, you will need:
 
 # Map
 
-To be able to use the drop point map, you first have to generate the map
-tiles. The normal build task already does that with the map delivered with the
-package. If you replaced the map and just want to regenerate the tiles
-using the defaults, you can do this with:
+There are two main ways of using the map: For an indoor event, you can use an
+appropriate building plan as the base for the map tiles. For an outdoor event
+it is useful to use a map source already present, namely OpenStreetMap. These
+two ways are described below in the "Internal map" and "OpenStreetMap" sections,
+respectively.
+
+*Attention:* No map source is defined by default! Please have a look in
+`assets/js/map.js`. This file contains the definition for the two map sources.
+Just uncomment the one you want to use.
+
+## Internal map
+
+To be able to use the internal map, in addition to uncommenting it in `map.js`,
+you first have to generate the map tiles. The normal build task already does
+that with the map delivered with the package. If you replaced the map and just
+want to regenerate the tiles using the defaults, you can do this with:
 
     $ npm run build:map
 
@@ -115,3 +127,9 @@ generate the tiles as follows:
     $ cd /path/to/c3bottles/static/img
     $ gdal_translate -of vrt map_sq.png map_sq.vrt
     $ gdal2tiles.py -w none -p raster map_sq.vrt tiles
+
+## OpenStreetMap
+
+OpenStreetMap works out of the box once you have uncommented it in `map.js`.
+Although, for it to be useful, you should set the appropriate event location
+coordinates and a useful zoom level as default view in `map.js`.

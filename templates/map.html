@@ -23,7 +23,9 @@
     if (hash.length == 3) {
         map.setView([hash[0], hash[1]], hash[2]);
     } else {
-        map.fitWorld();
+        if (typeof default_map_view === "function") {
+            default_map_view();
+        }
     }
 	map.on("moveend", function() {
         location.hash = "#" + map.getCenter().lat.toFixed(2) + "/" +
