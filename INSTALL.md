@@ -73,8 +73,9 @@ In order to install c3bottles, you will need:
 
         $ python
         >>> from controller import db, load_config
+        >>> from view.user import User
         >>> load_config()
-        >>> db.session.add(User("admin", "password", True, True, True, False)
+        >>> db.session.add(User("admin", "password", True, True, True, False))
         >>> db.session.commit()
 
 8.  Configure your webserver accordingly to run the WSGI application. Apache
