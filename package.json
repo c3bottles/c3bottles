@@ -7,6 +7,7 @@
     "prebuild": "mkdir -p static/lib/js/ static/lib/css/ static/lib/fonts/",
     "prebuild:js": "npm run prebuild && jshint js/**.js",
     "build:js": "browserify js/**.js | uglifyjs -m > static/lib/js/lib.js",
+    "build:js:watch": "watchify  js/**.js -o static/lib/js/lib.js",
     "build:js:debug": "browserify js/**.js > static/lib/js/lib.js",
     "prebuild:css": "npm run prebuild",
     "build:css": "cp node_modules/bootstrap/dist/css/* node_modules/datatables-bootstrap3-plugin/media/css/*.css node_modules/leaflet/dist/leaflet.css static/lib/css/",
@@ -42,5 +43,8 @@
     "curly": true,
     "latedef": "nofunc",
     "unused": true
+  },
+  "devDependencies": {
+    "watchify": "^3.9.0"
   }
 }
