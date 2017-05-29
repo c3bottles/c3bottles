@@ -33,4 +33,7 @@
 # no reports have been submitted. (default: 1)
 # DEFAULT_VISIT_PRIORITY = 1
 
+# Use the OSM Map or use the standard tiles map.
+OSM_MAP = False
+
 # vim: set expandtab ts=4 sw=4:
