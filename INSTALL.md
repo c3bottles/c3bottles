@@ -93,16 +93,12 @@ it is useful to use a map source already present, namely OpenStreetMap. These
 two ways are described below in the "Internal map" and "OpenStreetMap" sections,
 respectively.
 
-*Attention:* No map source is defined by default! Please have a look in
-`js/map.js`. This file contains the definition for the two map sources.
-Just uncomment the one you want to use.
-
 ## Internal map
 
-To be able to use the internal map, in addition to uncommenting it in `map.js`,
-you first have to generate the map tiles. The normal build task already does
-that with the map delivered with the package. If you replaced the map and just
-want to regenerate the tiles using the defaults, you can do this with:
+The internal map is the default when checking out c3bottles. To use the map you
+first have to generate the map tiles. The normal build task already does that
+with the map delivered with the package. If you replaced the map and just want
+to regenerate the tiles using the defaults, you can do this with:
 
     $ npm run build:map
 
@@ -131,6 +127,6 @@ generate the tiles as follows:
 
 ## OpenStreetMap
 
-OpenStreetMap works out of the box once you have uncommented it in `map.js`.
+OpenStreetMap works out of the box once OSM\_MAP is set to True in config.py.
 Although, for it to be useful, you should set the appropriate event location
 coordinates and a useful zoom level as default view in `map.js`.
