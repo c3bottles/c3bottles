@@ -36,7 +36,7 @@
     "jquery": "^2.1.4",
     "leaflet": "^0.7.7",
     "npm-run-all": "^1.2.13",
-    "uglifyjs": "latest",
+    "uglify-js": "latest",
     "jshint": "^2.9.1-rc1"
   },
   "jshintConfig": {
