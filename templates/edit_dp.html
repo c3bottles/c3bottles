@@ -100,7 +100,7 @@
 {% include "dp_js.html" %}
 <script type="text/javascript">
     var imgdir = "{{ url_for('static', filename='img') }}";
-    init_map();
+    init_map({{ config.get("OSM_MAP", False)|string|lower }})
     init_dp_creation();
     var lat = {{ lat }};
     var lng = {{ lng }};

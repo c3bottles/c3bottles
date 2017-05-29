@@ -7,7 +7,7 @@ var L = require("leaflet");
  *
  */
 global.map = undefined;
-global.init_map = function() {
+global.init_map = function(osm_map) {
     map = L.map('map', {
         // set this to true when using Openstreetmap
         // what you set here when you are using another
@@ -16,30 +16,30 @@ global.init_map = function() {
         attributionControl: true
     });
 
-    /* Uncomment this to add the static tile layer */
-    /*L.tileLayer(imgdir + '/tiles/{z}/{x}/{y}.png', {
-        // Have a look in static/img/tiles.
-        // The directories present there correspond to zoom levels.
-        minZoom: 0,
-        maxZoom: 6,
-        tms: true,
-        noWrap: true
-    }).addTo(map);
-    global.default_map_view = function() {
-        map.fitWorld();
-    };*/
-
-    /* Uncomment this to add the Openstreetmap layer for outdoor events */
-    /*L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
-        subdomains: ['a', 'b', 'c'],
-        minZoom: 15, // this is a reasonable default for a decent outdoor event
-        maxZoom: 18  // this is the maximum zoom level
-    }).addTo(map);
-    global.default_map_view = function() {
-        // set your event coordinates (latitude, longitude, default zoom) here
-        map.setView([53.56164, 9.98550], 17);
-    };*/
+    if (osm_map) {
+        L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
+            subdomains: ['a', 'b', 'c'],
+            minZoom: 15, // this is a reasonable default for a decent outdoor event
+            maxZoom: 18  // this is the maximum zoom level
+        }).addTo(map);
+        global.default_map_view = function() {
+            // set your event coordinates (latitude, longitude, default zoom) here
+            map.setView([53.56164, 9.98550], 17);
+        };
+    } else {
+        L.tileLayer(imgdir + '/tiles/{z}/{x}/{y}.png', {
+            // Have a look in static/img/tiles.
+            // The directories present there correspond to zoom levels.
+            minZoom: 0,
+            maxZoom: 6,
+            tms: true,
+            noWrap: true
+        }).addTo(map);
+        global.default_map_view = function() {
+            map.fitWorld();
+        };
+    }
 
     for (var i in drop_points) {
         if (!drop_points[i].removed) {
