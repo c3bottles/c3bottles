@@ -7,7 +7,7 @@ var L = require("leaflet");
  *
  */
 global.map = undefined;
-global.init_map = function(osm_map) {
+global.init_map = function(opts) {
     map = L.map('map', {
         // set this to true when using Openstreetmap
         // what you set here when you are using another
@@ -16,7 +16,7 @@ global.init_map = function(osm_map) {
         attributionControl: true
     });
 
-    if (osm_map) {
+    if (opts.enable) {
         L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
             subdomains: ['a', 'b', 'c'],
@@ -25,7 +25,7 @@ global.init_map = function(osm_map) {
         }).addTo(map);
         global.default_map_view = function() {
             // set your event coordinates (latitude, longitude, default zoom) here
-            map.setView([53.56164, 9.98550], 17);
+            map.setView(opts.lat_lng, opts.default_zoom);
         };
     } else {
         L.tileLayer(imgdir + '/tiles/{z}/{x}/{y}.png', {
