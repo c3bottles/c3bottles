@@ -1,0 +1,22 @@
+#!/usr/bin/env python
+
+import argparse
+
+from controller import db, load_config
+from model.user import User
+
+load_config()
+
+parser = argparse.ArgumentParser(description='Create user script')
+parser.add_argument('--username', help='username of user', required=True)
+parser.add_argument('--password', help='password of user', required=True)
+parser.add_argument('--visit', type=bool, help='can visit', default=False)
+parser.add_argument('--edit', type=bool, help='can edit droppoints', default=False)
+parser.add_argument('--admin', type=bool, help='is admin', default=False)
+parser.add_argument('--active', type=bool, help='is active', default=True)
+
+args = parser.parse_args()
+
+user = User(args.username, args.password, args.visit, args.edit, args.admin, args.active)
+db.session.add(user)
+db.session.commit()
