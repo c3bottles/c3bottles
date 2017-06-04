@@ -35,5 +35,8 @@
 
 # Use the OSM Map or use the standard tiles map.
 OSM_MAP = False
+OSM_MAP_LAT = 53.56164
+OSM_MAP_LNG = 9.98550
+OSM_MAP_DEFAULT_ZOOM = 17
 
 # vim: set expandtab ts=4 sw=4:

@@ -129,4 +129,4 @@ generate the tiles as follows:
 
 OpenStreetMap works out of the box once OSM\_MAP is set to True in config.py.
 Although, for it to be useful, you should set the appropriate event location
-coordinates and a useful zoom level as default view in `map.js`.
+coordinates and a useful zoom level as default view in `config.py`.

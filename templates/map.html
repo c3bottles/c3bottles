@@ -15,10 +15,11 @@
 {% endblock %}
 {% block scripts %}
 {% include "dp_js.html" %}
+{% from "macros.html" import init_map %}
 <script type="text/javascript">
     var create_dp_url = "{{ url_for("create_dp") }}";
     var imgdir = "{{ url_for('static', filename='img') }}";
-    init_map({{ config.get("OSM_MAP", False)|string|lower }})
+    {{ init_map() }}
     var hash = location.hash.substr(1).split("/");
     if (hash.length == 3) {
         map.setView([hash[0], hash[1]], hash[2]);

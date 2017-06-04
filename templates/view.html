@@ -78,9 +78,10 @@
 {% endblock %}
 {% block scripts %}
 {% include "dp_js.html" %}
+{% from "macros.html" import init_map %}
 <script type="text/javascript">
     var imgdir = "{{ url_for('static', filename='img') }}";
-    init_map({{ config.get("OSM_MAP", False)|string|lower }})
+    {{ init_map() }}
     map.setView([{{ dp.get_current_location().lat }}, {{ dp.get_current_location().lng }}], 5);
 </script>
 {% endblock %}
