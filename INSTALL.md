@@ -84,6 +84,15 @@ In order to install c3bottles, you will need:
         WSGIScriptAlias / /path/to/c3bottles/wsgi.py
         WSGIApplicationGroup %{GLOBAL}
         Alias /static /path/to/c3bottles/static
+   
+    A sample uWSGI configuration file:
+
+	[uwsgi]
+	socket = /tmp/c3bottles.sock
+	venv = /srv/c3bottles/venv
+	chdir = /srv/c3bottles/
+	wsgi-file = wsgi.py
+	callable = c3bottles
 
 # Map
 
