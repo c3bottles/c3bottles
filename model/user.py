@@ -38,9 +38,7 @@ class User(db.Model, UserMixin):
         if not (name and password):
             errors.append({"user": _("User needs a name and a password.")})
 
-        try:
-            self.name = str(name)
-        except (TypeError, ValueError):
+        if not isinstance(name, str):
             errors.append({"user": _("User name is not a string.")})
         else:
             if len(name) > MAXLENGTH_NAME:
@@ -51,6 +49,7 @@ class User(db.Model, UserMixin):
         except (TypeError, ValueError):
             errors.append({"user": _("Password hashing failed.")})
 
+        self.name = name
         self._token = make_secure_token()
         self.can_visit = can_visit
         self.can_edit = can_edit
