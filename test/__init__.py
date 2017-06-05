@@ -11,6 +11,8 @@ PASSWORD = 'test'
 def load_config():
     c3bottles.config['SQLALCHEMY_DATABASE_URI'] = "sqlite://"
     c3bottles.config['TESTING'] = True
+    c3bottles.config['WTF_CSRF_ENABLED'] = False
+    c3bottles.config['SECRET_KEY'] = 'secret'
 
 
 class C3BottlesTestCase(unittest.TestCase):
