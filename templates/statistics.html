@@ -34,7 +34,7 @@
     <div class="row">
         <div class="col-sm-4 col-xs-12 text-center">
             <p class="large-icon sum">{{ stats.drop_point_count }}</p>
-            <p>{{ _("bins in the database") }}</p>
+            <p>{{ _("drop points in the database") }}</p>
         </div>
         <div class="col-sm-4 col-xs-6 text-center">
             <p class="large-icon sum">{{ stats.report_count }}</p>
@@ -48,15 +48,15 @@
     <div class="row">
         <div class="col-sm-3 col-sm-offset-2 col-xs-6 text-center">
             <p class="large-icon average">{{ (stats.report_count / stats.drop_point_count)|round(1) }}</p>
-            <p>{{ _("reports per bin") }}</p>
+            <p>{{ _("reports per drop point") }}</p>
         </div>
         <div class="col-sm-3 col-sm-offset-2 col-xs-6 text-center">
             <p class="large-icon average">{{ (stats.visit_count / stats.drop_point_count)|round(1) }}</p>
-            <p>{{ _("visits per bin") }}</p>
+            <p>{{ _("visits per drop point") }}</p>
         </div>
     </div>
 {% else %}
-<p>{{ _("There are no bins and/or reports yet. Therefore, no statistics are available.") }}</p>
+<p>{{ _("There are no drop points and/or reports yet. Therefore, no statistics are available.") }}</p>
 {% endif %}
 {% endblock %}
 {% block scripts %}

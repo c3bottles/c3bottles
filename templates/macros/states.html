@@ -12,10 +12,10 @@
 <span class="label label-danger">{{ _("Overflowing") }}</span>{% elif state == "FULL" %}
 <span class="label label-warning">{{ _("Full") }}</span>{% elif state == "REASONABLY_FULL" %}
 <span class="label label-info">{{ _("Reasonably full") }}</span>{% elif state == "SOME_BOTTLES" %}
-<span class="label label-primary">{{ _("Some bottles") }}</span>{% elif state == "EMPTY" %}
+<span class="label label-primary">{{ _("Some waste") }}</span>{% elif state == "EMPTY" %}
 <span class="label label-success">{{ _("Empty") }}</span>{%  elif state == "NEW" %}
 <span class="label label-default">{{ _("New") }}</span>{%  elif state == "NO_CRATES" %}
-<span class="label label-danger">{{ _("No crates") }}</span>{% else %}
+<span class="label label-danger">{{ _("No bins") }}</span>{% else %}
 <span class="label label-unknown">{{ _("Unknown") }}</span>{% endif %}{% endmacro %}
 
 {% macro color(state) %}{% if state == "OVERFLOW" %}
