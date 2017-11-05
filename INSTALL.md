@@ -1,7 +1,7 @@
 # System Requirements
 
-In order to install c3bottles, you will need Python 3 and the following
-dependencies:
+In order to install c3bottles, you will need Python 3.5 or newer and the
+following dependencies:
 
 *   Flask
 *   Flask-Babel
