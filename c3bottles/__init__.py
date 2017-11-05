@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 from babel import Locale
+from pwgen import pwgen
 
 from flask import Flask, g, session, request
 from flask_babel import Babel
@@ -14,7 +15,20 @@ c3bottles = Flask(__name__,
     template_folder="../templates"
 )
 
-c3bottles.config.from_object("config")
+try:
+    import config
+    c3bottles.config.from_object(config)
+except ImportError:
+    c3bottles.config.update(
+        SQLALCHEMY_DATABASE_URI="sqlite:///c3bottles.db",
+        SQLALCHEMY_TRACK_MODIFICATIONS=False,
+        SECRET_KEY=pwgen(64),
+        BABEL_TRANSLATION_DIRECTORIES="../translations"
+    )
+    print("\nWARNING: c3bottles is not configured properly and this\n"
+          "instance fell back to the default configuration. This means\n"
+          "that the secret key will change on every restart of the\n"
+          "server and all users will be logged out forcibly!\n")
 
 db = SQLAlchemy(c3bottles, session_options={"autoflush": False})
 
@@ -25,7 +39,6 @@ bcrypt = Bcrypt(c3bottles)
 csrf = CSRFProtect(c3bottles)
 
 babel = Babel(c3bottles)
-c3bottles.config["BABEL_TRANSLATION_DIRECTORIES"] = "../translations"
 
 languages = ("en", "de")
 locales = {l: Locale(l) for l in languages}
