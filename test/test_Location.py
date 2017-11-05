@@ -2,9 +2,9 @@ import unittest
 
 from datetime import datetime, timedelta
 
-from controller import db
-from model.drop_point import DropPoint
-from model.location import Location
+from c3bottles import db
+from c3bottles.model.drop_point import DropPoint
+from c3bottles.model.location import Location
 
 from test import C3BottlesTestCase
 

@@ -1,9 +1,9 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 from argparse import ArgumentParser
 from werkzeug.contrib.profiler import ProfilerMiddleware
 
-from controller import c3bottles, load_config
+from c3bottles import c3bottles, load_config
 
 parser = ArgumentParser()
 parser.add_argument(

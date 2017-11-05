@@ -2,10 +2,10 @@
 from datetime import datetime, timedelta
 from flask_sqlalchemy import BaseQuery
 
-from controller import db
-from model.drop_point import DropPoint
-from model.location import Location
-from model.report import Report
+from c3bottles import db
+from c3bottles.model.drop_point import DropPoint
+from c3bottles.model.location import Location
+from c3bottles.model.report import Report
 
 from test import C3BottlesTestCase
 

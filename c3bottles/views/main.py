@@ -10,8 +10,9 @@ except ImportError:
 
 from flask import render_template, Response, request
 
-from controller import c3bottles, db
-from model.drop_point import DropPoint
+from .. import c3bottles, db
+
+from ..model.drop_point import DropPoint
 
 
 @c3bottles.route("/")

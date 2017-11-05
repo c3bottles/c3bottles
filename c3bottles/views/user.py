@@ -4,9 +4,11 @@ from werkzeug.routing import BuildError
 from json import loads
 from re import sub
 
-from controller import c3bottles
-from model.forms import LoginForm
-from model.user import User
+from .. import c3bottles
+
+from ..model.forms import LoginForm
+from ..model.user import User
+
 
 @c3bottles.route("/login", methods=("POST", "GET"))
 def login():

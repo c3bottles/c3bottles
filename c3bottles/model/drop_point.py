@@ -4,10 +4,11 @@ from datetime import datetime
 
 from flask_babel import lazy_gettext as _
 
-from controller import c3bottles, db
-from model.location import Location
-from model.report import Report
-from model.visit import Visit
+from .. import c3bottles, db
+
+from .location import Location
+from .report import Report
+from .visit import Visit
 
 
 class DropPoint(db.Model):

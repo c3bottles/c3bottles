@@ -3,7 +3,8 @@ from pwgen import pwgen
 from flask_login import UserMixin, AnonymousUserMixin
 from flask_babel import lazy_gettext as _
 
-from controller import db, lm, bcrypt
+from .. import db, lm, bcrypt
+
 
 MAXLENGTH_NAME = 128
 MAXLENGTH_PW = 128

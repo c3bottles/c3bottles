@@ -1,9 +1,9 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import argparse
 
-from controller import db, load_config
-from model.user import User
+from c3bottles import db, load_config
+from c3bottles.model.user import User
 
 load_config()
 

@@ -1,7 +1,7 @@
 import pytest
 
-from controller import db
-from model.user import User
+from c3bottles import db
+from c3bottles.model.user import User
 
 from test import C3BottlesTestCase, NAME, PASSWORD
 

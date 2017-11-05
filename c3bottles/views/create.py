@@ -1,8 +1,9 @@
 from flask import render_template, request, g, abort
 from flask_login import login_required
 
-from controller import c3bottles, db
-from model.drop_point import DropPoint
+from .. import c3bottles, db
+
+from ..model.drop_point import DropPoint
 
 
 @c3bottles.route("/create", methods=("GET", "POST"))

@@ -1,14 +1,13 @@
 from flask import render_template, request, g, abort
-from flask_login import login_required
 
-from controller import c3bottles, db
-from model.drop_point import DropPoint
+from .. import c3bottles, db
+
+from ..model.drop_point import DropPoint
 
 
-@c3bottles.route("/visit", methods=("GET", "POST"))
-@c3bottles.route("/visit/<int:number>")
-@login_required
-def visit(number=None):
+@c3bottles.route("/report", methods=("GET", "POST"))
+@c3bottles.route("/<int:number>")
+def report(number=None):
     if number:
         dp = DropPoint.get(number)
     else:
@@ -21,18 +20,18 @@ def visit(number=None):
             text="Drop point not found.",
         )
 
-    action = request.values.get("maintenance")
+    state = request.values.get("state")
 
-    if action:
-        if g.user.is_anonymous:
+    if state:
+        if g.no_anonymous_reporting and g.user.is_anonymous:
             abort(401)
-        from model.visit import Visit
+        from model.report import Report
         try:
-            Visit(dp=dp, action=action)
+            Report(dp=dp, state=state)
         except ValueError as e:
             return render_template(
                 "error.html",
-                text="Errors occurred while processing your visit:",
+                text="Errors occurred while processing your report:",
                 errors=[v for d in e.args for v in d.values()]
             )
         else:
@@ -40,11 +39,11 @@ def visit(number=None):
             return render_template(
                 "success.html",
                 heading="Thank you!",
-                text="Your visit has been processed successfully."
+                text="Your report has been received successfully."
             )
     else:
         return render_template(
-            "visit.html",
+            "report.html",
             dp=dp
         )
 

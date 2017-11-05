@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 
 import sys
 import os
@@ -8,7 +8,7 @@ import os
 # modules otherwise).
 sys.path.insert(0, os.path.dirname(os.path.realpath(__file__)))
 
-from controller import c3bottles, load_config
+from c3bottles import c3bottles, load_config
 load_config()
 
 application = c3bottles

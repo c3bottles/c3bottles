@@ -1,8 +1,9 @@
 from flask import render_template, Blueprint
 
-from model.drop_point import DropPoint
-from model.report import Report
-from model.visit import Visit
+from ..model.drop_point import DropPoint
+from ..model.report import Report
+from ..model.visit import Visit
+
 
 stats = Blueprint("statistics", __name__)
 

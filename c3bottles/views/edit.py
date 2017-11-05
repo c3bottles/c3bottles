@@ -2,9 +2,10 @@ from datetime import datetime
 from flask import render_template, request, g, abort
 from flask_login import login_required
 
-from controller import c3bottles, db
-from model.drop_point import DropPoint
-from model.location import Location
+from .. import c3bottles, db
+
+from ..model.drop_point import DropPoint
+from ..model.location import Location
 
 
 @c3bottles.route("/edit/<string:number>", methods=("GET", "POST"))

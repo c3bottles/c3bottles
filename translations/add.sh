@@ -10,6 +10,6 @@ pybabel init -i messages.pot -d . -l $1
 
 [ $? -eq 0 ] || exit 1
 
-echo "\nPlease add your new language to 'controller/__init__.py' and add"
+echo "\nPlease add your new language to 'c3bottles/__init__.py' and add"
 echo "the translated phrases to 'translations/$1/LC_MESSAGES/messages.po."
 echo "When you are done, run 'npm build:babel' to recompile.\n"

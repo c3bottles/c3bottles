@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
 from babel import Locale
 
@@ -71,14 +71,14 @@ c3bottles.before_request(set_locale)
 c3bottles.jinja_env.trim_blocks = True
 c3bottles.jinja_env.lstrip_blocks = True
 
-from view.api import api
-from view.main import index, faq, dp_list, dp_map, dp_view
-from view.create import create_dp
-from view.edit import edit_dp
-from view.report import report
-from view.visit import visit
-from view.user import login, logout
-from view.statistics import stats
+from c3bottles.views.api import api
+from c3bottles.views.main import index, faq, dp_list, dp_map, dp_view
+from c3bottles.views.create import create_dp
+from c3bottles.views.edit import edit_dp
+from c3bottles.views.report import report
+from c3bottles.views.visit import visit
+from c3bottles.views.user import login, logout
+from c3bottles.views.statistics import stats
 c3bottles.register_blueprint(api)
 c3bottles.register_blueprint(stats)
 

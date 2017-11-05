@@ -1,7 +1,7 @@
 import unittest
 
-from controller import c3bottles, db
-from view.user import User
+from c3bottles import c3bottles, db
+from c3bottles.views.user import User
 
 
 NAME = 'user'

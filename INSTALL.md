@@ -1,52 +1,44 @@
 # System Requirements
 
-In order to install c3bottles, you will need:
+In order to install c3bottles, you will need Python 3 and the following
+dependencies:
 
-*   Flask (python-flask)
-
-*   Flask-SQLAlchemy (python-flask-sqlalchemy)
-
+*   Flask
+*   Flask-Babel
+*   Flask-Bcrypt
+*   Flask-SQLAlchemy
 *   Flask-Login >= 0.3.0 (versions <0.3.0 will not work since a breaking
-    change has been done in the API) (python-flask-login)
-
-*   Flask-WTF (python-flaskext.wtf)
-
-*   CairoSVG (python-cairosvg)
-
-*   PyPDF2 (python-pypdf2)
-
-*   Python-QRCode (python-qrcode)
-
+    change has been done in the API)
+*   Flask-WTF
+*   CairoSVG
+*   PyPDF2
+*   Python-QRCode
 *   a WSGI-capable webserver (e.g. Apache)
-
 *   some SQL server supported by SQLAlchemy
     (the author uses PostgreSQL but others should work, too)
-
 *   ImageMagick, GDAL and the gdal2tiles.py script to generate the map tiles
-    (imagemagick, gdal-bin and python-gdal)
-
 *   the Node.js package manager (npm)
-
 *   on Debian, Node.js is fucked up, so the legacy symlink is needed for npm
     etc. (node-legacy)
 
 # Installation
 
-1.  Make sure all the dependencies are installed.
-    On Debian using Apache, you can do:
-
-        $ apt-get install python-flask python-flask-sqlalchemy \
-                          python-flask-login python-flaskext.wtf \
-                          python-cairosvg python-pypdf2 python-qrcode \
-                          libapache2-mod-wsgi imagemagick \
-                          gdal-bin python-gdal npm nodejs-legacy
-
-2.  Copy the files into some directory readable by the web server.
-    You can clone the repository from Github:
+1.  Clone the repository from Github:
 
         $ git clone https://github.com/der-michik/c3bottles.git
+        $ cd c3bottles
 
-3.  Fetch all the dependencies and build everything:
+2.  Make sure all the dependencies are installed. The easiest way is to
+    install them using `pip`:
+
+        $ pip install -r requirements.txt
+
+    If you prefer a virtualenv, you can of course also use that:
+
+        $ virtualenv venv
+        $ venv/bin/pip install -r requirements.txt
+
+3.  Fetch the frontend dependencies and build everything:
 
         $ npm install
         $ npm run build
@@ -62,14 +54,13 @@ In order to install c3bottles, you will need:
 
 6.  Initialize the database using the Python interpreter:
 
-        $ cd /path/to/c3bottles
-	$ ./db_create
+        $ ./db_create
 
 7.  In order to use c3bottles, you need at least one admin user. You can
     create one like this:
 
         $ ./create_user --username admin --pasword password --visit True \
-		--edit True --admin True --active True
+                --edit True --admin True --active True
 
 8.  Configure your webserver accordingly to run the WSGI application. Apache
     needs something like this to run c3bottles as the document root of a host:
@@ -77,15 +68,19 @@ In order to install c3bottles, you will need:
         WSGIScriptAlias / /path/to/c3bottles/wsgi.py
         WSGIApplicationGroup %{GLOBAL}
         Alias /static /path/to/c3bottles/static
-   
+
+    If your Python libraries are installed inside a virtualenv,
+    `WSGIPythonHome` has to be set accordingly. Please keep in mind that this
+    is a global setting of Apache.
+
     A sample uWSGI configuration file:
 
-	[uwsgi]
-	socket = /tmp/c3bottles.sock
-	venv = /srv/c3bottles/venv
-	chdir = /srv/c3bottles/
-	wsgi-file = wsgi.py
-	callable = c3bottles
+        [uwsgi]
+        socket = /tmp/c3bottles.sock
+        venv = /srv/c3bottles/venv
+        chdir = /srv/c3bottles/
+        wsgi-file = wsgi.py
+        callable = c3bottles
 
 # Map
 

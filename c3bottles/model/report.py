@@ -2,8 +2,9 @@ from datetime import datetime
 
 from flask_babel import lazy_gettext as _
 
-from controller import db
-import model.drop_point
+from .. import db
+
+from . import drop_point
 
 
 class Report(db.Model):
@@ -51,7 +52,7 @@ class Report(db.Model):
 
         self.dp = dp
 
-        if not isinstance(dp, model.drop_point.DropPoint):
+        if not isinstance(dp, drop_point.DropPoint):
             errors.append({
                 "Report": _("Not given a drop point object.")
             })
