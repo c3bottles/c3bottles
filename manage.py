@@ -8,7 +8,7 @@ from werkzeug.contrib.profiler import ProfilerMiddleware
 from c3bottles import c3bottles
 
 
-def create_app(*args):
+def create_app(_):
     return c3bottles
 
 

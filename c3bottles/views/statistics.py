@@ -16,7 +16,7 @@ def statistics():
     )
 
 
-class Statistics():
+class Statistics(object):
 
     @property
     def drop_point_count(self):
@@ -54,5 +54,3 @@ class Statistics():
         for action in Visit.actions:
             ret[action] = Visit.query.filter(Visit.action == action).count()
         return ret
-
-# vim: set expandtab ts=4 sw=4:

@@ -21,7 +21,7 @@ class Location(db.Model):
     the drop point has been there since the creation of the universe.
 
     If the human-readable description as well as the coordinates both are
-    null, the location of that drop point is unknwon.
+    null, the location of that drop point is unknown.
     """
 
     max_description = 140
@@ -133,5 +133,3 @@ class Location(db.Model):
             self.loc_id, self.dp_id,
             self.description, self.time
         )
-
-# vim: set expandtab ts=4 sw=4:

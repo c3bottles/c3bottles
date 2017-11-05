@@ -2,11 +2,7 @@ import qrcode
 from base64 import b64encode
 from cairosvg import svg2pdf
 from PyPDF2 import PdfFileWriter, PdfFileReader
-
-try:
-    from StringIO import StringIO as IO
-except ImportError:
-    from io import BytesIO as IO
+from io import BytesIO
 
 from flask import render_template, Response, request
 
@@ -91,8 +87,8 @@ def dp_all_labels():
     output = PdfFileWriter()
     for dp in db.session.query(DropPoint).all():
         if not dp.removed:
-            output.addPage(PdfFileReader(IO(_pdf(dp.number))).getPage(0))
-    f = IO()
+            output.addPage(PdfFileReader(BytesIO(_pdf(dp.number))).getPage(0))
+    f = BytesIO()
     output.write(f)
     return Response(
         f.getvalue(),
@@ -102,9 +98,7 @@ def dp_all_labels():
 
 def _pdf(number):
     img = qrcode.make(request.url_root + str(number))
-    f = IO()
+    f = BytesIO()
     img.save(f)
     b64 = b64encode(f.getvalue()).decode("utf-8")
     return svg2pdf(render_template("label.svg", number=number, qr=b64))
-
-# vim: set expandtab ts=4 sw=4:

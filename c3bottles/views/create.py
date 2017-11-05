@@ -78,5 +78,3 @@ def create_dp(
         error_fields=error_fields,
         success=success
     )
-
-# vim: set expandtab ts=4 sw=4:

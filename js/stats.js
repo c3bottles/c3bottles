@@ -59,5 +59,3 @@ exports.draw_reports_by_state = function(_data) {
         options: options
     });
 };
-
-/* vim: set expandtab ts=4 sw=4: */

@@ -1,5 +1,3 @@
-import unittest
-
 from datetime import datetime, timedelta
 
 from c3bottles import db
@@ -8,6 +6,7 @@ from c3bottles.model.visit import Visit
 from c3bottles.model.report import Report
 
 from test import C3BottlesTestCase
+
 
 class VisitTestCase(C3BottlesTestCase):
 

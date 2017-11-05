@@ -11,11 +11,7 @@ from ..model.location import Location
 @c3bottles.route("/edit/<string:number>", methods=("GET", "POST"))
 @c3bottles.route("/edit")
 @login_required
-def edit_dp(
-        number=None, description=None, lat=None,
-        lng=None, level=None, errors=None,
-        success=None, center_lat=None, center_lng=None
-):
+def edit_dp(number=None, errors=None):
 
     if not g.user.can_edit:
         abort(401)
@@ -100,5 +96,3 @@ def edit_dp(
         error_list=error_list,
         error_fields=error_fields
     )
-
-# vim: set expandtab ts=4 sw=4:

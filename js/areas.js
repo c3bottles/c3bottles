@@ -438,5 +438,3 @@ exports.get_room = function(point) {
     }
     return null;
 };
-
-/* vim: set expandtab ts=4 sw=4: */

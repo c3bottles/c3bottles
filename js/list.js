@@ -119,5 +119,3 @@ function redraw_table() {
     dt.rows().invalidate().draw(false);
     setTimeout(function() { redraw_table(); }, 10000);
 }
-
-/* vim: set expandtab ts=4 sw=4: */

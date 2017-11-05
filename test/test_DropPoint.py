@@ -1,4 +1,3 @@
-
 from datetime import datetime, timedelta
 from flask_sqlalchemy import BaseQuery
 
@@ -8,6 +7,7 @@ from c3bottles.model.location import Location
 from c3bottles.model.report import Report
 
 from test import C3BottlesTestCase
+
 
 class DropPointTestCase(C3BottlesTestCase):
 

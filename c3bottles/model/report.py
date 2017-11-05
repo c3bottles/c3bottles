@@ -131,5 +131,3 @@ class Report(db.Model):
             self.rep_id, self.dp_id,
             self.state, self.time
         )
-
-# vim: set expandtab ts=4 sw=4:

@@ -8,6 +8,7 @@ from c3bottles.model.location import Location
 
 from test import C3BottlesTestCase
 
+
 class LocationTestCase(C3BottlesTestCase):
 
     def test_addition_to_drop_point(self):

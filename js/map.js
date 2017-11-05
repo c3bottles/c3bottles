@@ -163,5 +163,3 @@ global.draw_marker = function(num) {
     });
     map.addLayer(drop_points[num].layer);
 };
-
-/* vim: set expandtab ts=4 sw=4: */

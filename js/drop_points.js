@@ -48,5 +48,3 @@ global.init_drop_point_refreshing = function() {
         update_drop_points(ts);
     }, 120000);
 };
-
-/* vim: set expandtab ts=4 sw=4: */

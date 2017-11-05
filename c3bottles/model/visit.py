@@ -87,5 +87,3 @@ class Visit(db.Model):
             self.vis_id, self.dp_id,
             self.action, self.time
         )
-
-# vim: set expandtab ts=4 sw=4:

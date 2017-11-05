@@ -49,5 +49,3 @@
 ##############################################
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 BABEL_TRANSLATION_DIRECTORIES="../translations"
-
-# vim: set expandtab ts=4 sw=4:

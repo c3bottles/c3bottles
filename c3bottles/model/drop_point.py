@@ -351,5 +351,3 @@ class DropPoint(db.Model):
             self.number,
             "inactive" if self.removed else "active"
         )
-
-# vim: set expandtab ts=4 sw=4:

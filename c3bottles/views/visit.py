@@ -48,5 +48,3 @@ def visit(number=None):
             "visit.html",
             dp=dp
         )
-
-# vim: set expandtab ts=4 sw=4:

@@ -1,12 +1,10 @@
-import unittest
-
 from datetime import datetime, timedelta
 
-from c3bottles import db
 from c3bottles.model.drop_point import DropPoint
 from c3bottles.model.report import Report
 
 from test import C3BottlesTestCase
+
 
 class ReportTestCase(C3BottlesTestCase):
 

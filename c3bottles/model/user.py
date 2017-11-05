@@ -31,8 +31,8 @@ class User(db.Model, UserMixin):
     must_reset_pw = db.Column("must_reset_pw", db.Boolean, nullable=False,
                               default=True)
 
-    def __init__(self, name=None, password=None, can_visit=True, can_edit=False,
-                 is_admin=False, must_reset_pw=True):
+    def __init__(self, name=None, password=None, can_visit=True,
+                 can_edit=False, is_admin=False, must_reset_pw=True):
 
         errors = []
 
@@ -85,7 +85,7 @@ class User(db.Model, UserMixin):
         """
         if type(_id) is int:
             return cls.query.get(_id)
-        elif type(_id) is str or type(_id) is unicode:
+        elif type(_id) is str:
             return cls.query.filter(cls.name == _id).first()
         else:
             return None
@@ -135,11 +135,10 @@ lm.anonymous_user = Anonymous
 
 def make_secure_token():
     """
-    Generate a session token by which the user session will be identified. This
-    is tied to the account and allows getting the account from a session cookie.
+    Generate a session token by which the user session will be identified.
+    This is tied to the account and allows getting the account from a session
+    cookie.
 
     :return: a random token
     """
     return pwgen(TOKEN_LENGTH, no_symbols=True)
-
-# vim: set expandtab ts=4 sw=4:

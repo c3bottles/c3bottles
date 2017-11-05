@@ -17,7 +17,7 @@ def before_request():
 
 
 @c3bottles.errorhandler(400)
-def bad_request(e):
+def bad_request(_):
     before_request()
     if request.path == "/api":
         return Response(
@@ -32,7 +32,7 @@ def bad_request(e):
 
 
 @c3bottles.errorhandler(401)
-def unauthorized(e):
+def unauthorized(_):
     return render_template(
         "error.html",
         heading="Unauthorized",
@@ -41,11 +41,9 @@ def unauthorized(e):
 
 
 @c3bottles.errorhandler(404)
-def not_found(e):
+def not_found(_):
     return render_template(
         "error.html",
         heading="Not found",
         text="The requested URL was not found on the server."
     ), 404
-
-# vim: set expandtab ts=4 sw=4:

@@ -11,5 +11,3 @@ sys.path.insert(0, os.path.dirname(os.path.realpath(__file__)))
 from c3bottles import c3bottles
 
 application = c3bottles
-
-# vim: set expandtab ts=4 sw=4:

@@ -46,5 +46,3 @@ def report(number=None):
             "report.html",
             dp=dp
         )
-
-# vim: set expandtab ts=4 sw=4:

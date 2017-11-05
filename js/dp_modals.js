@@ -177,5 +177,3 @@ function add_alert(type, title, message) {
     alert.slideDown();
     setTimeout(function() { alert.slideUp(); }, 5000);
 }
-
-/* vim: set expandtab ts=4 sw=4: */

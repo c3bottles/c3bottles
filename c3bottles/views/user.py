@@ -44,5 +44,3 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for("index"))
-
-# vim: set expandtab ts=4 sw=4:

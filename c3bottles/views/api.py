@@ -12,6 +12,7 @@ from ..model.visit import Visit
 
 api = Blueprint("api", __name__)
 
+
 @api.route("/api", methods=("POST", "GET"))
 def process():
     if request.values.get("action") == "report":
@@ -35,7 +36,7 @@ def report():
     if g.no_anonymous_reporting and g.user.is_anonymous:
         return Response(
             json.dumps(
-                [{"msg": "Not logged in or unsufficient privileges."}],
+                [{"msg": "Not logged in or insufficient privileges."}],
                 indent=4 if c3bottles.debug else None
             ),
             mimetype="application/json",
@@ -65,7 +66,7 @@ def visit():
     if not (g.user.is_authenticated and g.user.can_visit):
         return Response(
             json.dumps(
-                [{"msg": "Not logged in or unsufficient privileges."}],
+                [{"msg": "Not logged in or insufficient privileges."}],
                 indent=4 if c3bottles.debug else None
             ),
             mimetype="application/json",
@@ -111,5 +112,3 @@ def dp_json():
         dps,
         mimetype="application/json"
     )
-
-# vim: set expandtab ts=4 sw=4:

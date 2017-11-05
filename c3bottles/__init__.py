@@ -10,7 +10,8 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_wtf import CSRFProtect
 
-c3bottles = Flask(__name__,
+c3bottles = Flask(
+    __name__,
     static_folder="../static",
     template_folder="../templates"
 )
@@ -90,5 +91,3 @@ from c3bottles.views.user import login, logout
 from c3bottles.views.statistics import stats
 c3bottles.register_blueprint(api)
 c3bottles.register_blueprint(stats)
-
-# vim: set expandtab ts=4 sw=4:
