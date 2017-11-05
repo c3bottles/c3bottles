@@ -3,6 +3,7 @@ from flask import render_template, request, g, abort
 from .. import c3bottles, db
 
 from ..model.drop_point import DropPoint
+from ..model.report import Report
 
 
 @c3bottles.route("/report", methods=("GET", "POST"))
@@ -25,7 +26,6 @@ def report(number=None):
     if state:
         if g.no_anonymous_reporting and g.user.is_anonymous:
             abort(401)
-        from model.report import Report
         try:
             Report(dp=dp, state=state)
         except ValueError as e:

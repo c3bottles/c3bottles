@@ -4,6 +4,7 @@ from flask_login import login_required
 from .. import c3bottles, db
 
 from ..model.drop_point import DropPoint
+from ..model.visit import Visit
 
 
 @c3bottles.route("/visit", methods=("GET", "POST"))
@@ -27,7 +28,6 @@ def visit(number=None):
     if action:
         if g.user.is_anonymous:
             abort(401)
-        from model.visit import Visit
         try:
             Visit(dp=dp, action=action)
         except ValueError as e:
