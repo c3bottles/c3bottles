@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-from c3bottles import load_config, db
+from c3bottles import db
 
-load_config()
 db.create_all()

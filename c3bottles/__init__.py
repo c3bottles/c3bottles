@@ -14,11 +14,7 @@ c3bottles = Flask(__name__,
     template_folder="../templates"
 )
 
-# We need to set this here to prevent the depreciation warning
-c3bottles.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-
-def load_config():
-    c3bottles.config.from_object("config")
+c3bottles.config.from_object("config")
 
 db = SQLAlchemy(c3bottles, session_options={"autoflush": False})
 

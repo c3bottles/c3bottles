@@ -2,10 +2,8 @@
 
 import argparse
 
-from c3bottles import db, load_config
+from c3bottles import db
 from c3bottles.model.user import User
-
-load_config()
 
 parser = argparse.ArgumentParser(description='Create user script')
 parser.add_argument('--username', help='username of user', required=True)

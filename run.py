@@ -3,7 +3,7 @@
 from argparse import ArgumentParser
 from werkzeug.contrib.profiler import ProfilerMiddleware
 
-from c3bottles import c3bottles, load_config
+from c3bottles import c3bottles
 
 parser = ArgumentParser()
 parser.add_argument(
@@ -11,8 +11,6 @@ parser.add_argument(
     help="start development web server with profiling enabled"
 )
 args = parser.parse_args()
-
-load_config()
 
 if args.profile:
     c3bottles.config["PROFILE"] = True

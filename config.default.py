@@ -39,4 +39,7 @@ OSM_MAP_LAT = 53.56164
 OSM_MAP_LNG = 9.98550
 OSM_MAP_DEFAULT_ZOOM = 17
 
+# Please keep this line unchanged in order to prevent warning messages!
+SQLALCHEMY_TRACK_MODIFICATIONS = False
+
 # vim: set expandtab ts=4 sw=4:

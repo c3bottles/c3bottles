@@ -8,8 +8,7 @@ import os
 # modules otherwise).
 sys.path.insert(0, os.path.dirname(os.path.realpath(__file__)))
 
-from c3bottles import c3bottles, load_config
-load_config()
+from c3bottles import c3bottles
 
 application = c3bottles
 
