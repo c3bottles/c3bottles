@@ -86,6 +86,11 @@ body {
     width: 300px;
 }
 
+.map-small {
+    height: 400px;
+    width: 100%;
+}
+
 input[type=number] {
     -moz-appearance: textfield;
 }
