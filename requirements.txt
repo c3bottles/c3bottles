@@ -1,14 +1,17 @@
+Babel>=2.3.4
+CairoSVG>=1.0.22, <2.0
+click>=6.7
 Flask>=0.11.1
 Flask-Babel>=0.11.1
 Flask-Bcrypt>=0.7.1
 Flask-Compress>=1.4.0
-Flask-SQLAlchemy>=2.1
 Flask-Login>=0.4.0
+Flask-Shell-IPython>=0.3.0
+Flask-SQLAlchemy>=2.1
 Flask-WTF>=0.14
-Babel>=2.3.4
-CairoSVG>=1.0.22, <2.0
-pyPDF2>=1.23
-qrcode>=5.3
 pillow==4.0.0
-pytest
 pwgen>=0.7
+pyPDF2>=1.23
+pytest>=3.2.3
+qrcode>=5.3
+werkzeug>=0.12.2

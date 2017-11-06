@@ -1,9 +1,11 @@
+import click
+
 from pwgen import pwgen
 
 from flask_login import UserMixin, AnonymousUserMixin
 from flask_babel import lazy_gettext as _
 
-from .. import db, lm, bcrypt
+from .. import c3bottles, db, lm, bcrypt
 
 
 MAXLENGTH_NAME = 128
@@ -142,3 +144,95 @@ def make_secure_token():
     :return: a random token
     """
     return pwgen(TOKEN_LENGTH, no_symbols=True)
+
+
+@c3bottles.cli.group("user")
+def user_management():
+    """
+    User management.
+
+    These commands allow creation, deletion etc. of users.
+    """
+
+
+@user_management.command("create")
+@click.option(
+    "--name", prompt="User name"
+)
+@click.option(
+    "--password", prompt=True, hide_input=True, confirmation_prompt=True
+)
+@click.option(
+    "--can-visit", prompt="Can the user visit drop points?", is_flag=True
+)
+@click.option(
+    "--can-edit", prompt="Can the user edit drop points?", is_flag=True
+)
+@click.option(
+    "--admin", prompt="Is the user an administrator?", is_flag=True
+)
+def create_user(name, password, can_visit, can_edit, admin):
+    """
+    Creates a new user.
+    """
+    if User.get(name) is not None:
+        print("A user with the name {} already exists!".format(name))
+        exit(1)
+    else:
+        user = User(name, password, can_visit, can_edit, admin, False)
+        db.session.add(user)
+        db.session.commit()
+        print("User created successfully.")
+
+
+@user_management.command("delete")
+@click.option(
+    "--name", prompt="User name"
+)
+def delete_user(name):
+    """
+    Deletes a user.
+    """
+    u = User.get(name)
+    if u is None:
+        print("ERROR: The user {} does not exist!".format(name))
+        exit(1)
+    else:
+        db.session.delete(u)
+        db.session.commit()
+
+
+@user_management.command("password")
+@click.option(
+    "--name", prompt="User name"
+)
+@click.option(
+    "--password", prompt=True, hide_input=True, confirmation_prompt=True
+)
+def change_password(name, password):
+    """
+    Sets a new password for a user.
+    """
+    u = User.get(name)
+    if u is None:
+        print("ERROR: The user {} does not exist!".format(name))
+        exit(1)
+    else:
+        u._password = bcrypt.generate_password_hash(password)
+        print("Password for {} changed successfully.".format(name))
+
+
+@user_management.command("list")
+def list_users():
+    """
+    Lists all users.
+    """
+    for user in User.all():
+        s = "{} (user id {})".format(user.name, user.user_id)
+        if user.can_visit:
+            s += ", can visit drop points"
+        if user.can_edit:
+            s += ", can edit drop points"
+        if user.is_admin:
+            s += ", is admin"
+        print(s)

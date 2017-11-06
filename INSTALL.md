@@ -58,7 +58,10 @@ following dependencies:
 
 7.  In order to use c3bottles, you need to create at least one admin user:
 
-        $ ./manage.py createuser
+        $ ./manage.py user add
+
+    Most user management tasks can be done via the command line interface.
+    `./manage.py user --help` provides the details.
 
 8.  For testing purposes, you can run c3bottles with the development web
     server included in Flask:
