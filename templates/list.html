@@ -28,8 +28,8 @@
 {% include "dp_modals_list.html" %}
 {% endblock %}
 {% block scripts %}
-{% include "dp_js.html" %}
 <script type="text/javascript">
+    {% include "dp.js" %}
     {{ states.label_js() }}
     init_table();
 </script>

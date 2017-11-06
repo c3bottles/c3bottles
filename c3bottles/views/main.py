@@ -4,7 +4,7 @@ from cairosvg import svg2pdf
 from PyPDF2 import PdfFileWriter, PdfFileReader
 from io import BytesIO
 
-from flask import render_template, Response, request
+from flask import render_template, Response, request, make_response
 
 from .. import c3bottles, db
 
@@ -43,10 +43,17 @@ def dp_list():
 
 @c3bottles.route("/map")
 def dp_map():
-    return render_template(
-        "map.html",
+    return render_template("map.html")
+
+
+@c3bottles.route("/map.js")
+def dp_map_js():
+    resp = make_response(render_template(
+        "map.js",
         all_dps_json=DropPoint.get_dps_json()
-    )
+    ))
+    resp.mimetype = "application/javascript"
+    return resp
 
 
 @c3bottles.route("/view/<int:number>")
