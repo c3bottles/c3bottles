@@ -1,6 +1,7 @@
 Flask>=0.11.1
 Flask-Babel>=0.11.1
 Flask-Bcrypt>=0.7.1
+Flask-Compress>=1.4.0
 Flask-SQLAlchemy>=2.1
 Flask-Login>=0.4.0
 Flask-WTF>=0.14

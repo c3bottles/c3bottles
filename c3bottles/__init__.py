@@ -6,6 +6,7 @@ from pwgen import pwgen
 from flask import Flask, g, session, request
 from flask_babel import Babel
 from flask_bcrypt import Bcrypt
+from flask_compress import Compress
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_wtf import CSRFProtect
@@ -30,6 +31,8 @@ except ImportError:
           "instance fell back to the default configuration. This means\n"
           "that the secret key will change on every restart of the\n"
           "server and all users will be logged out forcibly!\n")
+
+Compress(c3bottles)
 
 db = SQLAlchemy(c3bottles, session_options={"autoflush": False})
 
