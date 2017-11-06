@@ -13,6 +13,11 @@
 # The secret key used for signing the session cookie.
 # SECRET_KEY = "changeme"
 
+# Mark the session and remember cookies as secure. You should enable this if
+# you run c3bottles on a HTTPS server.
+# SESSION_COOKIE_SECURE = True
+# REMEMBER_COOKIE_SECURE = True
+
 # Show error messages in the web server log file instead of just "500".
 # (default: False)
 # PROPAGATE_EXCEPTIONS = True
@@ -48,4 +53,6 @@
 # EXCEPT YOU REALLY KNOW WHAT YOU ARE DOING! #
 ##############################################
 SQLALCHEMY_TRACK_MODIFICATIONS = False
-BABEL_TRANSLATION_DIRECTORIES="../translations"
+BABEL_TRANSLATION_DIRECTORIES = "../translations"
+SESSION_COOKIE_HTTPONLY = True
+REMEMBER_COOKIE_HTTPONLY = True
