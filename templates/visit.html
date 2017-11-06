@@ -11,7 +11,7 @@
         {% else %}
         <div class="row">
         <div class="col-md-2 col-md-offset-4">
-        <div style="width: 300px;">
+        <div class="centered-button-holder">
             <form action="{{ url_for("visit") }}" method="POST">
                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                 <input type="hidden" name="number" value="{{ dp.number }}">

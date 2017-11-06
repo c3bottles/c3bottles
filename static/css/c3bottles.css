@@ -67,6 +67,25 @@ body {
     background-color: #6f5499;
 }
 
+.modal-buttons-div {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.dp-modal-tab-links {
+    margin-bottom: 10px;
+    display: inline-block;
+}
+
+.faq-marker {
+    height: 2em;
+}
+
+.centered-button-holder {
+    width: 300px;
+}
+
 input[type=number] {
     -moz-appearance: textfield;
 }
