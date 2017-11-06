@@ -81,7 +81,6 @@ def create_dp(
 
 @c3bottles.route("/create.js/<string:lat>/<string:lng>")
 def create_dp_js(lat, lng, center_lat=None, center_lng=None):
-    print("called with lat %s and lng %s" % (lat, lng))
     resp = make_response(render_template(
         "create_dp.js",
         all_dps_json=DropPoint.get_dps_json(),

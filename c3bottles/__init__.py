@@ -88,8 +88,8 @@ from c3bottles.views.api import api
 from c3bottles.views.main import (
     index, faq, dp_list, dp_list_js, dp_map, dp_map_js, dp_view
 )
-from c3bottles.views.create import create_dp
-from c3bottles.views.edit import edit_dp
+from c3bottles.views.create import create_dp, create_dp_js
+from c3bottles.views.edit import edit_dp, edit_dp_js
 from c3bottles.views.report import report
 from c3bottles.views.visit import visit
 from c3bottles.views.user import login, logout

@@ -1,5 +1,5 @@
 from datetime import datetime
-from flask import render_template, request, g, abort
+from flask import render_template, request, g, abort, make_response
 from flask_login import login_required
 
 from .. import c3bottles, db
@@ -87,7 +87,6 @@ def edit_dp(number=None, errors=None):
 
     return render_template(
         "edit_dp.html",
-        all_dps_json=DropPoint.get_dps_json(),
         number=number,
         description=description,
         lat=lat_f,
@@ -96,3 +95,15 @@ def edit_dp(number=None, errors=None):
         error_list=error_list,
         error_fields=error_fields
     )
+
+
+@c3bottles.route("/edit.js/<string:lat>/<string:lng>")
+def edit_dp_js(lat, lng):
+    resp = make_response(render_template(
+        "edit_dp.js",
+        all_dps_json=DropPoint.get_dps_json(),
+        lat=float(lat),
+        lng=float(lng),
+    ))
+    resp.mimetype = "application/javascript"
+    return resp
