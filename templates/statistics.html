@@ -1,6 +1,6 @@
+{% import "macros/states.html" as states %}
 {% extends "layout.html" %}
 {% set title = _("Numbers") %}
-{% import "macros/states.html" as states %}
 {% block content %}
     <div class="page-header">
         <h1>{{ title }}</h1>
@@ -60,9 +60,5 @@
 {% endif %}
 {% endblock %}
 {% block scripts %}
-<script type="text/javascript">
-    {{ states.label_js() }}
-    stats.draw_drop_points_by_state({{ stats.drop_points_by_state|tojson }});
-    stats.draw_reports_by_state({{ stats.reports_by_state|tojson }});
-</script>
+<script src="{{ url_for('statistics.js') }}"></script>
 {% endblock %}

@@ -1,4 +1,4 @@
-from flask import render_template, Blueprint
+from flask import render_template, Blueprint, make_response
 
 from ..model.drop_point import DropPoint
 from ..model.report import Report
@@ -9,11 +9,21 @@ stats = Blueprint("statistics", __name__)
 
 
 @stats.route("/numbers")
-def statistics():
+def html():
     return render_template(
         "statistics.html",
         stats=Statistics()
     )
+
+
+@stats.route("/numbers.js")
+def js():
+    resp = make_response(render_template(
+        "statistics.js",
+        stats=Statistics()
+    ))
+    resp.mimetype = "application/javascript"
+    return resp
 
 
 class Statistics(object):

@@ -14,15 +14,15 @@
         </p>
 
         <div class="spacer"></div>
-        <form class="form" action="{{ url_for("report") }}" method="POST">
+        <form class="form" action="{{ url_for('report') }}" method="POST">
         <div class="row">
             <div class="col-xs-8 col-sm-5 col-md-4 col-lg-3">
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-            <input{{ " disabled" if g.no_anonymous_reporting and g.user.is_anonymous }} type="number" step="1" name="number" class="form-control"
-                   placeholder="{{ _("Enter a drop point number") }}">
+            <input{{ ' disabled' if g.no_anonymous_reporting and g.user.is_anonymous }} type="number" step="1" name="number" class="form-control"
+                   placeholder="{{ _('Enter a drop point number') }}">
             </div>
             <div class="col-xs-4">
-            <button{{ " disabled" if g.no_anonymous_reporting and g.user.is_anonymous }} type="submit" class="btn btn-success">{{ _("Report this drop point") }}</button>
+            <button{{ ' disabled' if g.no_anonymous_reporting and g.user.is_anonymous }} type="submit" class="btn btn-success">{{ _('Report this drop point') }}</button>
             </div>
         </div>
         </form>
@@ -41,7 +41,7 @@
 
             <p>
                 <a class="btn btn-primary navbar-btn"
-                   href="{{ url_for("dp_list") }}" role="button">
+                   href="{{ url_for('dp_list') }}" role="button">
                     {{ _("To the list") }} &raquo;
                 </a>
             </p>
@@ -59,7 +59,7 @@
 
             <p>
                 <a class="btn btn-primary navbar-btn"
-                   href="{{ url_for("dp_map") }}" role="button">
+                   href="{{ url_for('dp_map') }}" role="button">
                     {{ _("To the map") }} &raquo;
                 </a>
             </p>
@@ -77,7 +77,7 @@
 
             <p>
                 <a class="btn btn-primary navbar-btn"
-                   href="{{ url_for("statistics.statistics") }}" role="button">
+                   href="{{ url_for('statistics.html') }}" role="button">
                     {{ _("To the numbers") }} &raquo;
                 </a>
             </p>
@@ -95,7 +95,7 @@
 
             <p>
                 <a class="btn btn-primary navbar-btn"
-                   href="{{ url_for("faq") }}" role="button">
+                   href="{{ url_for('faq') }}" role="button">
                     {{ _("To the FAQ") }} &raquo;
                 </a>
             </p>
