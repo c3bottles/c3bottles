@@ -66,5 +66,12 @@ def profile():
     c3bottles.run(debug=True)
 
 
+@c3bottles.cli.command()
+def pytest():
+    """Run the tests."""
+    import pytest
+    pytest.main(["test"])
+
+
 if __name__ == '__main__':
     cli()

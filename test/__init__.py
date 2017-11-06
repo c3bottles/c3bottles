@@ -20,8 +20,11 @@ class C3BottlesTestCase(unittest.TestCase):
         load_config()
         self.c3bottles = c3bottles.test_client()
         db.create_all()
+        self.ctx = c3bottles.test_request_context()
+        self.ctx.push()
 
     def tearDown(self):
+        self.ctx.pop()
         db.session.remove()
         db.drop_all()
 
