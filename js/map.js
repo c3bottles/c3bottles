@@ -94,8 +94,8 @@ global.allow_dp_creation_from_map = function() {
             var lat = marker._latlng.lat.toFixed(2);
             var lng = marker._latlng.lng.toFixed(2);
             marker.bindPopup(L.popup({closeButton: false}).setContent(
-                "<a class='btn btn-primary' href=\'" + create_dp_url + "/" +
-                lat + "/" + lng + "' style='color: #fff;'>" +
+                "<a class='btn btn-primary white' href=\'" + create_dp_url + "/" +
+                lat + "/" + lng + "'>" +
                 "Create a new drop point" +
                 "</a>"
             ));
@@ -103,8 +103,8 @@ global.allow_dp_creation_from_map = function() {
                 var lat = this._latlng.lat.toFixed(2);
                 var lng = this._latlng.lng.toFixed(2);
                 this._popup.setContent(
-                    "<a class='btn btn-primary' href=\'" + create_dp_url + "/" +
-                    lat + "/" + lng + "' style='color: #fff;'>" +
+                    "<a class='btn btn-primary white' href=\'" + create_dp_url + "/" +
+                    lat + "/" + lng + "'>" +
                     "Create a new drop point" +
                     "</a>"
                 );

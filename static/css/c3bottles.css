@@ -91,6 +91,10 @@ body {
     width: 100%;
 }
 
+.white {
+    color: #fff;
+}
+
 input[type=number] {
     -moz-appearance: textfield;
 }
