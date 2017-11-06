@@ -60,8 +60,7 @@ def dp_view(number=None):
         return render_template(
             "view.html",
             dp=dp,
-            history=history,
-            all_dps_json=DropPoint.get_dps_json()
+            history=history
         )
     else:
         return render_template(
@@ -69,6 +68,18 @@ def dp_view(number=None):
             heading="Error!",
             text="Drop point not found.",
         )
+
+
+@c3bottles.route("/view.js/<int:number>")
+def dp_view_js(number):
+    dp = DropPoint.get(number)
+    resp = make_response(render_template(
+        "view.js",
+        all_dps_json=DropPoint.get_dps_json(),
+        dp=dp
+    ))
+    resp.mimetype = "application/javascript"
+    return resp
 
 
 @c3bottles.route("/label/<int:number>.pdf")
