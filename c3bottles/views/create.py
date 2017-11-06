@@ -1,4 +1,4 @@
-from flask import render_template, request, g, abort
+from flask import render_template, request, g, abort, make_response
 from flask_login import login_required
 
 from .. import c3bottles, db
@@ -66,7 +66,6 @@ def create_dp(
 
     return render_template(
         "create_dp.html",
-        all_dps_json=DropPoint.get_dps_json(),
         number=number,
         description=description,
         center_lat=center_lat,
@@ -78,3 +77,18 @@ def create_dp(
         error_fields=error_fields,
         success=success
     )
+
+
+@c3bottles.route("/create.js/<string:lat>/<string:lng>")
+def create_dp_js(lat, lng, center_lat=None, center_lng=None):
+    print("called with lat %s and lng %s" % (lat, lng))
+    resp = make_response(render_template(
+        "create_dp.js",
+        all_dps_json=DropPoint.get_dps_json(),
+        lat=float(lat),
+        lng=float(lng),
+        center_lat=center_lat,
+        center_lng=center_lng
+    ))
+    resp.mimetype = "application/javascript"
+    return resp
