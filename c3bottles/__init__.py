@@ -86,7 +86,7 @@ c3bottles.jinja_env.lstrip_blocks = True
 
 from c3bottles.views.api import api
 from c3bottles.views.main import (
-    index, faq, dp_list, dp_map, dp_map_js, dp_view
+    index, faq, dp_list, dp_list_js, dp_map, dp_map_js, dp_view
 )
 from c3bottles.views.create import create_dp
 from c3bottles.views.edit import edit_dp

@@ -23,22 +23,17 @@ def faq():
 
 @c3bottles.route("/list")
 def dp_list():
-    all_dps = []
-    for dp in db.session.query(DropPoint).all():
-        if not dp.removed:
-            all_dps.append({
-                "number": dp.number,
-                "location": dp.get_current_location(),
-                "reports_total": dp.get_total_report_count(),
-                "reports_new": dp.get_new_report_count(),
-                "priority": dp.get_priority(),
-                "last_state": dp.get_last_state(),
-            })
-    return render_template(
-        "list.html",
-        all_dps=sorted(all_dps, key=lambda k: k["priority"], reverse=True),
+    return render_template("list.html",)
+
+
+@c3bottles.route("/list.js")
+def dp_list_js():
+    resp = make_response(render_template(
+        "list.js",
         all_dps_json=DropPoint.get_dps_json()
-    )
+    ))
+    resp.mimetype = "application/javascript"
+    return resp
 
 
 @c3bottles.route("/map")

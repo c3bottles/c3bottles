@@ -1,6 +1,5 @@
 {% extends "layout.html" %}
 {% set title = _("List of Bottle Drop Points") %}
-{% import "macros/states.html" as states %}
 {% block header %}
     <link href="{{ url_for('static', filename='lib/css/datatables-bootstrap3.min.css') }}"
           rel="stylesheet">
@@ -28,9 +27,5 @@
 {% include "dp_modals_list.html" %}
 {% endblock %}
 {% block scripts %}
-<script type="text/javascript">
-    {% include "dp.js" %}
-    {{ states.label_js() }}
-    init_table();
-</script>
+<script src="{{ url_for('dp_list_js') }}"></script>
 {% endblock %}
