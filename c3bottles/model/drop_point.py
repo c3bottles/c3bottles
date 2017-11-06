@@ -12,7 +12,8 @@ from .visit import Visit
 
 
 class DropPoint(db.Model):
-    """A location in the venue for visitors to drop their empty bottles.
+    """
+    A location in the venue for visitors to drop their empty bottles.
 
     A drop point consists of a sign "bottle drop point <number>" at the
     wall which tells visitors that a drop point should be present there
@@ -60,6 +61,17 @@ class DropPoint(db.Model):
             level=None,
             time=None
     ):
+        """
+        Create a new drop point object.
+
+        New drop point objects will be added to the database automatically
+        if the creation was successful. A location will also be added
+        automatically.
+
+        :raises ValueError: If an error occurred during creation of the drop
+            point. The error message will contain a tuple of dicts which
+            indicate in which part of the creation the error occurred.
+        """
 
         errors = []
 
@@ -110,6 +122,14 @@ class DropPoint(db.Model):
         db.session.add(self)
 
     def remove(self, time=None):
+        """
+        Remove a drop point.
+
+        This will not actually purge a drop point from the database but
+        simply mark it as removed so it will no longer show up in the
+        frontend. The time of removal can be given optionally and will
+        default to :func:`datetime.today()`.
+        """
 
         if self.removed:
             raise RuntimeError({
@@ -129,18 +149,35 @@ class DropPoint(db.Model):
         self.removed = time if time else datetime.today()
 
     def report(self, state=None, time=None):
+        """
+        Submit a report for a drop point.
+        """
         Report(self, time=time, state=state)
 
     def visit(self, action=None, time=None):
+        """
+        Perform a visit of a drop point.
+        """
         Visit(self, time=time, action=action)
 
     def get_current_location(self):
+        """
+        Get the current location of a drop point, if it has been set.
+
+        This will return `None`, if no location has been set yet.
+        """
         return self.locations[-1] if self.locations else None
 
     def get_total_report_count(self):
+        """
+        Get the total number of reports of a drop point.
+        """
         return self.reports.count()
 
     def get_new_report_count(self):
+        """
+        Get the number of reports since the last visit of a drop point.
+        """
         last_visit = self.get_last_visit()
         if last_visit:
             return self.reports. \
@@ -150,6 +187,23 @@ class DropPoint(db.Model):
             return self.get_total_report_count()
 
     def get_last_state(self):
+        """
+        Get the current state of a drop point.
+
+        The state is influenced by two mechanisms:
+
+        * Reports: a report will always set the drop point to the state
+          that has been reported by the reporter, irrespective of the
+          state before.
+        * Visits: If a visit was performed since the last report, the
+          drop point is now either empty or unchanged and therefore,
+          if the drop point was emptied, the empty state is returned.
+          If the drop point was not emptied during the visit, the last
+          reported state will be returned.
+
+        If neither reports nor visits have been recorded yet or only visits
+        without any actions, the drop point state is returned as new.
+        """
         last_report = self.get_last_report()
         last_visit = self.get_last_visit()
 
@@ -174,12 +228,26 @@ class DropPoint(db.Model):
         return Report.states[1]
 
     def get_last_report(self):
+        """
+        Get the last report of a drop point.
+        """
         return self.reports.order_by(Report.time.desc()).first()
 
     def get_last_visit(self):
+        """
+        Get the last visit of a drop point.
+        """
         return self.visits.order_by(Visit.time.desc()).first()
 
     def get_new_reports(self):
+        """
+        Get the reports since the last visit of a drop point.
+
+        This method returns all reports for this drop point since the last
+        visit ordered descending by time, i.e. the newest report is the first
+        in the list. If no visits have been recorded yet, all reports are
+        returned.
+        """
         last_visit = self.get_last_visit()
         if last_visit:
             return self.reports. \
@@ -224,7 +292,8 @@ class DropPoint(db.Model):
         return sorted(history, key=lambda k: k["time"], reverse=True)
 
     def get_visit_interval(self):
-        """Get the visit interval for this drop point.
+        """
+        Get the visit interval for this drop point.
 
         This method returns the visit interval for this drop point
         in seconds.
@@ -262,13 +331,20 @@ class DropPoint(db.Model):
         return priority
 
     def get_priority_base_time(self):
+        """
+        Get the base time for visit priority calculation of a drop point.
+
+        This is either the time of the last visit, or, if no visit has been
+        performed yet, the creation time of the drop point.
+        """
         if self.get_last_visit():
             return self.get_last_visit().time
         else:
             return self.time
 
     def get_priority(self):
-        """Get the priority to visit this drop point.
+        """
+        Get the priority to visit this drop point.
 
         The priority to visit a drop point mainly depends on the
         number and weight of reports since the last visit.
@@ -314,6 +390,12 @@ class DropPoint(db.Model):
 
     @classmethod
     def get_dp_json(cls, number):
+        """
+        Get a JSON string characterizing a drop point.
+
+        This returns a JSON representation of the dict constructed by
+        :meth:`get_dp_info()`.
+        """
         return json.dumps(
             {number: cls.get_dp_info(number)},
             indent=4 if c3bottles.debug else None
@@ -321,10 +403,12 @@ class DropPoint(db.Model):
 
     @staticmethod
     def get_dps_json(time=None):
-        """Get drop points as a JSON string.
+        """
+        Get drop points as a JSON string.
 
-        If a time has been given as optional parameters, only drop points are
-        returned that have changes since that time stamp.
+        If a time has been given as optional parameters, only drop points
+        are returned that have changes since that time stamp, i.e. have
+        been created, visited, reported or changed their location.
         """
 
         if time is None:

@@ -112,7 +112,6 @@ class Report(db.Model):
         """
 
         # TODO:
-        # - weight should depend on the state (OVERFLOW > FULL > rest)
         # - weight should depend on the reporter (trusted > stranger)
         # - weight should depend on the viewer (supervisor: problem-
         #   focused, collector: collection-focused)
