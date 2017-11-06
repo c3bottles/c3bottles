@@ -92,7 +92,7 @@ body {
 }
 
 .white {
-    color: #fff;
+    color: #fff !important;
 }
 
 input[type=number] {

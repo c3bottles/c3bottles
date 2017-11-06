@@ -12,4 +12,4 @@ translations/messages.pot
 translations/**/*.mo
 .cache
 venv/
-.well-known/
+.well-known
