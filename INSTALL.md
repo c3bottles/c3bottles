@@ -135,6 +135,10 @@ generate the tiles as follows:
     $ gdal_translate -of vrt map_sq.png map_sq.vrt
     $ gdal2tiles.py -w none -p raster map_sq.vrt tiles
 
+`convert` may fail with newer ImageMagick versions on Debian due to memory
+limits in ImageMagick. The issue can be solved by increasing the limits in
+`/etc/ImageMagick-6/policy.xml`.
+
 ## OpenStreetMap
 
 OpenStreetMap works out of the box once the USE\_OSM\_MAP configuration
