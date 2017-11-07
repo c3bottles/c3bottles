@@ -1,5 +1,5 @@
-{% from "macros.html" import init_map %}
-{% include "dp.js" %}
+{% from "macros/map.js" import init_map %}
+{% include "js/dp.js" %}
 var create_dp_url = "{{ url_for("create_dp") }}";
 var imgdir = "{{ url_for('static', filename='img') }}";
 {{ init_map() }}

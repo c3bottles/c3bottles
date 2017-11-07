@@ -100,7 +100,7 @@ def edit_dp(number=None, errors=None):
 @c3bottles.route("/edit.js/<string:lat>/<string:lng>")
 def edit_dp_js(lat, lng):
     resp = make_response(render_template(
-        "edit_dp.js",
+        "js/edit_dp.js",
         all_dps_json=DropPoint.get_dps_json(),
         lat=float(lat),
         lng=float(lng),

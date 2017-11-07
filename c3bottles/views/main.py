@@ -29,7 +29,7 @@ def dp_list():
 @c3bottles.route("/list.js")
 def dp_list_js():
     resp = make_response(render_template(
-        "list.js",
+        "js/list.js",
         all_dps_json=DropPoint.get_dps_json()
     ))
     resp.mimetype = "application/javascript"
@@ -44,7 +44,7 @@ def dp_map():
 @c3bottles.route("/map.js")
 def dp_map_js():
     resp = make_response(render_template(
-        "map.js",
+        "js/map.js",
         all_dps_json=DropPoint.get_dps_json()
     ))
     resp.mimetype = "application/javascript"
@@ -74,7 +74,7 @@ def dp_view(number=None):
 def dp_view_js(number):
     dp = DropPoint.get(number)
     resp = make_response(render_template(
-        "view.js",
+        "js/view.js",
         all_dps_json=DropPoint.get_dps_json(),
         dp=dp
     ))

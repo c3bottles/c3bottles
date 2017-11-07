@@ -19,7 +19,7 @@ def html():
 @stats.route("/numbers.js")
 def js():
     resp = make_response(render_template(
-        "statistics.js",
+        "js/statistics.js",
         stats=Statistics()
     ))
     resp.mimetype = "application/javascript"
