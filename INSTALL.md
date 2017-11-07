@@ -33,10 +33,11 @@ following dependencies:
 
         $ pip install -r requirements.txt
 
-    If you prefer a virtualenv, you can of course also use that:
+    If you are using Debian and the installation fails, you are probably
+    missing `libpython3-dev` or `libffi-dev`.
 
-        $ virtualenv venv
-        $ venv/bin/pip install -r requirements.txt
+    If you prefer a virtualenv, a Makefile has already been prepared for you,
+    just type `make` to create it and install all dependencies.
 
 3.  Fetch the frontend dependencies and build everything:
 
@@ -71,8 +72,11 @@ following dependencies:
     However, if you want to use c3bottles in a production environment, it is
     strongly advised to use a proper web server like lined out below.
 
-9.  Configure your webserver accordingly to run the WSGI application. Apache
-    needs something like this to run c3bottles as the document root of a host:
+9.  Configure your webserver accordingly to run the WSGI application.
+
+    To use c3bottles with Apache, you need `mod_wsgi` for Python 3 (in Debian:
+    `libapache2-mod-wsgi-py3) and in your virtual host, you need to add a
+    configuration like this:
 
         WSGIScriptAlias / /path/to/c3bottles/wsgi.py
         WSGIApplicationGroup %{GLOBAL}
