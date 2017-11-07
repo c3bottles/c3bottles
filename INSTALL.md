@@ -46,7 +46,7 @@ following dependencies:
 
 4.  Create a configuriation file `config.py`. You will find a template for
     the configuration in the file `config.default.py`. Although c3bottles will
-    work if no config.py with the required settings is present, is is
+    work if no `config.py` with the required settings is present, is is
     recommended to set at least a SECRET_KEY and SQLALCHEMY_DATABASE_URI.
 
 5.  Configure your database accordingly. The user for c3bottles needs full
@@ -59,7 +59,7 @@ following dependencies:
 
 7.  In order to use c3bottles, you need to create at least one admin user:
 
-        $ ./manage.py user add
+        $ ./manage.py user create
 
     Most user management tasks can be done via the command line interface.
     `./manage.py user --help` provides the details.
