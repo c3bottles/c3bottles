@@ -6,7 +6,7 @@ from c3bottles import db
 from c3bottles.model.drop_point import DropPoint
 from c3bottles.model.location import Location
 
-from test import C3BottlesTestCase
+from . import C3BottlesTestCase
 
 
 class LocationTestCase(C3BottlesTestCase):

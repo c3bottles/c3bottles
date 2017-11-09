@@ -1,4 +1,4 @@
-from test import C3BottlesTestCase, NAME, PASSWORD
+from . import C3BottlesTestCase, NAME, PASSWORD
 
 
 class LoginViewTestCase(C3BottlesTestCase):

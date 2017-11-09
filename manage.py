@@ -79,7 +79,7 @@ def pytest():
     Runs the tests.
     """
     import pytest
-    pytest.main(["test"])
+    pytest.main(["tests"])
 
 
 if __name__ == '__main__':

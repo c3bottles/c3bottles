@@ -5,7 +5,7 @@ from c3bottles.model.drop_point import DropPoint
 from c3bottles.model.visit import Visit
 from c3bottles.model.report import Report
 
-from test import C3BottlesTestCase
+from . import C3BottlesTestCase
 
 
 class VisitTestCase(C3BottlesTestCase):

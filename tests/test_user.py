@@ -2,7 +2,7 @@ import pytest
 
 from c3bottles.model.user import User
 
-from test import C3BottlesTestCase, NAME, PASSWORD
+from . import C3BottlesTestCase, NAME, PASSWORD
 
 
 class UserTestCase(C3BottlesTestCase):
