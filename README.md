@@ -1,6 +1,6 @@
 # c3bottles
 
-[![Build Status](https://travis-ci.org/der-michik/c3bottles.svg)](https://travis-ci.org/der-michik/c3bottles)
+[![Build Status](https://travis-ci.org/c3bottles/c3bottles.svg)](https://travis-ci.org/c3bottles/c3bottles)
 
 Please have a look in [INSTALL.md](INSTALL.md) on how to install and build
 c3bottles.

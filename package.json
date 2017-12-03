@@ -21,11 +21,11 @@
     "build:map": "npm-run-all build:map:sq build:map:vrt build:map:tiles",
     "build": "npm-run-all build:babel build:deps build:map"
   },
-  "repository": "der-michik/c3bottles",
+  "repository": "c3bottles/c3bottles",
   "author": "MichiK <michik@michik.net>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/der-michik/c3bottles/issues"
+    "url": "https://github.com/c3bottles/c3bottles/issues"
   },
   "dependencies": {
     "bootstrap": "^3.3.5",

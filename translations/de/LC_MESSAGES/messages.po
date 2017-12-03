@@ -678,11 +678,11 @@ msgstr "Schön für dich. Hier ist dein Fisch:"
 
 #: templates/footer.html:4
 msgid ""
-"Development takes place on <a href=\"https://github.com/der-michik/c3bottles"
+"Development takes place on <a href=\"https://github.com/c3bottles/c3bottles"
 "\">GitHub</a>. News can be found on <a href=\"https://twitter.com/c3bottles"
 "\">Twitter</a>."
 msgstr ""
-"Die Entwicklung findet auf <a href=\"https://github.com/der-michik/c3bottles"
+"Die Entwicklung findet auf <a href=\"https://github.com/c3bottles/c3bottles"
 "\">GitHub</a> statt. Neuigkeiten gibt es auch auf <a href=\"https://twitter.com/"
 "c3bottles\">Twitter</a>."
 

@@ -25,7 +25,7 @@ following dependencies:
 
 1.  Clone the repository from Github:
 
-        $ git clone https://github.com/der-michik/c3bottles.git
+        $ git clone https://github.com/c3bottles/c3bottles.git
         $ cd c3bottles
 
 2.  Make sure all the dependencies are installed. The easiest way is to
