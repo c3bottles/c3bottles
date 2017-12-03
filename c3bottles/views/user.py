@@ -1,8 +1,11 @@
-from flask import render_template, url_for, redirect, request, g
-from flask_login import login_user, logout_user
 from werkzeug.routing import BuildError
 from json import loads
 from re import sub
+
+from flask import render_template, url_for, redirect, request, g
+
+from flask_babel import lazy_gettext as _
+from flask_login import login_user, logout_user
 
 from .. import c3bottles
 
@@ -33,8 +36,8 @@ def login():
             return back
     return render_template(
         "error.html",
-        heading="Login failed!",
-        text="Wrong user name or password.",
+        heading=_("Login failed!"),
+        text=_("Wrong user name or password."),
         back=form.back.data,
         args=form.args.data
     )
