@@ -56,7 +56,7 @@ def get_locale():
     """
     Get the locale from the session. If no locale is available, set it.
     """
-    if "lang" not in session:
+    if "lang" not in session or session["lang"] not in language_list:
         set_locale()
     return session["lang"]
 
@@ -71,8 +71,10 @@ def set_locale():
     """
     if "lang" in request.args and request.args["lang"] in language_list:
         session["lang"] = request.args["lang"]
-    if "lang" not in session:
+    if "lang" not in session or session["lang"] not in language_list:
         session["lang"] = request.accept_languages.best_match(language_list)
+        if session["lang"] is None:
+            session["lang"] = "en"
     g.languages, g.locales = language_list, locales
 
 
