@@ -1,5 +1,6 @@
 var $ = require("jquery");
 var L = require("leaflet");
+var gettext = require("./gettext.js");
 
 /*
  * Initialize the map object, add the background layer and draw all the
@@ -96,7 +97,7 @@ global.allow_dp_creation_from_map = function() {
             marker.bindPopup(L.popup({closeButton: false}).setContent(
                 "<a class='btn btn-primary white' href=\'" + create_dp_url + "/" +
                 lat + "/" + lng + "'>" +
-                "Create a new drop point" +
+                gettext("Create a new drop point") +
                 "</a>"
             ));
             marker.on("dragend", function () {
@@ -105,7 +106,7 @@ global.allow_dp_creation_from_map = function() {
                 this._popup.setContent(
                     "<a class='btn btn-primary white' href=\'" + create_dp_url + "/" +
                     lat + "/" + lng + "'>" +
-                    "Create a new drop point" +
+                    gettext("Create a new drop point") +
                     "</a>"
                 );
             });

@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": " Bottle drop and collection management system for chaos events",
   "scripts": {
-    "refresh:babel": "pybabel extract -F translations/babel.cfg -k lazy_gettext -w 80 -o translations/messages.pot . && pybabel update -i translations/messages.pot -w 80 -d translations/",
+    "refresh:babel": "venv/bin/pybabel extract -F translations/babel.cfg -k lazy_gettext -w 80 -o translations/messages.pot . && venv/bin/pybabel update -i translations/messages.pot -w 80 -d translations/",
     "prebuild": "mkdir -p static/lib/js/ static/lib/css/ static/lib/fonts/",
     "prebuild:js": "npm run prebuild && jshint js/**.js",
     "build:js": "browserify js/**.js | uglifyjs -m > static/lib/js/lib.js",
@@ -12,7 +12,7 @@
     "prebuild:css": "npm run prebuild",
     "build:css": "cp node_modules/bootstrap/dist/css/* node_modules/datatables-bootstrap3-plugin/media/css/*.css node_modules/leaflet/dist/leaflet.css static/lib/css/",
     "prebuild:fonts": "npm run prebuild",
-    "build:babel": "pybabel compile -d translations/",
+    "build:babel": "venv/bin/pybabel compile -d translations/ && venv/bin/python translations/translate-js.py",
     "build:fonts": "cp -r node_modules/bootstrap/dist/fonts/* static/lib/fonts/",
     "build:deps": "npm-run-all build:js build:css build:fonts",
     "build:map:sq": "convert static/img/map.png -background white -compose Copy -gravity center -resize 16384x16384 -extent 16384x16384 static/img/map_sq.png",

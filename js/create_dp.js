@@ -2,6 +2,7 @@ var $ = require("jquery");
 var L = require("leaflet");
 require("./map.js");
 var areas = require("./areas.js");
+var gettext = require("./gettext.js");
 
 var new_dp_marker = null;
 
@@ -105,13 +106,13 @@ $(".input-number").change(function () {
     if (val >= min) {
         $(".btn-number[data-type='minus'][data-field='" + name + "']").removeAttr("disabled");
     } else {
-        alert("Sorry, the minimum value was reached.");
+        alert(gettext("Sorry, the minimum value was reached."));
         $(this).val($(this).data("old"));
     }
     if (val <= max) {
         $(".btn-number[data-type='plus'][data-field='" + name + "']").removeAttr("disabled");
     } else {
-        alert("Sorry, the maximum value was reached.");
+        alert(gettext("Sorry, the maximum value was reached."));
         $(this).val($(this).data("old"));
     }
 });

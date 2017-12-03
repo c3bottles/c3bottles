@@ -1,4 +1,5 @@
 var $ = require("jquery");
+var gettext = require("./gettext.js");
 var offset = $("meta[name='time']").attr("content") - Date.now() / 1000;
 
 /*
@@ -43,8 +44,8 @@ function report_dp(num, state) {
         success: function (response) {
             add_alert(
                 "success",
-                "Thank you!",
-                "Your report has been received successfully."
+                gettext("Thank you!"),
+                gettext("Your report has been received successfully.")
             );
             $.extend(true, drop_points, response);
             refresh_drop_point(num);
@@ -55,8 +56,8 @@ function report_dp(num, state) {
                 for (var key in errors[i]) {
                     add_alert(
                         "danger",
-                        "Oh no!",
-                        "An error occurred while processing your report: " +
+                        gettext("Oh no!"),
+                        gettext("An error occurred while processing your report: ") +
                         errors[i][key]
                     );
                 }
@@ -100,8 +101,8 @@ function visit_dp(num, action) {
         success: function (response) {
              add_alert(
                 "success",
-                 "Thank you!",
-                 "Your visit has been logged successfully."
+                 gettext("Thank you!"),
+                 gettext("Your visit has been logged successfully.")
              );
             $.extend(true, drop_points, response);
             refresh_drop_point(num);
@@ -112,8 +113,8 @@ function visit_dp(num, action) {
                 for (var key in errors[i]) {
                     add_alert(
                         "danger",
-                        "Oh no!",
-                        "An error occurred while processing your visit: " +
+                        gettext("Oh no!"),
+                        gettext("An error occurred while processing your visit: ") +
                         errors[i][key]
                     );
                 }

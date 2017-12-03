@@ -26,6 +26,7 @@
 </div>
 {% endblock %}
 {% include 'footer.html' %}
+<script src="{{ url_for("static", filename='lib/js/' + session["lang"] + ".js") }}"></script>
 <script src="{{ url_for('static', filename='lib/js/lib.js') }}"></script>
 {% block scripts %}{% endblock %}
 </body>
