@@ -25,25 +25,58 @@
                     </li>
                 {% endfor %}
             </ul>
-            {% if g.user.is_authenticated %}
-            <form class="navbar-form navbar-right" action="{{ url_for('logout') }}" method="GET">
-                <button type="submit" class="btn btn-danger">{{ _("Logout") }}</button>
-            </form>
-            <p class="navbar-text navbar-right">{{ _("You are logged in as %(user)s", user=g.user.name) }}</p>
-            {% else %}
-            <form class="navbar-form navbar-right" action="{{ url_for('login') }}" method="POST">
-                {{ login_form.back(value=back if back else request.endpoint) }}
-                {{ login_form.args(value=args if args else request.view_args) }}
-                {{ login_form.csrf_token }}
-                <div class="form-group">
-                    {{ login_form.username(placeholder=_("User name"), class="form-control") }}
-                </div>
-                <div class="form-group">
-                    {{ login_form.password(placeholder=_("Password"), class="form-control") }}
-                </div>
-                <button type="submit" class="btn btn-success">{{ _("Login") }}</button>
-            </form>
-            {% endif %}
+
+
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown">
+                        {% if g.user.is_authenticated %}
+                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                        {{ g.user.name }}
+                        {% else %}
+                        {{ _("Log in") }}
+                        {% endif %}
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            {% if g.user.is_authenticated %}
+                            <form action="{{ url_for('logout') }}" method="GET">
+                                <button type="submit" class="btn btn-danger btn-block">{{ _("Logout") }}</button>
+                            </form>
+                            {% else %}
+                            <form action="{{ url_for('login') }}" method="POST">
+                                {{ login_form.back(value=back if back else request.endpoint) }}
+                                {{ login_form.args(value=args if args else request.view_args) }}
+                                {{ login_form.csrf_token }}
+                                <div class="form-group">
+                                    {{ login_form.username(placeholder=_("User name"), class="form-control") }}
+                                </div>
+                                <div class="form-group">
+                                    {{ login_form.password(placeholder=_("Password"), class="form-control") }}
+                                </div>
+                                <button type="submit" class="btn btn-success btn-block">{{ _("Login") }}</button>
+                            </form>
+                            {% endif %}
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown">
+                        {{ _("Language") }}
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        {% for l in g.languages %}
+                        <li>
+                            <a href="{{ request.path }}?lang={{ l }}">{{ g.locales[l].get_display_name() }}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            </ul>
         </div>
     </div>
 </nav>

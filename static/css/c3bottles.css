@@ -98,3 +98,8 @@ body {
 input[type=number] {
     -moz-appearance: textfield;
 }
+
+.dropdown-menu {
+    min-width: 200px;
+    padding: 15px;
+}
