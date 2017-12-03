@@ -10,3 +10,7 @@
     position: relative;
     z-index: 2;
 }
+
+.leaflet-interactive {
+    cursor: pointer;
+}

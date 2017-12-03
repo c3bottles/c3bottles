@@ -156,6 +156,12 @@ global.draw_marker = function(num) {
                         show_dp_modal(dp.properties.number, pane_on_click);
                     }
                 );
+                if (map.getZoom() > map.getMaxZoom() - 2) {
+                    marker.bindTooltip(num, {
+                        permanent: true,
+                        direction: "bottom"
+                    });
+                }
                 return marker;
             }
     });
