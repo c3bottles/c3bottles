@@ -2,45 +2,133 @@ var $ = require("jquery");
 var L = require("leaflet");
 var gettext = require("./gettext.js");
 
-/*
- * Initialize the map object, add the background layer and draw all the
- * drop points into the map.
- *
- */
+var bounds = [[0.0, 0.0], [800.0, 550.0]];
+var levels = [[6, "-1"], [7, "0"], [8, "1"], [9, "2"]];
+var tile_server = "https://34c3.c3nav.de/map/";
+
 global.map = undefined;
-global.init_map = function(opts) {
+global.current_level = undefined;
+global.level_control = undefined;
+
+// use 257x257 px tiles from c3nav correctly
+var originalInitTile = L.GridLayer.prototype._initTile;
+L.GridLayer.include({
+    _initTile: function (tile) {
+        originalInitTile.call(this, tile);
+        var tileSize = this.getTileSize();
+        tile.style.width = tileSize.x + 1 + 'px';
+        tile.style.height = tileSize.y + 1 + 'px';
+    }
+});
+
+// from c3nav: site/static/site/js/c3nav.js
+var LevelControl = L.Control.extend({
+    options: {
+        position: 'bottomright',
+        addClasses: ''
+    },
+
+    onAdd: function () {
+        this._container = L.DomUtil.create('div', 'leaflet-control-levels leaflet-bar ' + this.options.addClasses);
+        this._tileLayers = {};
+        this._overlayLayers = {};
+        this._levelButtons = {};
+        this.currentLevel = null;
+        return this._container;
+    },
+
+    addLevel: function (id, title) {
+        this._tileLayers[id] = L.tileLayer(tile_server + String(id) + '/{z}/{x}/{y}.png', {
+            minZoom: -2,
+            maxZoom: 5,
+            bounds: L.GeoJSON.coordsToLatLngs(bounds),
+            attribution: 'Powered by <a href="https://c3nav.de/">c3nav</a>'
+        });
+        var overlay = L.layerGroup();
+        this._overlayLayers[id] = overlay;
+
+        var link = L.DomUtil.create('a', '', this._container);
+        link.innerHTML = title;
+        link.level = id;
+        link.href = '#';
+
+        L.DomEvent
+            .on(link, 'mousedown dblclick', L.DomEvent.stopPropagation)
+            .on(link, 'click', this._levelClick, this);
+
+        this._levelButtons[id] = link;
+        return overlay;
+    },
+
+    setLevel: function (id) {
+        if (id === this.currentLevel) return true;
+        if (this._tileLayers[id] === undefined) return false;
+
+        if (this.currentLevel) {
+            this._tileLayers[this.currentLevel].remove();
+            this._overlayLayers[this.currentLevel].remove();
+            L.DomUtil.removeClass(this._levelButtons[this.currentLevel], 'current');
+        }
+        this._tileLayers[id].addTo(map);
+        this._overlayLayers[id].addTo(map);
+        L.DomUtil.addClass(this._levelButtons[id], 'current');
+        this.currentLevel = id;
+        return true;
+    },
+
+    _levelClick: function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        this.setLevel(e.target.level);
+        if (typeof update_hash === "function") {
+            current_level = e.target.level-7;
+            update_hash();
+        }
+        // TODO: only display drop points of current layer
+    },
+
+    finalize: function () {
+        var buttons = $(this._container).find('a');
+        buttons.addClass('current');
+        buttons.width(buttons.width());
+        buttons.removeClass('current');
+    }
+});
+
+global.set_map_level = function(lvl) {
+    if (typeof levels[lvl++] === "undefined") {
+        lvl = 0;
+    }
+    current_level = lvl-1;
+    level_control.setLevel(levels[lvl][0]);
+}
+
+global.init_map = function() {
+
     map = L.map('map', {
-        // set this to true when using Openstreetmap
-        // what you set here when you are using another
-        // map source depends on the copyright situation
-        // of that source
-        attributionControl: true
+        attributionControl: true,
+        zoom: 0,
+        minZoom: 0,
+        maxZoom: 5,
+        crs: L.CRS.Simple,
+        maxBounds: L.GeoJSON.coordsToLatLngs(bounds),
     });
 
-    if (opts.enable) {
-        L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
-            subdomains: ['a', 'b', 'c'],
-            minZoom: 15, // this is a reasonable default for a decent outdoor event
-            maxZoom: 18  // this is the maximum zoom level
-        }).addTo(map);
-        global.default_map_view = function() {
-            // set your event coordinates (latitude, longitude, default zoom) here
-            map.setView(opts.lat_lng, opts.default_zoom);
-        };
-    } else {
-        L.tileLayer(imgdir + '/tiles/{z}/{x}/{y}.png', {
-            // Have a look in static/img/tiles.
-            // The directories present there correspond to zoom levels.
-            minZoom: 0,
-            maxZoom: 6,
-            tms: true,
-            noWrap: true
-        }).addTo(map);
-        global.default_map_view = function() {
-            map.fitWorld();
-        };
+    level_control = new LevelControl().addTo(map);
+    var locationLayers = {};
+    var locationLayerBounds = {};
+    for (i = levels.length - 1; i >= 0; i--) {
+        var level = levels[i];
+        var layerGroup = level_control.addLevel(level[0], level[1]);
+        locationLayers[level[0]] = L.layerGroup().addTo(layerGroup);
     }
+    level_control.finalize();
+
+    set_map_level(0);
+
+    global.default_map_view = function() {
+        map.fitBounds(bounds);
+    };
 
     for (var i in drop_points) {
         if (!drop_points[i].removed) {
@@ -49,9 +137,6 @@ global.init_map = function(opts) {
     }
 };
 
-/*
- * Get an properly sized icon for a given marker type at the current zoom level.
- */
 global.get_icon = function(type) {
     var size = 12;
     var zoom = 6 - (map.getMaxZoom() - map.getZoom());
@@ -66,15 +151,6 @@ global.get_icon = function(type) {
     });
 };
 
-/*
- * Enable the drop point creation on the map.
- *
- * This function registers an event on the map that fires when the user clicks
- * somewhere. A new, draggable marker is placed with a popup that allows
- * creation of a drop point in the current location of the marker. If the user
- * clicks on the map away from the marker, the marker is removed.
- *
- */
 global.allow_dp_creation_from_map = function() {
     map.on("click", function (e) {
         var latlng = e.latlng;
@@ -95,8 +171,8 @@ global.allow_dp_creation_from_map = function() {
             var lat = marker._latlng.lat.toFixed(2);
             var lng = marker._latlng.lng.toFixed(2);
             marker.bindPopup(L.popup({closeButton: false}).setContent(
-                "<a class='btn btn-primary white' href=\'" + create_dp_url + "/" +
-                lat + "/" + lng + "'>" +
+                "<a class='btn btn-primary white' href=\'" + create_dp_url +
+                "/" + current_level + "/" + lat + "/" + lng + "'>" +
                 gettext("Create a new drop point") +
                 "</a>"
             ));
@@ -104,8 +180,8 @@ global.allow_dp_creation_from_map = function() {
                 var lat = this._latlng.lat.toFixed(2);
                 var lng = this._latlng.lng.toFixed(2);
                 this._popup.setContent(
-                    "<a class='btn btn-primary white' href=\'" + create_dp_url + "/" +
-                    lat + "/" + lng + "'>" +
+                    "<a class='btn btn-primary white' href=\'" + create_dp_url +
+                    "/" + current_level + "/" + lat + "/" + lng + "'>" +
                     gettext("Create a new drop point") +
                     "</a>"
                 );
@@ -118,15 +194,6 @@ global.allow_dp_creation_from_map = function() {
     });
 };
 
-/*
- * Draw the marker for a given drop point.
- *
- * The function first checks if the marker has already been added to the map
- * and removes it if necessary. It then creates a GeoJSON object from the
- * drop point's metadata and draws it into the map. An event is added that
- * triggers re-drawing the marker once the zoom factor changes.
- *
- */
 global.draw_marker = function(num) {
     if (map.hasLayer(drop_points[num].layer)) {
         map.removeLayer(drop_points[num].layer);

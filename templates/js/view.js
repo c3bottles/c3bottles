@@ -1,5 +1,4 @@
-{% from "macros/map.js" import init_map %}
 {% include "js/dp.js" %}
 var imgdir = "{{ url_for('static', filename='img') }}";
-{{ init_map() }}
+init_map()
 map.setView([{{ dp.get_current_location().lat }}, {{ dp.get_current_location().lng }}], 5);

@@ -38,16 +38,6 @@
 # no reports have been submitted. (default: 1)
 # DEFAULT_VISIT_PRIORITY = 1
 
-# Use OpenStreetMap for the drop point map view. This is mainly useful for
-# outdoor events. If this is disabled, the internal map will be used which
-# has to be prepared accordingly to work properly.
-# USE_OSM_MAP = True
-
-# Default location and zoom level for OpenStreetMap. (default: the CCH)
-# OSM_MAP_LAT = 53.56164
-# OSM_MAP_LNG = 9.98550
-# OSM_MAP_DEFAULT_ZOOM = 17
-
 ##############################################
 #    PLEASE KEEP THE LINES BELOW UNCHANGED   #
 # EXCEPT YOU REALLY KNOW WHAT YOU ARE DOING! #

@@ -86,11 +86,6 @@ class Location(db.Model):
             errors.append({
                 "lat": _("Latitude is not a floating point number.")
             })
-        else:
-            if not -90 < self.lat < 90:
-                errors.append({
-                    "lat": _("Latitude is not between 90 degrees N/S.")
-                })
 
         try:
             self.lng = float(lng)
@@ -98,11 +93,6 @@ class Location(db.Model):
             errors.append({
                 "lng": _("Longitude is not a floating point number.")
             })
-        else:
-            if not -180 < self.lng < 180:
-                errors.append({
-                    "lng": _("Longitude is not between 180 degrees W/E.")
-                })
 
         try:
             self.level = int(level)

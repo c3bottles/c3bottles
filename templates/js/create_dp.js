@@ -1,12 +1,11 @@
-{% from "macros/map.js" import init_map %}
 {% include "js/dp.js" %}
 var imgdir = "{{ url_for('static', filename='img') }}";
-{{ init_map() }}
+init_map(0)
 init_dp_creation();
 {% if lat is not none and lng is not none %}
-var lat = {{ lat|round(2) }};
+/*var lat = {{ lat|round(2) }};
 var lng = {{ lng|round(2) }};
-if (lat < -90 || lat > 90 || lng < -180 || lng > 180) {
+if (lat < 0 || lat > 550 || lng < 0 || lng > 800) {
     var alert = $("<div></div>")
             .addClass("alert alert-danger")
             .html("<button type=\"button\" class=\"close alert-hide\">\
@@ -21,8 +20,8 @@ if (lat < -90 || lat > 90 || lng < -180 || lng > 180) {
     if (!$(".alert-danger").length) {
         set_info_from_marker({"lat": {{ lat }}, "lng": {{ lng }}});
     }
-}
+}*/
 {% endif %}
 {% if center_lat is not none and center_lng is not none %}
-    map.setView([{{ center_lat }}, {{ center_lng }}], 5);
+    //map.setView([{{ center_lat }}, {{ center_lng }}], 5);
 {% endif %}

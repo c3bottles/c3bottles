@@ -7,7 +7,10 @@ from ..model.drop_point import DropPoint
 
 
 @c3bottles.route("/create", methods=("GET", "POST"))
-@c3bottles.route("/create/<string:lat>/<string:lng>", methods=("GET", "POST"))
+@c3bottles.route(
+    "/create/<int:level>/<float:lat>/<float:lng>",
+    methods=("GET", "POST")
+)
 @login_required
 def create_dp(
         number=None, description=None, lat=None,
@@ -79,15 +82,14 @@ def create_dp(
     )
 
 
-@c3bottles.route("/create.js/<string:lat>/<string:lng>")
-def create_dp_js(lat, lng, center_lat=None, center_lng=None):
+@c3bottles.route("/create.js/<int:level>/<float:lat>/<float:lng>")
+def create_dp_js(level, lat, lng):
     resp = make_response(render_template(
         "js/create_dp.js",
         all_dps_json=DropPoint.get_dps_json(),
-        lat=float(lat),
-        lng=float(lng),
-        center_lat=center_lat,
-        center_lng=center_lng
+        level=level,
+        lat=lat,
+        lng=lng
     ))
     resp.mimetype = "application/javascript"
     return resp

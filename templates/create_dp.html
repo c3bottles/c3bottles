@@ -39,36 +39,14 @@
                 <div class="form-group{{ ' has-error' if 'level' in error_fields }}">
                     <label for="level" class="col-sm-4 control-label">{{ _("Level") }}</label>
                     <div class="col-sm-8">
+                        {% for l in [2, 1, 0, -1] %}
                         <div class="radio">
                             <label>
-                                <input type="radio" name="level" value="0"{{ {"checked": "checked"}|xmlattr if level == "0" }}>
-                                {{ _("Ground floor (Lobby, Hackcenter)") }}
+                                <input type="radio" name="level" value="{{ l }}"{{ {"checked": "checked"}|xmlattr if level == l }}>
+                                {{ _("Level") }} {{ l }}
                             </label>
                         </div>
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="level" value="1"{{ {"checked": "checked"}|xmlattr if level == "1" }}>
-                                {{ _("1st floor (Heaven, Hackcenter)") }}
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="level" value="2"{{ {"checked": "checked"}|xmlattr if level == "2" }}>
-                                {{ _("2nd floor (HF1/2/G)") }}
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="level" value="3"{{ {"checked": "checked"}|xmlattr if level == "3" }}>
-                                {{ _("3rd floor (ZF1/2)") }}
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="level" value="4"{{ {"checked": "checked"}|xmlattr if level == "4" }}>
-                                {{ _("4th floor (RF1/2)") }}
-                            </label>
-                        </div>
+                        {% endfor %}
                     </div>
                 </div>
                 <div class="form-group{{ ' has-error' if 'description' in error_fields }}">
@@ -93,6 +71,6 @@
     </div>
 {% endblock %}
 {% block scripts %}
-<script src="{{ url_for('create_dp_js', lat=lat, lng=lng, center_lat=center_lat, center_lng=center_lng) }}"></script>
+<script src="{{ url_for('create_dp_js', level=level, lat=lat, lng=lng, center_lat=center_lat, center_lng=center_lng) }}"></script>
 
 {% endblock %}

@@ -97,51 +97,5 @@ following dependencies:
 
 # Map
 
-There are two main ways of using the map: For an indoor event, you can use an
-appropriate building plan as the base for the map tiles. For an outdoor event
-it is useful to use a map source already present, namely OpenStreetMap. These
-two ways are described below in the "Internal map" and "OpenStreetMap" sections,
-respectively.
-
-## Internal map
-
-The internal map is the default when checking out c3bottles. To use the map you
-first have to generate the map tiles. The normal build task already does that
-with the map delivered with the package. If you replaced the map and just want
-to regenerate the tiles using the defaults, you can do this with:
-
-    $ npm run build:map
-
-The standard source file for the map is `static/img/map.png`. For
-tile generation, the image has to be a square whose height/width is a
-power of 2. It is useful to resize and enlarge the image to the next power
-of 2. This can be done with ImageMagick's `convert` utility as follows,
-assuming that the image has a largest dimension between 8192 and 16384 and
-a white background:
-
-    $ cd /path/to/c3bottles/static/img
-    $ convert map.png -background white -compose Copy -gravity center \
-                      -resize 16384x16384 -extent 16384x16384 map_sq.png
-
-An image size of 16384x16384 allows a maximum zoom level of 6 which is the
-default in the JavaScript code of the map. If your image is larger or
-smaller, the `maxZoom` setting in `static/js/map.js` has to be adapted
-accordingly (i.e. to 5 for an 8192x8192 image).
-
-Once you have a square source image with a power of 2 in size, you can
-generate the tiles as follows:
-
-    $ cd /path/to/c3bottles/static/img
-    $ gdal_translate -of vrt map_sq.png map_sq.vrt
-    $ gdal2tiles.py -w none -p raster map_sq.vrt tiles
-
-`convert` may fail with newer ImageMagick versions on Debian due to memory
-limits in ImageMagick. The issue can be solved by increasing the limits in
-`/etc/ImageMagick-6/policy.xml`.
-
-## OpenStreetMap
-
-OpenStreetMap works out of the box once the USE\_OSM\_MAP configuration
-parameter is set to True. Although, for it to be useful, you should set the
-appropriate event location coordinates and a useful zoom level as default
-view in `config.py`.
+This branch of c3bottles uses the from [https://c3nav.de](c3nav). You don't
+have to worry about anything, it will just work.

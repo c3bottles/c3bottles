@@ -103,3 +103,8 @@ input[type=number] {
     min-width: 200px;
     padding: 15px;
 }
+
+a.current {
+    font-weight: bold;
+    background-color: #eee !important;
+}

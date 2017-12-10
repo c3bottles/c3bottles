@@ -38,12 +38,12 @@ global.set_info_from_marker = function(latlng) {
     var room = areas.get_room([lng, lat]);
     if (room !== null) {
         $("#description").val(room.name);
-        $("#number").val(get_next_free_dp_num(room.level));
+        $("#number").val(get_next_free_dp_num());
         $("input[name='level'][value=" + room.level + "]").prop("checked", true);
     } else {
         var level = areas.get_level([lng, lat]);
         if (level !== null) {
-            $("#number").val(get_next_free_dp_num(level));
+            $("#number").val(get_next_free_dp_num());
             $("input[name='level'][value=" + level + "]").prop("checked", true);
         }
     }

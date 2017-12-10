@@ -1081,7 +1081,7 @@ msgstr ""
 
 #: templates/js/create_dp.js:14
 msgid "Error!"
-msgstr "Fehler"
+msgstr "Fehler!"
 
 #: templates/js/create_dp.js:14
 msgid "The coordinates given were invalid. Pleae choose a new position from the map."
