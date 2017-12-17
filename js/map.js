@@ -61,8 +61,12 @@ var LevelControl = L.Control.extend({
     },
 
     setLevel: function (id) {
-        if (id === this.currentLevel) return true;
-        if (this._tileLayers[id] === undefined) return false;
+        if (id === this.currentLevel) {
+            return true;
+        }
+        if (this._tileLayers[id] === undefined) {
+            return false;
+        }
 
         if (this.currentLevel) {
             this._tileLayers[this.currentLevel].remove();
@@ -101,7 +105,7 @@ global.set_map_level = function(lvl) {
     }
     current_level = lvl-1;
     level_control.setLevel(levels[lvl][0]);
-}
+};
 
 global.init_map = function() {
 
@@ -116,9 +120,8 @@ global.init_map = function() {
 
     level_control = new LevelControl().addTo(map);
     var locationLayers = {};
-    var locationLayerBounds = {};
-    for (i = levels.length - 1; i >= 0; i--) {
-        var level = levels[i];
+    for (var l = levels.length - 1; l >= 0; l--) {
+        var level = levels[l];
         var layerGroup = level_control.addLevel(level[0], level[1]);
         locationLayers[level[0]] = L.layerGroup().addTo(layerGroup);
     }
@@ -130,9 +133,9 @@ global.init_map = function() {
         map.fitBounds(bounds);
     };
 
-    for (var i in drop_points) {
-        if (!drop_points[i].removed) {
-            draw_marker(i);
+    for (var dp in drop_points) {
+        if (!drop_points[dp].removed) {
+            draw_marker(dp);
         }
     }
 };
