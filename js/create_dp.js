@@ -49,14 +49,6 @@ global.set_info_from_marker = function(latlng) {
     }
 };
 
-function get_next_free_dp_num(level) {
-    for (var i = level*100 + 1; i < level*100 + 100; i++) {
-        if (typeof drop_points[i] == "undefined") {
-            return i;
-        }
-    }
-}
-
 global.init_dp_creation = function() {
     map.on("click", function (e) {
         if (!new_dp_marker) {

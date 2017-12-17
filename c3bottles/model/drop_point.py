@@ -1,6 +1,7 @@
 import json
 
 from datetime import datetime
+from sqlalchemy import desc
 
 from flask_babel import lazy_gettext as _
 
@@ -429,6 +430,19 @@ class DropPoint(db.Model):
             ret[dp.number] = DropPoint.get_dp_info(dp.number)
 
         return json.dumps(ret, indent=4 if c3bottles.debug else None)
+
+    @staticmethod
+    def get_next_free_number():
+        """
+        Get the next free drop point number.
+        """
+        last = db.session.query(DropPoint) \
+            .order_by(desc(DropPoint.number)) \
+            .limit(1).first().number
+        if last:
+            return last + 1
+        else:
+            return 1
 
     def __repr__(self):
         return "Drop point %s (%s)" % (

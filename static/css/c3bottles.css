@@ -108,3 +108,7 @@ a.current {
     font-weight: bold;
     background-color: #eee !important;
 }
+
+.leaflet-interactive {
+    cursor: pointer;
+}

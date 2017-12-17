@@ -12,23 +12,17 @@ from ..model.drop_point import DropPoint
     methods=("GET", "POST")
 )
 @login_required
-def create_dp(
-        number=None, description=None, lat=None,
-        lng=None, level=None, errors=None,
-        success=None, center_lat=None, center_lng=None
-):
+def create_dp(lat=None, lng=None, level=None, description=None, errors=None):
 
     if not g.user.can_edit:
         abort(401)
 
     if request.method == "POST":
-
         number = request.form.get("number")
         description = request.form.get("description")
-        lat = request.form.get("lat")
-        lng = request.form.get("lng")
-        level = request.form.get("level")
-
+        lat = float(request.form.get("lat"))
+        lng = float(request.form.get("lng"))
+        level = int(request.form.get("level"))
         try:
             DropPoint(
                 number=number, description=description, lat=lat,
@@ -38,27 +32,12 @@ def create_dp(
             errors = e.args
         else:
             db.session.commit()
-            if request.form.get("action") == "stay":
-                center_lat = lat
-                center_lng = lng
-                number = None
-                description = None
-                lat = None
-                lng = None
-                level = None
-                success = True
-            else:
-                return render_template(
-                    "success.html",
-                    text="Your drop point has been created successfully."
-                )
-
-    try:
-        lat_f = float(lat)
-        lng_f = float(lng)
-    except (ValueError, TypeError):
-        lat_f = None
-        lng_f = None
+            return render_template(
+                "success.html",
+                text="Your drop point has been created successfully."
+            )
+    else:
+        number = DropPoint.get_next_free_number()
 
     if errors is not None:
         error_list = [v for d in errors for v in d.values()]
@@ -70,15 +49,12 @@ def create_dp(
     return render_template(
         "create_dp.html",
         number=number,
-        description=description,
-        center_lat=center_lat,
-        center_lng=center_lng,
-        lat=lat_f,
-        lng=lng_f,
+        lat=lat,
+        lng=lng,
         level=level,
+        description=description,
         error_list=error_list,
         error_fields=error_fields,
-        success=success
     )
 
 
