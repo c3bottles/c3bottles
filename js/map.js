@@ -4,7 +4,7 @@ var gettext = require("./gettext.js");
 
 var bounds = [[0.0, 0.0], [800.0, 550.0]];
 var levels = [[6, "-1"], [7, "0"], [8, "1"], [9, "2"]];
-var tile_server = "https://34c3.c3nav.de/map/";
+var tile_server = "https://tiles.34c3.c3nav.de/";
 
 global.map = undefined;
 global.current_level = undefined;
