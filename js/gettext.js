@@ -1,3 +1,4 @@
+/* eslint no-console: 0 */
 /**
  * This module exports a translation function that works like gettext. It looks
  * for a global translations dict and tries to translate phrases by looking
@@ -10,14 +11,15 @@
  *      available or the original phrase if no translation is available.
  */
 module.exports = function(phrase) {
-    if (translations === undefined) {
-        console.log("gettext.js - No translations available!");
-        return phrase;
-    }   
-    if (phrase in translations) {
-        return translations[phrase];
-    } else {
-        console.log("gettext.js - '" + phrase + "' not found in translations!");
-        return phrase;
-    }   
+  if (translations === undefined) {
+    console.log('gettext.js - No translations available!');
+
+    return phrase;
+  }
+  if (phrase in translations) {
+    return translations[phrase];
+  }
+  console.log(`gettext.js - '${phrase}' not found in translations!`);
+
+  return phrase;
 };
