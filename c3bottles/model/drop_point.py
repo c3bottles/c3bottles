@@ -438,9 +438,9 @@ class DropPoint(db.Model):
         """
         last = db.session.query(DropPoint) \
             .order_by(desc(DropPoint.number)) \
-            .limit(1).first().number
+            .limit(1).first()
         if last:
-            return last + 1
+            return last.number + 1
         else:
             return 1
 
