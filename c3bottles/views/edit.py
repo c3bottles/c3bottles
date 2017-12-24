@@ -31,14 +31,13 @@ def edit_dp(number=None, errors=None):
     description_old = str(dp.get_current_location().description)
     lat_old = str(dp.get_current_location().lat)
     lng_old = str(dp.get_current_location().lng)
-    level_old = str(dp.get_current_location().level)
+    level = dp.get_current_location().level
 
     if request.method == "POST":
 
         description = request.form.get("description")
         lat = request.form.get("lat")
         lng = request.form.get("lng")
-        level = request.form.get("level")
         remove = request.form.get("remove")
 
         try:
@@ -69,7 +68,6 @@ def edit_dp(number=None, errors=None):
         description = description_old
         lat = lat_old
         lng = lng_old
-        level = level_old
 
     try:
         lat_f = float(lat)
