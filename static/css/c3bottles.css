@@ -39,8 +39,6 @@ body {
 
 .piechart {
     display: inline-block !important;
-    width: 200px !important;
-    height: 200px !important;
 }
 
 .sum:before {
