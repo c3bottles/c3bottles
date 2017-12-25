@@ -1,4 +1,7 @@
 const $ = require('jquery');
+
+// eslint-disable-next-line
+require('imports-loader?define=>false!datatables.net')(window, $);
 const offset = $("meta[name='time']").attr('content') - Date.now() / 1000;
 
 require('datatables-bootstrap3-plugin');
