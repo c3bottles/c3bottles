@@ -101,8 +101,8 @@ class LocationTestCase(C3BottlesTestCase):
             db.session.commit()
             Location(dp, time=start_time - timedelta(hours=1))
 
-        invalid_lat = ("foo", -180, 91, None)
-        invalid_lng = ("bar", -181, 251.5, None)
+        invalid_lat = ("foo", None)
+        invalid_lng = ("bar", None)
         invalid_level = ("quux", None)
 
         for lat in invalid_lat:
