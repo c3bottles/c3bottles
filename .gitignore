@@ -13,3 +13,5 @@ translations/**/*.mo
 .cache
 venv/
 .well-known
+yarn-error.log
+npm-shrinkwrap.json
