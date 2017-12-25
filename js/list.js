@@ -35,6 +35,7 @@ function redraw_table() {
 global.dt = undefined;
 global.init_table = function() {
   dt = $('#dp_list').DataTable({
+    paging: false,
     data: get_table_data(),
     order: [[6, 'desc']],
     createdRow(row, data) {
