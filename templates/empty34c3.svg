@@ -1297,4 +1297,5 @@
 	 	 style="font-family:'3TheHardWayOverrun';font-size:48px;fill:#9D2632;"
 
      id="text877">{{ request.url_root }}{{ number }}</text>
+	<image y="440" x="350" xlink:href="data:image/png;base64,{{ qr }}" preserveAspectRatio="none" height="110" width="110"/>
 </svg>
