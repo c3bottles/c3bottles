@@ -56,6 +56,9 @@ global.init_table = function() {
         },
       },
       {
+        data: 'level',
+      },
+      {
         data: null,
         render(data, type) {
           if (type === 'sort') {
