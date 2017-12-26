@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "description": " Bottle drop and collection management system for chaos events",
   "scripts": {
+    "python:dev": "watch \"./manage.py run\" c3bottles",
     "refresh:babel": "venv/bin/pybabel extract -F translations/babel.cfg -k lazy_gettext -w 80 -o translations/messages.pot . && venv/bin/pybabel update -i translations/messages.pot -w 80 -d translations/",
     "prebuild": "mkdir -p static/lib/js/ static/lib/css/ static/lib/fonts/",
     "prebuild:js": "npm run prebuild && eslint js/**.js",
@@ -55,6 +56,7 @@
     "imports-loader": "^0.7.1",
     "npm-run-all": "^1.2.13",
     "prettier": "^1.9.2",
+    "watch": "^1.0.2",
     "webpack": "^3.10.0"
   }
 }

@@ -114,4 +114,5 @@ def _pdf(number):
     f = BytesIO()
     img.save(f)
     b64 = b64encode(f.getvalue()).decode("utf-8")
-    return svg2pdf(render_template("label.svg", number=number, qr=b64))
+    
+    return svg2pdf(render_template("empty34c3.svg", number=number, qr=b64))
