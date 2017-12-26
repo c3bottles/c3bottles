@@ -1,4 +1,5 @@
 import qrcode
+from sqlalchemy import or_
 from base64 import b64encode
 from cairosvg import svg2pdf
 from PyPDF2 import PdfFileWriter, PdfFileReader
@@ -98,9 +99,8 @@ def dp_label(number=None):
 @c3bottles.route("/label/all.pdf")
 def dp_all_labels():
     output = PdfFileWriter()
-    for dp in db.session.query(DropPoint).all():
-        if not dp.removed:
-            output.addPage(PdfFileReader(BytesIO(_pdf(dp.number))).getPage(0))
+    for dp in db.session.query.filter(or_(DropPoint.removed == None, ~DropPoint.removed)).all():
+        output.addPage(PdfFileReader(BytesIO(_pdf(dp.number))).getPage(0))
     f = BytesIO()
     output.write(f)
     return Response(
