@@ -182,6 +182,7 @@ global.show_dp_modal = function(num, pane) {
     $('.modal-title').text(gettext('Trashcan'));
     $('#dp_modal_report_link').hide();
     $('#dp_modal_visit_link').hide();
+    // eslint-disable-next-line
     pane = 'details';
   } else {
     $('.modal-title').text(gettext('Drop Point'));
