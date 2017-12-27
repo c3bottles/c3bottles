@@ -44,5 +44,6 @@ def report(number=None):
     else:
         return render_template(
             "report.html",
-            dp=dp
+            dp=dp,
+            typename=dp.get_typename()
         )

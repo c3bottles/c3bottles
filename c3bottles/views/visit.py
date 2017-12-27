@@ -20,7 +20,7 @@ def visit(number=None):
         return render_template(
             "error.html",
             heading="Error!",
-            text="Drop point not found.",
+            text="Point not found.",
         )
 
     action = request.values.get("maintenance")
@@ -46,5 +46,6 @@ def visit(number=None):
     else:
         return render_template(
             "visit.html",
-            dp=dp
+            dp=dp,
+            typename=dp.get_typename()
         )

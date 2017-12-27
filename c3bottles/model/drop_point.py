@@ -53,6 +53,8 @@ class DropPoint(db.Model):
         lazy="dynamic"
     )
 
+    type = db.Column(db.Text, default="drop_point")
+
     def __init__(
             self,
             number,
@@ -60,7 +62,8 @@ class DropPoint(db.Model):
             lat=None,
             lng=None,
             level=None,
-            time=None
+            time=None,
+            type=None
     ):
         """
         Create a new drop point object.
@@ -92,6 +95,8 @@ class DropPoint(db.Model):
                     errors.append({
                         "number": _("That drop point already exists.")
                     })
+
+        self.type = type
 
         if time and not isinstance(time, datetime):
             errors.append({
@@ -160,6 +165,11 @@ class DropPoint(db.Model):
         Perform a visit of a drop point.
         """
         Visit(self, time=time, action=action)
+
+    def get_typename(self):
+        if self.type == 'trashcan':
+            return "Trashcan"
+        return "Drop Point"
 
     def get_current_location(self):
         """
@@ -374,6 +384,7 @@ class DropPoint(db.Model):
         if dp is not None:
             return {
                 "number": dp.number,
+                "type": dp.type,
                 "description": dp.get_current_location().description,
                 "reports_total": dp.get_total_report_count(),
                 "reports_new": dp.get_new_report_count(),

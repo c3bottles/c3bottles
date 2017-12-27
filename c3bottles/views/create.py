@@ -12,8 +12,7 @@ from ..model.drop_point import DropPoint
     methods=("GET", "POST")
 )
 @login_required
-def create_dp(lat=None, lng=None, level=None, description=None, errors=None):
-
+def create(type=None, lat=None, lng=None, level=None, description=None, errors=None):
     if not g.user.can_edit:
         abort(401)
 
@@ -23,8 +22,9 @@ def create_dp(lat=None, lng=None, level=None, description=None, errors=None):
         lat = float(request.form.get("lat"))
         lng = float(request.form.get("lng"))
         level = int(request.form.get("level"))
+        type = request.form.get("type") or "drop_point"
         try:
-            DropPoint(
+            DropPoint(type=type,
                 number=number, description=description, lat=lat,
                 lng=lng, level=level
             )
@@ -47,7 +47,8 @@ def create_dp(lat=None, lng=None, level=None, description=None, errors=None):
         error_fields = []
 
     return render_template(
-        "create_dp.html",
+        "create.html",
+        type=type,
         number=number,
         lat=lat,
         lng=lng,
@@ -56,6 +57,7 @@ def create_dp(lat=None, lng=None, level=None, description=None, errors=None):
         error_list=error_list,
         error_fields=error_fields,
     )
+
 
 
 @c3bottles.route("/create.js/<level>/<float:lat>/<float:lng>")

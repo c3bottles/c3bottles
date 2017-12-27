@@ -61,7 +61,8 @@ def dp_view(number=None):
         return render_template(
             "view.html",
             dp=dp,
-            history=history
+            history=history,
+            typename=dp.get_typename()
         )
     else:
         return render_template(

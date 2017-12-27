@@ -1,5 +1,5 @@
 {% include "js/dp.js" %}
-var create_dp_url = "{{ url_for("create_dp") }}";
+var create_dp_url = "{{ url_for("create") }}";
 var imgdir = "{{ url_for('static', filename='img') }}";
 var hash = location.hash.substr(1).split("/");
 init_map();

@@ -1,8 +1,8 @@
 {% extends "layout.html" %}
-{% set title = _("Report Drop Point") %}
+{% set title = _("Report %(name)s", name=typename) %}
 {% block content %}
         <div class="page-header">
-            <h1>{{ _("Report Drop Point %(number)i", number=dp.number) }}</h1>
+            <h1>{{ _("Report %(name)s %(number)i", number=dp.number, name=typename) }}</h1>
         </div>
         {% if g.no_anonymous_reporting and g.user.is_anonymous %}
         <div class="alert alert-warning">
@@ -15,7 +15,11 @@
             <form action="{{ url_for("report") }}" method="POST">
                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                 <input type="hidden" name="number" value="{{ dp.number }}">
-                {% include "report_buttons.html" %}
+                {% if dp.type == 'drop_point' %}
+                    {% include "report_buttons.html" %}
+                {% else %}
+                    {% include "report_trashcan.html" %}
+                {% endif %}
             </form>
         </div>
         </div>

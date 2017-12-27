@@ -178,6 +178,16 @@ global.show_dp_modal = function(num, pane) {
   for (const key in details) {
     $(`.modal_dp_${key}`).text(details[key]);
   }
+  if (details.type === 'trashcan') {
+    $('.modal-title').text(gettext('Trashcan'));
+    $('#dp_modal_report_link').hide();
+    $('#dp_modal_visit_link').hide();
+    pane = 'details';
+  } else {
+    $('.modal-title').text(gettext('Drop Point'));
+    $('#dp_modal_report_link').show();
+    $('#dp_modal_visit_link').show();
+  }
   const links = $('.modal_dp_link');
 
   for (let i = 0; i < links.length; i++) {

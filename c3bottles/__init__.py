@@ -11,6 +11,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_wtf import CSRFProtect
 
+
 c3bottles = Flask(
     __name__,
     static_folder="../static",
@@ -90,7 +91,7 @@ from c3bottles.views.api import api
 from c3bottles.views.main import (
     index, faq, dp_list, dp_list_js, dp_map, dp_map_js, dp_view, dp_view_js
 )
-from c3bottles.views.create import create_dp, create_dp_js
+from c3bottles.views.create import create, create_dp_js
 from c3bottles.views.edit import edit_dp, edit_dp_js
 from c3bottles.views.report import report
 from c3bottles.views.visit import visit

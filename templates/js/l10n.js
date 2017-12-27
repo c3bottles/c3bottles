@@ -1,3 +1,4 @@
+
 var translations = {
     "Thank you!": "{{ _('Thank you!') }}",
     "Your report has been received successfully.": "{{ _('Your report has been received successfully.') }}",
