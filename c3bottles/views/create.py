@@ -64,7 +64,7 @@ def create(type=None, lat=None, lng=None, level=None, description=None, errors=N
 def create_dp_js(level, lat, lng):
     resp = make_response(render_template(
         "js/create_dp.js",
-        all_dps_json=DropPoint.get_dps_json(),
+        all_dps_json=DropPoint.get_dps_json(type="drop_point"),
         level=int(level),
         lat=lat,
         lng=lng

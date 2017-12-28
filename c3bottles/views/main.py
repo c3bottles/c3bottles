@@ -104,7 +104,7 @@ def dp_view_js(number):
     dp = DropPoint.get(number)
     resp = make_response(render_template(
         "js/view.js",
-        all_dps_json=DropPoint.get_dps_json(),
+        all_dps_json=DropPoint.get_dps_json(type=dp.type),
         dp=dp
     ))
     resp.mimetype = "application/javascript"
