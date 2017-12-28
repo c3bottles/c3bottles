@@ -1,5 +1,5 @@
 import qrcode
-from sqlalchemy import or_
+from sqlalchemy import or_, and_
 from base64 import b64encode
 from cairosvg import svg2pdf
 from PyPDF2 import PdfFileWriter, PdfFileReader
@@ -52,11 +52,11 @@ def dp_list_js_trash():
 
 @c3bottles.route("/bottle/map")
 def dp_map_bottle():
-    return render_template("map.html",js_name="dp_map_js_bottle")
+    return render_template("map.html",js_name="dp_map_js_bottle",dp_type="drop_point")
 
 @c3bottles.route("/trash/map")
 def dp_map_trash():
-    return render_template("map.html",js_name="dp_map_js_trash")
+    return render_template("map.html",js_name="dp_map_js_trash",db_type="trashcan")
 
 
 @c3bottles.route("/bottle/map.js")
@@ -115,7 +115,7 @@ def dp_view_js(number):
 def dp_label(number=None):
     dp = DropPoint.get(number)
     if dp:
-        return Response(_pdf(number), mimetype="application/pdf")
+        return Response(_pdf(number, dp.type), mimetype="application/pdf")
     else:
         return render_template(
             "error.html",
@@ -124,11 +124,35 @@ def dp_label(number=None):
         )
 
 
+@c3bottles.route("/bottle/label/all.pdf")
+def dp_all_labels_bottle():
+    output = PdfFileWriter()
+    for dp in db.session.query(DropPoint).filter(and_(or_(DropPoint.removed == None, ~DropPoint.removed), DropPoint.type == 'drop_point')).all():
+        output.addPage(PdfFileReader(BytesIO(_pdf(dp.number, dp.type))).getPage(0))
+    f = BytesIO()
+    output.write(f)
+    return Response(
+        f.getvalue(),
+        mimetype="application/pdf"
+    )
+
 @c3bottles.route("/label/all.pdf")
 def dp_all_labels():
     output = PdfFileWriter()
-    for dp in db.session.query.filter(or_(DropPoint.removed == None, ~DropPoint.removed)).all():
-        output.addPage(PdfFileReader(BytesIO(_pdf(dp.number))).getPage(0))
+    for dp in db.session.query(DropPoint).filter(or_(DropPoint.removed == None, ~DropPoint.removed)).all():
+        output.addPage(PdfFileReader(BytesIO(_pdf(dp.number, dp.type))).getPage(0))
+    f = BytesIO()
+    output.write(f)
+    return Response(
+        f.getvalue(),
+        mimetype="application/pdf"
+    )
+
+@c3bottles.route("/trash/label/all.pdf")
+def dp_all_labels_trash():
+    output = PdfFileWriter()
+    for dp in db.session.query(DropPoint).filter(and_(or_(DropPoint.removed == None, ~DropPoint.removed), DropPoint.type == 'trashcan')).all():
+        output.addPage(PdfFileReader(BytesIO(_pdf(dp.number, dp.type))).getPage(0))
     f = BytesIO()
     output.write(f)
     return Response(
@@ -137,10 +161,16 @@ def dp_all_labels():
     )
 
 
-def _pdf(number):
+
+
+def _pdf(number, type):
     img = qrcode.make(request.url_root + str(number))
     f = BytesIO()
     img.save(f)
     b64 = b64encode(f.getvalue()).decode("utf-8")
-    
-    return svg2pdf(render_template("empty34c3.svg", number=number, qr=b64))
+
+    if (type == 'drop_point'):
+        return svg2pdf(render_template("empty34c3.svg", number=number, qr=b64))
+    else:
+        return svg2pdf(render_template("empty34c3_trash.svg", number=number, qr=b64))
+

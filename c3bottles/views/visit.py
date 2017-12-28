@@ -37,11 +37,16 @@ def visit(number=None):
                 errors=[v for d in e.args for v in d.values()]
             )
         else:
+            if dp.type == "drop_point":
+                back = "/bottle/map"
+            else:
+                back = "/trash/map"
             db.session.commit()
             return render_template(
                 "success.html",
                 heading="Thank you!",
-                text="Your visit has been processed successfully."
+                text="Your visit has been processed successfully.",
+                back=back
             )
     else:
         return render_template(

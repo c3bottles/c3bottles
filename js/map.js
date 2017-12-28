@@ -154,7 +154,7 @@ global.init_map = function() {
 
 global.get_icon = function(type, pointtype) {
   if (pointtype === 'trashcan') {
-    type = 'NEW_TRASH';
+    type += '_TRASH';
   }
   const size = 12;
   let zoom = 6 - (map.getMaxZoom() - map.getZoom());
