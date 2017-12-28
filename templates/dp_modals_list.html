@@ -14,7 +14,8 @@
             {{ _("View more details") }}
         </a>
         <a class="btn btn-default modal_map_link"
-           data-baseurl="{{ url_for("dp_map") }}">
+           data-baseurl="{{ url_for(maptype) }}">
+                {{ endif }}
             {{ _("Show on map") }}
         </a>
     </div>

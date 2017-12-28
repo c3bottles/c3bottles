@@ -46,7 +46,13 @@
                         {% endblock %}
                     </div>
                     <div class="tab-pane" id="dp_modal_report_tab">
-                        {% block report_tab %}{% include "report_buttons.html" %}{% endblock %}
+                        {% block report_tab %}
+                        {% if dp_type == 'drop_point' %}
+                            {% include "report_buttons.html" %}
+                        {% else %}
+                            {% include "report_trashcan.html" %}
+                        {% endif %}
+                        {% endblock %}
                     </div>
                     <div class="tab-pane" id="dp_modal_visit_tab">
                         {% block visit_tab %}{% include "visit_buttons.html" %}{% endblock %}

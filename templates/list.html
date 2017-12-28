@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% set title = _("List of Bottle Drop Points") %}
+{% set title = _("List of %(type)s", type=title_name) %}
 {% block header %}
     <link href="{{ url_for('static', filename='lib/css/datatables-bootstrap3.min.css') }}"
           rel="stylesheet">
@@ -28,5 +28,5 @@
 {% include "dp_modals_list.html" %}
 {% endblock %}
 {% block scripts %}
-<script src="{{ url_for('dp_list_js') }}"></script>
+<script src="{{ url_for(js_name) }}"></script>
 {% endblock %}

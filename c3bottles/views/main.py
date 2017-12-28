@@ -22,31 +22,58 @@ def faq():
     return render_template("faq.html")
 
 
-@c3bottles.route("/list")
-def dp_list():
-    return render_template("list.html",)
+@c3bottles.route("/bottle/list")
+def dp_list_bottle():
+    return render_template("list.html",js_name="dp_list_js_bottle",title_name="Bottle Drop Points",maptype="dp_map_bottle",dp_type="drop_point")
+
+@c3bottles.route("/trash/list")
+def dp_list_trash():
+    return render_template("list.html",js_name="dp_list_js_trash",title_name="Trashcans",maptype="dp_map_trash",dp_type="trashcan")
 
 
-@c3bottles.route("/list.js")
-def dp_list_js():
+@c3bottles.route("/bottle/list.js")
+def dp_list_js_bottle():
     resp = make_response(render_template(
         "js/list.js",
-        all_dps_json=DropPoint.get_dps_json()
+        all_dps_json=DropPoint.get_dps_json(type="drop_point")
+    ))
+    resp.mimetype = "application/javascript"
+    return resp
+
+@c3bottles.route("/tash/list.js")
+def dp_list_js_trash():
+    resp = make_response(render_template(
+        "js/list.js",
+        all_dps_json=DropPoint.get_dps_json(type="trashcan")
     ))
     resp.mimetype = "application/javascript"
     return resp
 
 
-@c3bottles.route("/map")
-def dp_map():
-    return render_template("map.html")
+@c3bottles.route("/bottle/map")
+def dp_map_bottle():
+    return render_template("map.html",js_name="dp_map_js_bottle")
+
+@c3bottles.route("/trash/map")
+def dp_map_trash():
+    return render_template("map.html",js_name="dp_map_js_trash")
 
 
-@c3bottles.route("/map.js")
-def dp_map_js():
+@c3bottles.route("/bottle/map.js")
+def dp_map_js_bottle():
     resp = make_response(render_template(
         "js/map.js",
-        all_dps_json=DropPoint.get_dps_json()
+        all_dps_json=DropPoint.get_dps_json(type="drop_point")
+    ))
+    resp.mimetype = "application/javascript"
+    return resp
+
+
+@c3bottles.route("/trash/map.js")
+def dp_map_js_trash():
+    resp = make_response(render_template(
+        "js/map.js",
+        all_dps_json=DropPoint.get_dps_json(type="trashcan")
     ))
     resp.mimetype = "application/javascript"
     return resp

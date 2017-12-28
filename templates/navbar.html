@@ -16,9 +16,35 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown">
+                        {{ _("List") }}
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="{{ url_for('dp_list_bottle') }}">{{ _("Bottle") }}</a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('dp_list_trash') }}">{{ _("Trashcan") }}</a>
+                        </li>
+                    </ul>
+                </li>
+            <li class="dropdown">
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown">
+                        {{ _("Map") }}
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="{{ url_for('dp_map_bottle') }}">{{ _("Bottle") }}</a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('dp_map_trash') }}">{{ _("Trashcan") }}</a>
+                        </li>
+                    </ul>
+                </li>
                 {% for _s, _t in (
-                                ('dp_list', _('List')),
-                                ('dp_map', _('Map')),
                                 ('statistics.html', _('Numbers')),
                                 ('faq', _('FAQ'))
                             ) %}

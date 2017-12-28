@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% set title = _("Edit Drop Point %(number)i", number=number) %}
+{% set title = _("Edit %(name)s %(number)i", number=number,name=typename) %}
 {% block header %}
     <link href="{{ url_for('static', filename='lib/css/leaflet.css') }}"
           rel="stylesheet">
@@ -68,5 +68,5 @@
     </div>
 {% endblock %}
 {% block scripts %}
-<script src="{{ url_for('edit_dp_js', lat=lat, lng=lng) }}"></script>
+<script src="{{ url_for('edit_dp_js', lat=lat, lng=lng, type=type) }}"></script>
 {% endblock %}

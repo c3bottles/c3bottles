@@ -414,7 +414,7 @@ class DropPoint(db.Model):
         )
 
     @staticmethod
-    def get_dps_json(time=None):
+    def get_dps_json(type, time=None):
         """
         Get drop points as a JSON string.
 
@@ -424,11 +424,11 @@ class DropPoint(db.Model):
         """
 
         if time is None:
-            dps = db.session.query(DropPoint).all()
+            dps = db.session.query(DropPoint).filter(DropPoint.type == type).all()
         else:
             dp_set = set()
             dp_set.update(
-                [dp for dp in DropPoint.query.filter(DropPoint.time > time).all()],
+                [dp for dp in DropPoint.query.filter(DropPoint.time > time and DropPoint.type == type).all()],
                 [l.dp for l in Location.query.filter(Location.time > time).all()],
                 [v.dp for v in Visit.query.filter(Visit.time > time).all()],
                 [r.dp for r in Report.query.filter(Report.time > time).all()]
