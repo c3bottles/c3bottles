@@ -46,7 +46,7 @@ During placement of bottle drop points, every drop point is registered in the
 database with its number, position and capacity (i.e. number of empty crates).
 It gets a label telling the visitors to report full drop points using a URL
 specific for every drop point. On the website, the visitor can report the drop
-point as needing attention by simply clicking a button. Optinally, the visitor
+point as needing attention by simply clicking a button. Optionally, the visitor
 may inform the bottle collectors about the filling level of the drop point.
 
 The other end of the web interface shows a list of drop points to visit ordered
