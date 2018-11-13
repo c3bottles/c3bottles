@@ -5,6 +5,9 @@
 Please have a look in [INSTALL.md](INSTALL.md) on how to install and build
 c3bottles.
 
+## c3bottles in docker
+[DOCKER.md](Docker Readme here)
+
 ## What is this about?
 
 c3bottles is a bottle drop and collection management system for chaos events.
