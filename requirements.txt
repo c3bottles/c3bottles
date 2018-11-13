@@ -15,3 +15,5 @@ pyPDF2>=1.23
 pytest>=3.2.3
 qrcode>=5.3
 werkzeug>=0.12.2
+psycopg2-binary
+gunicorn
