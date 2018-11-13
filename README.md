@@ -9,7 +9,7 @@ c3bottles.
 
 [INSTALL.md](INSTALL.md)
 
-[Docker Readme here]DOCKER.md)
+[Docker Readme here](DOCKER.md)
 
 ## What is this about?
 
