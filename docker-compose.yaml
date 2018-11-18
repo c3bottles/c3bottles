@@ -1,0 +1,22 @@
+version: '3'
+services:
+  web:
+    image: c3bottles/c3bottles
+    volumes:
+     - ./config.py:/c3bottles/config.py
+    ports:
+     - "5000:5000"
+
+  db:
+    image: postgres:11-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
