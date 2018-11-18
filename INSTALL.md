@@ -41,8 +41,8 @@ following dependencies:
 
 3.  Fetch the frontend dependencies and build everything:
 
-        $ npm install
-        $ npm run build
+        $ yarn install
+        $ yarn run build
 
 4.  Create a configuriation file `config.py`. You will find a template for
     the configuration in the file `config.default.py`. Although c3bottles will

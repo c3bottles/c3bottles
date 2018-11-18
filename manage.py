@@ -73,14 +73,5 @@ def profile(host, port):
     c3bottles.run(debug=True, host=host, port=port)
 
 
-@c3bottles.cli.command()
-def pytest():
-    """
-    Runs the tests.
-    """
-    import pytest
-    pytest.main(["tests"])
-
-
 if __name__ == '__main__':
     cli()

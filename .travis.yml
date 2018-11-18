@@ -10,5 +10,5 @@ install:
  - pip install -r requirements.txt
  - yarn install
 script:
- - ./manage.py pytest
+ - pytest --cov=c3bottles
  - yarn run build:deps

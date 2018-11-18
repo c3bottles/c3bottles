@@ -11,3 +11,9 @@ clean:
 
 mrproper: clean
 	rm -rf venv/
+
+pytest: venv
+	venv/bin/pytest
+
+coverage: venv
+	venv/bin/pytest --cov=c3bottles

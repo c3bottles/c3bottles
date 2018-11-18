@@ -13,6 +13,7 @@ pillow==4.0.0
 pwgen>=0.7
 pyPDF2>=1.23
 pytest>=3.2.3
+pytest-cov>=2.6.0
 qrcode>=5.3
 werkzeug>=0.12.2
 psycopg2-binary
