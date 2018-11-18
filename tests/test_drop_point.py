@@ -154,11 +154,11 @@ class FreshDropPointTestCase(BaseDropPointTestCase):
 
     @staticmethod
     def test_dps_json_is_string():
-        assert type(DropPoint.get_dps_json()) is str
+        assert type(DropPoint.get_dps_json("drop_point")) is str
 
     @staticmethod
     def test_dps_json_is_not_empty():
-        assert len(DropPoint.get_dps_json()) > 1
+        assert len(DropPoint.get_dps_json("drop_point")) > 1
 
     @staticmethod
     def test_fresh_dps_json_is_empty():

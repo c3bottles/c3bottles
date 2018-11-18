@@ -83,20 +83,20 @@ class LocationTestCase(C3BottlesTestCase):
 
         dp = DropPoint(1, lat=0, lng=0, level=1)
 
-        with self.assertRaisesRegexp(ValueError, "drop point"):
+        with self.assertRaisesRegex(ValueError, "drop point"):
             Location("foo")
 
         time_in_future = datetime.today() + timedelta(hours=1)
 
-        with self.assertRaisesRegexp(ValueError, "future"):
+        with self.assertRaisesRegex(ValueError, "future"):
             Location(dp, time=time_in_future, lat=0, lng=0, level=1)
 
-        with self.assertRaisesRegexp(ValueError, "not a datetime"):
+        with self.assertRaisesRegex(ValueError, "not a datetime"):
             Location(dp, time="foo", lat=0, lng=0, level=1)
 
         start_time = datetime.today()
 
-        with self.assertRaisesRegexp(ValueError, "older than current"):
+        with self.assertRaisesRegex(ValueError, "older than current"):
             Location(dp, time=start_time, lat=0, lng=0, level=1)
             db.session.commit()
             Location(dp, time=start_time - timedelta(hours=1))
@@ -106,18 +106,18 @@ class LocationTestCase(C3BottlesTestCase):
         invalid_level = ("quux", None)
 
         for lat in invalid_lat:
-            with self.assertRaisesRegexp(ValueError, "lat"):
+            with self.assertRaisesRegex(ValueError, "lat"):
                 Location(dp, lat=lat, lng=0, level=1)
 
         for lng in invalid_lng:
-            with self.assertRaisesRegexp(ValueError, "lng"):
+            with self.assertRaisesRegex(ValueError, "lng"):
                 Location(dp, lat=0, lng=lng, level=1)
 
         for level in invalid_level:
-            with self.assertRaisesRegexp(ValueError, "level"):
+            with self.assertRaisesRegex(ValueError, "level"):
                 Location(dp, lat=0, lng=0, level=level)
 
         too_long = "a" * (Location.max_description + 1)
 
-        with self.assertRaisesRegexp(ValueError, "too long"):
+        with self.assertRaisesRegex(ValueError, "too long"):
             Location(dp, lat=0, lng=0, level=1, description=too_long)

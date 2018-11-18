@@ -16,21 +16,21 @@ class VisitTestCase(C3BottlesTestCase):
 
         dp = DropPoint(1, lat=0, lng=0, level=1)
 
-        with self.assertRaisesRegexp(ValueError, "drop point"):
+        with self.assertRaisesRegex(ValueError, "drop point"):
             Visit(None)
 
-        with self.assertRaisesRegexp(ValueError, "action"):
+        with self.assertRaisesRegex(ValueError, "action"):
             Visit(dp)
 
         time_in_future = datetime.today() + timedelta(hours=1)
 
-        with self.assertRaisesRegexp(ValueError, "future"):
+        with self.assertRaisesRegex(ValueError, "future"):
             Visit(dp, time=time_in_future, action=actions[0])
 
-        with self.assertRaisesRegexp(ValueError, "not a datetime"):
+        with self.assertRaisesRegex(ValueError, "not a datetime"):
             Visit(dp, time="foo", action=actions[0])
 
-        with self.assertRaisesRegexp(ValueError, "action"):
+        with self.assertRaisesRegex(ValueError, "action"):
             Visit(dp, action="whatever")
 
     def test_construction(self):
