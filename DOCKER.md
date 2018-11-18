@@ -23,12 +23,12 @@ to start the database + the database webadmin (development)
 
 initialize the database
 
-```docker-compose run --rm web python3 /c3bottles/manage.py initdb```
+```docker-compose run --rm web /c3bottles/manage.py initdb```
 
 
 to create a user
 
-```docker-compose run web python3 /c3bottles/manage.py user create```
+```docker-compose run web /c3bottles/manage.py user create```
 
 
 to start the c3bottles software
