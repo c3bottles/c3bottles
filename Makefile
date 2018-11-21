@@ -17,3 +17,12 @@ pytest: venv
 
 coverage: venv
 	venv/bin/pytest --cov=c3bottles
+
+flake8: venv
+	venv/bin/flake8 c3bottles
+
+pycodestyle: venv
+	venv/bin/pycodestyle c3bottles
+
+pyline: venv
+	venv/bin/pylint c3bottles
