@@ -24,11 +24,20 @@ def faq():
 
 @c3bottles.route("/bottle/list")
 def dp_list_bottle():
-    return render_template("list.html",js_name="dp_list_js_bottle",title_name="Bottle Drop Points",maptype="dp_map_bottle",dp_type="drop_point")
+    return render_template(
+        "list.html",
+        js_name="dp_list_js_bottle", title_name="Bottle Drop Points",
+        maptype="dp_map_bottle", dp_type="drop_point"
+    )
+
 
 @c3bottles.route("/trash/list")
 def dp_list_trash():
-    return render_template("list.html",js_name="dp_list_js_trash",title_name="Trashcans",maptype="dp_map_trash",dp_type="trashcan")
+    return render_template(
+        "list.html",
+        js_name="dp_list_js_trash", title_name="Trashcans",
+        maptype="dp_map_trash", dp_type="trashcan"
+    )
 
 
 @c3bottles.route("/bottle/list.js")
@@ -39,6 +48,7 @@ def dp_list_js_bottle():
     ))
     resp.mimetype = "application/javascript"
     return resp
+
 
 @c3bottles.route("/tash/list.js")
 def dp_list_js_trash():
@@ -52,11 +62,18 @@ def dp_list_js_trash():
 
 @c3bottles.route("/bottle/map")
 def dp_map_bottle():
-    return render_template("map.html",js_name="dp_map_js_bottle",dp_type="drop_point")
+    return render_template(
+        "map.html",
+        js_name="dp_map_js_bottle", dp_type="drop_point"
+    )
+
 
 @c3bottles.route("/trash/map")
 def dp_map_trash():
-    return render_template("map.html",js_name="dp_map_js_trash",db_type="trashcan")
+    return render_template(
+        "map.html",
+        js_name="dp_map_js_trash", db_type="trashcan"
+    )
 
 
 @c3bottles.route("/bottle/map.js")
@@ -136,6 +153,7 @@ def dp_all_labels_bottle():
         mimetype="application/pdf"
     )
 
+
 @c3bottles.route("/label/all.pdf")
 def dp_all_labels():
     output = PdfFileWriter()
@@ -147,6 +165,7 @@ def dp_all_labels():
         f.getvalue(),
         mimetype="application/pdf"
     )
+
 
 @c3bottles.route("/trash/label/all.pdf")
 def dp_all_labels_trash():
@@ -161,8 +180,6 @@ def dp_all_labels_trash():
     )
 
 
-
-
 def _pdf(number, type):
     img = qrcode.make(request.url_root + str(number))
     f = BytesIO()
@@ -173,4 +190,3 @@ def _pdf(number, type):
         return svg2pdf(render_template("empty34c3.svg", number=number, qr=b64))
     else:
         return svg2pdf(render_template("empty34c3_trash.svg", number=number, qr=b64))
-

@@ -24,7 +24,8 @@ def create(type=None, lat=None, lng=None, level=None, description=None, errors=N
         level = int(request.form.get("level"))
         type = request.form.get("type") or "drop_point"
         try:
-            DropPoint(type=type,
+            DropPoint(
+                type=type,
                 number=number, description=description, lat=lat,
                 lng=lng, level=level
             )
@@ -57,7 +58,6 @@ def create(type=None, lat=None, lng=None, level=None, description=None, errors=N
         error_list=error_list,
         error_fields=error_fields,
     )
-
 
 
 @c3bottles.route("/create.js/<level>/<float:lat>/<float:lng>")
