@@ -6,6 +6,7 @@ services:
      - ./config.py:/c3bottles/config.py
     ports:
      - "5000:5000"
+     - 9567:9567
 
   db:
     image: postgres:11-alpine

@@ -18,3 +18,4 @@ qrcode>=5.3
 werkzeug>=0.12.2
 psycopg2-binary
 gunicorn
+prometheus_client

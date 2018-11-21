@@ -20,5 +20,6 @@ COPY --from=builder /usr/lib/libsasl2.so.3 /usr/lib/libsasl2.so.3
 COPY --from=builder /c3bottles /c3bottles
 WORKDIR /c3bottles
 EXPOSE 5000
+EXPOSE 9567
 ENTRYPOINT ["/c3bottles/entrypoint.sh"]
 CMD gunicorn -b 0.0.0.0:5000 wsgi
