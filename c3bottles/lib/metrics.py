@@ -7,11 +7,22 @@ from . import stats_obj
 
 
 drop_point_count = Gauge(
-    "c3bottles_drop_point_count", "c3bottles dropoints"
+    "c3bottles_drop_point_count", "c3bottles total nmumber of drop points"
 )
 
 drop_point_count.set_function(lambda: stats_obj.drop_point_count)
 
+report_count = Gauge(
+    "c3bottles_report_count", "c3bottles total number of reports"
+)
+
+report_count.set_function(lambda: stats_obj.report_count)
+
+visit_count = Gauge(
+    "c3bottles_visit_count", "c3bottles total number of visits"
+)
+
+visit_count.set_function(lambda: stats_obj.visit_count)
 
 request_latency = Histogram(
     "c3bottles_request_latency_seconds", "c3bottles Request Latency", ["method", "endpoint"]
