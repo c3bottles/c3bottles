@@ -2,8 +2,6 @@ from flask import render_template, request, g, abort, make_response
 from flask_login import login_required
 
 from .. import c3bottles, db
-
-from c3bottles.metrics import drop_point_count
 from ..model.drop_point import DropPoint
 
 

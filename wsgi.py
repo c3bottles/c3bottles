@@ -9,9 +9,9 @@ import os
 sys.path.insert(0, os.path.dirname(os.path.realpath(__file__)))
 
 from c3bottles import c3bottles
+from c3bottles.lib import monitor
+
 
 application = c3bottles
-
-from c3bottles.metrics import monitor
 
 monitor(c3bottles)

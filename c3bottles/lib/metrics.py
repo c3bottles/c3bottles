@@ -3,15 +3,15 @@ from time import time
 
 from flask import request
 
+from . import stats_obj
 
-from c3bottles.views.statistics import Statistics
 
 drop_point_count = Gauge(
     "c3bottles_drop_point_count", "c3bottles dropoints"
 )
 def get_count():
     try:
-        return Statistics().drop_point_count
+        return stats_obj.drop_point_count
     except:
         return 0
 
