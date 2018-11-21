@@ -9,13 +9,8 @@ from . import stats_obj
 drop_point_count = Gauge(
     "c3bottles_drop_point_count", "c3bottles dropoints"
 )
-def get_count():
-    try:
-        return stats_obj.drop_point_count
-    except:
-        return 0
 
-drop_point_count.set_function(get_count)
+drop_point_count.set_function(lambda: stats_obj.drop_point_count)
 
 
 request_latency = Histogram(
