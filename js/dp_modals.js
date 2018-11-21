@@ -178,6 +178,8 @@ global.show_dp_modal = function(num, pane) {
   for (const key in details) {
     $(`.modal_dp_${key}`).text(details[key]);
   }
+  $('.dp-label').addClass('hidden');
+  $(`.dp-label.${drop_points[num].last_state}`).removeClass('hidden');
   if (details.type === 'trashcan') {
     $('.modal_dp-title').text(gettext('Trashcan'));
     $('#dp_modal_visit_link').hide();

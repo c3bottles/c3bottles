@@ -1,10 +1,23 @@
 {% extends "dp_modals.html" %}
 {% block details_tab %}
 <table class="table table-bordered">
-	<tr>
+    <tr>
+        <td>{{ _("Current state:") }}</td>
+        <td>
+            <span class="label label-danger hidden dp-label OVERFLOW">{{ _("Overflowing") }}</span>
+            <span class="label label-warning hidden dp-label FULL">{{ _("Full") }}</span>
+            <span class="label label-info hidden dp-label REASONABLY_FULL">{{ _("Reasonably full") }}</span>
+            <span class="label label-primary hidden dp-label SOME_BOTTLES">{{ _("Some bottles") }}</span>
+            <span class="label label-success hidden dp-label EMPTY">{{ _("Empty") }}</span>
+            <span class="label label-default hidden dp-label NEW">{{ _("New") }}</span>
+            <span class="label label-danger hidden dp-label NO_CRATES">{{ _("No crates") }}</span>
+            <span class="label label-unknown hidden dp-label UNKNOWN">{{ _("Unknown") }}</span>
+        </td>
+    </tr>
+    <tr>
         <td>{{ _("Current location:") }}</td>
         <td><span class="modal_dp_description"></span> {{ _("on level") }} <span class="modal_dp_level"></span></td>
-	</tr>
+    </tr>
     <tr>
         <td>{{ _("Visit priority:") }}</td>
         <td class="modal_dp_priority"></td>
