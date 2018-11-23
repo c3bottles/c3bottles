@@ -100,8 +100,8 @@ const LevelControl = L.Control.extend({
     e.preventDefault();
     e.stopPropagation();
     this.setLevel(e.target.level);
+    current_level = e.target.level - 7;
     if (typeof update_hash === 'function') {
-      current_level = e.target.level - 7;
       update_hash();
     }
     redraw_markers();

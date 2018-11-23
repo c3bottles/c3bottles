@@ -97,13 +97,12 @@ def edit_dp(number=None, errors=None):
     )
 
 
-@c3bottles.route("/edit.js/<string:lat>/<string:lng>")
-def edit_dp_js(lat, lng):
+@c3bottles.route("/edit.js/<string:number>")
+def edit_dp_js(number):
     resp = make_response(render_template(
         "js/edit_dp.js",
         all_dps_json=DropPoint.get_dps_json(),
-        lat=float(lat),
-        lng=float(lng),
+        dp=DropPoint.get(number)
     ))
     resp.mimetype = "application/javascript"
     return resp
