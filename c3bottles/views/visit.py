@@ -21,7 +21,7 @@ def visit(number=None):
         return render_template(
             "error.html",
             heading=lazy_gettext("Error!"),
-            text=lazy_gettext("Point not found."),
+            text=lazy_gettext("Drop point not found."),
         )
 
     action = request.values.get("maintenance")
@@ -41,7 +41,7 @@ def visit(number=None):
             db.session.commit()
             return render_template(
                 "success.html",
-                heading=lazy_Gettext("Thank you!"),
+                heading=lazy_gettext("Thank you!"),
                 text=lazy_gettext("Your visit has been processed successfully."),
                 back="{}#{}/{}/{}/3".format(url_for("dp_map"), dp.level, dp.lat, dp.lng)
             )
