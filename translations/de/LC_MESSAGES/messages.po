@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: c3bottles\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2017-12-17 19:04+0100\n"
-"PO-Revision-Date: 2017-12-17 19:05+0100\n"
+"POT-Creation-Date: 2018-11-23 22:21+0100\n"
+"PO-Revision-Date: 2018-11-23 22:22+0100\n"
 "Last-Translator: MichiK <michik@michik.net>\n"
 "Language: de\n"
 "Language-Team: \n"
@@ -11,88 +11,88 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.5.1\n"
-"X-Generator: Poedit 2.0.5\n"
+"Generated-By: Babel 2.6.0\n"
+"X-Generator: Poedit 2.2\n"
 
-#: c3bottles/model/drop_point.py:83
+#: c3bottles/model/drop_point.py:66
 msgid "Drop point number is not a number."
 msgstr "Drop-Point-Nummer ist keine Zahl."
 
-#: c3bottles/model/drop_point.py:88
+#: c3bottles/model/drop_point.py:71
 msgid "Drop point number is not positive."
 msgstr "Drop-Point-Nummer ist nicht positiv."
 
-#: c3bottles/model/drop_point.py:93
+#: c3bottles/model/drop_point.py:76
 msgid "That drop point already exists."
 msgstr "Dieser Drop Point existiert bereits."
 
-#: c3bottles/model/drop_point.py:98
+#: c3bottles/model/drop_point.py:81
 msgid "Creation time not a datetime object."
 msgstr "Zeit der Erstellung ist kein datetime-Objekt."
 
-#: c3bottles/model/drop_point.py:103
+#: c3bottles/model/drop_point.py:86
 msgid "Creation time in the future."
 msgstr "Zeit der Erstellung liegt in der Zukunft."
 
-#: c3bottles/model/drop_point.py:137
+#: c3bottles/model/drop_point.py:120
 msgid "Drop point already removed."
 msgstr "Der Drop Point wurde bereits entfernt."
 
-#: c3bottles/model/drop_point.py:142
+#: c3bottles/model/drop_point.py:125
 msgid "Removal time not a datetime object."
 msgstr "Zeit der Entfernung ist kein datetime-Objekt."
 
-#: c3bottles/model/drop_point.py:147
+#: c3bottles/model/drop_point.py:130
 msgid "Removal time in the future."
 msgstr "Zeit der Entfernung liegt in der Zukunft."
 
-#: c3bottles/model/location.py:59 c3bottles/model/report.py:57
-#: c3bottles/model/visit.py:53
+#: c3bottles/model/location.py:60 c3bottles/model/report.py:58
+#: c3bottles/model/visit.py:54
 msgid "Not given a drop point object."
 msgstr "Kein Drop Point Objekt übergeben."
 
-#: c3bottles/model/location.py:67
+#: c3bottles/model/location.py:68
 msgid "Start time not a datetime object."
 msgstr "Startzeit ist kein datetime-Objekt."
 
-#: c3bottles/model/location.py:72 c3bottles/model/report.py:72
-#: c3bottles/model/visit.py:68
+#: c3bottles/model/location.py:73 c3bottles/model/report.py:73
+#: c3bottles/model/visit.py:69
 msgid "Start time in the future."
 msgstr "Startzeit liegt in der Zukunft."
 
-#: c3bottles/model/location.py:78
+#: c3bottles/model/location.py:79
 msgid "Location older than current."
 msgstr "Ort älter als der aktuelle Ort."
 
-#: c3bottles/model/location.py:87
+#: c3bottles/model/location.py:88
 msgid "Latitude is not a floating point number."
 msgstr "Breitengrad ist keine Zahl."
 
-#: c3bottles/model/location.py:94
+#: c3bottles/model/location.py:95
 msgid "Longitude is not a floating point number."
 msgstr "Längengrad ist keine Zahl."
 
-#: c3bottles/model/location.py:101
+#: c3bottles/model/location.py:102
 msgid "Level is not a number."
 msgstr "Ebene ist keine Zahl."
 
-#: c3bottles/model/location.py:108
+#: c3bottles/model/location.py:109
 msgid "Location description is not a string."
 msgstr "Ortsbeschreibung ist kein String."
 
-#: c3bottles/model/location.py:113
+#: c3bottles/model/location.py:114
 msgid "Location description is too long."
 msgstr "Ortsbeschreiung ist zu lang."
 
-#: c3bottles/model/report.py:62 c3bottles/model/visit.py:58
+#: c3bottles/model/report.py:63 c3bottles/model/visit.py:59
 msgid "Drop point has been removed."
 msgstr "Drop Point wurde entfernt."
 
-#: c3bottles/model/report.py:67 c3bottles/model/visit.py:63
+#: c3bottles/model/report.py:68 c3bottles/model/visit.py:64
 msgid "Time not a datetime object."
 msgstr "Zeit ist nicht ein datetime-Objekt."
 
-#: c3bottles/model/report.py:81
+#: c3bottles/model/report.py:82
 msgid "Invalid or missing reported state."
 msgstr "Ungültiger oder fehlender Status."
 
@@ -112,14 +112,30 @@ msgstr "Der Benutzername ist zu lang."
 msgid "Password hashing failed."
 msgstr "Berechnen der Passwort-Prüfsumme fehlgeschlagen."
 
-#: c3bottles/model/user.py:128 templates/macros/actions.html:6
-#: templates/macros/states.html:19
+#: c3bottles/model/user.py:128 templates/dp_modals.html:44
+#: templates/macros/actions.html:6 templates/macros/states.html:19
 msgid "Unknown"
 msgstr "Unbekannt"
 
-#: c3bottles/model/visit.py:77
+#: c3bottles/model/visit.py:78
 msgid "Invalid or missing maintenance action."
 msgstr "Ungültige oder fehlende Wartungsaktion."
+
+#: c3bottles/views/create.py:37
+msgid "Your drop point has been created successfully."
+msgstr "Der Drop Point wurde erfolgreich erstellt."
+
+#: c3bottles/views/edit.py:28
+msgid "Error!"
+msgstr "Fehler!"
+
+#: c3bottles/views/edit.py:29
+msgid "Drop point not found."
+msgstr "Drop Point nicht gefunden."
+
+#: c3bottles/views/edit.py:65
+msgid "Your changes have been saved successfully."
+msgstr "Die Änderungen wurden erfolgreich gespeichert."
 
 #: c3bottles/views/user.py:39
 msgid "Login failed!"
@@ -129,35 +145,36 @@ msgstr "Fehler beim Einloggen!"
 msgid "Wrong user name or password."
 msgstr "Falscher Benutzername oder falsches Passwort."
 
-#: templates/create_dp.html:2
+#: templates/create.html:2
 msgid "Create a New Bottle Drop Point"
 msgstr "Neuen Drop Point erstellen"
 
-#: templates/create_dp.html:11
+#: templates/create.html:11 templates/edit_dp.html:11
 msgid "An error occurred!"
 msgstr "Es ist ein Fehler aufgetreten!"
 
-#: templates/create_dp.html:23
+#: templates/create.html:23
 msgid "1. Select the position of the new drop point on the map"
 msgstr "1. Position des neuen Drop Points auf der Karte wählen"
 
-#: templates/create_dp.html:28
+#: templates/create.html:28
 msgid "2. Enter the details of your newly created drop point"
 msgstr "2. Details des neuen Drop Points angeben"
 
-#: templates/create_dp.html:35 templates/create_dp.html:38 templates/edit_dp.html:35
+#: templates/create.html:35 templates/create.html:38 templates/edit_dp.html:35
+#: templates/edit_dp.html:37 templates/list.html:18
 msgid "Level"
 msgstr "Ebene"
 
-#: templates/create_dp.html:42 templates/edit_dp.html:70 templates/list.html:17
+#: templates/create.html:42 templates/edit_dp.html:41 templates/list.html:17
 msgid "Location"
 msgstr "Ort"
 
-#: templates/create_dp.html:48 templates/edit_dp.html:76
+#: templates/create.html:48 templates/edit_dp.html:47
 msgid "Drop point number"
 msgstr "Drop-Point-Nummer"
 
-#: templates/create_dp.html:55
+#: templates/create.html:55
 msgid "Create drop point"
 msgstr "Drop Point erstellen"
 
@@ -177,36 +194,54 @@ msgstr "Melden"
 msgid "Visit"
 msgstr "Besuchen"
 
-#: templates/dp_modals.html:36 templates/dp_modals_list.html:6
-#: templates/dp_modals_map.html:9 templates/view.html:20
+#: templates/dp_modals.html:35 templates/view.html:16
+msgid "Current state:"
+msgstr "Aktueller Status:"
+
+#: templates/dp_modals.html:37 templates/macros/states.html:12
+msgid "Overflowing"
+msgstr "Überfüllt"
+
+#: templates/dp_modals.html:38 templates/macros/states.html:13
+msgid "Full"
+msgstr "Voll"
+
+#: templates/dp_modals.html:39 templates/macros/states.html:14
+msgid "Reasonably full"
+msgstr "Gut gefüllt"
+
+#: templates/dp_modals.html:40 templates/macros/states.html:15
+msgid "Some bottles"
+msgstr "Einige Flaschen"
+
+#: templates/dp_modals.html:41 templates/macros/states.html:16
+msgid "Empty"
+msgstr "Leer"
+
+#: templates/dp_modals.html:42 templates/macros/states.html:17
+msgid "New"
+msgstr "Neu"
+
+#: templates/dp_modals.html:43 templates/macros/states.html:18
+msgid "No crates"
+msgstr "Keine Kisten"
+
+#: templates/dp_modals.html:48 templates/view.html:20
 msgid "Visit priority:"
 msgstr "Besuchspriorität:"
 
-#: templates/dp_modals.html:43 templates/dp_modals_list.html:14
-#: templates/dp_modals_map.html:16
-msgid "View more details"
-msgstr "Mehr Details anzeigen"
+#: templates/dp_modals_list.html:6 templates/dp_modals_map.html:5
+msgid "More details"
+msgstr "Mehr Details"
 
-#: templates/dp_modals_list.html:18
-msgid "Show on map"
-msgstr "Auf Karte zeigen"
-
-#: templates/dp_modals_map.html:5 templates/view.html:18
-msgid "Current location:"
-msgstr "Aktueller Ort:"
-
-#: templates/dp_modals_map.html:6
-msgid "on level"
-msgstr "auf Ebene"
+#: templates/dp_modals_list.html:9 templates/navbar.html:21
+msgid "Map"
+msgstr "Karte"
 
 #: templates/edit_dp.html:2
 #, python-format
 msgid "Edit Drop Point %(number)i"
 msgstr "Drop Point %(number)i bearbeiten"
-
-#: templates/edit_dp.html:11
-msgid "An error occured!"
-msgstr "Es ist ein Fehler aufgetreten!"
 
 #: templates/edit_dp.html:23
 msgid "Change the position by dragging the black marker on the map:"
@@ -216,31 +251,11 @@ msgstr "Position ändern durch Bewegen des schwarzen Markers:"
 msgid "Change the details of the drop point:"
 msgstr "Details des Drop Points bearbeiten:"
 
-#: templates/edit_dp.html:40
-msgid "Ground floor (Lobby, Hackcenter)"
-msgstr "Erdgeschoss (Lobby, Hackcenter)"
-
-#: templates/edit_dp.html:46
-msgid "1st floor (Heaven, Hackcenter)"
-msgstr "1. Stock (Himmel, Hackcenter)"
-
-#: templates/edit_dp.html:52
-msgid "2nd floor (HF1/2/G)"
-msgstr "2. Stock (HF1/2/G)"
-
-#: templates/edit_dp.html:58
-msgid "3rd floor (ZF1/2)"
-msgstr "3. Stock (ZF1/2)"
-
-#: templates/edit_dp.html:64
-msgid "4th floor (RF1/2)"
-msgstr "4. Stock (RF1/2)"
-
-#: templates/edit_dp.html:86
+#: templates/edit_dp.html:57
 msgid "Remove drop point"
 msgstr "Drop Point entfernen"
 
-#: templates/edit_dp.html:93
+#: templates/edit_dp.html:64
 msgid "Submit changes"
 msgstr "Änderungen speichern"
 
@@ -248,7 +263,7 @@ msgstr "Änderungen speichern"
 msgid "Error"
 msgstr "Fehler"
 
-#: templates/error.html:17 templates/js/l10n.js:4
+#: templates/error.html:17 templates/js/l10n.js:5
 msgid "Oh no!"
 msgstr "Oh nein!"
 
@@ -787,22 +802,22 @@ msgid "To the FAQ"
 msgstr "Zur FAQ"
 
 #: templates/list.html:2
-msgid "List of Bottle Drop Points"
-msgstr "Liste von Bottle Drop Points"
+msgid "Drop Point List"
+msgstr "Liste von Drop Points"
 
 #: templates/list.html:16
 msgid "Number"
 msgstr "Nummer"
 
-#: templates/list.html:18
+#: templates/list.html:19
 msgid "Last state"
 msgstr "Letzter Status"
 
-#: templates/list.html:22
+#: templates/list.html:23
 msgid "Priority"
 msgstr "Priorität"
 
-#: templates/list.html:23
+#: templates/list.html:24
 msgid "Reports"
 msgstr "Berichte"
 
@@ -817,10 +832,6 @@ msgstr "Navigation ein-/ausschalten"
 #: templates/navbar.html:20
 msgid "List"
 msgstr "Liste"
-
-#: templates/navbar.html:21
-msgid "Map"
-msgstr "Karte"
 
 #: templates/navbar.html:22 templates/statistics.html:3
 msgid "Numbers"
@@ -851,10 +862,6 @@ msgid "Language"
 msgstr "Sprache"
 
 #: templates/report.html:2
-msgid "Report Drop Point"
-msgstr "Drop Point melden"
-
-#: templates/report.html:5
 #, python-format
 msgid "Report Drop Point %(number)i"
 msgstr "Drop Point %(number)i melden"
@@ -937,7 +944,7 @@ msgstr ""
 msgid "Success"
 msgstr "Erfolg"
 
-#: templates/success.html:17
+#: templates/success.html:22
 msgid "Success!"
 msgstr "Erfolg!"
 
@@ -946,9 +953,9 @@ msgstr "Erfolg!"
 msgid "Details of Drop Point %(number)i"
 msgstr "Details von Drop Point %(number)i"
 
-#: templates/view.html:16
-msgid "Current state:"
-msgstr "Aktueller Status:"
+#: templates/view.html:18
+msgid "Current location:"
+msgstr "Aktueller Ort:"
 
 #: templates/view.html:19 templates/view.html:65
 #, python-format
@@ -1008,10 +1015,6 @@ msgid "Drop point marked as removed"
 msgstr "Drop Point als entfernt markiert"
 
 #: templates/visit.html:2
-msgid "Visit Drop Point"
-msgstr "Drop Point besuchen"
-
-#: templates/visit.html:5
 #, python-format
 msgid "Visit Drop Point %(number)i"
 msgstr "Drop Point %(number)i besuchen"
@@ -1049,35 +1052,35 @@ msgid ""
 msgstr ""
 "Bitte logge dich als Flaschensammler ein, um Besuche von Drop Points zu loggen."
 
-#: templates/js/l10n.js:2
+#: templates/js/l10n.js:3
 msgid "Thank you!"
 msgstr "Danke!"
 
-#: templates/js/l10n.js:3
+#: templates/js/l10n.js:4
 msgid "Your report has been received successfully."
 msgstr "Der Bericht wurde erfolgreich gespeichert."
 
-#: templates/js/l10n.js:5
+#: templates/js/l10n.js:6
 msgid "An error occurred while processing your report: "
 msgstr "Beim Verarbeiten des Berichts ist ein Fehler aufgetreten: "
 
-#: templates/js/l10n.js:6
+#: templates/js/l10n.js:7
 msgid "Your visit has been logged successfully."
 msgstr "Der Besuch wurde erfolgreich gespeichert."
 
-#: templates/js/l10n.js:7
+#: templates/js/l10n.js:8
 msgid "An error occurred while processing your visit: "
 msgstr "Beim Verarbeiten des Besuchs ist ein Fehler aufgetreten: "
 
-#: templates/js/l10n.js:8
+#: templates/js/l10n.js:9
 msgid "Sorry, the minimum value was reached."
 msgstr "Das Minimum wurde erreicht."
 
-#: templates/js/l10n.js:9
+#: templates/js/l10n.js:10
 msgid "Sorry, the maximum value was reached."
 msgstr "Das Maximum wurde erreicht."
 
-#: templates/js/l10n.js:10
+#: templates/js/l10n.js:11
 msgid "Create a new drop point"
 msgstr "Drop Point erstellen"
 
@@ -1096,61 +1099,3 @@ msgstr "Geleert"
 #: templates/macros/actions.html:5
 msgid "No action"
 msgstr "Keine Aktion"
-
-#: templates/macros/states.html:12
-msgid "Overflowing"
-msgstr "Überfüllt"
-
-#: templates/macros/states.html:13
-msgid "Full"
-msgstr "Voll"
-
-#: templates/macros/states.html:14
-msgid "Reasonably full"
-msgstr "Gut gefüllt"
-
-#: templates/macros/states.html:15
-msgid "Some bottles"
-msgstr "Einige Flaschen"
-
-#: templates/macros/states.html:16
-msgid "Empty"
-msgstr "Leer"
-
-#: templates/macros/states.html:17
-msgid "New"
-msgstr "Neu"
-
-#: templates/macros/states.html:18
-msgid "No crates"
-msgstr "Keine Kisten"
-
-#~ msgid "User not found."
-#~ msgstr "Benutzer nicht gefunden."
-
-#~ msgid "Error!"
-#~ msgstr "Fehler!"
-
-#~ msgid ""
-#~ "The coordinates given were invalid. Pleae choose a new position from the map."
-#~ msgstr ""
-#~ "Die angegebenen Koordinaten sind ungültig. Bitte eine gültige Position auf der "
-#~ "Karte auswählen."
-
-#~ msgid "Latitude is not between 90 degrees N/S."
-#~ msgstr "Breitengrad ist nicht zwischen -90 und +90 Grad."
-
-#~ msgid "Longitude is not between 180 degrees W/E."
-#~ msgstr "Längengrad ist nicht zwischen -180 und +180 Grad."
-
-#~ msgid "The drop point has been created successfully."
-#~ msgstr "Der Drop Point wurde erfolgreich erstellt."
-
-#~ msgid "Create another drop point"
-#~ msgstr "Einen weiteren Drop Point erstellen"
-
-#~ msgid "Finish drop point creation"
-#~ msgstr "Erstellung abschließen"
-
-#~ msgid "You are logged in as %(user)s"
-#~ msgstr "Du bist eingeloggt als %(user)s"

@@ -1,4 +1,5 @@
 from flask import render_template, request, g, abort, make_response
+from flask_babel import lazy_gettext
 from flask_login import login_required
 
 from .. import c3bottles, db
@@ -33,7 +34,7 @@ def create_dp(lat=None, lng=None, level=None, description=None, errors=None):
             db.session.commit()
             return render_template(
                 "success.html",
-                text="Your drop point has been created successfully."
+                text=lazy_gettext("Your drop point has been created successfully.")
             )
     else:
         number = DropPoint.get_next_free_number()

@@ -1,5 +1,6 @@
 from datetime import datetime
 from flask import render_template, request, g, abort, make_response
+from flask_babel import lazy_gettext
 from flask_login import login_required
 
 from .. import c3bottles, db
@@ -24,8 +25,8 @@ def edit_dp(number=None, errors=None):
     if not dp:
         return render_template(
             "error.html",
-            heading="Error!",
-            text="Drop point not found."
+            heading=lazy_gettext("Error!"),
+            text=lazy_gettext("Drop point not found.")
         )
 
     description_old = str(dp.get_current_location().description)
@@ -61,7 +62,7 @@ def edit_dp(number=None, errors=None):
             db.session.commit()
             return render_template(
                     "success.html",
-                    text="Your changes have been saved."
+                    text=lazy_gettext("Your changes have been saved successfully.")
                 )
 
     else:
