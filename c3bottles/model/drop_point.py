@@ -29,31 +29,12 @@ class DropPoint(db.Model):
     saved in the table of drop points but rather a class itself.
     """
 
-    number = db.Column(
-        db.Integer,
-        primary_key=True,
-        autoincrement=False)
-
+    number = db.Column(db.Integer, primary_key=True, autoincrement=False)
     time = db.Column(db.DateTime)
-
     removed = db.Column(db.DateTime)
-
-    locations = db.relationship(
-        "Location",
-        order_by="Location.time"
-    )
-
-    reports = db.relationship(
-        "Report",
-        lazy="dynamic"
-    )
-
-    visits = db.relationship(
-        "Visit",
-        lazy="dynamic"
-    )
-
-    type = db.Column(db.Text, default="drop_point")
+    locations = db.relationship("Location", order_by="Location.time")
+    reports = db.relationship("Report", lazy="dynamic")
+    visits = db.relationship("Visit", lazy="dynamic")
 
     def __init__(
             self,
@@ -63,7 +44,6 @@ class DropPoint(db.Model):
             lng=None,
             level=None,
             time=None,
-            type=None
     ):
         """
         Create a new drop point object.
@@ -95,8 +75,6 @@ class DropPoint(db.Model):
                     errors.append({
                         "number": _("That drop point already exists.")
                     })
-
-        self.type = type
 
         if time and not isinstance(time, datetime):
             errors.append({
@@ -166,11 +144,6 @@ class DropPoint(db.Model):
         """
         Visit(self, time=time, action=action)
 
-    def get_typename(self):
-        if self.type == 'trashcan':
-            return "Trashcan"
-        return "Drop Point"
-
     def get_current_location(self):
         """
         Get the current location of a drop point, if it has been set.
@@ -191,9 +164,9 @@ class DropPoint(db.Model):
         """
         last_visit = self.get_last_visit()
         if last_visit:
-            return self.reports. \
-                filter(Report.time > last_visit.time). \
-                count()
+            return self.reports \
+                .filter(Report.time > last_visit.time) \
+                .count()
         else:
             return self.get_total_report_count()
 
@@ -220,10 +193,10 @@ class DropPoint(db.Model):
 
         if last_report is not None and last_visit is not None:
             if last_visit.time > last_report.time:
-                visits = self.visits. \
-                    filter(Visit.time > last_report.time). \
-                    order_by(Visit.time.desc()). \
-                    all()
+                visits = self.visits \
+                    .filter(Visit.time > last_report.time) \
+                    .order_by(Visit.time.desc()) \
+                    .all()
                 for visit in visits:
                     if visit.action == Visit.actions[0]:
                         return Report.states[-1]
@@ -261,10 +234,10 @@ class DropPoint(db.Model):
         """
         last_visit = self.get_last_visit()
         if last_visit:
-            return self.reports. \
-                filter(Report.time > last_visit.time). \
-                order_by(Report.time.desc()). \
-                all()
+            return self.reports \
+                .filter(Report.time > last_visit.time) \
+                .order_by(Report.time.desc()) \
+                .all()
         else:
             return self.reports.order_by(Report.time.desc()).all()
 
@@ -272,33 +245,18 @@ class DropPoint(db.Model):
         history = []
 
         for visit in self.visits.all():
-            history.append({
-                "time": visit.time,
-                "visit": visit
-            })
+            history.append({"time": visit.time, "visit": visit})
 
         for report in self.reports.all():
-            history.append({
-                "time": report.time,
-                "report": report
-            })
+            history.append({"time": report.time, "report": report})
 
         for location in self.locations:
-            history.append({
-                "time": location.time,
-                "location": location
-            })
+            history.append({"time": location.time, "location": location})
 
-        history.append({
-            "time": self.time,
-            "drop_point": self
-        })
+        history.append({"time": self.time, "drop_point": self})
 
         if self.removed:
-            history.append({
-                "time": self.removed,
-                "removed": True
-            })
+            history.append({"time": self.removed, "removed": True})
 
         return sorted(history, key=lambda k: k["time"], reverse=True)
 
@@ -384,7 +342,6 @@ class DropPoint(db.Model):
         if dp is not None:
             return {
                 "number": dp.number,
-                "type": dp.type,
                 "description": dp.get_current_location().description,
                 "reports_total": dp.get_total_report_count(),
                 "reports_new": dp.get_new_report_count(),
@@ -414,7 +371,7 @@ class DropPoint(db.Model):
         )
 
     @staticmethod
-    def get_dps_json(type, time=None):
+    def get_dps_json(time=None):
         """
         Get drop points as a JSON string.
 
@@ -424,11 +381,11 @@ class DropPoint(db.Model):
         """
 
         if time is None:
-            dps = db.session.query(DropPoint).filter(DropPoint.type == type).all()
+            dps = db.session.query(DropPoint).all()
         else:
             dp_set = set()
             dp_set.update(
-                [dp for dp in DropPoint.query.filter(DropPoint.time > time and DropPoint.type == type).all()],
+                [dp for dp in DropPoint.query.filter(DropPoint.time > time).all()],
                 [l.dp for l in Location.query.filter(Location.time > time).all()],
                 [v.dp for v in Visit.query.filter(Visit.time > time).all()],
                 [r.dp for r in Report.query.filter(Report.time > time).all()]

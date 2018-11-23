@@ -180,13 +180,6 @@ global.show_dp_modal = function(num, pane) {
   }
   $('.dp-label').addClass('hidden');
   $(`.dp-label.${drop_points[num].last_state}`).removeClass('hidden');
-  if (details.type === 'trashcan') {
-    $('.modal_dp-title').text(gettext('Trashcan'));
-    $('#dp_modal_visit_link').hide();
-  } else {
-    $('.modal_dp-title').text(gettext('Drop Point'));
-    $('#dp_modal_visit_link').show();
-  }
   const links = $('.modal_dp_link');
 
   for (let i = 0; i < links.length; i++) {

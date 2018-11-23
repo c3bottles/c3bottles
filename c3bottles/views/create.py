@@ -12,7 +12,7 @@ from ..model.drop_point import DropPoint
     methods=("GET", "POST")
 )
 @login_required
-def create(type=None, lat=None, lng=None, level=None, description=None, errors=None):
+def create_dp(lat=None, lng=None, level=None, description=None, errors=None):
     if not g.user.can_edit:
         abort(401)
 
@@ -22,10 +22,8 @@ def create(type=None, lat=None, lng=None, level=None, description=None, errors=N
         lat = float(request.form.get("lat"))
         lng = float(request.form.get("lng"))
         level = int(request.form.get("level"))
-        type = request.form.get("type") or "drop_point"
         try:
             DropPoint(
-                type=type,
                 number=number, description=description, lat=lat,
                 lng=lng, level=level
             )
@@ -49,7 +47,6 @@ def create(type=None, lat=None, lng=None, level=None, description=None, errors=N
 
     return render_template(
         "create.html",
-        type=type,
         number=number,
         lat=lat,
         lng=lng,
@@ -64,7 +61,7 @@ def create(type=None, lat=None, lng=None, level=None, description=None, errors=N
 def create_dp_js(level, lat, lng):
     resp = make_response(render_template(
         "js/create_dp.js",
-        all_dps_json=DropPoint.get_dps_json(type="drop_point"),
+        all_dps_json=DropPoint.get_dps_json(),
         level=int(level),
         lat=lat,
         lng=lng

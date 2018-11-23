@@ -152,10 +152,7 @@ global.init_map = function() {
   redraw_marker();
 };
 
-global.get_icon = function(type, pointtype) {
-  if (pointtype === 'trashcan') {
-    type += '_TRASH';
-  }
+global.get_icon = function(type) {
   const size = 12;
   let zoom = 6 - (map.getMaxZoom() - map.getZoom());
 
@@ -245,7 +242,7 @@ global.draw_marker = function(num) {
       },
       pointToLayer(feature, latlng) {
         const marker = L.marker(latlng, {
-          icon: get_icon(feature.properties.last_state, drop_points[num].type),
+          icon: get_icon(feature.properties.last_state),
         });
 
         marker.on('click', e => {

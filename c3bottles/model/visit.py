@@ -8,7 +8,8 @@ from . import drop_point
 
 
 class Visit(db.Model):
-    """A maintenance visit of bottle collectors at a drop point.
+    """
+    A maintenance visit of bottle collectors at a drop point.
 
     After a report of a problem with a certain drop point has been
     generated or a drop point has not been visited for a long time, the

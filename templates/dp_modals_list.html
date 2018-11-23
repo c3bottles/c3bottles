@@ -1,35 +1,12 @@
 {% extends "dp_modals.html" %}
-{% block details_tab %}
-<p>
-<table class="table table-bordered">
-    <tr>
-        <td>{{ _("Current state:") }}</td>
-        <td>
-            <span class="label label-danger hidden dp-label OVERFLOW">{{ _("Overflowing") }}</span>
-            <span class="label label-warning hidden dp-label FULL">{{ _("Full") }}</span>
-            <span class="label label-info hidden dp-label REASONABLY_FULL">{{ _("Reasonably full") }}</span>
-            <span class="label label-primary hidden dp-label SOME_BOTTLES">{{ _("Some bottles") }}</span>
-            <span class="label label-success hidden dp-label EMPTY">{{ _("Empty") }}</span>
-            <span class="label label-default hidden dp-label NEW">{{ _("New") }}</span>
-            <span class="label label-danger hidden dp-label NO_CRATES">{{ _("No crates") }}</span>
-            <span class="label label-unknown hidden dp-label UNKNOWN">{{ _("Unknown") }}</span>
-        </td>
-    </tr>
-    <tr>
-        <td>{{ _("Visit priority:") }}</td>
-        <td class="modal_dp_priority"></td>
-    </tr>
-</table>
+{% block details_tab_buttons %}
 <div class="text-center">
     <div class="btn-group">
-        <a class="btn btn-default modal_dp_link"
-           data-baseurl="{{ url_for("dp_view") }}">
-            {{ _("View more details") }}
+        <a class="btn btn-default modal_dp_link" data-baseurl="{{ url_for('dp_view') }}">
+            {{ _("More details") }}
         </a>
-        <a class="btn btn-default modal_map_link"
-           data-baseurl="{{ url_for(maptype) }}">
-                {{ endif }}
-            {{ _("Show on map") }}
+        <a class="btn btn-default modal_map_link" data-baseurl="{{ url_for('dp_map') }}">
+            {{ _("Map") }}
         </a>
     </div>
 </div>

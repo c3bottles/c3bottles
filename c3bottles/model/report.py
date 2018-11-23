@@ -8,7 +8,8 @@ from . import drop_point
 
 
 class Report(db.Model):
-    """The report of a visitor that a drop point needs maintenance.
+    """
+    The report of a visitor that a drop point needs maintenance.
 
     When visitors find a drop point needing maintenance, they may report
     the drop point to the bottle collectors. A report is issued for a

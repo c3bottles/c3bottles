@@ -1,4 +1,4 @@
-from flask import render_template, request, g, abort
+from flask import render_template, request, g, abort, url_for
 from flask_login import login_required
 
 from .. import c3bottles, db
@@ -37,10 +37,7 @@ def visit(number=None):
                 errors=[v for d in e.args for v in d.values()]
             )
         else:
-            if dp.type == "drop_point":
-                back = "/bottle/map"
-            else:
-                back = "/trash/map"
+            back = url_for("dp_map")
             db.session.commit()
             return render_template(
                 "success.html",
@@ -52,5 +49,4 @@ def visit(number=None):
         return render_template(
             "visit.html",
             dp=dp,
-            typename=dp.get_typename()
         )

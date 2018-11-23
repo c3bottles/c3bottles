@@ -1,8 +1,8 @@
 {% extends "layout.html" %}
-{% set title = _("Visit Drop Point") %}
+{% set title = _("Visit Drop Point %(number)i", number=dp.number) %}
 {% block content %}
         <div class="page-header">
-            <h1>{{ _("Visit Drop Point %(number)i", number=dp.number) }}</h1>
+            <h1>{{ title }}</h1>
         </div>
         {% if g.user.is_anonymous or not g.user.can_visit %}
         <div class="alert alert-warning">
@@ -12,7 +12,7 @@
         <div class="row">
         <div class="col-md-2 col-md-offset-4">
         <div class="centered-button-holder">
-            <form action="{{ url_for("visit") }}" method="POST">
+            <form action="{{ url_for('visit') }}" method="POST">
                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                 <input type="hidden" name="number" value="{{ dp.number }}">
                 {% include "visit_buttons.html" %}

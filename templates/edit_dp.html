@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% set title = _("Edit %(name)s %(number)i", number=number,name=typename) %}
+{% set title = _("Edit Drop Point %(number)i", number=number) %}
 {% block header %}
     <link href="{{ url_for('static', filename='lib/css/leaflet.css') }}"
           rel="stylesheet">
@@ -8,7 +8,7 @@
 {% if error_list %}
 {% for error in error_list %}
     <div class="alert alert-danger">
-        <strong>{{ _("An error occured!") }}</strong>
+        <strong>{{ _("An error occurred!") }}</strong>
         {{ error }}
     </div>
 {% endfor %}
@@ -44,7 +44,7 @@
                     </div>
                 </div>
                 <div class="form-group{{ " has-error" if "number" in error_fields }}">
-                    <label for="level" class="col-sm-4 control-label">{{ _("%(name)s number:", name=typename) }}</label>
+                    <label for="level" class="col-sm-4 control-label">{{ _("drop point number:") }}</label>
                     <div class="col-sm-2">
                         <input type="text" class="form-control" value="{{ number }}" readonly>
                     </div>
@@ -54,7 +54,7 @@
                         <div class="checkbox">
                             <label>
                                 <input type="checkbox" name="remove" value="yes">
-                                {{ _("Remove %(name)s", name=typename) }}
+                                {{ _("Remove Drop Point") }}
                             </label>
                         </div>
                     </div>

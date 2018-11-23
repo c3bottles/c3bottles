@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 from babel import Locale
 from pwgen import pwgen
 
@@ -89,12 +87,9 @@ c3bottles.jinja_env.lstrip_blocks = True
 
 from c3bottles.views.api import api
 from c3bottles.views.main import (
-    index, faq,
-    dp_list_bottle, dp_list_trash, dp_list_js_bottle, dp_list_js_trash,
-    dp_map_bottle, dp_map_trash, dp_map_js_bottle, dp_map_js_trash,
-    dp_view, dp_view_js
+    index, faq, dp_list, dp_list_js, dp_map, dp_map_js, dp_view, dp_view_js
 )
-from c3bottles.views.create import create, create_dp_js
+from c3bottles.views.create import create_dp, create_dp_js
 from c3bottles.views.edit import edit_dp, edit_dp_js
 from c3bottles.views.report import report
 from c3bottles.views.visit import visit

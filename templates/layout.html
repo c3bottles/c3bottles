@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf_token" content="{{ csrf_token() }}">
-    <meta name="time" content="{{ g.now.strftime("%s.%f") }}">
+    <meta name="time" content="{{ g.now.strftime('%s.%f') }}">
     <title>{{ _("c3bottles") }}{% if title %} - {{ title }}{% endif %}</title>
     <link href="{{ url_for('static', filename='lib/css/bootstrap.min.css') }}"
           rel="stylesheet">
@@ -26,7 +26,7 @@
 </div>
 {% endblock %}
 {% include 'footer.html' %}
-<script src="{{ url_for("static", filename='lib/js/' + session["lang"] + ".js") }}"></script>
+<script src="{{ url_for('static', filename='lib/js/' + session['lang'] + '.js') }}"></script>
 <script src="{{ url_for('static', filename='lib/js/lib.js') }}"></script>
 {% block scripts %}{% endblock %}
 </body>

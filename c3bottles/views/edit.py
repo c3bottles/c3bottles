@@ -85,8 +85,6 @@ def edit_dp(number=None, errors=None):
 
     return render_template(
         "edit_dp.html",
-        type=dp.type,
-        typename=dp.get_typename(),
         number=number,
         description=description,
         lat=lat_f,
@@ -97,11 +95,11 @@ def edit_dp(number=None, errors=None):
     )
 
 
-@c3bottles.route("/edit.js/<string:lat>/<string:lng>/<string:type>")
-def edit_dp_js(lat, lng, type):
+@c3bottles.route("/edit.js/<string:lat>/<string:lng>")
+def edit_dp_js(lat, lng):
     resp = make_response(render_template(
         "js/edit_dp.js",
-        all_dps_json=DropPoint.get_dps_json(type=type),
+        all_dps_json=DropPoint.get_dps_json(),
         lat=float(lat),
         lng=float(lng),
     ))

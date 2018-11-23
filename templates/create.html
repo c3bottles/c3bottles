@@ -20,14 +20,14 @@
     </div>
     <div class="row">
         <div class="col-md-6">
-            <h4>{{ _("1. Select the position of the new point on the map") }}</h4>
+            <h4>{{ _("1. Select the position of the new drop point on the map") }}</h4>
             <hr>
             <div id="map" class="map map-small"></div>
         </div>
     <div class="col-md-6">
-            <h4>{{ _("2. Enter the details of your newly created point") }}</h4>
+            <h4>{{ _("2. Enter the details of your newly created drop point") }}</h4>
             <hr>
-            <form class="form-horizontal" action="{{ url_for('create') }}" method="POST">
+            <form class="form-horizontal" action="{{ url_for('create_dp') }}" method="POST">
                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                 <input type="hidden" name="lat" id="lat" value="{{ lat if lat is not none }}">
                 <input type="hidden" name="lng" id="lng" value="{{ lng if lng is not none }}">
@@ -44,17 +44,8 @@
                         <input type="text" class="form-control" name="description" id="description" value="{{ description if description is not none }}">
                     </div>
                 </div>
-                <div class="form-group{{ ' has-error' if 'type' in error_fields }}">
-                    <label for="type" class="col-sm-4 control-label">{{ _("Point type") }}</label>
-                    <div class="col-sm-2{{ ' has-error' if 'type' in error_fields }}">
-                        <select id="type" name="type" value="{{ type if type is not none }}" class="selectpicker">
-                          <option value="drop_point">Drop Point</option>
-                          <option value="trashcan">Trashcan</option>
-                        </select>
-                    </div>
-                </div>
                 <div class="form-group{{ ' has-error' if 'number' in error_fields }}">
-                    <label for="level" class="col-sm-4 control-label">{{ _("point number") }}</label>
+                    <label for="level" class="col-sm-4 control-label">{{ _("Drop point number") }}</label>
                     <div class="col-sm-2{{ ' has-error' if 'number' in error_fields }}">
                         <input type="text" class="form-control" name="number" id="number" value="{{ number if number is not none }}">
                     </div>
@@ -68,6 +59,6 @@
     </div>
 {% endblock %}
 {% block scripts %}
-<script src="{{ url_for('create_dp_js', type=type, level=level, lat=lat, lng=lng, center_lat=center_lat, center_lng=center_lng) }}"></script>
+<script src="{{ url_for('create_dp_js', level=level, lat=lat, lng=lng, center_lat=center_lat, center_lng=center_lng) }}"></script>
 
 {% endblock %}

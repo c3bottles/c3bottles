@@ -1,7 +1,7 @@
 {% include "js/dp.js" %}
 var imgdir = "{{ url_for('static', filename='img') }}";
 init_map();
-set_map_level({{ level}});
+set_map_level({{ level }});
 map.setView([{{ lat }}, {{ lng }}], 4);
 init_dp_creation();
 draw_new_dp({{ lat }}, {{ lng }});

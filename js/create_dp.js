@@ -2,7 +2,6 @@ const $ = require('jquery');
 const L = require('leaflet');
 
 require('./map.js');
-const areas = require('./areas.js');
 const gettext = require('./gettext.js');
 
 let new_dp_marker = null;
@@ -40,20 +39,7 @@ global.set_info_from_marker = function(latlng) {
 
   $('#lat').val(lat);
   $('#lng').val(lng);
-  const room = areas.get_room([lng, lat]);
-
-  if (room !== null) {
-    $('#description').val(room.name);
-    $('#number').val(get_next_free_dp_num());
-    $(`input[name='level'][value=${room.level}]`).prop('checked', true);
-  } else {
-    const level = areas.get_level([lng, lat]);
-
-    if (level !== null) {
-      $('#number').val(get_next_free_dp_num());
-      $(`input[name='level'][value=${level}]`).prop('checked', true);
-    }
-  }
+  $('#number').val(get_next_free_dp_num());
 };
 
 global.init_dp_creation = function() {
