@@ -11,13 +11,15 @@ global.map = undefined;
 global.current_level = undefined;
 global.level_control = undefined;
 
-function redraw_marker() {
+function redraw_markers() {
   for (const dp in drop_points) {
     if (!drop_points[dp].removed) {
       draw_marker(dp);
     }
   }
 }
+
+global.redraw_markers = redraw_markers;
 
 // use 257x257 px tiles from c3nav correctly
 const originalInitTile = L.GridLayer.prototype._initTile;
@@ -102,7 +104,7 @@ const LevelControl = L.Control.extend({
       current_level = e.target.level - 7;
       update_hash();
     }
-    redraw_marker();
+    redraw_markers();
   },
 
   finalize() {
@@ -149,7 +151,7 @@ global.init_map = function() {
     map.fitBounds(bounds);
   };
 
-  redraw_marker();
+  redraw_markers();
 };
 
 global.get_icon = function(type) {

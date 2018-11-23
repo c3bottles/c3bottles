@@ -5,6 +5,7 @@ var hash = location.hash.substr(1).split("/");
 init_map();
 if (hash.length === 4) {
     set_map_level(hash[0]);
+    redraw_markers();
     map.setView([hash[1], hash[2]], hash[3]);
 } else {
     if (typeof default_map_view === "function") {
