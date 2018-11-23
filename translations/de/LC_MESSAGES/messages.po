@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: c3bottles\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-11-23 22:21+0100\n"
-"PO-Revision-Date: 2018-11-23 22:22+0100\n"
+"POT-Creation-Date: 2018-11-23 22:32+0100\n"
+"PO-Revision-Date: 2018-11-23 22:33+0100\n"
 "Last-Translator: MichiK <michik@michik.net>\n"
 "Language: de\n"
 "Language-Team: \n"
@@ -125,17 +125,29 @@ msgstr "Ungültige oder fehlende Wartungsaktion."
 msgid "Your drop point has been created successfully."
 msgstr "Der Drop Point wurde erfolgreich erstellt."
 
-#: c3bottles/views/edit.py:28
+#: c3bottles/views/edit.py:28 c3bottles/views/report.py:21
 msgid "Error!"
 msgstr "Fehler!"
 
-#: c3bottles/views/edit.py:29
+#: c3bottles/views/edit.py:29 c3bottles/views/report.py:22
 msgid "Drop point not found."
 msgstr "Drop Point nicht gefunden."
 
 #: c3bottles/views/edit.py:65
 msgid "Your changes have been saved successfully."
 msgstr "Die Änderungen wurden erfolgreich gespeichert."
+
+#: c3bottles/views/report.py:35
+msgid "Errors occurred while processing your report:"
+msgstr "Bei der Meldung sind Fehler aufgetreten:"
+
+#: c3bottles/views/report.py:43 templates/js/l10n.js:3
+msgid "Thank you!"
+msgstr "Danke!"
+
+#: c3bottles/views/report.py:44 templates/js/l10n.js:4
+msgid "Your report has been received successfully."
+msgstr "Der Bericht wurde erfolgreich gespeichert."
 
 #: c3bottles/views/user.py:39
 msgid "Login failed!"
@@ -1051,14 +1063,6 @@ msgid ""
 "order to visit drop points."
 msgstr ""
 "Bitte logge dich als Flaschensammler ein, um Besuche von Drop Points zu loggen."
-
-#: templates/js/l10n.js:3
-msgid "Thank you!"
-msgstr "Danke!"
-
-#: templates/js/l10n.js:4
-msgid "Your report has been received successfully."
-msgstr "Der Bericht wurde erfolgreich gespeichert."
 
 #: templates/js/l10n.js:6
 msgid "An error occurred while processing your report: "

@@ -1,4 +1,5 @@
 from flask import render_template, request, g, abort, url_for
+from flask_babel import lazy_gettext
 
 from .. import c3bottles, db
 
@@ -17,8 +18,8 @@ def report(number=None):
     if not dp or dp.removed:
         return render_template(
             "error.html",
-            heading="Error!",
-            text="Drop point not found.",
+            heading=lazy_gettext("Error!"),
+            text=lazy_gettext("Drop point not found."),
         )
 
     state = request.values.get("state")
@@ -31,7 +32,7 @@ def report(number=None):
         except ValueError as e:
             return render_template(
                 "error.html",
-                text="Errors occurred while processing your report:",
+                text=lazy_gettext("Errors occurred while processing your report:"),
                 errors=[v for d in e.args for v in d.values()]
             )
         else:
@@ -39,8 +40,8 @@ def report(number=None):
             db.session.commit()
             return render_template(
                 "success.html",
-                heading="Thank you!",
-                text="Your report has been received successfully.",
+                heading=lazy_gettext("Thank you!"),
+                text=lazy_gettext("Your report has been received successfully."),
                 back=back
             )
     else:
