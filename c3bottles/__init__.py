@@ -5,8 +5,9 @@ from flask import Flask, g, session, request
 from flask_babel import Babel
 from flask_bcrypt import Bcrypt
 from flask_compress import Compress
-from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
+from flask_migrate import Migrate
+from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import CSRFProtect
 
 
@@ -34,13 +35,10 @@ except ImportError:
 Compress(c3bottles)
 
 db = SQLAlchemy(c3bottles, session_options={"autoflush": False})
-
+migrate = Migrate(c3bottles, db)
 lm = LoginManager(c3bottles)
-
 bcrypt = Bcrypt(c3bottles)
-
 csrf = CSRFProtect(c3bottles)
-
 babel = Babel(c3bottles)
 
 languages = ("en", "de")
