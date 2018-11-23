@@ -63,11 +63,9 @@ def dp_map_js():
 def dp_view(number=None):
     dp = DropPoint.get(number)
     if dp:
-        history = dp.get_history()
         return render_template(
             "view.html",
             dp=dp,
-            history=history,
         )
     else:
         return render_template(

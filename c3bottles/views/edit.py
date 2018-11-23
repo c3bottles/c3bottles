@@ -1,5 +1,5 @@
 from datetime import datetime
-from flask import render_template, request, g, abort, make_response
+from flask import render_template, request, g, abort, make_response, url_for
 from flask_babel import lazy_gettext
 from flask_login import login_required
 
@@ -29,10 +29,10 @@ def edit_dp(number=None, errors=None):
             text=lazy_gettext("Drop point not found.")
         )
 
-    description_old = str(dp.get_current_location().description)
-    lat_old = str(dp.get_current_location().lat)
-    lng_old = str(dp.get_current_location().lng)
-    level = dp.get_current_location().level
+    description_old = str(dp.description)
+    lat_old = str(dp.lat)
+    lng_old = str(dp.lng)
+    level = dp.level
 
     if request.method == "POST":
 
@@ -62,7 +62,8 @@ def edit_dp(number=None, errors=None):
             db.session.commit()
             return render_template(
                     "success.html",
-                    text=lazy_gettext("Your changes have been saved successfully.")
+                    text=lazy_gettext("Your changes have been saved successfully."),
+                    back="{}#{}/{}/{}/3".format(url_for("dp_map"), level, lat, lng)
                 )
 
     else:

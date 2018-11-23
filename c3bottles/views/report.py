@@ -36,13 +36,11 @@ def report(number=None):
                 errors=[v for d in e.args for v in d.values()]
             )
         else:
-            back = url_for("dp_map")
             db.session.commit()
             return render_template(
                 "success.html",
                 heading=lazy_gettext("Thank you!"),
                 text=lazy_gettext("Your report has been received successfully."),
-                back=back
             )
     else:
         return render_template(

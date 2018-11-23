@@ -1,4 +1,4 @@
-from flask import render_template, request, g, abort, make_response
+from flask import render_template, request, g, abort, make_response, url_for
 from flask_babel import lazy_gettext
 from flask_login import login_required
 
@@ -34,7 +34,8 @@ def create_dp(lat=None, lng=None, level=None, description=None, errors=None):
             db.session.commit()
             return render_template(
                 "success.html",
-                text=lazy_gettext("Your drop point has been created successfully.")
+                text=lazy_gettext("Your drop point has been created successfully."),
+                back="{}#{}/{}/{}/3".format(url_for("dp_map"), level, lat, lng)
             )
     else:
         number = DropPoint.get_next_free_number()

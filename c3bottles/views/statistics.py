@@ -48,7 +48,7 @@ class Statistics(object):
             ret[state] = 0
         for dp in DropPoint.query.all():
             if not dp.removed:
-                s = dp.get_last_state()
+                s = dp.last_state
                 ret[s] = ret[s] + 1 if s in ret else 1
         return ret
 

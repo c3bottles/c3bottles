@@ -14,15 +14,15 @@
             <div class="col-md-6 col-sm-12">
                 <dl class="dl-horizontal">
                     <dt>{{ _("Current state:") }}</dt>
-                    <dd>{{ states.label(dp.get_last_state()) }}</dd>
+                    <dd>{{ states.label(dp.last_state) }}</dd>
                     <dt>{{ _("Current location:") }}</dt>
-                    <dd>{{ _("%(location)s on level %(level)i", location=dp.get_current_location().description if dp.get_current_location().description else _("somewhere"), level=dp.get_current_location().level) }}</dd>
+                    <dd>{{ _("%(location)s on level %(level)i", location=dp.description if dp.description else _("somewhere"), level=dp.level) }}</dd>
                     <dt>{{ _("Visit priority:") }}</dt>
-                    <dd>{{ "%0.2f"|format(dp.get_priority()) }}</dd>
+                    <dd>{{ "%0.2f"|format(dp.priority) }}</dd>
                     {% if g.user.can_visit %}
                     <dt>{{ _("Label:") }}</dt>
                     <dd>
-                        <a href="{{ url_for("dp_label", number=dp.number) }}">
+                        <a href="{{ url_for('dp_label', number=dp.number) }}">
                             <span class="glyphicon glyphicon-file" aria-hidden="true"></span> {{ _("Download PDF") }}
                         </a>
                     </dd>
@@ -55,7 +55,7 @@
         </tr>
         </thead>
         <tbody>
-        {% for event in history %}
+        {% for event in dp.history %}
         <tr>
             <td>{{ event.time|datetimeformat }}</td>
             <td>

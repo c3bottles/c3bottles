@@ -61,8 +61,8 @@ class VisitTestCase(C3BottlesTestCase):
         )
 
         self.assertEqual(
-            dp.get_last_visit(), first_visit,
-            "get_last_visit() did not return first visit."
+            dp.last_visit, first_visit,
+            "last_visit did not return first visit."
         )
 
         report_time = datetime.today()
@@ -86,33 +86,33 @@ class VisitTestCase(C3BottlesTestCase):
         )
 
         self.assertEqual(
-            dp.get_last_visit(), second_visit,
-            "get_last_visit() did not return second visit."
+            dp.last_visit, second_visit,
+            "last_visit did not return second visit."
         )
 
         self.assertNotEqual(
-            dp.get_last_state(), report_state,
-            "get_last_state() returns unchanged state after visit."
+            dp.last_state, report_state,
+            "last_state returns unchanged state after visit."
         )
 
         self.assertEqual(
-            dp.get_new_report_count(), 0,
-            "get_new_report_count() nonzero after visit."
+            dp.new_report_count, 0,
+            "new_report_count nonzero after visit."
         )
 
         self.assertFalse(
-            dp.get_new_reports(),
-            "get_new_reports() returned something not False after visit."
+            dp.new_reports,
+            "new_reports returned something not False after visit."
         )
 
         self.assertEqual(
-            dp.get_last_report(), report,
-            "get_last_report() did not return report after visit."
+            dp.last_report, report,
+            "last_report did not return report after visit."
         )
 
         self.assertEqual(
-            dp.get_total_report_count(), 1,
-            "get_total_report_count() not as expected after visit."
+            dp.total_report_count, 1,
+            "total_report_count not as expected after visit."
         )
 
     def test_priority_calculation(self):
