@@ -1,5 +1,66 @@
 {% extends "layout.html" %}
 {% set title = _("Admin Interface") %}
+{% macro yes() %}<span class="glyphicon glyphicon-ok text-success"></span>{% endmacro %}
+{% macro no() %}<span class="glyphicon glyphicon-remove text-danger"></span>{% endmacro %}
+{% block alerts %}
+{% if message %}
+    <div class="alert alert-{{ message[0] }}">
+        {{ message[1] }}
+    </div>
+{% endif %}
+{% endblock %}
 {% block text %}
-{# This is going to be the admin interface... #}
+    <h2>{{ _("User management") }}</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>{{ _("User name") }}</th>
+                <th>{{ _("Active") }}</th>
+                <th>{{ _("Visit drop points") }}</th>
+                <th>{{ _("Edit drop points") }}</th>
+                <th>{{ _("Admin") }}</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.name }}</td>
+                <td>{{ yes() if user.is_active  else no() }}</td>
+                <td>{{ yes() if user.can_visit  else no() }}</td>
+                <td>{{ yes() if user.can_edit else no() }}</td>
+                <td>{{ yes() if user.is_admin else no() }}</td>
+                <td class="text-right">
+                    <div class="btn-group" role="group">
+                        {% if user.is_active %}
+                        <button type="button" class="admin-button-user-disable btn btn-xs btn-warning" data-uid="{{ user.user_id }}">{{ _("Disable") }}</button>
+                        {% else %}
+                        <button type="button" class="admin-button-user-enable btn btn-xs btn-success" data-uid="{{ user.user_id }}">{{ _("Enable") }}</button>
+                        {% endif %}
+                        <button type="button" class="admin-button-user-permissions btn btn-xs btn-primary" data-uid="{{ user.user_id }}">{{ _("Permissions") }}</button>
+                        <button type="button" class="admin-button-user-password btn btn-xs btn-primary" data-uid="{{ user.user_id }}">{{ _("Password") }}</button>
+                        <button type="button" class="admin-button-user-delete btn btn-xs btn-danger" data-uid="{{ user.user_id }}">{{ _("Delete") }}</button>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="modal fade" tabindex="-1" role="dialog" id="admin-modal-user-delete">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" tabindex="-1"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">{{ _("Delete user") }}</h4>
+                </div>
+                <div class="modal-body">
+                    {{ _("Are you sure that you want to delete this user? Deletion is irreversible.") }}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" tabindex="-1">{{ _("Cancel") }}</button>
+                    <a id="admin-link-user-delete" data-href="{{ url_for('admin.delete_user', user_id='') }}" class="btn btn-danger"><span class="far fa-trash-alt" aria-hidden="true"></span> {{ _("Delete user") }}</a>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
