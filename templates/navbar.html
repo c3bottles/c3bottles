@@ -81,6 +81,16 @@
                 </li>
             </ul>
             {% endif %}
+            {% if current_user.is_admin %}
+            <ul class="nav navbar-nav navbar-right">
+                <li{{ {'class': 'active'}|xmlattr if request.blueprint == 'admin' }}>
+                    <a href="{{ url_for('admin.index') }}">
+                        <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+                        {{ _('Admin Interface') }}
+                    </a>
+                </li>
+            </ul>
+            {% endif %}
         </div>
     </div>
 </nav>

@@ -22,7 +22,14 @@
     <div id="alerts">
         {% block alerts %}{% endblock %}
     </div>
-    {% block content %}{% endblock %}
+    {% block content %}
+    {% if title %}
+    <div class="page-header">
+        <h1>{{ title }}</h1>
+    </div>
+    {% endif %}
+    {% block text %}{% endblock %}
+    {% endblock %}
 </div>
 {% endblock %}
 {% include 'footer.html' %}

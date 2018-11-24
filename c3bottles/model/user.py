@@ -131,6 +131,10 @@ class Anonymous(AnonymousUserMixin):
     def user_id(self):
         return 0
 
+    @property
+    def is_admin(self):
+        return False
+
 
 lm.anonymous_user = Anonymous
 
