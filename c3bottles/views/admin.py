@@ -4,7 +4,7 @@ from flask_login import current_user
 
 from . import not_found, unauthorized
 from .. import db, bcrypt
-from ..model.forms import UserIdForm, PermissionsForm, PasswordForm
+from ..model.forms import UserIdForm, PermissionsForm, PasswordForm, UserCreateForm
 from ..model.user import User, make_secure_token
 
 
@@ -36,7 +36,8 @@ def index():
         users=User.all(),
         user_id_form=UserIdForm(),
         permissions_form=PermissionsForm(),
-        password_form=PasswordForm()
+        password_form=PasswordForm(),
+        user_create_form=UserCreateForm(),
     )
 
 
@@ -147,6 +148,32 @@ def delete_user():
             flash({
                 "class": "success",
                 "text": lazy_gettext("The user has been deleted successfully.")
+            })
+            return redirect(url_for("admin.index"))
+    else:
+        abort(400)
+
+
+@admin.route("/create_user", methods=("POST",))
+def create_user():
+    form = UserCreateForm()
+    if form.validate_on_submit():
+        if User.get(form.username.data) is not None:
+            flash({
+                "class": "danger",
+                "text": lazy_gettext("A user with this name already exists")
+            })
+            return redirect(url_for("admin.index"))
+        else:
+            user = User(
+                form.username.data, form.password.data, form.can_visit.data, form.can_edit.data, form.is_admin.data,
+                False
+            )
+            db.session.add(user)
+            db.session.commit()
+            flash({
+                "class": "success",
+                "text": lazy_gettext("The new user has been created successfully.")
             })
             return redirect(url_for("admin.index"))
     else:

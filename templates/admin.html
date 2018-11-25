@@ -39,6 +39,16 @@
         {% endfor %}
         </tbody>
     </table>
+    <h3>{{ _("Create a new user") }}</h3>
+    <form class="form-inline" action="{{ url_for('admin.create_user') }}" method="post">
+        {{ user_create_form.csrf_token }}
+        {{ user_create_form.username(class="form-control", placeholder=_("User name")) }}
+        {{ user_create_form.password(class="form-control", placeholder=_("Password")) }}
+        <div class="checkbox"><label>{{ user_create_form.can_visit }} {{ _("Visit drop points") }}</label></div>
+        <div class="checkbox"><label>{{ user_create_form.can_edit }} {{ _("Edit drop points") }}</label></div>
+        <div class="checkbox"><label>{{ user_create_form.is_admin }} {{ _("Admin") }}</label></div>
+        <button type="submit" class="btn btn-success">{{ _("Create user") }}</button>
+    </form>
     <form id="admin-form-user-enable" action="{{ url_for('admin.enable_user') }}" method="post">
         {{ user_id_form.csrf_token }}
         {{ user_id_form.user_id(id="admin-input-user-enable-user-id") }}

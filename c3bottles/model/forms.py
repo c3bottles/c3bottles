@@ -24,3 +24,11 @@ class PermissionsForm(UserIdForm):
 class PasswordForm(UserIdForm):
     password_1 = PasswordField("password_1", validators=[DataRequired()])
     password_2 = PasswordField("password_2", validators=[DataRequired()])
+
+
+class UserCreateForm(FlaskForm):
+    username = StringField("username", validators=[DataRequired()])
+    password = PasswordField("password", validators=[DataRequired()])
+    can_visit = BooleanField("can_visit")
+    can_edit = BooleanField("can_edit")
+    is_admin = BooleanField("is_admin")
