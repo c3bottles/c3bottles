@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from flask import render_template, g, request, Response
+from flask import render_template, g, request, Response, get_flashed_messages
 from flask_login import current_user
 
 from .. import c3bottles
@@ -10,6 +10,7 @@ from ..model.forms import LoginForm
 
 @c3bottles.before_request
 def before_request():
+    g.alerts = get_flashed_messages()
     g.login_form = LoginForm()
     g.user = current_user
     g.now = datetime.now()

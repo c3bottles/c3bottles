@@ -20,7 +20,14 @@
 {% block replacement %}
 <div class="container">
     <div id="alerts">
-        {% block alerts %}{% endblock %}
+        {% block alerts %}
+        {% for alert in g.alerts %}
+        <div class="alert alert-{{ alert.get('class', 'info') }}">
+            {% if 'headline' in alert %}<strong>{{ alert.get('headline') }}</strong>{% endif %}
+            {{ alert.get('text', '') }}
+        </div>
+        {% endfor %}
+        {% endblock %}
     </div>
     {% block content %}
     {% if title %}

@@ -2,13 +2,6 @@
 {% set title = _("Admin Interface") %}
 {% macro yes() %}<span class="glyphicon glyphicon-ok text-success"></span>{% endmacro %}
 {% macro no() %}<span class="glyphicon glyphicon-remove text-danger"></span>{% endmacro %}
-{% block alerts %}
-{% if message %}
-    <div class="alert alert-{{ message[0] }}">
-        {{ message[1] }}
-    </div>
-{% endif %}
-{% endblock %}
 {% block text %}
     <h2>{{ _("User management") }}</h2>
     <table class="table">
@@ -57,8 +50,12 @@
                     {{ _("Are you sure that you want to delete this user? Deletion is irreversible.") }}
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal" tabindex="-1">{{ _("Cancel") }}</button>
-                    <a id="admin-link-user-delete" data-href="{{ url_for('admin.delete_user', user_id='') }}" class="btn btn-danger"><span class="far fa-trash-alt" aria-hidden="true"></span> {{ _("Delete user") }}</a>
+                    <form action="{{ url_for('admin.delete_user') }}" method="post">
+                        {{ delete_form.csrf_token }}
+                        {{ delete_form.user_id(id="admin-input-user-delete-user-id") }}
+                        <button type="button" class="btn btn-default" data-dismiss="modal" tabindex="-1">{{ _("Cancel") }}</button>
+                        <button type="submit" class="btn btn-danger"><span class="far fa-trash-alt" aria-hidden="true"></span> {{ _("Delete user") }}</button>
+                    </form>
                 </div>
             </div>
         </div>

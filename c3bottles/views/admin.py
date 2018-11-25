@@ -1,9 +1,10 @@
-from flask import Blueprint, abort, render_template
+from flask import Blueprint, abort, render_template, flash, redirect, url_for
 from flask_babel import lazy_gettext
 from flask_login import current_user
 
 from . import not_found, unauthorized
 from .. import db
+from ..model.forms import DeleteUserForm
 from ..model.user import User
 
 
@@ -32,24 +33,25 @@ def handle_404(_):
 def index():
     return render_template(
         "admin.html",
-        users=User.all()
+        users=User.all(),
+        delete_form=DeleteUserForm()
     )
 
 
-@admin.route("/delete_user/<string:user_id>")
-def delete_user(user_id):
-    try:
-        user = User.get(int(user_id))
-    except (TypeError, ValueError):
-        abort(404)
-    else:
+@admin.route("/delete_user", methods=("POST",))
+def delete_user():
+    form = DeleteUserForm()
+    if form.validate_on_submit():
+        user = User.get(form.user_id.data)
         if user is None:
             abort(404)
         else:
             db.session.delete(user)
             db.session.commit()
-            return render_template(
-                "admin.html",
-                users=User.all(),
-                message=("success", lazy_gettext("The user has been deleted successfully."))
-            )
+            flash({
+                "class": "success",
+                "text": lazy_gettext("The user has been deleted successfully.")
+            })
+            return redirect(url_for("admin.index"))
+    else:
+        abort(400)
