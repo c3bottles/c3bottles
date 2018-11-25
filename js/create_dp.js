@@ -39,7 +39,6 @@ global.set_info_from_marker = function(latlng) {
 
   $('#lat').val(lat);
   $('#lng').val(lng);
-  $('#number').val(get_next_free_dp_num());
 };
 
 global.init_dp_creation = function() {
