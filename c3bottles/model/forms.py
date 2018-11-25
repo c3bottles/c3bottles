@@ -11,5 +11,5 @@ class LoginForm(FlaskForm):
     args = HiddenField("args")
 
 
-class DeleteUserForm(FlaskForm):
+class UserIdForm(FlaskForm):
     user_id = IntegerField("user_id", widget=HiddenInput())

@@ -23,14 +23,14 @@
                 <td>{{ yes() if user.can_visit  else no() }}</td>
                 <td>{{ yes() if user.can_edit else no() }}</td>
                 <td>{{ yes() if user.is_admin else no() }}</td>
-                <td class="text-right">
+                <td class="text-right form-inline">
                     <div class="btn-group" role="group">
                         {% if user.is_active %}
-                        <button type="button" class="admin-button-user-disable btn btn-xs btn-warning" data-uid="{{ user.user_id }}">{{ _("Disable") }}</button>
+                        <button type="submit" class="admin-button-user-disable btn btn-xs btn-warning" data-uid="{{ user.user_id }}">{{ _("Disable") }}</button>
                         {% else %}
-                        <button type="button" class="admin-button-user-enable btn btn-xs btn-success" data-uid="{{ user.user_id }}">{{ _("Enable") }}</button>
+                        <button type="submit" class="admin-button-user-enable btn btn-xs btn-success" data-uid="{{ user.user_id }}">{{ _("Enable") }}</button>
                         {% endif %}
-                        <button type="button" class="admin-button-user-permissions btn btn-xs btn-primary" data-uid="{{ user.user_id }}">{{ _("Permissions") }}</button>
+                        <button type="button" class="admin-button-user-permissions btn btn-xs btn-primary" data-visit="{{ user.can_visit }}" data-edit="{{ user.can_edit }}" data-admin="{{ user.is_admin }}" data-uid="{{ user.user_id }}">{{ _("Permissions") }}</button>
                         <button type="button" class="admin-button-user-password btn btn-xs btn-primary" data-uid="{{ user.user_id }}">{{ _("Password") }}</button>
                         <button type="button" class="admin-button-user-delete btn btn-xs btn-danger" data-uid="{{ user.user_id }}">{{ _("Delete") }}</button>
                     </div>
@@ -39,6 +39,14 @@
         {% endfor %}
         </tbody>
     </table>
+    <form id="admin-form-user-enable" action="{{ url_for('admin.enable_user') }}" method="post">
+        {{ user_id_form.csrf_token }}
+        {{ user_id_form.user_id(id="admin-input-user-enable-user-id") }}
+    </form>
+    <form id="admin-form-user-disable" action="{{ url_for('admin.disable_user') }}" method="post">
+        {{ user_id_form.csrf_token }}
+        {{ user_id_form.user_id(id="admin-input-user-disable-user-id") }}
+    </form>
     <div class="modal fade" tabindex="-1" role="dialog" id="admin-modal-user-delete">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
@@ -51,8 +59,8 @@
                 </div>
                 <div class="modal-footer">
                     <form action="{{ url_for('admin.delete_user') }}" method="post">
-                        {{ delete_form.csrf_token }}
-                        {{ delete_form.user_id(id="admin-input-user-delete-user-id") }}
+                        {{ user_id_form.csrf_token }}
+                        {{ user_id_form.user_id(id="admin-input-user-delete-user-id") }}
                         <button type="button" class="btn btn-default" data-dismiss="modal" tabindex="-1">{{ _("Cancel") }}</button>
                         <button type="submit" class="btn btn-danger"><span class="far fa-trash-alt" aria-hidden="true"></span> {{ _("Delete user") }}</button>
                     </form>

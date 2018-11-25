@@ -31,7 +31,7 @@ def login():
         if g.user and g.user.is_authenticated:
             return back
         user = User.get(form.username.data)
-        if user and user.validate_password(form.password.data):
+        if user and user.is_active and user.validate_password(form.password.data):
             login_user(user, remember=True)
             return back
     return render_template(

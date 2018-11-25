@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: c3bottles\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-11-25 15:22+0100\n"
-"PO-Revision-Date: 2018-11-25 15:24+0100\n"
+"POT-Creation-Date: 2018-11-25 16:17+0100\n"
+"PO-Revision-Date: 2018-11-25 16:18+0100\n"
 "Last-Translator: MichiK <michik@michik.net>\n"
 "Language: de\n"
 "Language-Team: \n"
@@ -121,7 +121,15 @@ msgstr "Unbekannt"
 msgid "Invalid or missing maintenance action."
 msgstr "Ungültige oder fehlende Wartungsaktion."
 
-#: c3bottles/views/admin.py:53
+#: c3bottles/views/admin.py:54
+msgid "The user has been disabled successfully."
+msgstr "Der Benutzer wurde erfolgreich deaktiviert."
+
+#: c3bottles/views/admin.py:74
+msgid "The user has been enabled successfully."
+msgstr "Der Benutzer wurde erfolgreich aktiviert."
+
+#: c3bottles/views/admin.py:93
 msgid "The user has been deleted successfully."
 msgstr "Der Benutzer wurde erfolgreich gelöscht."
 
@@ -217,17 +225,17 @@ msgstr "Passwort"
 msgid "Delete"
 msgstr "Löschen"
 
-#: templates/admin.html:47 templates/admin.html:57
+#: templates/admin.html:55 templates/admin.html:65
 msgid "Delete user"
 msgstr "Benutzer löschen"
 
-#: templates/admin.html:50
+#: templates/admin.html:58
 msgid "Are you sure that you want to delete this user? Deletion is irreversible."
 msgstr ""
 "Soll dieser Benutzer wirklich gelöscht werden? Dieser Vorgang lässt sich nicht "
 "rückgängig machen."
 
-#: templates/admin.html:56
+#: templates/admin.html:64
 msgid "Cancel"
 msgstr "Abbrechen"
 

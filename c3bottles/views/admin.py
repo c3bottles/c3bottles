@@ -4,8 +4,8 @@ from flask_login import current_user
 
 from . import not_found, unauthorized
 from .. import db
-from ..model.forms import DeleteUserForm
-from ..model.user import User
+from ..model.forms import UserIdForm
+from ..model.user import User, make_secure_token
 
 
 admin = Blueprint("admin", __name__, url_prefix="/admin")
@@ -34,13 +34,54 @@ def index():
     return render_template(
         "admin.html",
         users=User.all(),
-        delete_form=DeleteUserForm()
+        user_id_form=UserIdForm()
     )
+
+
+@admin.route("/disable_user", methods=("POST",))
+def disable_user():
+    form = UserIdForm()
+    if form.validate_on_submit():
+        user = User.get(form.user_id.data)
+        if user is None:
+            abort(404)
+        else:
+            user.is_active = False
+            user.token = make_secure_token()
+            db.session.add(user)
+            db.session.commit()
+            flash({
+                "class": "success",
+                "text": lazy_gettext("The user has been disabled successfully.")
+            })
+            return redirect(url_for("admin.index"))
+    else:
+        abort(400)
+
+
+@admin.route("/enable_user", methods=("POST",))
+def enable_user():
+    form = UserIdForm()
+    if form.validate_on_submit():
+        user = User.get(form.user_id.data)
+        if user is None:
+            abort(404)
+        else:
+            user.is_active = True
+            db.session.add(user)
+            db.session.commit()
+            flash({
+                "class": "success",
+                "text": lazy_gettext("The user has been enabled successfully.")
+            })
+            return redirect(url_for("admin.index"))
+    else:
+        abort(400)
 
 
 @admin.route("/delete_user", methods=("POST",))
 def delete_user():
-    form = DeleteUserForm()
+    form = UserIdForm()
     if form.validate_on_submit():
         user = User.get(form.user_id.data)
         if user is None:

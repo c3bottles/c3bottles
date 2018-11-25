@@ -25,7 +25,7 @@ class User(db.Model, UserMixin):
     name = db.Column("name", db.String(MAXLENGTH_NAME), nullable=False,
                      unique=True)
     _password = db.Column("password", db.LargeBinary, nullable=False)
-    _token = db.Column("token", db.String(TOKEN_LENGTH), nullable=False)
+    token = db.Column("token", db.String(TOKEN_LENGTH), nullable=False)
     can_visit = db.Column("can_visit", db.Boolean, nullable=False, default=True)
     can_edit = db.Column("can_edit", db.Boolean, nullable=False, default=False)
     is_admin = db.Column("is_admin", db.Boolean, nullable=False, default=False)
@@ -53,7 +53,7 @@ class User(db.Model, UserMixin):
             errors.append({"user": _("Password hashing failed.")})
 
         self.name = name
-        self._token = make_secure_token()
+        self.token = make_secure_token()
         self.can_visit = can_visit
         self.can_edit = can_edit
         self.is_admin = is_admin
@@ -71,7 +71,7 @@ class User(db.Model, UserMixin):
         return True
 
     def get_id(self):
-        return self._token
+        return self.token
 
     def validate_password(self, password):
         return bcrypt.check_password_hash(self._password, password)
@@ -101,7 +101,7 @@ class User(db.Model, UserMixin):
         :return: the user object in question or :class:`None` if no
             user exists with the token given
         """
-        return User.query.filter(User._token == token).first()
+        return User.query.filter(User.token == token).first()
 
     @classmethod
     def all(cls):
