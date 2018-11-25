@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% set title = _("Drop Point List") %}
 {% block header %}
-    <link href="{{ url_for('static', filename='lib/css/datatables-bootstrap3.min.css') }}"
+    <link href="{{ url_for('static', filename='lib/css/dataTables.bootstrap.min.css') }}"
           rel="stylesheet">
     <link href="{{ url_for('static', filename='css/list.css') }}"
           rel="stylesheet">
@@ -10,6 +10,12 @@
     <div class="page-header">
         <h1>{{ title }}</h1>
     </div>
+    <div class="btn-group" role="group">
+        <button type="button" class="btn btn-primary list-category-select-button" data-category_id="-1">{{ _("All") }} ({{ total_drop_points }})</button>
+        {% for category in categories %}
+        <button type="button" class="btn btn-default list-category-select-button" data-category_id="{{ category.category_id }}">{{ category.name }} ({{ category|length }})</button>
+        {% endfor %}
+    </div>
     <table class="table table-hover" id="dp_list">
         <thead>
         <tr>
@@ -17,12 +23,12 @@
             <th>{{ _("Category") }}</th>
             <th>{{ _("Location") }}</th>
             <th>{{ _("Level") }}</th>
-            <th>{{ _("Last state") }}</th>
-            <th></th>
-            <th></th>
-            <th></th>
+            <th>{{ _("State") }}</th>
             <th>{{ _("Priority") }}</th>
             <th>{{ _("Reports") }}</th>
+            <th></th>
+            <th></th>
+            <th></th>
         </tr>
         </thead>
     </table>

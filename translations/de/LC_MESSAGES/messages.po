@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: c3bottles\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-11-25 21:39+0100\n"
-"PO-Revision-Date: 2018-11-25 21:40+0100\n"
+"POT-Creation-Date: 2018-11-25 23:12+0100\n"
+"PO-Revision-Date: 2018-11-25 23:12+0100\n"
 "Last-Translator: MichiK <michik@michik.net>\n"
 "Language: de\n"
 "Language-Team: \n"
@@ -14,11 +14,11 @@ msgstr ""
 "Generated-By: Babel 2.6.0\n"
 "X-Generator: Poedit 2.2\n"
 
-#: c3bottles/model/category.py:36
+#: c3bottles/model/category.py:40
 msgid "Bottle Drop Point"
 msgstr "Bottle Drop Point"
 
-#: c3bottles/model/category.py:37
+#: c3bottles/model/category.py:41
 msgid "Trashcan"
 msgstr "Mülleimer"
 
@@ -185,11 +185,11 @@ msgstr "Die Änderungen wurden erfolgreich gespeichert."
 msgid "Errors occurred while processing your report:"
 msgstr "Bei der Meldung sind Fehler aufgetreten:"
 
-#: c3bottles/views/report.py:42 c3bottles/views/visit.py:44 templates/js/l10n.js:3
+#: c3bottles/views/report.py:42 c3bottles/views/visit.py:44 templates/js/l10n.js:2
 msgid "Thank you!"
 msgstr "Danke!"
 
-#: c3bottles/views/report.py:43 templates/js/l10n.js:4
+#: c3bottles/views/report.py:43 templates/js/l10n.js:3
 msgid "Your report has been received successfully."
 msgstr "Der Bericht wurde erfolgreich gespeichert."
 
@@ -308,20 +308,20 @@ msgstr "1. Position des neuen Drop Points auf der Karte wählen"
 msgid "2. Enter the details of your newly created drop point"
 msgstr "2. Details des neuen Drop Points angeben"
 
-#: templates/create.html:35 templates/list.html:17
+#: templates/create.html:35 templates/list.html:23
 msgid "Category"
 msgstr "Kategorie"
 
 #: templates/create.html:45 templates/create.html:48 templates/edit_dp.html:35
-#: templates/edit_dp.html:37 templates/list.html:19
+#: templates/edit_dp.html:37 templates/list.html:25
 msgid "Level"
 msgstr "Ebene"
 
-#: templates/create.html:52 templates/edit_dp.html:41 templates/list.html:18
+#: templates/create.html:52 templates/edit_dp.html:41 templates/list.html:24
 msgid "Location"
 msgstr "Ort"
 
-#: templates/create.html:58 templates/edit_dp.html:47 templates/list.html:16
+#: templates/create.html:58 templates/edit_dp.html:47 templates/list.html:22
 msgid "Number"
 msgstr "Nummer"
 
@@ -410,7 +410,7 @@ msgstr "Änderungen speichern"
 msgid "Error"
 msgstr "Fehler"
 
-#: templates/error.html:17 templates/js/l10n.js:5
+#: templates/error.html:17 templates/js/l10n.js:4
 msgid "Oh no!"
 msgstr "Oh nein!"
 
@@ -952,15 +952,19 @@ msgstr "Zur FAQ"
 msgid "Drop Point List"
 msgstr "Liste von Drop Points"
 
-#: templates/list.html:20
-msgid "Last state"
-msgstr "Letzter Status"
+#: templates/list.html:14
+msgid "All"
+msgstr "Alle"
 
-#: templates/list.html:24
+#: templates/list.html:26
+msgid "State"
+msgstr "Status"
+
+#: templates/list.html:27
 msgid "Priority"
 msgstr "Priorität"
 
-#: templates/list.html:25
+#: templates/list.html:28
 msgid "Reports"
 msgstr "Berichte"
 
@@ -1187,29 +1191,93 @@ msgid ""
 msgstr ""
 "Bitte logge dich als Flaschensammler ein, um Besuche von Drop Points zu loggen."
 
-#: templates/js/l10n.js:6
+#: templates/js/l10n.js:5
 msgid "An error occurred while processing your report: "
 msgstr "Beim Verarbeiten des Berichts ist ein Fehler aufgetreten: "
 
-#: templates/js/l10n.js:7
+#: templates/js/l10n.js:6
 msgid "Your visit has been logged successfully."
 msgstr "Der Besuch wurde erfolgreich gespeichert."
 
-#: templates/js/l10n.js:8
+#: templates/js/l10n.js:7
 msgid "An error occurred while processing your visit: "
 msgstr "Beim Verarbeiten des Besuchs ist ein Fehler aufgetreten: "
 
-#: templates/js/l10n.js:9
+#: templates/js/l10n.js:8
 msgid "Sorry, the minimum value was reached."
 msgstr "Das Minimum wurde erreicht."
 
-#: templates/js/l10n.js:10
+#: templates/js/l10n.js:9
 msgid "Sorry, the maximum value was reached."
 msgstr "Das Maximum wurde erreicht."
 
-#: templates/js/l10n.js:11
+#: templates/js/l10n.js:10
 msgid "Create a new drop point"
 msgstr "Drop Point erstellen"
+
+#: templates/js/l10n.js:12
+msgid "No data available in table"
+msgstr "Keine Daten in der Tabelle vorhanden"
+
+#: templates/js/l10n.js:13
+msgid "Showing _START_ to _END_ of _TOTAL_ entries"
+msgstr "Zeige _START_ bis _END_ von _TOTAL_ Einträgen"
+
+#: templates/js/l10n.js:14
+msgid "No entries available"
+msgstr "Keine Einträge verfügbar"
+
+#: templates/js/l10n.js:15
+msgid "(filtered from _MAX_ total entries)"
+msgstr "(gefiltert aus _MAX_ Einträgen insgesamt)"
+
+#: templates/js/l10n.js:17
+msgid ","
+msgstr "."
+
+#: templates/js/l10n.js:18
+msgid "Show _MENU_ entries"
+msgstr "Zeige _MENU_ Einträge"
+
+#: templates/js/l10n.js:19
+msgid "Loading..."
+msgstr "Lade..."
+
+#: templates/js/l10n.js:20
+msgid "Processing..."
+msgstr "Verarbeite..."
+
+#: templates/js/l10n.js:21
+msgid "Search:"
+msgstr "Suche:"
+
+#: templates/js/l10n.js:22
+msgid "No matching records found"
+msgstr "Keine passenden Einträge gefunden"
+
+#: templates/js/l10n.js:24
+msgid "First"
+msgstr "Anfang"
+
+#: templates/js/l10n.js:25
+msgid "Last"
+msgstr "Ende"
+
+#: templates/js/l10n.js:26
+msgid "Next"
+msgstr "Vor"
+
+#: templates/js/l10n.js:27
+msgid "Previous"
+msgstr "Zurück"
+
+#: templates/js/l10n.js:30
+msgid ": activate to sort column ascending"
+msgstr ": aktivieren, um Spalte aufsteigend zu sortieren"
+
+#: templates/js/l10n.js:31
+msgid ": activate to sort column descending"
+msgstr ": aktivieren, um Spalte absteigend zu sortieren"
 
 #: templates/macros/actions.html:2
 msgid "Removed"
@@ -1250,3 +1318,6 @@ msgstr "Keine Aktion"
 
 #~ msgid "Current location:"
 #~ msgstr "Aktueller Ort:"
+
+#~ msgid "Last state"
+#~ msgstr "Letzter Status"

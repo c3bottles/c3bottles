@@ -1,5 +1,4 @@
 import qrcode
-from sqlalchemy import or_, and_
 from base64 import b64encode
 from cairosvg import svg2pdf
 from PyPDF2 import PdfFileWriter, PdfFileReader
@@ -9,7 +8,9 @@ from flask import render_template, Response, request, make_response
 
 from .. import c3bottles, db
 
+from ..model.category import categories_sorted
 from ..model.drop_point import DropPoint
+from ..views.statistics import Statistics
 
 
 @c3bottles.route("/")
@@ -26,7 +27,9 @@ def faq():
 def dp_list():
     return render_template(
         "list.html",
-        js_name="dp_list_js", title_name="Bottle Drop Points"
+        js_name="dp_list_js",
+        total_drop_points=Statistics().drop_point_count,
+        categories=categories_sorted(),
     )
 
 

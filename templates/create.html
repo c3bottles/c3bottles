@@ -35,8 +35,8 @@
                     <label for="category" class="col-sm-4 control-label">{{ _("Category") }}</label>
                     <div class="col-sm-8{{ ' has-error' if 'category' in error_fields }}">
                         <select name="category_id" class="selectpicker">
-                            {% for cat_id, cat_name in categories %}
-                            <option value="{{ cat_id }}">{{ cat_name }}</option>
+                            {% for category in categories %}
+                            <option value="{{ category.category_id }}">{{ category.name }}</option>
                             {% endfor %}
                         </select>
                     </div>

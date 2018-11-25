@@ -9,12 +9,16 @@ class Category:
     groups within the same team to organize their work through the same
     frontend. Therefore, each drop point belongs to one category.
     """
-    def __init__(self, cat_id, name):
-        self.cat_id = cat_id
+    def __init__(self, category_id, name):
+        self.category_id = category_id
         self.name = name
 
     def __str__(self):
         return str(self.name)
+
+    def __len__(self):
+        from .drop_point import DropPoint
+        return DropPoint.query.filter(DropPoint.category_id == self.category_id).count()
 
     @staticmethod
     def get(category_id):
@@ -43,9 +47,6 @@ def categories_sorted():
     Get a list of all categories sorted by their human-readable name with
     respect to the user's language.
 
-    :return: A list of id, category tuples of all categories sorted by name.
+    :return: A list of all categories sorted by name.
     """
-    return [
-        (k, v) for k, v in
-        sorted(all_categories.items(), key=lambda i: str(i[1]))
-    ]
+    return sorted(all_categories.values(), key=lambda i: str(i))
