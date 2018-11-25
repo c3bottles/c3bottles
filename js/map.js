@@ -10,6 +10,7 @@ const tile_server = 'https://35c3.c3nav.de/map/';
 global.map = undefined;
 global.current_level = undefined;
 global.level_control = undefined;
+global.map_category = -1;
 
 function redraw_markers() {
   for (const dp in drop_points) {
@@ -20,6 +21,20 @@ function redraw_markers() {
 }
 
 global.redraw_markers = redraw_markers;
+
+function setCategory(num) {
+  global.map_category = num;
+  $('.map-category-select-button')
+    .removeClass('btn-primary')
+    .addClass('btn-default');
+  $('.map-category-select-button')
+    .filter(`[data-category_id='${num}']`)
+    .removeClass('btn-default')
+    .addClass('btn-primary');
+  redraw_markers();
+}
+
+global.setMapCategory = setCategory;
 
 // use 257x257 px tiles from c3nav correctly
 const originalInitTile = L.GridLayer.prototype._initTile;
@@ -226,6 +241,9 @@ global.draw_marker = function(num) {
   if (drop_points[num].level !== current_level) {
     return;
   }
+  if (global.map_category > -1 && drop_points[num].category_id !== global.map_category) {
+    return;
+  }
   drop_points[num].layer = L.geoJson(
     {
       type: 'Feature',
@@ -268,3 +286,17 @@ global.draw_marker = function(num) {
   });
   map.addLayer(drop_points[num].layer);
 };
+
+$('.map-category-select-button').on('click', ev => {
+  const num = $(ev.currentTarget).data('category_id');
+
+  setCategory(num);
+
+  let hash = `#${current_level}/${map.getCenter().lat.toFixed(2)}/${map.getCenter().lng.toFixed(2)}/${map.getZoom()}`;
+
+  if (global.map_category > -1) {
+    hash += `/${global.map_category}`;
+  }
+
+  location.hash = hash;
+});

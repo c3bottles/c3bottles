@@ -47,7 +47,9 @@ def dp_list_js():
 def dp_map():
     return render_template(
         "map.html",
-        js_name="dp_map_js"
+        js_name="dp_map_js",
+        total_drop_points=Statistics().drop_point_count,
+        categories=categories_sorted(),
     )
 
 
