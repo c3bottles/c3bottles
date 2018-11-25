@@ -23,6 +23,22 @@ function get_table_data() {
   return arr;
 }
 
+function setCategory(num) {
+  category = num;
+  $('.list-category-select-button')
+    .removeClass('btn-primary')
+    .addClass('btn-default');
+  $('.list-category-select-button')
+    .filter(`[data-category_id='${num}']`)
+    .removeClass('btn-default')
+    .addClass('btn-primary');
+  dt.clear();
+  dt.rows.add(get_table_data());
+  dt.draw(true);
+}
+
+global.setListCategory = setCategory;
+
 function redraw_table() {
   dt
     .rows()
@@ -163,14 +179,12 @@ global.draw_row = function(num) {
 };
 
 $('.list-category-select-button').on('click', ev => {
-  $('.list-category-select-button')
-    .removeClass('btn-primary')
-    .addClass('btn-default');
-  $(ev.currentTarget)
-    .removeClass('btn-default')
-    .addClass('btn-primary');
-  category = $(ev.currentTarget).data('category_id');
-  dt.clear();
-  dt.rows.add(get_table_data());
-  dt.draw(true);
+  const num = $(ev.currentTarget).data('category_id');
+
+  if (num > -1) {
+    location.hash = `#${num}`;
+  } else {
+    location.hash = '';
+  }
+  setCategory(num);
 });
