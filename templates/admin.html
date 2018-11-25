@@ -30,7 +30,7 @@
                         {% else %}
                         <button type="submit" class="admin-button-user-enable btn btn-xs btn-success" data-uid="{{ user.user_id }}"{{ ' disabled' if user == current_user }}>{{ _("Enable") }}</button>
                         {% endif %}
-                        <button type="button" class="admin-button-user-permissions btn btn-xs btn-primary" data-visit="{{ user.can_visit|lower }}" data-edit="{{ user.can_edit|lower }}" data-admin="{{ user.is_admin|lower }}" data-uid="{{ user.user_id }}"{{ ' disabled' if user == current_user }}>{{ _("Permissions") }}</button>
+                        <button type="button" class="admin-button-user-permissions btn btn-xs btn-primary" data-visit="{{ user.can_visit|lower }}" data-edit="{{ user.can_edit|lower }}" data-admin="{{ user.is_admin|lower }}" data-uid="{{ user.user_id }}">{{ _("Permissions") }}</button>
                         <button type="button" class="admin-button-user-password btn btn-xs btn-primary" data-uid="{{ user.user_id }}">{{ _("Password") }}</button>
                         <button type="button" class="admin-button-user-delete btn btn-xs btn-danger" data-uid="{{ user.user_id }}"{{ ' disabled' if user == current_user }}>{{ _("Delete") }}</button>
                     </div>

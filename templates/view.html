@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% set title = _("Details of Drop Point %(number)i", number=dp.number) %}
+{% set title = _("Details of %(category)s %(number)i", category=dp.category, number=dp.number) %}
 {% import "macros/states.html" as states %}
 {% import "macros/actions.html" as actions %}
 {% block header %}
@@ -15,7 +15,7 @@
                 <dl class="dl-horizontal">
                     <dt>{{ _("Current state:") }}</dt>
                     <dd>{{ states.label(dp.last_state) }}</dd>
-                    <dt>{{ _("Current location:") }}</dt>
+                    <dt>{{ _("Location:") }}</dt>
                     <dd>{{ _("%(location)s on level %(level)i", location=dp.description if dp.description else _("somewhere"), level=dp.level) }}</dd>
                     <dt>{{ _("Visit priority:") }}</dt>
                     <dd>{{ "%0.2f"|format(dp.priority) }}</dd>

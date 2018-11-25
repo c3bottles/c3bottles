@@ -7,6 +7,7 @@ from flask_babel import lazy_gettext as _
 
 from .. import c3bottles, db
 
+from .category import Category, all_categories
 from .location import Location
 from .report import Report
 from .visit import Visit
@@ -30,6 +31,7 @@ class DropPoint(db.Model):
     """
 
     number = db.Column(db.Integer, primary_key=True, autoincrement=False)
+    category_id = db.Column(db.Integer, nullable=False, default=1)
     time = db.Column(db.DateTime)
     removed = db.Column(db.DateTime)
     locations = db.relationship("Location", order_by="Location.time")
@@ -39,6 +41,7 @@ class DropPoint(db.Model):
     def __init__(
             self,
             number,
+            category_id=0,
             description=None,
             lat=None,
             lng=None,
@@ -75,6 +78,13 @@ class DropPoint(db.Model):
                     errors.append({
                         "number": _("That drop point already exists.")
                     })
+
+        if category_id in all_categories:
+            self.category_id = category_id
+        else:
+            errors.append({
+                "cat_id": _("Invalid drop point category.")
+            })
 
         if time and not isinstance(time, datetime):
             errors.append({
@@ -143,6 +153,10 @@ class DropPoint(db.Model):
         Perform a visit of a drop point.
         """
         Visit(self, time=time, action=action)
+
+    @property
+    def category(self):
+        return Category.get(self.category_id)
 
     @property
     def level(self):
@@ -363,6 +377,8 @@ class DropPoint(db.Model):
         if dp is not None:
             return {
                 "number": dp.number,
+                "category_id": dp.category_id,
+                "category": str(dp.category),
                 "description": dp.description,
                 "reports_total": dp.total_report_count,
                 "reports_new": dp.new_report_count,

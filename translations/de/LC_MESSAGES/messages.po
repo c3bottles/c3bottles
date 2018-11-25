@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: c3bottles\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-11-25 17:49+0100\n"
-"PO-Revision-Date: 2018-11-25 17:50+0100\n"
+"POT-Creation-Date: 2018-11-25 21:39+0100\n"
+"PO-Revision-Date: 2018-11-25 21:40+0100\n"
 "Last-Translator: MichiK <michik@michik.net>\n"
 "Language: de\n"
 "Language-Team: \n"
@@ -14,35 +14,47 @@ msgstr ""
 "Generated-By: Babel 2.6.0\n"
 "X-Generator: Poedit 2.2\n"
 
-#: c3bottles/model/drop_point.py:66
+#: c3bottles/model/category.py:36
+msgid "Bottle Drop Point"
+msgstr "Bottle Drop Point"
+
+#: c3bottles/model/category.py:37
+msgid "Trashcan"
+msgstr "Mülleimer"
+
+#: c3bottles/model/drop_point.py:69
 msgid "Drop point number is not a number."
 msgstr "Drop-Point-Nummer ist keine Zahl."
 
-#: c3bottles/model/drop_point.py:71
+#: c3bottles/model/drop_point.py:74
 msgid "Drop point number is not positive."
 msgstr "Drop-Point-Nummer ist nicht positiv."
 
-#: c3bottles/model/drop_point.py:76
+#: c3bottles/model/drop_point.py:79
 msgid "That drop point already exists."
 msgstr "Dieser Drop Point existiert bereits."
 
-#: c3bottles/model/drop_point.py:81
+#: c3bottles/model/drop_point.py:86
+msgid "Invalid drop point category."
+msgstr "Ungültige Drop-Point-Kategorie."
+
+#: c3bottles/model/drop_point.py:91
 msgid "Creation time not a datetime object."
 msgstr "Zeit der Erstellung ist kein datetime-Objekt."
 
-#: c3bottles/model/drop_point.py:86
+#: c3bottles/model/drop_point.py:96
 msgid "Creation time in the future."
 msgstr "Zeit der Erstellung liegt in der Zukunft."
 
-#: c3bottles/model/drop_point.py:120
+#: c3bottles/model/drop_point.py:130
 msgid "Drop point already removed."
 msgstr "Der Drop Point wurde bereits entfernt."
 
-#: c3bottles/model/drop_point.py:125
+#: c3bottles/model/drop_point.py:135
 msgid "Removal time not a datetime object."
 msgstr "Zeit der Entfernung ist kein datetime-Objekt."
 
-#: c3bottles/model/drop_point.py:130
+#: c3bottles/model/drop_point.py:140
 msgid "Removal time in the future."
 msgstr "Zeit der Entfernung liegt in der Zukunft."
 
@@ -153,7 +165,7 @@ msgstr "Es gibt bereits einen Benutzer mit diesem Namen."
 msgid "The new user has been created successfully."
 msgstr "Der neue Benutzer wurde erfolgreich erstellt."
 
-#: c3bottles/views/create.py:37
+#: c3bottles/views/create.py:39
 msgid "Your drop point has been created successfully."
 msgstr "Der Drop Point wurde erfolgreich erstellt."
 
@@ -296,26 +308,26 @@ msgstr "1. Position des neuen Drop Points auf der Karte wählen"
 msgid "2. Enter the details of your newly created drop point"
 msgstr "2. Details des neuen Drop Points angeben"
 
-#: templates/create.html:35 templates/create.html:38 templates/edit_dp.html:35
-#: templates/edit_dp.html:37 templates/list.html:18
+#: templates/create.html:35 templates/list.html:17
+msgid "Category"
+msgstr "Kategorie"
+
+#: templates/create.html:45 templates/create.html:48 templates/edit_dp.html:35
+#: templates/edit_dp.html:37 templates/list.html:19
 msgid "Level"
 msgstr "Ebene"
 
-#: templates/create.html:42 templates/edit_dp.html:41 templates/list.html:17
+#: templates/create.html:52 templates/edit_dp.html:41 templates/list.html:18
 msgid "Location"
 msgstr "Ort"
 
-#: templates/create.html:48 templates/edit_dp.html:47
-msgid "Drop point number"
-msgstr "Drop-Point-Nummer"
+#: templates/create.html:58 templates/edit_dp.html:47 templates/list.html:16
+msgid "Number"
+msgstr "Nummer"
 
-#: templates/create.html:55
+#: templates/create.html:65
 msgid "Create drop point"
 msgstr "Drop Point erstellen"
-
-#: templates/dp_modals.html:9
-msgid "Drop Point"
-msgstr "Drop Point"
 
 #: templates/dp_modals.html:18
 msgid "Details"
@@ -375,20 +387,20 @@ msgstr "Karte"
 
 #: templates/edit_dp.html:2
 #, python-format
-msgid "Edit Drop Point %(number)i"
-msgstr "Drop Point %(number)i bearbeiten"
+msgid "Edit %(category)s %(number)i"
+msgstr "%(category)s %(number)i bearbeiten"
 
 #: templates/edit_dp.html:23
 msgid "Change the position by dragging the black marker on the map:"
 msgstr "Position ändern durch Bewegen des schwarzen Markers:"
 
 #: templates/edit_dp.html:28
-msgid "Change the details of the drop point:"
-msgstr "Details des Drop Points bearbeiten:"
+msgid "Change the details:"
+msgstr "Die Details ändern:"
 
 #: templates/edit_dp.html:57
-msgid "Remove drop point"
-msgstr "Drop Point entfernen"
+msgid "Remove"
+msgstr "Entfernen"
 
 #: templates/edit_dp.html:64
 msgid "Submit changes"
@@ -940,19 +952,15 @@ msgstr "Zur FAQ"
 msgid "Drop Point List"
 msgstr "Liste von Drop Points"
 
-#: templates/list.html:16
-msgid "Number"
-msgstr "Nummer"
-
-#: templates/list.html:19
+#: templates/list.html:20
 msgid "Last state"
 msgstr "Letzter Status"
 
-#: templates/list.html:23
+#: templates/list.html:24
 msgid "Priority"
 msgstr "Priorität"
 
-#: templates/list.html:24
+#: templates/list.html:25
 msgid "Reports"
 msgstr "Berichte"
 
@@ -1077,12 +1085,12 @@ msgstr "Erfolg!"
 
 #: templates/view.html:2
 #, python-format
-msgid "Details of Drop Point %(number)i"
-msgstr "Details von Drop Point %(number)i"
+msgid "Details of %(category)s %(number)i"
+msgstr "Details von %(category)s %(number)i"
 
 #: templates/view.html:18
-msgid "Current location:"
-msgstr "Aktueller Ort:"
+msgid "Location:"
+msgstr "Ort:"
 
 #: templates/view.html:19 templates/view.html:65
 #, python-format
@@ -1221,3 +1229,24 @@ msgstr "Keine Aktion"
 
 #~ msgid "Update permissions"
 #~ msgstr "Berechtigungen aktualisieren"
+
+#~ msgid "Drop Point"
+#~ msgstr "Drop Point"
+
+#~ msgid "Drop point number"
+#~ msgstr "Drop-Point-Nummer"
+
+#~ msgid "Edit Drop Point %(number)i"
+#~ msgstr "Drop Point %(number)i bearbeiten"
+
+#~ msgid "Change the details of the drop point:"
+#~ msgstr "Details des Drop Points bearbeiten:"
+
+#~ msgid "Remove drop point"
+#~ msgstr "Drop Point entfernen"
+
+#~ msgid "Details of Drop Point %(number)i"
+#~ msgstr "Details von Drop Point %(number)i"
+
+#~ msgid "Current location:"
+#~ msgstr "Aktueller Ort:"

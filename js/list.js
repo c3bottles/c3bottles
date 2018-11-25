@@ -46,6 +46,9 @@ global.init_table = function() {
         data: 'number',
       },
       {
+        data: 'category',
+      },
+      {
         data: null,
         render(data) {
           if (data.description) {

@@ -87,6 +87,7 @@ def edit_dp(number=None, errors=None):
 
     return render_template(
         "edit_dp.html",
+        dp=dp,
         number=number,
         description=description,
         lat=lat_f,

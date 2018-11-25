@@ -4,6 +4,7 @@ from flask_login import login_required
 
 from .. import c3bottles, db
 
+from ..model.category import categories_sorted
 from ..model.drop_point import DropPoint
 
 
@@ -18,15 +19,16 @@ def create_dp(lat=None, lng=None, level=None, description=None, errors=None):
         abort(401)
 
     if request.method == "POST":
-        number = request.form.get("number")
+        number = int(request.form.get("number"))
+        category_id = int(request.form.get("category_id"))
         description = request.form.get("description")
         lat = float(request.form.get("lat"))
         lng = float(request.form.get("lng"))
         level = int(request.form.get("level"))
         try:
             DropPoint(
-                number=number, description=description, lat=lat,
-                lng=lng, level=level
+                number=number, category_id=category_id, description=description,
+                lat=lat, lng=lng, level=level
             )
         except ValueError as e:
             errors = e.args
@@ -56,6 +58,7 @@ def create_dp(lat=None, lng=None, level=None, description=None, errors=None):
         description=description,
         error_list=error_list,
         error_fields=error_fields,
+        categories=categories_sorted(),
     )
 
 
