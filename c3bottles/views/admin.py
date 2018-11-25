@@ -3,8 +3,8 @@ from flask_babel import lazy_gettext
 from flask_login import current_user
 
 from . import not_found, unauthorized
-from .. import db
-from ..model.forms import UserIdForm, PermissionsForm
+from .. import db, bcrypt
+from ..model.forms import UserIdForm, PermissionsForm, PasswordForm
 from ..model.user import User, make_secure_token
 
 
@@ -35,7 +35,8 @@ def index():
         "admin.html",
         users=User.all(),
         user_id_form=UserIdForm(),
-        permissions_form=PermissionsForm()
+        permissions_form=PermissionsForm(),
+        password_form=PasswordForm()
     )
 
 
@@ -98,6 +99,37 @@ def user_permissions():
                 "text": lazy_gettext("The user's permissions have been updated successfully.")
             })
             return redirect(url_for("admin.index"))
+    else:
+        abort(400)
+
+
+@admin.route("/user_password", methods=("POST",))
+def user_password():
+    form = PasswordForm()
+    if form.validate_on_submit():
+        user = User.get(form.user_id.data)
+        if user is None:
+            abort(404)
+        else:
+            if form.password_1.data == form.password_2.data:
+                user.password = bcrypt.generate_password_hash(form.password_1.data)
+                user.token = make_secure_token()
+                db.session.add(user)
+                db.session.commit()
+                flash({
+                    "class": "success",
+                    "text": lazy_gettext("The user's password has been changed successfully")
+                })
+                if user == current_user:
+                    return redirect(url_for("index"))
+                else:
+                    return redirect(url_for("admin.index"))
+            else:
+                flash({
+                    "class": "danger",
+                    "text": lazy_gettext("The passwords do not match.")
+                })
+                return redirect(url_for("admin.index"))
     else:
         abort(400)
 

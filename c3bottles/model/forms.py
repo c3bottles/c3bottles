@@ -19,3 +19,8 @@ class PermissionsForm(UserIdForm):
     can_visit = BooleanField("can_visit")
     can_edit = BooleanField("can_edit")
     is_admin = BooleanField("is_admin")
+
+
+class PasswordForm(UserIdForm):
+    password_1 = PasswordField("password_1", validators=[DataRequired()])
+    password_2 = PasswordField("password_2", validators=[DataRequired()])

@@ -26,13 +26,13 @@
                 <td class="text-right form-inline">
                     <div class="btn-group" role="group">
                         {% if user.is_active %}
-                        <button type="submit" class="admin-button-user-disable btn btn-xs btn-warning{{ ' disabled' if user == current_user }}" data-uid="{{ user.user_id }}">{{ _("Disable") }}</button>
+                        <button type="submit" class="admin-button-user-disable btn btn-xs btn-warning" data-uid="{{ user.user_id }}"{{ ' disabled' if user == current_user }}>{{ _("Disable") }}</button>
                         {% else %}
-                        <button type="submit" class="admin-button-user-enable btn btn-xs btn-success{{ ' disabled' if user == current_user }}" data-uid="{{ user.user_id }}">{{ _("Enable") }}</button>
+                        <button type="submit" class="admin-button-user-enable btn btn-xs btn-success" data-uid="{{ user.user_id }}"{{ ' disabled' if user == current_user }}>{{ _("Enable") }}</button>
                         {% endif %}
-                        <button type="button" class="admin-button-user-permissions btn btn-xs btn-primary{{ ' disabled' if user == current_user }}" data-visit="{{ user.can_visit|lower }}" data-edit="{{ user.can_edit|lower }}" data-admin="{{ user.is_admin|lower }}" data-uid="{{ user.user_id }}">{{ _("Permissions") }}</button>
+                        <button type="button" class="admin-button-user-permissions btn btn-xs btn-primary" data-visit="{{ user.can_visit|lower }}" data-edit="{{ user.can_edit|lower }}" data-admin="{{ user.is_admin|lower }}" data-uid="{{ user.user_id }}"{{ ' disabled' if user == current_user }}>{{ _("Permissions") }}</button>
                         <button type="button" class="admin-button-user-password btn btn-xs btn-primary" data-uid="{{ user.user_id }}">{{ _("Password") }}</button>
-                        <button type="button" class="admin-button-user-delete btn btn-xs btn-danger{{ ' disabled' if user == current_user }}" data-uid="{{ user.user_id }}">{{ _("Delete") }}</button>
+                        <button type="button" class="admin-button-user-delete btn btn-xs btn-danger" data-uid="{{ user.user_id }}"{{ ' disabled' if user == current_user }}>{{ _("Delete") }}</button>
                     </div>
                 </td>
             </tr>
@@ -73,10 +73,36 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                            {{ permissions_form.csrf_token }}
-                            {{ permissions_form.user_id(id="admin-input-user-permissions-user-id") }}
-                            <button type="button" class="btn btn-default" data-dismiss="modal" tabindex="-1">{{ _("Cancel") }}</button>
-                            <button type="submit" class="btn btn-primary">{{ _("Update") }}</button>
+                        {{ permissions_form.csrf_token }}
+                        {{ permissions_form.user_id(id="admin-input-user-permissions-user-id") }}
+                        <button type="button" class="btn btn-default" data-dismiss="modal" tabindex="-1">{{ _("Cancel") }}</button>
+                        <button type="submit" class="btn btn-primary">{{ _("Update") }}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" tabindex="-1" role="dialog" id="admin-modal-user-password">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <form action="{{ url_for('admin.user_password') }}" method="post">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" tabindex="-1"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">{{ _("Change password") }}</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            {{ password_form.password_1(placeholder=_("Password"), class="form-control") }}
+                        </div>
+                        <div class="form-group">
+                            {{ password_form.password_2(placeholder=_("Confirmation"), class="form-control") }}
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        {{ password_form.csrf_token }}
+                        {{ password_form.user_id(id="admin-input-user-password-user-id") }}
+                        <button type="button" class="btn btn-default" data-dismiss="modal" tabindex="-1">{{ _("Cancel") }}</button>
+                        <button type="submit" class="btn btn-primary">{{ _("Update") }}</button>
                     </div>
                 </form>
             </div>

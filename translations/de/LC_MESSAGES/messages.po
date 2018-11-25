@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: c3bottles\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-11-25 16:53+0100\n"
-"PO-Revision-Date: 2018-11-25 16:53+0100\n"
+"POT-Creation-Date: 2018-11-25 17:25+0100\n"
+"PO-Revision-Date: 2018-11-25 17:26+0100\n"
 "Last-Translator: MichiK <michik@michik.net>\n"
 "Language: de\n"
 "Language-Team: \n"
@@ -121,19 +121,27 @@ msgstr "Unbekannt"
 msgid "Invalid or missing maintenance action."
 msgstr "Ungültige oder fehlende Wartungsaktion."
 
-#: c3bottles/views/admin.py:56
+#: c3bottles/views/admin.py:57
 msgid "The user has been disabled successfully."
 msgstr "Der Benutzer wurde erfolgreich deaktiviert."
 
-#: c3bottles/views/admin.py:76
+#: c3bottles/views/admin.py:77
 msgid "The user has been enabled successfully."
 msgstr "Der Benutzer wurde erfolgreich aktiviert."
 
-#: c3bottles/views/admin.py:98
+#: c3bottles/views/admin.py:99
 msgid "The user's permissions have been updated successfully."
 msgstr "Die Berechtigungen des Benutzers wurden erfolgreich aktualisiert."
 
-#: c3bottles/views/admin.py:117
+#: c3bottles/views/admin.py:121
+msgid "The user's password has been changed successfully"
+msgstr "Das Passwort des Benutzers wurde erfolgreich geändert."
+
+#: c3bottles/views/admin.py:130
+msgid "The passwords do not match."
+msgstr "Die Passwörter stimmen nicht überein."
+
+#: c3bottles/views/admin.py:149
 msgid "The user has been deleted successfully."
 msgstr "Der Benutzer wurde erfolgreich gelöscht."
 
@@ -221,7 +229,7 @@ msgstr "Aktivieren"
 msgid "Permissions"
 msgstr "Berechtigungen"
 
-#: templates/admin.html:34 templates/navbar.html:58
+#: templates/admin.html:34 templates/admin.html:95 templates/navbar.html:58
 msgid "Password"
 msgstr "Passwort"
 
@@ -229,19 +237,27 @@ msgstr "Passwort"
 msgid "Delete"
 msgstr "Löschen"
 
-#: templates/admin.html:78 templates/admin.html:99
+#: templates/admin.html:78 templates/admin.html:104 templates/admin.html:125
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: templates/admin.html:79
+#: templates/admin.html:79 templates/admin.html:105
 msgid "Update"
 msgstr "Aktualisieren"
 
-#: templates/admin.html:90 templates/admin.html:100
+#: templates/admin.html:91
+msgid "Change password"
+msgstr "Passwort ändern"
+
+#: templates/admin.html:98
+msgid "Confirmation"
+msgstr "Bestätigung"
+
+#: templates/admin.html:116 templates/admin.html:126
 msgid "Delete user"
 msgstr "Benutzer löschen"
 
-#: templates/admin.html:93
+#: templates/admin.html:119
 msgid "Are you sure that you want to delete this user? Deletion is irreversible."
 msgstr ""
 "Soll dieser Benutzer wirklich gelöscht werden? Dieser Vorgang lässt sich nicht "

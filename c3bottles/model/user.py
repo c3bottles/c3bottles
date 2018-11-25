@@ -24,7 +24,7 @@ class User(db.Model, UserMixin):
     _id = db.Column("id", db.Integer, primary_key=True)
     name = db.Column("name", db.String(MAXLENGTH_NAME), nullable=False,
                      unique=True)
-    _password = db.Column("password", db.LargeBinary, nullable=False)
+    password = db.Column("password", db.LargeBinary, nullable=False)
     token = db.Column("token", db.String(TOKEN_LENGTH), nullable=False)
     can_visit = db.Column("can_visit", db.Boolean, nullable=False, default=True)
     can_edit = db.Column("can_edit", db.Boolean, nullable=False, default=False)
@@ -48,7 +48,7 @@ class User(db.Model, UserMixin):
                 errors.append({"user": _("User name is too long.")})
 
         try:
-            self._password = bcrypt.generate_password_hash(password)
+            self.password = bcrypt.generate_password_hash(password)
         except (TypeError, ValueError):
             errors.append({"user": _("Password hashing failed.")})
 
@@ -74,7 +74,7 @@ class User(db.Model, UserMixin):
         return self.token
 
     def validate_password(self, password):
-        return bcrypt.check_password_hash(self._password, password)
+        return bcrypt.check_password_hash(self.password, password)
 
     @classmethod
     def get(cls, _id):
