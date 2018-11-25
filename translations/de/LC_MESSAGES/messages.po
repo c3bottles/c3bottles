@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: c3bottles\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-11-25 16:17+0100\n"
-"PO-Revision-Date: 2018-11-25 16:18+0100\n"
+"POT-Creation-Date: 2018-11-25 16:53+0100\n"
+"PO-Revision-Date: 2018-11-25 16:53+0100\n"
 "Last-Translator: MichiK <michik@michik.net>\n"
 "Language: de\n"
 "Language-Team: \n"
@@ -121,15 +121,19 @@ msgstr "Unbekannt"
 msgid "Invalid or missing maintenance action."
 msgstr "Ungültige oder fehlende Wartungsaktion."
 
-#: c3bottles/views/admin.py:54
+#: c3bottles/views/admin.py:56
 msgid "The user has been disabled successfully."
 msgstr "Der Benutzer wurde erfolgreich deaktiviert."
 
-#: c3bottles/views/admin.py:74
+#: c3bottles/views/admin.py:76
 msgid "The user has been enabled successfully."
 msgstr "Der Benutzer wurde erfolgreich aktiviert."
 
-#: c3bottles/views/admin.py:93
+#: c3bottles/views/admin.py:98
+msgid "The user's permissions have been updated successfully."
+msgstr "Die Berechtigungen des Benutzers wurden erfolgreich aktualisiert."
+
+#: c3bottles/views/admin.py:117
 msgid "The user has been deleted successfully."
 msgstr "Der Benutzer wurde erfolgreich gelöscht."
 
@@ -193,15 +197,15 @@ msgstr "Benutzername"
 msgid "Active"
 msgstr "Aktiv"
 
-#: templates/admin.html:12
+#: templates/admin.html:12 templates/admin.html:61
 msgid "Visit drop points"
 msgstr "Drop Points besuchen"
 
-#: templates/admin.html:13
+#: templates/admin.html:13 templates/admin.html:66
 msgid "Edit drop points"
 msgstr "Drop Points editieren"
 
-#: templates/admin.html:14
+#: templates/admin.html:14 templates/admin.html:71
 msgid "Admin"
 msgstr "Admin"
 
@@ -213,7 +217,7 @@ msgstr "Deaktivieren"
 msgid "Enable"
 msgstr "Aktivieren"
 
-#: templates/admin.html:33
+#: templates/admin.html:33 templates/admin.html:56
 msgid "Permissions"
 msgstr "Berechtigungen"
 
@@ -225,19 +229,23 @@ msgstr "Passwort"
 msgid "Delete"
 msgstr "Löschen"
 
-#: templates/admin.html:55 templates/admin.html:65
+#: templates/admin.html:78 templates/admin.html:99
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: templates/admin.html:79
+msgid "Update"
+msgstr "Aktualisieren"
+
+#: templates/admin.html:90 templates/admin.html:100
 msgid "Delete user"
 msgstr "Benutzer löschen"
 
-#: templates/admin.html:58
+#: templates/admin.html:93
 msgid "Are you sure that you want to delete this user? Deletion is irreversible."
 msgstr ""
 "Soll dieser Benutzer wirklich gelöscht werden? Dieser Vorgang lässt sich nicht "
 "rückgängig machen."
-
-#: templates/admin.html:64
-msgid "Cancel"
-msgstr "Abbrechen"
 
 #: templates/create.html:2
 msgid "Create a New Bottle Drop Point"
@@ -1177,3 +1185,6 @@ msgstr "Geleert"
 #: templates/macros/actions.html:5
 msgid "No action"
 msgstr "Keine Aktion"
+
+#~ msgid "Update permissions"
+#~ msgstr "Berechtigungen aktualisieren"

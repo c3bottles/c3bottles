@@ -4,7 +4,7 @@ from flask_login import current_user
 
 from . import not_found, unauthorized
 from .. import db
-from ..model.forms import UserIdForm
+from ..model.forms import UserIdForm, PermissionsForm
 from ..model.user import User, make_secure_token
 
 
@@ -34,7 +34,8 @@ def index():
     return render_template(
         "admin.html",
         users=User.all(),
-        user_id_form=UserIdForm()
+        user_id_form=UserIdForm(),
+        permissions_form=PermissionsForm()
     )
 
 
@@ -73,6 +74,28 @@ def enable_user():
             flash({
                 "class": "success",
                 "text": lazy_gettext("The user has been enabled successfully.")
+            })
+            return redirect(url_for("admin.index"))
+    else:
+        abort(400)
+
+
+@admin.route("/user_permissions", methods=("POST",))
+def user_permissions():
+    form = PermissionsForm()
+    if form.validate_on_submit():
+        user = User.get(form.user_id.data)
+        if user is None:
+            abort(404)
+        else:
+            user.can_visit = form.can_visit.data
+            user.can_edit = form.can_edit.data
+            user.is_admin = form.is_admin.data
+            db.session.add(user)
+            db.session.commit()
+            flash({
+                "class": "success",
+                "text": lazy_gettext("The user's permissions have been updated successfully.")
             })
             return redirect(url_for("admin.index"))
     else:
