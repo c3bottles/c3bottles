@@ -166,8 +166,8 @@ def create_user():
             return redirect(url_for("admin.index"))
         else:
             user = User(
-                form.username.data, form.password.data, form.can_visit.data, form.can_edit.data, form.is_admin.data,
-                False
+                form.username.data, form.password.data, form.can_visit.data,
+                form.can_edit.data, form.is_admin.data, False
             )
             db.session.add(user)
             db.session.commit()

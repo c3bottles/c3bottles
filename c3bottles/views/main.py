@@ -108,7 +108,7 @@ def dp_label(number=None):
 @c3bottles.route("/label/all.pdf")
 def dp_all_labels():
     output = PdfFileWriter()
-    for dp in db.session.query(DropPoint).filter(DropPoint.removed == None).all():
+    for dp in db.session.query(DropPoint).filter(DropPoint.removed == None).all():  # noqa
         output.addPage(PdfFileReader(BytesIO(_pdf(dp.number))).getPage(0))
     f = BytesIO()
     output.write(f)

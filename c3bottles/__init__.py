@@ -83,17 +83,17 @@ c3bottles.before_request(set_locale)
 c3bottles.jinja_env.trim_blocks = True
 c3bottles.jinja_env.lstrip_blocks = True
 
-from c3bottles.views.admin import admin
-from c3bottles.views.api import api
-from c3bottles.views.create import create_dp, create_dp_js
-from c3bottles.views.edit import edit_dp, edit_dp_js
+from c3bottles.views.admin import admin  # noqa
+from c3bottles.views.api import api  # noqa
+from c3bottles.views.create import create_dp, create_dp_js  # noqa
+from c3bottles.views.edit import edit_dp, edit_dp_js  # noqa
 from c3bottles.views.main import (
     index, faq, dp_list, dp_list_js, dp_map, dp_map_js, dp_view, dp_view_js
-)
-from c3bottles.views.report import report
-from c3bottles.views.statistics import stats
-from c3bottles.views.user import login, logout
-from c3bottles.views.visit import visit
+)  # noqa
+from c3bottles.views.report import report  # noqa
+from c3bottles.views.statistics import stats  # noqa
+from c3bottles.views.user import login, logout  # noqa
+from c3bottles.views.visit import visit  # noqa
 
 c3bottles.register_blueprint(admin)
 c3bottles.register_blueprint(api)

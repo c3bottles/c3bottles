@@ -30,7 +30,7 @@ class Statistics(object):
 
     @property
     def drop_point_count(self):
-        return DropPoint.query.filter(DropPoint.removed == None).count()
+        return DropPoint.query.filter(DropPoint.removed == None).count()  # noqa
 
     @property
     def report_count(self):

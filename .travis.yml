@@ -8,7 +8,8 @@ matrix:
     sudo: true
 install:
  - pip install -r requirements.txt
- - yarn install
+ - yarn
 script:
  - pytest --cov=c3bottles
- - yarn run build:deps
+ - pycodestyle c3bottles
+ - yarn build:deps
