@@ -169,7 +169,7 @@ global.init_map = function() {
   redraw_markers();
 };
 
-global.get_icon = function(type) {
+global.get_icon = function(category, state) {
   const size = 12;
   let zoom = 6 - (map.getMaxZoom() - map.getZoom());
 
@@ -180,7 +180,7 @@ global.get_icon = function(type) {
   return L.icon({
     iconSize: [size * zoom, size * zoom],
     iconAnchor: [size * zoom / 2, size * zoom],
-    iconUrl: `${imgdir}/markers/${type}.svg`,
+    iconUrl: `${imgdir}/markers/${category}/${state}.svg`,
     popupAnchor: [0, -size * zoom],
   });
 };
@@ -191,7 +191,7 @@ global.allow_dp_creation_from_map = function() {
 
     function get_marker(latlng) {
       const marker = L.marker(latlng, {
-        icon: get_icon('CREATED'),
+        icon: get_icon('new', 'CREATED'),
         draggable: true,
       });
 
@@ -254,6 +254,7 @@ global.draw_marker = function(num) {
       properties: {
         last_state: drop_points[num].last_state,
         number: Number.parseInt(num, 10),
+        category_id: drop_points[num].category_id,
       },
     },
     {
@@ -262,7 +263,7 @@ global.draw_marker = function(num) {
       },
       pointToLayer(feature, latlng) {
         const marker = L.marker(latlng, {
-          icon: get_icon(feature.properties.last_state),
+          icon: get_icon(feature.properties.category_id, feature.properties.last_state),
         });
 
         marker.on('click', e => {

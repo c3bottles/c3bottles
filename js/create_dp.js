@@ -8,7 +8,7 @@ let new_dp_marker = null;
 
 function get_marker(latlng) {
   const marker = L.marker(latlng, {
-    icon: get_icon('CREATED'),
+    icon: get_icon('new', 'CREATED'),
     draggable: true,
   });
 
