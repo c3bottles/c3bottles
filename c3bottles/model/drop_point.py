@@ -175,6 +175,14 @@ class DropPoint(db.Model):
         return self.locations[-1].description if self.locations else None
 
     @property
+    def description_with_level(self):
+        return _(
+            "%(location)s on level %(level)i",
+            location=self.description if self.description else _("somewhere"),
+            level=self.level
+        )
+
+    @property
     def location(self):
         return self.locations[-1] if self.locations else None
 
@@ -380,6 +388,7 @@ class DropPoint(db.Model):
                 "category_id": dp.category_id,
                 "category": str(dp.category),
                 "description": dp.description,
+                "description_with_level": str(dp.description_with_level),
                 "reports_total": dp.total_report_count,
                 "reports_new": dp.new_report_count,
                 "priority": dp.priority,

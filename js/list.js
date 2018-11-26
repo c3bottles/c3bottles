@@ -55,7 +55,7 @@ global.init_table = function() {
     language: gettext('dt'),
     paging: false,
     data: get_table_data(),
-    order: [[6, 'desc']],
+    order: [[5, 'desc']],
     createdRow(row, data) {
       drop_points[data.number].row = row;
     },
@@ -67,14 +67,7 @@ global.init_table = function() {
         data: 'category',
       },
       {
-        data: null,
-        render(data) {
-          if (data.description) {
-            return data.description;
-          }
-
-          return `somewhere on level ${data.level}`;
-        },
+        data: 'description_with_level',
       },
       {
         data: 'level',

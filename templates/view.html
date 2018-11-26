@@ -16,7 +16,7 @@
                     <dt>{{ _("Current state:") }}</dt>
                     <dd>{{ states.label(dp.last_state) }}</dd>
                     <dt>{{ _("Location:") }}</dt>
-                    <dd>{{ _("%(location)s on level %(level)i", location=dp.description if dp.description else _("somewhere"), level=dp.level) }}</dd>
+                    <dd>{{ dp.description_with_level }}</dd>
                     <dt>{{ _("Visit priority:") }}</dt>
                     <dd>{{ "%0.2f"|format(dp.priority) }}</dd>
                     {% if g.user.can_visit %}
