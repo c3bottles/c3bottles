@@ -1,5 +1,5 @@
 from datetime import datetime
-from flask import render_template, request, g, abort, make_response, url_for
+from flask import render_template, request, g, abort, make_response, url_for, flash, redirect
 from flask_babel import lazy_gettext
 from flask_login import login_required
 
@@ -60,11 +60,11 @@ def edit_dp(number=None, errors=None):
             errors = e.args
         else:
             db.session.commit()
-            return render_template(
-                    "success.html",
-                    text=lazy_gettext("Your changes have been saved successfully."),
-                    back="{}#{}/{}/{}/3".format(url_for("dp_map"), level, lat, lng)
-                )
+            flash({
+                "class": "success disappear",
+                "text": lazy_gettext("Your changes have been saved successfully."),
+            })
+            return redirect("{}#{}/{}/{}/3".format(url_for("dp_map"), level, lat, lng))
 
     else:
         description = description_old
