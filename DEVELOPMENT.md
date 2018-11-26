@@ -8,7 +8,7 @@ A few things have been prepared to make development easier. The easiest way to
 prepare your development environment is as follows:
 
     git clone https://github.com/c3bottles/c3bottles.git
-    c3 c3bottles
+    cd c3bottles
     make venv
     yarn
     yarn build
