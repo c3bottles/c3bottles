@@ -1,5 +1,4 @@
 from flask import render_template, Blueprint, make_response
-from sqlalchemy import or_
 
 from ..lib import stats_obj
 from ..model.drop_point import DropPoint
@@ -14,7 +13,7 @@ stats = Blueprint("statistics", __name__)
 def html():
     return render_template(
         "statistics.html",
-        stats=Statistics()
+        stats=stats_obj
     )
 
 

@@ -32,10 +32,10 @@ class Statistics(object):
         for state in Report.states:
             ret[state] = 0
         try:
-           for dp in DropPoint.query.all():
-               if not dp.removed:
-                   s = dp.get_last_state()
-                   ret[s] = ret[s] + 1 if s in ret else 1
+            for dp in DropPoint.query.all():
+                if not dp.removed:
+                    s = dp.last_state
+                    ret[s] = ret[s] + 1 if s in ret else 1
         except:
             pass
         return ret
@@ -47,7 +47,7 @@ class Statistics(object):
             try:
                 ret[state] = Report.query.filter(Report.state == state).count()
             except:
-                ret[stats] = 0
+                ret[state] = 0
         return ret
 
     @property
@@ -59,5 +59,6 @@ class Statistics(object):
             except:
                 ret[action] = 0
         return ret
+
 
 stats_obj = Statistics()

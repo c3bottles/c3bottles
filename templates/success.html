@@ -1,12 +1,12 @@
 {% extends "layout.html" %}
 {% set title = _("Success") %}
+{% block header %}
+{% if back %}
+    <meta http-equiv="refresh" content="2; URL={{ back }}">
+{% endif %}
+{% endblock %}
 {% block content %}
     <div class="jumbotron">
-    <script>
-        setTimeout(function() {
-            window.location.pathname = '{{ back }}';
-        }, 2000);
-    </script>
         <div class="row">
             <div class="col-xs-2 text-right">
                 <h1>

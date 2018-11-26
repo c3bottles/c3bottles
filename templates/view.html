@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% set title = _("Details of %(name)s %(number)i", number=dp.number, name=typename) %}
+{% set title = _("Details of %(category)s %(number)i", category=dp.category, number=dp.number) %}
 {% import "macros/states.html" as states %}
 {% import "macros/actions.html" as actions %}
 {% block header %}
@@ -14,33 +14,29 @@
             <div class="col-md-6 col-sm-12">
                 <dl class="dl-horizontal">
                     <dt>{{ _("Current state:") }}</dt>
-                    <dd>{{ states.label(dp.get_last_state()) }}</dd>
-                    <dt>{{ _("Current location:") }}</dt>
-                    <dd>{{ _("%(location)s on level %(level)i", location=dp.get_current_location().description if dp.get_current_location().description else _("somewhere"), level=dp.get_current_location().level) }}</dd>
+                    <dd>{{ states.label(dp.last_state) }}</dd>
+                    <dt>{{ _("Location:") }}</dt>
+                    <dd>{{ _("%(location)s on level %(level)i", location=dp.description if dp.description else _("somewhere"), level=dp.level) }}</dd>
                     <dt>{{ _("Visit priority:") }}</dt>
-                    <dd>{{ "%0.2f"|format(dp.get_priority()) }}</dd>
-                    {% if dp.type != 'trashcan' %}
+                    <dd>{{ "%0.2f"|format(dp.priority) }}</dd>
                     {% if g.user.can_visit %}
                     <dt>{{ _("Label:") }}</dt>
                     <dd>
-                        <a href="{{ url_for("dp_label", number=dp.number) }}">
+                        <a href="{{ url_for('dp_label', number=dp.number) }}">
                             <span class="glyphicon glyphicon-file" aria-hidden="true"></span> {{ _("Download PDF") }}
                         </a>
                     </dd>
                     {% endif %}
-                    {% endif %}
                 </dl>
                 <div class="btn-group">
-                    {% if dp.type != 'trashcan' %}
                     {% if not g.no_anonymous_reporting or g.user.is_authenticated %}
-                    <a class="btn btn-default" href="{{ url_for("report", number=dp.number) }}">{{ _("Report") }}</a>
+                    <a class="btn btn-default" href="{{ url_for('report', number=dp.number) }}">{{ _("Report") }}</a>
                     {% endif %}
                     {% if g.user.is_authenticated and g.user.can_visit %}
-                    <a class="btn btn-default" href="{{ url_for("visit", number=dp.number) }}">{{ _("Visit") }}</a>
-                    {% endif %}
+                    <a class="btn btn-default" href="{{ url_for('visit', number=dp.number) }}">{{ _("Visit") }}</a>
                     {% endif %}
                     {% if g.user.is_authenticated and g.user.can_edit %}
-                    <a class="btn btn-default" href="{{ url_for("edit_dp", number=dp.number) }}">{{ _("Edit") }}</a>
+                    <a class="btn btn-default" href="{{ url_for('edit_dp', number=dp.number) }}">{{ _("Edit") }}</a>
                     {% endif %}
                 </div>
             </div>
@@ -59,20 +55,20 @@
         </tr>
         </thead>
         <tbody>
-        {% for event in history %}
+        {% for event in dp.history %}
         <tr>
             <td>{{ event.time|datetimeformat }}</td>
             <td>
                 {% if event.drop_point %}
-                    {{ _("%(name)s %(number)i created", number=event.drop_point.number, name=typename) }}
+                    {{ _("Drop point %(number)i created", number=event.drop_point.number) }}
                 {% elif event.location %}
                     {{ _("Location changed to %(location)s", location=_("%(location)s on level %(level)i", location=event.location.description if event.location.description else _("somewhere"), level=event.location.level)) }}
                 {% elif event.report %}
                     {{ _("Report submitted and drop point seen as: %(state)s", state=states.label(event.report.state)) }}
                 {% elif event.visit %}
-                    {{ _("%(name)s visited and maintenance performed: %(action)s", action=actions.label(event.visit.action), name=typename) }}
+                    {{ _("Drop point visited and maintenance performed: %(action)s", action=actions.label(event.visit.action)) }}
                 {% elif event.removed %}
-                    {{ _("%(name)s marked as removed") }}
+                    {{ _("Drop point marked as removed") }}
                 {% endif %}
             </td>
         </tr>

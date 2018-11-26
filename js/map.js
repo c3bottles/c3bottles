@@ -10,14 +10,31 @@ const tile_server = 'https://35c3.c3nav.de/map/';
 global.map = undefined;
 global.current_level = undefined;
 global.level_control = undefined;
+global.map_category = -1;
 
-function redraw_marker() {
+function redraw_markers() {
   for (const dp in drop_points) {
     if (!drop_points[dp].removed) {
       draw_marker(dp);
     }
   }
 }
+
+global.redraw_markers = redraw_markers;
+
+function setCategory(num) {
+  global.map_category = num;
+  $('.map-category-select-button')
+    .removeClass('btn-primary')
+    .addClass('btn-default');
+  $('.map-category-select-button')
+    .filter(`[data-category_id='${num}']`)
+    .removeClass('btn-default')
+    .addClass('btn-primary');
+  redraw_markers();
+}
+
+global.setMapCategory = setCategory;
 
 // use 257x257 px tiles from c3nav correctly
 const originalInitTile = L.GridLayer.prototype._initTile;
@@ -98,11 +115,11 @@ const LevelControl = L.Control.extend({
     e.preventDefault();
     e.stopPropagation();
     this.setLevel(e.target.level);
+    current_level = e.target.level - 7;
     if (typeof update_hash === 'function') {
-      current_level = e.target.level - 7;
       update_hash();
     }
-    redraw_marker();
+    redraw_markers();
   },
 
   finalize() {
@@ -149,13 +166,10 @@ global.init_map = function() {
     map.fitBounds(bounds);
   };
 
-  redraw_marker();
+  redraw_markers();
 };
 
-global.get_icon = function(type, pointtype) {
-  if (pointtype === 'trashcan') {
-    type += '_TRASH';
-  }
+global.get_icon = function(category, state) {
   const size = 12;
   let zoom = 6 - (map.getMaxZoom() - map.getZoom());
 
@@ -166,7 +180,7 @@ global.get_icon = function(type, pointtype) {
   return L.icon({
     iconSize: [size * zoom, size * zoom],
     iconAnchor: [size * zoom / 2, size * zoom],
-    iconUrl: `${imgdir}/markers/${type}.svg`,
+    iconUrl: `${imgdir}/markers/${category}/${state}.svg`,
     popupAnchor: [0, -size * zoom],
   });
 };
@@ -177,7 +191,7 @@ global.allow_dp_creation_from_map = function() {
 
     function get_marker(latlng) {
       const marker = L.marker(latlng, {
-        icon: get_icon('CREATED'),
+        icon: get_icon('new', 'CREATED'),
         draggable: true,
       });
 
@@ -227,6 +241,9 @@ global.draw_marker = function(num) {
   if (drop_points[num].level !== current_level) {
     return;
   }
+  if (global.map_category > -1 && drop_points[num].category_id !== global.map_category) {
+    return;
+  }
   drop_points[num].layer = L.geoJson(
     {
       type: 'Feature',
@@ -237,6 +254,7 @@ global.draw_marker = function(num) {
       properties: {
         last_state: drop_points[num].last_state,
         number: Number.parseInt(num, 10),
+        category_id: drop_points[num].category_id,
       },
     },
     {
@@ -245,7 +263,7 @@ global.draw_marker = function(num) {
       },
       pointToLayer(feature, latlng) {
         const marker = L.marker(latlng, {
-          icon: get_icon(feature.properties.last_state, drop_points[num].type),
+          icon: get_icon(feature.properties.category_id, feature.properties.last_state),
         });
 
         marker.on('click', e => {
@@ -269,3 +287,17 @@ global.draw_marker = function(num) {
   });
   map.addLayer(drop_points[num].layer);
 };
+
+$('.map-category-select-button').on('click', ev => {
+  const num = $(ev.currentTarget).data('category_id');
+
+  setCategory(num);
+
+  let hash = `#${current_level}/${map.getCenter().lat.toFixed(2)}/${map.getCenter().lng.toFixed(2)}/${map.getZoom()}`;
+
+  if (global.map_category > -1) {
+    hash += `/${global.map_category}`;
+  }
+
+  location.hash = hash;
+});

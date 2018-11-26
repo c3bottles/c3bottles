@@ -117,48 +117,48 @@ class FreshDropPointTestCase(BaseDropPointTestCase):
             assert DropPoint.get(num) is None
 
     def test_dp_location_getter_returns_location_object(self):
-        assert isinstance(self.dp.get_current_location(), Location)
+        assert isinstance(self.dp.location, Location)
 
     def test_dp_is_in_default_state(self):
-        assert self.dp.get_last_state() == Report.states[1]
+        assert self.dp.last_state == Report.states[1]
 
     def test_dp_total_report_count_is_zero(self):
-        assert self.dp.get_total_report_count() == 0
+        assert self.dp.total_report_count == 0
 
     def test_dp_new_report_count_is_zero(self):
-        assert self.dp.get_new_report_count() == 0
+        assert self.dp.new_report_count == 0
 
     def test_dp_no_last_visit(self):
-        assert not self.dp.get_last_visit()
+        assert not self.dp.last_visit
 
     def test_dp_no_last_report(self):
-        assert not self.dp.get_last_report()
+        assert not self.dp.last_report
 
     def test_dp_no_new_reports(self):
-        assert not self.dp.get_new_reports()
+        assert not self.dp.new_reports
 
     def test_dp_visit_interval_greater_zero(self):
-        assert self.dp.get_visit_interval() > 0
+        assert self.dp.visit_interval > 0
 
     def test_dp_history_is_list(self):
-        assert type(self.dp.get_history()) is list
+        assert type(self.dp.history) is list
 
     def test_dp_history_is_list_of_dicts(self):
-        for entry in self.dp.get_history():
+        for entry in self.dp.history:
             assert type(entry) is dict
 
     def test_dp_history_length(self):
         # the history should contain the creation
         # and the setting of the initial location
-        assert len(self.dp.get_history()) == 2
+        assert len(self.dp.history) == 2
 
     @staticmethod
     def test_dps_json_is_string():
-        assert type(DropPoint.get_dps_json("drop_point")) is str
+        assert type(DropPoint.get_dps_json()) is str
 
     @staticmethod
     def test_dps_json_is_not_empty():
-        assert len(DropPoint.get_dps_json("drop_point")) > 1
+        assert len(DropPoint.get_dps_json()) > 1
 
     @staticmethod
     def test_fresh_dps_json_is_empty():
@@ -187,7 +187,7 @@ class FreshDropPointTestCase(BaseDropPointTestCase):
 
     def test_dp_removed_visit_priority(self):
         self.dp.remove()
-        assert self.dp.get_priority() == 0
+        assert self.dp.priority == 0
 
     def test_dp_removal_in_future(self):
         with pytest.raises(ValueError) as e:
@@ -227,19 +227,19 @@ class OnceReportedDropPointTestCase(BaseDropPointTestCase):
         assert self.dp.reports[0] == self.report
 
     def test_dp_report_is_last_report(self):
-        assert self.dp.get_last_report() == self.report
+        assert self.dp.last_report == self.report
 
     def test_dp_state_is_reported_state(self):
-        assert self.dp.get_last_state() == self.report_state
+        assert self.dp.last_state == self.report_state
 
     def test_dp_total_report_count(self):
-        assert self.dp.get_total_report_count() == 1
+        assert self.dp.total_report_count == 1
 
     def test_dp_new_report_count(self):
-        assert self.dp.get_new_report_count() == 1
+        assert self.dp.new_report_count == 1
 
     def test_dp_first_new_report(self):
-        assert self.dp.get_new_reports()[0] == self.report
+        assert self.dp.new_reports[0] == self.report
 
 
 class TwiceReportedDropPointTestCase(BaseDropPointTestCase):
@@ -265,13 +265,13 @@ class TwiceReportedDropPointTestCase(BaseDropPointTestCase):
         assert self.dp.reports[-1] == self.report_2
 
     def test_dp_second_report_is_returned_as_last(self):
-        assert self.dp.get_last_report() == self.report_2
+        assert self.dp.last_report == self.report_2
 
     def test_dp_second_state_is_reported_state(self):
-        assert self.dp.get_last_state() == self.report_state_2
+        assert self.dp.last_state == self.report_state_2
 
     def test_dp_has_two_total_reports(self):
-        assert self.dp.get_total_report_count() == 2
+        assert self.dp.total_report_count == 2
 
     def test_dp_has_two_new_reports(self):
-        assert self.dp.get_new_report_count() == 2
+        assert self.dp.new_report_count == 2

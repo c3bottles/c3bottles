@@ -1,7 +1,10 @@
-from flask import render_template, request, g, abort, make_response
+from flask import render_template, request, g, abort, make_response, url_for
+from flask_babel import lazy_gettext
 from flask_login import login_required
 
 from .. import c3bottles, db
+
+from ..model.category import categories_sorted
 from ..model.drop_point import DropPoint
 
 
@@ -11,21 +14,21 @@ from ..model.drop_point import DropPoint
     methods=("GET", "POST")
 )
 @login_required
-def create(type=None, lat=None, lng=None, level=None, description=None, errors=None):
+def create_dp(lat=None, lng=None, level=None, description=None, errors=None):
     if not g.user.can_edit:
         abort(401)
 
     if request.method == "POST":
-        number = request.form.get("number")
+        number = int(request.form.get("number"))
+        category_id = int(request.form.get("category_id"))
         description = request.form.get("description")
         lat = float(request.form.get("lat"))
         lng = float(request.form.get("lng"))
         level = int(request.form.get("level"))
-        type = request.form.get("type") or "drop_point"
         try:
-            DropPoint(type=type,
-                number=number, description=description, lat=lat,
-                lng=lng, level=level
+            DropPoint(
+                number=number, category_id=category_id, description=description,
+                lat=lat, lng=lng, level=level
             )
         except ValueError as e:
             errors = e.args
@@ -33,7 +36,8 @@ def create(type=None, lat=None, lng=None, level=None, description=None, errors=N
             db.session.commit()
             return render_template(
                 "success.html",
-                text="Your drop point has been created successfully."
+                text=lazy_gettext("Your drop point has been created successfully."),
+                back="{}#{}/{}/{}/3".format(url_for("dp_map"), level, lat, lng)
             )
     else:
         number = DropPoint.get_next_free_number()
@@ -47,7 +51,6 @@ def create(type=None, lat=None, lng=None, level=None, description=None, errors=N
 
     return render_template(
         "create.html",
-        type=type,
         number=number,
         lat=lat,
         lng=lng,
@@ -55,15 +58,15 @@ def create(type=None, lat=None, lng=None, level=None, description=None, errors=N
         description=description,
         error_list=error_list,
         error_fields=error_fields,
+        categories=categories_sorted(),
     )
-
 
 
 @c3bottles.route("/create.js/<level>/<float:lat>/<float:lng>")
 def create_dp_js(level, lat, lng):
     resp = make_response(render_template(
         "js/create_dp.js",
-        all_dps_json=DropPoint.get_dps_json(type="drop_point"),
+        all_dps_json=DropPoint.get_dps_json(),
         level=int(level),
         lat=lat,
         lng=lng

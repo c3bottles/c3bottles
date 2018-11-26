@@ -6,7 +6,7 @@
                 <button type="button" class="close" data-dismiss="modal"
                         aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title"><span class="modal_dp-title">{{ _("Drop Point") }}</span> <span
+                <h4 class="modal-title"><span class="modal_dp_category"></span> <span
                         class="modal_dp_number"></span></h4>
             </div>
             <div class="modal-body">
@@ -30,29 +30,29 @@
                 </div>
                 <div class="tab-content">
                     <div class="tab-pane" id="dp_modal_details_tab">
-                        {% block details_tab %}
                         <table class="table table-bordered">
+                            <tr>
+                                <td>{{ _("Current state:") }}</td>
+                                <td>
+                                    <span class="label label-danger hidden dp-label OVERFLOW">{{ _("Overflowing") }}</span>
+                                    <span class="label label-warning hidden dp-label FULL">{{ _("Full") }}</span>
+                                    <span class="label label-info hidden dp-label REASONABLY_FULL">{{ _("Reasonably full") }}</span>
+                                    <span class="label label-primary hidden dp-label SOME_BOTTLES">{{ _("Some bottles") }}</span>
+                                    <span class="label label-success hidden dp-label EMPTY">{{ _("Empty") }}</span>
+                                    <span class="label label-default hidden dp-label NEW">{{ _("New") }}</span>
+                                    <span class="label label-danger hidden dp-label NO_CRATES">{{ _("No crates") }}</span>
+                                    <span class="label label-unknown hidden dp-label UNKNOWN">{{ _("Unknown") }}</span>
+                                </td>
+                            </tr>
                             <tr>
                                 <td>{{ _("Visit priority:") }}</td>
                                 <td class="modal_dp_priority"></td>
                             </tr>
                         </table>
-                        <div class="text-center">
-                            <a class="btn btn-default modal_dp_link"
-                               data-baseurl="{{ url_for("dp_view") }}">
-                                {{ _("View more details") }}
-                            </a>
-                        </div>
-                        {% endblock %}
+                        {% block details_tab_buttons %}{% endblock %}
                     </div>
                     <div class="tab-pane" id="dp_modal_report_tab">
-                        {% block report_tab %}
-                        {% if dp_type == 'drop_point' %}
-                            {% include "report_buttons.html" %}
-                        {% else %}
-                            {% include "report_trashcan.html" %}
-                        {% endif %}
-                        {% endblock %}
+                        {% block report_tab %}{% include "report_buttons.html" %}{% endblock %}
                     </div>
                     <div class="tab-pane" id="dp_modal_visit_tab">
                         {% block visit_tab %}{% include "visit_buttons.html" %}{% endblock %}

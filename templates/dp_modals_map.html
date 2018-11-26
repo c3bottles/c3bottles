@@ -1,19 +1,8 @@
 {% extends "dp_modals.html" %}
-{% block details_tab %}
-<table class="table table-bordered">
-	<tr>
-        <td>{{ _("Current location:") }}</td>
-        <td><span class="modal_dp_description"></span> {{ _("on level") }} <span class="modal_dp_level"></span></td>
-	</tr>
-    <tr>
-        <td>{{ _("Visit priority:") }}</td>
-        <td class="modal_dp_priority"></td>
-    </tr>
-</table>
+{% block details_tab_buttons %}
 <div class="text-center">
-    <a class="btn btn-default modal_dp_link"
-       data-baseurl="{{ url_for("dp_view") }}">
-        {{ _("View more details") }}
+    <a class="btn btn-default modal_dp_link" data-baseurl="{{ url_for('dp_view') }}">
+        {{ _("More details") }}
     </a>
 </div>
 {% endblock %}
