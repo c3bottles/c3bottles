@@ -11,7 +11,7 @@
     "build:js:watch": "webpack --watch",
     "build:js:debug": "webpack",
     "prebuild:css": "yarn run prebuild",
-    "build:css": "cp node_modules/bootstrap/dist/css/* node_modules/datatables-bootstrap3-plugin/media/css/*.css node_modules/leaflet/dist/leaflet.css static/lib/css/",
+    "build:css": "cp node_modules/bootstrap/dist/css/* node_modules/bootstrap-select/dist/css/* node_modules/datatables.net-bs/css/* node_modules/leaflet/dist/leaflet.css static/lib/css/",
     "prebuild:fonts": "yarn run prebuild",
     "build:babel": "venv/bin/pybabel compile -d translations/ && venv/bin/python translations/translate-js.py",
     "build:fonts": "cp -r node_modules/bootstrap/dist/fonts/* static/lib/fonts/",
@@ -27,9 +27,10 @@
   "dependencies": {
     "babel-polyfill": "^6.26.0",
     "bootstrap": "^3.3.7",
+    "bootstrap-select": "^1.13.3",
     "chart.js": "^2.7.2",
-    "datatables-bootstrap3-plugin": "0.5.0",
-    "datatables.net": "^1.10.16",
+    "datatables.net": "^1.10.19",
+    "datatables.net-bs": "1.10.19",
     "jquery": "^3.3.1",
     "leaflet": "^1.3.1"
   },

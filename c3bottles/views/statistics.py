@@ -1,5 +1,4 @@
 from flask import render_template, Blueprint, make_response
-from sqlalchemy import or_
 
 from ..model.drop_point import DropPoint
 from ..model.report import Report
@@ -31,7 +30,7 @@ class Statistics(object):
 
     @property
     def drop_point_count(self):
-        return DropPoint.query.filter(or_(DropPoint.removed == None, ~DropPoint.removed)).count()
+        return DropPoint.query.filter(DropPoint.removed == None).count()
 
     @property
     def report_count(self):
@@ -48,7 +47,7 @@ class Statistics(object):
             ret[state] = 0
         for dp in DropPoint.query.all():
             if not dp.removed:
-                s = dp.get_last_state()
+                s = dp.last_state
                 ret[s] = ret[s] + 1 if s in ret else 1
         return ret
 

@@ -97,7 +97,6 @@ def dp_json():
     if ts:
         try:
             dps = DropPoint.get_dps_json(
-                type="drop_point",
                 time=datetime.fromtimestamp(float(ts))
             )
         except ValueError as e:
@@ -107,7 +106,7 @@ def dp_json():
                 status=400
             )
     else:
-        dps = DropPoint.get_dps_json(type="drop_point")
+        dps = DropPoint.get_dps_json()
 
     return Response(
         dps,

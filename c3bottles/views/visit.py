@@ -1,4 +1,5 @@
-from flask import render_template, request, g, abort
+from flask import render_template, request, g, abort, url_for
+from flask_babel import lazy_gettext
 from flask_login import login_required
 
 from .. import c3bottles, db
@@ -19,8 +20,8 @@ def visit(number=None):
     if not dp or dp.removed:
         return render_template(
             "error.html",
-            heading="Error!",
-            text="Point not found.",
+            heading=lazy_gettext("Error!"),
+            text=lazy_gettext("Drop point not found."),
         )
 
     action = request.values.get("maintenance")
@@ -33,24 +34,19 @@ def visit(number=None):
         except ValueError as e:
             return render_template(
                 "error.html",
-                text="Errors occurred while processing your visit:",
+                text=lazy_gettext("Errors occurred while processing your visit:"),
                 errors=[v for d in e.args for v in d.values()]
             )
         else:
-            if dp.type == "drop_point":
-                back = "/bottle/map"
-            else:
-                back = "/trash/map"
             db.session.commit()
             return render_template(
                 "success.html",
-                heading="Thank you!",
-                text="Your visit has been processed successfully.",
-                back=back
+                heading=lazy_gettext("Thank you!"),
+                text=lazy_gettext("Your visit has been processed successfully."),
+                back="{}#{}/{}/{}/3".format(url_for("dp_map"), dp.level, dp.lat, dp.lng)
             )
     else:
         return render_template(
             "visit.html",
             dp=dp,
-            typename=dp.get_typename()
         )

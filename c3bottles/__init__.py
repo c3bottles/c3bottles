@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 from babel import Locale
 from pwgen import pwgen
 
@@ -7,8 +5,9 @@ from flask import Flask, g, session, request
 from flask_babel import Babel
 from flask_bcrypt import Bcrypt
 from flask_compress import Compress
-from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
+from flask_migrate import Migrate
+from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import CSRFProtect
 
 
@@ -36,13 +35,10 @@ except ImportError:
 Compress(c3bottles)
 
 db = SQLAlchemy(c3bottles, session_options={"autoflush": False})
-
+migrate = Migrate(c3bottles, db)
 lm = LoginManager(c3bottles)
-
 bcrypt = Bcrypt(c3bottles)
-
 csrf = CSRFProtect(c3bottles)
-
 babel = Babel(c3bottles)
 
 languages = ("en", "de")
@@ -87,18 +83,18 @@ c3bottles.before_request(set_locale)
 c3bottles.jinja_env.trim_blocks = True
 c3bottles.jinja_env.lstrip_blocks = True
 
+from c3bottles.views.admin import admin
 from c3bottles.views.api import api
-from c3bottles.views.main import (
-    index, faq,
-    dp_list_bottle, dp_list_trash, dp_list_js_bottle, dp_list_js_trash,
-    dp_map_bottle, dp_map_trash, dp_map_js_bottle, dp_map_js_trash,
-    dp_view, dp_view_js
-)
-from c3bottles.views.create import create, create_dp_js
+from c3bottles.views.create import create_dp, create_dp_js
 from c3bottles.views.edit import edit_dp, edit_dp_js
+from c3bottles.views.main import (
+    index, faq, dp_list, dp_list_js, dp_map, dp_map_js, dp_view, dp_view_js
+)
 from c3bottles.views.report import report
-from c3bottles.views.visit import visit
-from c3bottles.views.user import login, logout
 from c3bottles.views.statistics import stats
+from c3bottles.views.user import login, logout
+from c3bottles.views.visit import visit
+
+c3bottles.register_blueprint(admin)
 c3bottles.register_blueprint(api)
 c3bottles.register_blueprint(stats)

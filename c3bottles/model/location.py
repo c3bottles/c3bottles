@@ -8,7 +8,8 @@ from . import drop_point
 
 
 class Location(db.Model):
-    """A physical location of a drop point at some point in time.
+    """
+    A physical location of a drop point at some point in time.
 
     Drop points may be relocated at any time for whatever reason. For
     analysis after an event and optimization of the drop point locations

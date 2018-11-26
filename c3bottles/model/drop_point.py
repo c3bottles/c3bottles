@@ -7,6 +7,7 @@ from flask_babel import lazy_gettext as _
 
 from .. import c3bottles, db
 
+from .category import Category, all_categories
 from .location import Location
 from .report import Report
 from .visit import Visit
@@ -29,41 +30,23 @@ class DropPoint(db.Model):
     saved in the table of drop points but rather a class itself.
     """
 
-    number = db.Column(
-        db.Integer,
-        primary_key=True,
-        autoincrement=False)
-
+    number = db.Column(db.Integer, primary_key=True, autoincrement=False)
+    category_id = db.Column(db.Integer, nullable=False, default=1)
     time = db.Column(db.DateTime)
-
     removed = db.Column(db.DateTime)
-
-    locations = db.relationship(
-        "Location",
-        order_by="Location.time"
-    )
-
-    reports = db.relationship(
-        "Report",
-        lazy="dynamic"
-    )
-
-    visits = db.relationship(
-        "Visit",
-        lazy="dynamic"
-    )
-
-    type = db.Column(db.Text, default="drop_point")
+    locations = db.relationship("Location", order_by="Location.time")
+    reports = db.relationship("Report", lazy="dynamic")
+    visits = db.relationship("Visit", lazy="dynamic")
 
     def __init__(
             self,
             number,
+            category_id=0,
             description=None,
             lat=None,
             lng=None,
             level=None,
             time=None,
-            type=None
     ):
         """
         Create a new drop point object.
@@ -96,7 +79,12 @@ class DropPoint(db.Model):
                         "number": _("That drop point already exists.")
                     })
 
-        self.type = type
+        if category_id in all_categories:
+            self.category_id = category_id
+        else:
+            errors.append({
+                "cat_id": _("Invalid drop point category.")
+            })
 
         if time and not isinstance(time, datetime):
             errors.append({
@@ -166,38 +154,46 @@ class DropPoint(db.Model):
         """
         Visit(self, time=time, action=action)
 
-    def get_typename(self):
-        if self.type == 'trashcan':
-            return "Trashcan"
-        return "Drop Point"
+    @property
+    def category(self):
+        return Category.get(self.category_id)
 
-    def get_current_location(self):
-        """
-        Get the current location of a drop point, if it has been set.
+    @property
+    def level(self):
+        return self.locations[-1].level if self.locations else None
 
-        This will return `None`, if no location has been set yet.
-        """
+    @property
+    def lat(self):
+        return self.locations[-1].lat if self.locations else None
+
+    @property
+    def lng(self):
+        return self.locations[-1].lng if self.locations else None
+
+    @property
+    def description(self):
+        return self.locations[-1].description if self.locations else None
+
+    @property
+    def location(self):
         return self.locations[-1] if self.locations else None
 
-    def get_total_report_count(self):
-        """
-        Get the total number of reports of a drop point.
-        """
+    @property
+    def total_report_count(self):
         return self.reports.count()
 
-    def get_new_report_count(self):
-        """
-        Get the number of reports since the last visit of a drop point.
-        """
-        last_visit = self.get_last_visit()
+    @property
+    def new_report_count(self):
+        last_visit = self.last_visit
         if last_visit:
-            return self.reports. \
-                filter(Report.time > last_visit.time). \
-                count()
+            return self.reports \
+                .filter(Report.time > last_visit.time) \
+                .count()
         else:
-            return self.get_total_report_count()
+            return self.total_report_count
 
-    def get_last_state(self):
+    @property
+    def last_state(self):
         """
         Get the current state of a drop point.
 
@@ -215,15 +211,15 @@ class DropPoint(db.Model):
         If neither reports nor visits have been recorded yet or only visits
         without any actions, the drop point state is returned as new.
         """
-        last_report = self.get_last_report()
-        last_visit = self.get_last_visit()
+        last_report = self.last_report
+        last_visit = self.last_visit
 
         if last_report is not None and last_visit is not None:
             if last_visit.time > last_report.time:
-                visits = self.visits. \
-                    filter(Visit.time > last_report.time). \
-                    order_by(Visit.time.desc()). \
-                    all()
+                visits = self.visits \
+                    .filter(Visit.time > last_report.time) \
+                    .order_by(Visit.time.desc()) \
+                    .all()
                 for visit in visits:
                     if visit.action == Visit.actions[0]:
                         return Report.states[-1]
@@ -238,19 +234,22 @@ class DropPoint(db.Model):
 
         return Report.states[1]
 
-    def get_last_report(self):
+    @property
+    def last_report(self):
         """
         Get the last report of a drop point.
         """
         return self.reports.order_by(Report.time.desc()).first()
 
-    def get_last_visit(self):
+    @property
+    def last_visit(self):
         """
         Get the last visit of a drop point.
         """
         return self.visits.order_by(Visit.time.desc()).first()
 
-    def get_new_reports(self):
+    @property
+    def new_reports(self):
         """
         Get the reports since the last visit of a drop point.
 
@@ -259,50 +258,37 @@ class DropPoint(db.Model):
         in the list. If no visits have been recorded yet, all reports are
         returned.
         """
-        last_visit = self.get_last_visit()
+        last_visit = self.last_visit
         if last_visit:
-            return self.reports. \
-                filter(Report.time > last_visit.time). \
-                order_by(Report.time.desc()). \
-                all()
+            return self.reports \
+                .filter(Report.time > last_visit.time) \
+                .order_by(Report.time.desc()) \
+                .all()
         else:
             return self.reports.order_by(Report.time.desc()).all()
 
-    def get_history(self):
+    @property
+    def history(self):
         history = []
 
         for visit in self.visits.all():
-            history.append({
-                "time": visit.time,
-                "visit": visit
-            })
+            history.append({"time": visit.time, "visit": visit})
 
         for report in self.reports.all():
-            history.append({
-                "time": report.time,
-                "report": report
-            })
+            history.append({"time": report.time, "report": report})
 
         for location in self.locations:
-            history.append({
-                "time": location.time,
-                "location": location
-            })
+            history.append({"time": location.time, "location": location})
 
-        history.append({
-            "time": self.time,
-            "drop_point": self
-        })
+        history.append({"time": self.time, "drop_point": self})
 
         if self.removed:
-            history.append({
-                "time": self.removed,
-                "removed": True
-            })
+            history.append({"time": self.removed, "removed": True})
 
         return sorted(history, key=lambda k: k["time"], reverse=True)
 
-    def get_visit_interval(self):
+    @property
+    def visit_interval(self):
         """
         Get the visit interval for this drop point.
 
@@ -314,16 +300,22 @@ class DropPoint(db.Model):
         the location of drop points, time of day or a combination
         of those.
         """
-
         return 60 * c3bottles.config.get("BASE_VISIT_INTERVAL", 120)
 
-    def get_priority_factor(self):
+    @property
+    def priority_factor(self):
+        """
+        Get the priority factor.
+
+        This factor determines how often a drop point should be visited.
+        The factor depends on the severity of the reports submitted.
+        """
 
         # The priority of a removed drop point obviously is always 0.
         if self.removed:
             return 0
 
-        new_reports = self.get_new_reports()
+        new_reports = self.new_reports
 
         # This is the starting priority. The report weight should
         # be scaled relative to 1, so this can be interpreted as a
@@ -337,23 +329,25 @@ class DropPoint(db.Model):
             priority += report.get_weight() / 2**i
             i += 1
 
-        priority /= (1.0 * self.get_visit_interval())
+        priority /= (1.0 * self.visit_interval)
 
         return priority
 
-    def get_priority_base_time(self):
+    @property
+    def priority_base_time(self):
         """
         Get the base time for visit priority calculation of a drop point.
 
         This is either the time of the last visit, or, if no visit has been
         performed yet, the creation time of the drop point.
         """
-        if self.get_last_visit():
-            return self.get_last_visit().time
+        if self.last_visit:
+            return self.last_visit.time
         else:
             return self.time
 
-    def get_priority(self):
+    @property
+    def priority(self):
         """
         Get the priority to visit this drop point.
 
@@ -365,9 +359,8 @@ class DropPoint(db.Model):
         This ensures that every drop point is visited from time to
         time.
         """
-
-        priority = self.get_priority_factor() * \
-            (datetime.today() - self.get_priority_base_time()).total_seconds()
+        priority = self.priority_factor * \
+            (datetime.today() - self.priority_base_time).total_seconds()
 
         return round(priority, 2)
 
@@ -384,18 +377,19 @@ class DropPoint(db.Model):
         if dp is not None:
             return {
                 "number": dp.number,
-                "type": dp.type,
-                "description": dp.get_current_location().description,
-                "reports_total": dp.get_total_report_count(),
-                "reports_new": dp.get_new_report_count(),
-                "priority": dp.get_priority(),
-                "priority_factor": dp.get_priority_factor(),
-                "base_time": dp.get_priority_base_time().strftime("%s"),
-                "last_state": dp.get_last_state(),
+                "category_id": dp.category_id,
+                "category": str(dp.category),
+                "description": dp.description,
+                "reports_total": dp.total_report_count,
+                "reports_new": dp.new_report_count,
+                "priority": dp.priority,
+                "priority_factor": dp.priority_factor,
+                "base_time": dp.priority_base_time.strftime("%s"),
+                "last_state": dp.last_state,
                 "removed": True if dp.removed else False,
-                "lat": dp.get_current_location().lat,
-                "lng": dp.get_current_location().lng,
-                "level": dp.get_current_location().level
+                "lat": dp.lat,
+                "lng": dp.lng,
+                "level": dp.level
             }
         else:
             return None
@@ -414,7 +408,7 @@ class DropPoint(db.Model):
         )
 
     @staticmethod
-    def get_dps_json(type, time=None):
+    def get_dps_json(time=None):
         """
         Get drop points as a JSON string.
 
@@ -424,11 +418,11 @@ class DropPoint(db.Model):
         """
 
         if time is None:
-            dps = db.session.query(DropPoint).filter(DropPoint.type == type).all()
+            dps = db.session.query(DropPoint).all()
         else:
             dp_set = set()
             dp_set.update(
-                [dp for dp in DropPoint.query.filter(DropPoint.time > time and DropPoint.type == type).all()],
+                [dp for dp in DropPoint.query.filter(DropPoint.time > time).all()],
                 [l.dp for l in Location.query.filter(Location.time > time).all()],
                 [v.dp for v in Visit.query.filter(Visit.time > time).all()],
                 [r.dp for r in Report.query.filter(Report.time > time).all()]

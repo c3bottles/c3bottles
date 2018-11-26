@@ -6,7 +6,7 @@
                 <button type="button" class="close" data-dismiss="modal"
                         aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title"><span class="modal_dp-title">{{ _("Drop Point") }}</span> <span
+                <h4 class="modal-title"><span class="modal_dp_category"></span> <span
                         class="modal_dp_number"></span></h4>
             </div>
             <div class="modal-body">
@@ -30,7 +30,6 @@
                 </div>
                 <div class="tab-content">
                     <div class="tab-pane" id="dp_modal_details_tab">
-                        {% block details_tab %}
                         <table class="table table-bordered">
                             <tr>
                                 <td>{{ _("Current state:") }}</td>
@@ -50,22 +49,10 @@
                                 <td class="modal_dp_priority"></td>
                             </tr>
                         </table>
-                        <div class="text-center">
-                            <a class="btn btn-default modal_dp_link"
-                               data-baseurl="{{ url_for("dp_view") }}">
-                                {{ _("View more details") }}
-                            </a>
-                        </div>
-                        {% endblock %}
+                        {% block details_tab_buttons %}{% endblock %}
                     </div>
                     <div class="tab-pane" id="dp_modal_report_tab">
-                        {% block report_tab %}
-                        {% if dp_type == 'drop_point' %}
-                            {% include "report_buttons.html" %}
-                        {% else %}
-                            {% include "report_trashcan.html" %}
-                        {% endif %}
-                        {% endblock %}
+                        {% block report_tab %}{% include "report_buttons.html" %}{% endblock %}
                     </div>
                     <div class="tab-pane" id="dp_modal_visit_tab">
                         {% block visit_tab %}{% include "visit_buttons.html" %}{% endblock %}

@@ -68,7 +68,7 @@ class LocationTestCase(C3BottlesTestCase):
         )
 
         self.assertEqual(
-            dp.get_current_location(), second_location,
+            dp.location, second_location,
             "Current drop point location is not second location."
         )
 
