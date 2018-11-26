@@ -8,15 +8,16 @@
 {% endblock %}
 {% block replacement %}
 <div class="container over-map">
-    <div id="alerts"></div>
-</div>
-<div class="container over-map">
     <div class="btn-group" role="group">
         <button type="button" class="btn btn-primary map-category-select-button" data-category_id="-1">{{ _("All") }} ({{ total_drop_points }})</button>
         {% for category in categories %}
         <button type="button" class="btn btn-default map-category-select-button" data-category_id="{{ category.category_id }}">{{ category.name }} ({{ category|length }})</button>
         {% endfor %}
     </div>
+</div>
+<div class="spacer over-map"></div>
+<div class="container over-map">
+    <div id="alerts"></div>
 </div>
 <div id="map" class="map"></div>
 {% include "dp_modals_map.html" %}
