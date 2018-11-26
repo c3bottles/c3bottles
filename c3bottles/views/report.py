@@ -1,32 +1,24 @@
-from flask import render_template, request, g, abort, url_for
+from flask import render_template, request, abort
 from flask_babel import lazy_gettext
 
 from .. import c3bottles, db
-
 from ..model.drop_point import DropPoint
 from ..model.report import Report
+from . import needs_reporting
 
 
 @c3bottles.route("/report", methods=("GET", "POST"))
 @c3bottles.route("/<int:number>")
+@needs_reporting
 def report(number=None):
-    if number:
-        dp = DropPoint.get(number)
-    else:
-        dp = DropPoint.get(request.values.get("number"))
+    dp = DropPoint.query.get_or_404(request.values.get("number", number))
 
-    if not dp or dp.removed:
-        return render_template(
-            "error.html",
-            heading=lazy_gettext("Error!"),
-            text=lazy_gettext("Drop point not found."),
-        )
+    if dp.removed:
+        abort(404)
 
     state = request.values.get("state")
 
     if state:
-        if g.no_anonymous_reporting and g.user.is_anonymous:
-            abort(401)
         try:
             Report(dp=dp, state=state)
         except ValueError as e:

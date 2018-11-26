@@ -1,34 +1,24 @@
-from flask import render_template, request, g, abort, url_for
+from flask import render_template, request, url_for, abort, flash, redirect
 from flask_babel import lazy_gettext
-from flask_login import login_required
 
 from .. import c3bottles, db
-
 from ..model.drop_point import DropPoint
 from ..model.visit import Visit
+from . import needs_visiting
 
 
 @c3bottles.route("/visit", methods=("GET", "POST"))
 @c3bottles.route("/visit/<int:number>")
-@login_required
+@needs_visiting
 def visit(number=None):
-    if number:
-        dp = DropPoint.get(number)
-    else:
-        dp = DropPoint.get(request.values.get("number"))
+    dp = DropPoint.query.get_or_404(request.values.get("number", number))
 
-    if not dp or dp.removed:
-        return render_template(
-            "error.html",
-            heading=lazy_gettext("Error!"),
-            text=lazy_gettext("Drop point not found."),
-        )
+    if dp.removed:
+        abort(404)
 
     action = request.values.get("maintenance")
 
     if action:
-        if g.user.is_anonymous:
-            abort(401)
         try:
             Visit(dp=dp, action=action)
         except ValueError as e:
@@ -39,12 +29,11 @@ def visit(number=None):
             )
         else:
             db.session.commit()
-            return render_template(
-                "success.html",
-                heading=lazy_gettext("Thank you!"),
-                text=lazy_gettext("Your visit has been processed successfully."),
-                back="{}#{}/{}/{}/3".format(url_for("dp_map"), dp.level, dp.lat, dp.lng)
-            )
+            flash({
+                "class": "success disappear",
+                "text": lazy_gettext("Your visit has been processed successfully."),
+            })
+            return redirect("{}#{}/{}/{}/3".format(url_for("dp_map"), dp.level, dp.lat, dp.lng))
     else:
         return render_template(
             "visit.html",

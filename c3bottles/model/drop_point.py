@@ -1,12 +1,10 @@
 import json
-
 from datetime import datetime
 from sqlalchemy import desc
 
-from flask_babel import lazy_gettext as _
+from flask_babel import lazy_gettext
 
 from .. import c3bottles, db
-
 from .category import Category, all_categories
 from .location import Location
 from .report import Report
@@ -65,36 +63,24 @@ class DropPoint(db.Model):
         try:
             self.number = int(number)
         except (TypeError, ValueError):
-            errors.append({
-                "number": _("Drop point number is not a number.")
-            })
+            errors.append({"number": lazy_gettext("Drop point number is not a number.")})
         else:
             if self.number < 1:
-                errors.append({
-                    "number": _("Drop point number is not positive.")
-                })
+                errors.append({"number": lazy_gettext("Drop point number is not positive.")})
             with db.session.no_autoflush:
-                if db.session.query(DropPoint).get(self.number):
-                    errors.append({
-                        "number": _("That drop point already exists.")
-                    })
+                if DropPoint.query.get(self.number):
+                    errors.append({"number": lazy_gettext("That drop point already exists.")})
 
         if category_id in all_categories:
             self.category_id = category_id
         else:
-            errors.append({
-                "cat_id": _("Invalid drop point category.")
-            })
+            errors.append({"cat_id": lazy_gettext("Invalid drop point category.")})
 
         if time and not isinstance(time, datetime):
-            errors.append({
-                "DropPoint": _("Creation time not a datetime object.")
-            })
+            errors.append({"DropPoint": lazy_gettext("Creation time not a datetime object.")})
 
         if isinstance(time, datetime) and time > datetime.today():
-            errors.append({
-                "DropPoint": _("Creation time in the future.")
-            })
+            errors.append({"DropPoint": lazy_gettext("Creation time in the future.")})
 
         self.time = time if time else datetime.today()
 
@@ -126,19 +112,13 @@ class DropPoint(db.Model):
         """
 
         if self.removed:
-            raise RuntimeError({
-                "DropPoint": _("Drop point already removed.")
-            })
+            raise RuntimeError({"DropPoint": lazy_gettext("Drop point already removed.")})
 
         if time and not isinstance(time, datetime):
-            raise TypeError({
-                "DropPoint": _("Removal time not a datetime object.")
-            })
+            raise TypeError({"DropPoint": lazy_gettext("Removal time not a datetime object.")})
 
         if time and time > datetime.today():
-            raise ValueError({
-                "DropPoint": _("Removal time in the future.")
-            })
+            raise ValueError({"DropPoint": lazy_gettext("Removal time in the future.")})
 
         self.removed = time if time else datetime.today()
 
@@ -176,9 +156,9 @@ class DropPoint(db.Model):
 
     @property
     def description_with_level(self):
-        return _(
+        return lazy_gettext(
             "%(location)s on level %(level)i",
-            location=self.description if self.description else _("somewhere"),
+            location=self.description if self.description else lazy_gettext("somewhere"),
             level=self.level
         )
 
@@ -372,16 +352,9 @@ class DropPoint(db.Model):
 
         return round(priority, 2)
 
-    @staticmethod
-    def get(number):
-        try:
-            return db.session.query(DropPoint).get(number)
-        except TypeError:
-            return None
-
     @classmethod
     def get_dp_info(cls, number):
-        dp = cls.get(number)
+        dp = cls.query.get(number)
         if dp is not None:
             return {
                 "number": dp.number,
@@ -427,7 +400,7 @@ class DropPoint(db.Model):
         """
 
         if time is None:
-            dps = db.session.query(DropPoint).all()
+            dps = DropPoint.query.all()
         else:
             dp_set = set()
             dp_set.update(
@@ -450,7 +423,7 @@ class DropPoint(db.Model):
         """
         Get the next free drop point number.
         """
-        last = db.session.query(DropPoint) \
+        last = DropPoint.query \
             .order_by(desc(DropPoint.number)) \
             .limit(1).first()
         if last:

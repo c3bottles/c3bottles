@@ -1,4 +1,4 @@
-{% if g.user.is_authenticated and g.user.can_visit: %}
+{% if current_user.can_visit: %}
 <p>
     {{ _("Please use the buttons below to log the action taken on your visit of this drop point.") }}
 </p>
@@ -8,7 +8,7 @@
         {{ _("Emptied the drop point") }}
     </button>
     <hr/>
-    {% if g.user.is_authenticated and g.user.can_edit: %}
+    {% if current_user.can_edit: %}
     <a class="btn btn-block btn-warning modal_dp_link"
        data-baseurl="{{ url_for("edit_dp") }}">
         {{ _("Modified the drop point") }}

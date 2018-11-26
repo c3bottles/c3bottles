@@ -1,11 +1,10 @@
 from flask import render_template, request, g, abort, make_response, url_for, flash, redirect
 from flask_babel import lazy_gettext
-from flask_login import login_required
 
 from .. import c3bottles, db
-
 from ..model.category import categories_sorted
 from ..model.drop_point import DropPoint
+from . import needs_editing
 
 
 @c3bottles.route("/create", methods=("GET", "POST"))
@@ -13,11 +12,8 @@ from ..model.drop_point import DropPoint
     "/create/<level>/<float:lat>/<float:lng>",
     methods=("GET", "POST")
 )
-@login_required
+@needs_editing
 def create_dp(lat=None, lng=None, level=None, description=None, errors=None):
-    if not g.user.can_edit:
-        abort(401)
-
     if request.method == "POST":
         number = int(request.form.get("number"))
         category_id = int(request.form.get("category_id"))

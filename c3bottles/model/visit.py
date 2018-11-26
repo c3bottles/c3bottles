@@ -1,9 +1,8 @@
 from datetime import datetime
 
-from flask_babel import lazy_gettext as _
+from flask_babel import lazy_gettext
 
 from .. import db
-
 from . import drop_point
 
 
@@ -50,33 +49,23 @@ class Visit(db.Model):
         self.dp = dp
 
         if not isinstance(dp, drop_point.DropPoint):
-            errors.append({
-                "Visit": _("Not given a drop point object.")
-            })
+            errors.append({"Visit": lazy_gettext("Not given a drop point object.")})
         else:
             if dp.removed:
-                errors.append({
-                    "Visit": _("Drop point has been removed.")
-                })
+                errors.append({"Visit": lazy_gettext("Drop point has been removed.")})
 
         if time and not isinstance(time, datetime):
-            errors.append({
-                "Visit": _("Time not a datetime object.")
-            })
+            errors.append({"Visit": lazy_gettext("Time not a datetime object.")})
 
         if isinstance(time, datetime) and time > datetime.today():
-            errors.append({
-                "Visit": _("Start time in the future.")
-            })
+            errors.append({"Visit": lazy_gettext("Start time in the future.")})
 
         self.time = time if time else datetime.today()
 
         if action in Visit.actions:
             self.action = action
         else:
-            errors.append({
-                "Visit": _("Invalid or missing maintenance action.")
-            })
+            errors.append({"Visit": lazy_gettext("Invalid or missing maintenance action.")})
 
         if errors:
             raise ValueError(*errors)

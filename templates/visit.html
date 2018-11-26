@@ -4,7 +4,7 @@
         <div class="page-header">
             <h1>{{ title }}</h1>
         </div>
-        {% if g.user.is_anonymous or not g.user.can_visit %}
+        {% if not current_user.can_visit %}
         <div class="alert alert-warning">
             <strong>{{ _("Attention!") }}</strong> {{ _("You are not allowed to visit drop points.") }}
         </div>

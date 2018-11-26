@@ -19,7 +19,7 @@
                     <dd>{{ dp.description_with_level }}</dd>
                     <dt>{{ _("Visit priority:") }}</dt>
                     <dd>{{ "%0.2f"|format(dp.priority) }}</dd>
-                    {% if g.user.can_visit %}
+                    {% if current_user.can_visit %}
                     <dt>{{ _("Label:") }}</dt>
                     <dd>
                         <a href="{{ url_for('dp_label', number=dp.number) }}">
@@ -29,13 +29,13 @@
                     {% endif %}
                 </dl>
                 <div class="btn-group">
-                    {% if not g.no_anonymous_reporting or g.user.is_authenticated %}
+                    {% if current_user.can_report %}
                     <a class="btn btn-default" href="{{ url_for('report', number=dp.number) }}">{{ _("Report") }}</a>
                     {% endif %}
-                    {% if g.user.is_authenticated and g.user.can_visit %}
+                    {% if current_user.can_visit %}
                     <a class="btn btn-default" href="{{ url_for('visit', number=dp.number) }}">{{ _("Visit") }}</a>
                     {% endif %}
-                    {% if g.user.is_authenticated and g.user.can_edit %}
+                    {% if current_user.can_edit %}
                     <a class="btn btn-default" href="{{ url_for('edit_dp', number=dp.number) }}">{{ _("Edit") }}</a>
                     {% endif %}
                 </div>
