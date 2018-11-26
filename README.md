@@ -5,6 +5,8 @@
 Please have a look in [INSTALL.md](INSTALL.md) on how to install and build
 c3bottles. All the scripts and configuration needed to run c3bottles in
 Docker are available as well, please see [DOCKER.md](DOCKER.md) for the details.
+If you want to get involved and improve c3bottles or adapt it to your specific
+needs, please have a look at [DEVELOPMENT.md](DEVELOPMENT.md).
 
 ## What is this about?
 
