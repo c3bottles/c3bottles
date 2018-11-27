@@ -3,13 +3,10 @@
 [![Build Status](https://travis-ci.org/c3bottles/c3bottles.svg)](https://travis-ci.org/c3bottles/c3bottles)
 
 Please have a look in [INSTALL.md](INSTALL.md) on how to install and build
-c3bottles.
-
-## c3bottles in docker
-
-[INSTALL.md](INSTALL.md)
-
-[Docker Readme here](DOCKER.md)
+c3bottles. All the scripts and configuration needed to run c3bottles in
+Docker are available as well, please see [DOCKER.md](DOCKER.md) for the details.
+If you want to get involved and improve c3bottles or adapt it to your specific
+needs, please have a look at [DEVELOPMENT.md](DEVELOPMENT.md).
 
 ## What is this about?
 
@@ -26,16 +23,16 @@ building. The visitors are advised to leave their bottles not at random but
 rather only at the designated bottle drop points. The bottle collectors then
 only need to visit these points to do their job.
 
-However, there are some caveats: In a large building like the CCH nobody is
-able to memorize all the drop points and some of them may be forgotten and
-overflow without anyone noticing. In addition, if the planning in advance was
-not perfect (as always), some drop points in popular locations may overflow
-very quickly making the job of the collectors a lot harder. At an overflowing
-drop point, they can't simply exchange a full crate for an empty one but
-instead have to put all the bottles laying on and around the more than full
-crate into their fresh one. In the worst case they then have lots of full but
-no empty crates left in locations with a high bottle drop rate. If that ever
-happens, the bottlecalypse is inevitable.
+However, there are some caveats: In a large building nobody is able to memorize
+all the drop points and some of them may be forgotten and overflow without
+anyone noticing. In addition, if the planning in advance was not perfect (as
+always), some drop points in popular locations may overflow very quickly making
+the job of the collectors a lot harder. At an overflowing drop point, they
+can't simply exchange a full crate for an empty one but instead have to put all
+the bottles laying on and around the more than full crate into their fresh one.
+In the worst case they then have lots of full but no empty crates left in
+locations with a high bottle drop rate. If that ever happens, the bottlecalypse
+is inevitable.
 
 c3bottles aims to solve this problem using modern web technology combined with
 crowdsourcing: A database tracks the state of all the drop points and visitors
@@ -49,17 +46,17 @@ abandoning drop points in remote locations which are not used much anyway.
 ## How does this work?
 
 During placement of bottle drop points, every drop point is registered in the
-database with its number, position and capacity (i.e. number of empty crates).
-It gets a label telling the visitors to report full drop points using a URL
-specific for every drop point. On the website, the visitor can report the drop
-point as needing attention by simply clicking a button. Optionally, the visitor
-may inform the bottle collectors about the filling level of the drop point.
+database with an identifier and its position. A label to be printed directly
+from the web interface tells the visitors to report full drop points using a
+URL specific for every drop point. On the website, the visitor can report the
+drop point as needing attention by simply clicking a button. Optionally, the
+visitor may inform the bottle collectors about the filling level of the drop
+point.
 
 The other end of the web interface shows a list of drop points to visit ordered
-by priority: Drop points reported a lot lately get a high priority which is
-even higher if the respective drop point has a high capacity and/or was just
-emptied and is filling up again quickly. Drop points not visited for a long
-time get a high priority too, so the collectors can check their current state.
+by priority: Drop points reported a lot lately get a higher priority. The
+priority of drop points not visited for a long time grows over time as well,
+so the collectors will check their state eventually.
 
 A map shows the location of all the drop points so new members of the bottle
 collector team can find them easily and visitors can always find the nearest
@@ -67,4 +64,18 @@ drop point to their current location.
 
 The bottle collectors track their actions when visiting drop points by clicking
 a button whenever they empty a drop point. In addition, they can change the
-location or capacity of drop points if needed.
+location of drop points, remove unused ones or create new ones on the fly as
+needed.
+
+## Evolution of features
+
+The system has been used for bottle collection on 32C3, 33C3 and for trashcans
+on SHA2017. During 34C3, bottle drop points as well as trashcans needed to be
+emptied, so trashcans were added ad-hoc. After 34C3, categories were added,
+so the system is now suited to track different categories of targets, be it
+bottle drop points, trashcans or other locations that need to be visited
+more or less frequently based on user feedback.
+
+The map started as custom tiles rendered from a large PNG file and over time
+has been extended to be compatible with a number of different map sources that
+can be used with Leaflet, e.g. Open Streetmap or [c3nav](https://c3nav.de/).

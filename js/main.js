@@ -12,3 +12,7 @@ $.ajaxSetup({
     }
   },
 });
+
+setTimeout(() => {
+  $('.disappear').slideUp();
+}, 5000);

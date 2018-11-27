@@ -1,9 +1,8 @@
 from datetime import datetime
 
-from flask_babel import lazy_gettext as _
+from flask_babel import lazy_gettext
 
 from .. import db
-
 from . import drop_point
 
 
@@ -56,63 +55,45 @@ class Location(db.Model):
         errors = []
 
         if not isinstance(dp, drop_point.DropPoint):
-            errors.append({
-                "Location": _("Not given a drop point object.")
-            })
+            errors.append({"Location": lazy_gettext("Not given a drop point object.")})
             raise ValueError(errors)
 
         self.dp = dp
 
         if time and not isinstance(time, datetime):
-            errors.append({
-                "Location": _("Start time not a datetime object.")
-            })
+            errors.append({"Location": lazy_gettext("Start time not a datetime object.")})
 
         if isinstance(time, datetime) and time > datetime.today():
-            errors.append({
-                "Location": _("Start time in the future.")
-            })
+            errors.append({"Location": lazy_gettext("Start time in the future.")})
 
         if dp.locations and isinstance(time, datetime) and \
                 time < dp.locations[-1].time:
-            errors.append({
-                "Location": _("Location older than current.")
-            })
+            errors.append({"Location": lazy_gettext("Location older than current.")})
 
         self.time = time if time else datetime.today()
 
         try:
             self.lat = float(lat)
         except (TypeError, ValueError):
-            errors.append({
-                "lat": _("Latitude is not a floating point number.")
-            })
+            errors.append({"lat": lazy_gettext("Latitude is not a floating point number.")})
 
         try:
             self.lng = float(lng)
         except (TypeError, ValueError):
-            errors.append({
-                "lng": _("Longitude is not a floating point number.")
-            })
+            errors.append({"lng": lazy_gettext("Longitude is not a floating point number.")})
 
         try:
             self.level = int(level)
         except (TypeError, ValueError):
-            errors.append({
-                "level": _("Level is not a number.")
-            })
+            errors.append({"level": lazy_gettext("Level is not a number.")})
 
         try:
             self.description = str(description)
         except (TypeError, ValueError):
-            errors.append({
-                "description": _("Location description is not a string.")
-            })
+            errors.append({"description": lazy_gettext("Location description is not a string.")})
         else:
             if len(self.description) > self.max_description:
-                errors.append({
-                    "description": _("Location description is too long.")
-                })
+                errors.append({"description": lazy_gettext("Location description is too long.")})
 
         if errors:
             raise ValueError(*errors)

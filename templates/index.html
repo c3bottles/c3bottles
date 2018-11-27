@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% set title = _("Home") %}
 {% block content %}
-    {% if g.no_anonymous_reporting %}
+    {% if config.NO_ANONYMOUS_REPORTING %}
     <div class="alert alert-warning">
         <strong>{{ _("Attention!") }}</strong> {{ _("Anonymous reporting has been disabled.") }}
     </div>
@@ -18,11 +18,10 @@
         <div class="row">
             <div class="col-xs-8 col-sm-5 col-md-4 col-lg-3">
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-            <input{{ ' disabled' if g.no_anonymous_reporting and g.user.is_anonymous }} type="number" step="1" name="number" class="form-control"
-                   placeholder="{{ _('Enter a drop point number') }}">
+            <input{{ ' disabled' if not current_user.can_report }} type="number" step="1" name="number" class="form-control" placeholder="{{ _('Enter a drop point number') }}" required>
             </div>
             <div class="col-xs-4">
-            <button{{ ' disabled' if g.no_anonymous_reporting and g.user.is_anonymous }} type="submit" class="btn btn-success">{{ _('Report this drop point') }}</button>
+            <button{{ ' disabled' if not current_user.can_report }} type="submit" class="btn btn-success">{{ _('Report this drop point') }}</button>
             </div>
         </div>
         </form>

@@ -1,33 +1,19 @@
 from datetime import datetime
-from flask import render_template, request, g, abort, make_response, url_for
+
+from flask import render_template, request, make_response, url_for, flash, redirect
 from flask_babel import lazy_gettext
-from flask_login import login_required
 
 from .. import c3bottles, db
-
 from ..model.drop_point import DropPoint
 from ..model.location import Location
+from . import needs_editing
 
 
 @c3bottles.route("/edit/<string:number>", methods=("GET", "POST"))
 @c3bottles.route("/edit")
-@login_required
+@needs_editing
 def edit_dp(number=None, errors=None):
-
-    if not g.user.can_edit:
-        abort(401)
-
-    if number:
-        dp = DropPoint.get(number)
-    else:
-        dp = DropPoint.get(request.values.get("number"))
-
-    if not dp:
-        return render_template(
-            "error.html",
-            heading=lazy_gettext("Error!"),
-            text=lazy_gettext("Drop point not found.")
-        )
+    dp = DropPoint.query.get_or_404(request.values.get("number", number))
 
     description_old = str(dp.description)
     lat_old = str(dp.lat)
@@ -60,11 +46,11 @@ def edit_dp(number=None, errors=None):
             errors = e.args
         else:
             db.session.commit()
-            return render_template(
-                    "success.html",
-                    text=lazy_gettext("Your changes have been saved successfully."),
-                    back="{}#{}/{}/{}/3".format(url_for("dp_map"), level, lat, lng)
-                )
+            flash({
+                "class": "success disappear",
+                "text": lazy_gettext("Your changes have been saved successfully."),
+            })
+            return redirect("{}#{}/{}/{}/3".format(url_for("dp_map"), level, lat, lng))
 
     else:
         description = description_old
@@ -103,7 +89,7 @@ def edit_dp_js(number):
     resp = make_response(render_template(
         "js/edit_dp.js",
         all_dps_json=DropPoint.get_dps_json(),
-        dp=DropPoint.get(number)
+        dp=DropPoint.query.get_or_404(number),
     ))
     resp.mimetype = "application/javascript"
     return resp

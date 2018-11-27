@@ -109,12 +109,12 @@ class FreshDropPointTestCase(BaseDropPointTestCase):
         assert "not a datetime" in str(e)
 
     def test_dp_getter_returns_dp(self):
-        assert DropPoint.get(dp_number) == self.dp
+        assert DropPoint.query.get(dp_number) == self.dp
 
     @staticmethod
     def test_dp_getter_return_none_for_nonexistent():
-        for num in [-1, "foo", None]:
-            assert DropPoint.get(num) is None
+        for num in [-1, "foo"]:
+            assert DropPoint.query.get(num) is None
 
     def test_dp_location_getter_returns_location_object(self):
         assert isinstance(self.dp.location, Location)

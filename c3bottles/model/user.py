@@ -1,9 +1,9 @@
 import click
-
 from pwgen import pwgen
 
+from flask import current_app, abort
 from flask_login import UserMixin, AnonymousUserMixin
-from flask_babel import lazy_gettext as _
+from flask_babel import lazy_gettext
 
 from .. import c3bottles, db, lm, bcrypt
 
@@ -39,18 +39,18 @@ class User(db.Model, UserMixin):
         errors = []
 
         if not (name and password):
-            errors.append({"user": _("User needs a name and a password.")})
+            errors.append({"user": lazy_gettext("User needs a name and a password.")})
 
         if not isinstance(name, str):
-            errors.append({"user": _("User name is not a string.")})
+            errors.append({"user": lazy_gettext("User name is not a string.")})
         else:
             if len(name) > MAXLENGTH_NAME:
-                errors.append({"user": _("User name is too long.")})
+                errors.append({"user": lazy_gettext("User name is too long.")})
 
         try:
             self.password = bcrypt.generate_password_hash(password)
         except (TypeError, ValueError):
-            errors.append({"user": _("Password hashing failed.")})
+            errors.append({"user": lazy_gettext("Password hashing failed.")})
 
         self.name = name
         self.token = make_secure_token()
@@ -68,6 +68,10 @@ class User(db.Model, UserMixin):
 
     @property
     def is_authenticated(self):
+        return True
+
+    @property
+    def can_report(self):
         return True
 
     def get_id(self):
@@ -91,6 +95,23 @@ class User(db.Model, UserMixin):
             return cls.query.filter(cls.name == _id).first()
         else:
             return None
+
+    @classmethod
+    def get_or_404(cls, _id):
+        """
+        Get a user by their id or name from the database. If the user does not exist,
+        abort the current request with an error 404.
+
+        :param _id: the id (as an int) or name (as a str) of the user to get
+        :return: the user object in question
+        """
+
+        if type(_id) is int:
+            return cls.query.get_or_404(_id)
+        elif type(_id) is str:
+            return cls.query.filter(cls.name == _id).first_or_404()
+        else:
+            abort(404)
 
     @classmethod
     def get_by_token(cls, token):
@@ -125,11 +146,23 @@ class Anonymous(AnonymousUserMixin):
 
     @property
     def name(self):
-        return _("Unknown")
+        return lazy_gettext("Unknown")
 
     @property
     def user_id(self):
         return 0
+
+    @property
+    def can_report(self):
+        return not current_app.config.get("NO_ANONYMOUS_REPORTING", False)
+
+    @property
+    def can_visit(self):
+        return False
+
+    @property
+    def can_edit(self):
+        return False
 
     @property
     def is_admin(self):

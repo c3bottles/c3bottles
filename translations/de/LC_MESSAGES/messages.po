@@ -1,18 +1,18 @@
+
 msgid ""
 msgstr ""
-"Project-Id-Version: c3bottles\n"
+"Project-Id-Version:  c3bottles\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-11-25 23:12+0100\n"
-"PO-Revision-Date: 2018-11-25 23:12+0100\n"
+"POT-Creation-Date: 2018-11-26 22:22+0100\n"
+"PO-Revision-Date: 2018-11-26 19:37+0100\n"
 "Last-Translator: MichiK <michik@michik.net>\n"
 "Language: de\n"
 "Language-Team: \n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.6.0\n"
-"X-Generator: Poedit 2.2\n"
 
 #: c3bottles/model/category.py:40
 msgid "Bottle Drop Point"
@@ -22,89 +22,98 @@ msgstr "Bottle Drop Point"
 msgid "Trashcan"
 msgstr "Mülleimer"
 
-#: c3bottles/model/drop_point.py:69
+#: c3bottles/model/drop_point.py:66
 msgid "Drop point number is not a number."
 msgstr "Drop-Point-Nummer ist keine Zahl."
 
-#: c3bottles/model/drop_point.py:74
+#: c3bottles/model/drop_point.py:69
 msgid "Drop point number is not positive."
 msgstr "Drop-Point-Nummer ist nicht positiv."
 
-#: c3bottles/model/drop_point.py:79
+#: c3bottles/model/drop_point.py:72
 msgid "That drop point already exists."
 msgstr "Dieser Drop Point existiert bereits."
 
-#: c3bottles/model/drop_point.py:86
+#: c3bottles/model/drop_point.py:77
 msgid "Invalid drop point category."
 msgstr "Ungültige Drop-Point-Kategorie."
 
-#: c3bottles/model/drop_point.py:91
+#: c3bottles/model/drop_point.py:80
 msgid "Creation time not a datetime object."
 msgstr "Zeit der Erstellung ist kein datetime-Objekt."
 
-#: c3bottles/model/drop_point.py:96
+#: c3bottles/model/drop_point.py:83
 msgid "Creation time in the future."
 msgstr "Zeit der Erstellung liegt in der Zukunft."
 
-#: c3bottles/model/drop_point.py:130
+#: c3bottles/model/drop_point.py:115
 msgid "Drop point already removed."
 msgstr "Der Drop Point wurde bereits entfernt."
 
-#: c3bottles/model/drop_point.py:135
+#: c3bottles/model/drop_point.py:118
 msgid "Removal time not a datetime object."
 msgstr "Zeit der Entfernung ist kein datetime-Objekt."
 
-#: c3bottles/model/drop_point.py:140
+#: c3bottles/model/drop_point.py:121
 msgid "Removal time in the future."
 msgstr "Zeit der Entfernung liegt in der Zukunft."
 
-#: c3bottles/model/location.py:60 c3bottles/model/report.py:58
-#: c3bottles/model/visit.py:54
+#: c3bottles/model/drop_point.py:159 templates/view.html:65
+#, python-format
+msgid "%(location)s on level %(level)i"
+msgstr "%(location)s auf Ebene %(level)i"
+
+#: c3bottles/model/drop_point.py:161 templates/view.html:65
+msgid "somewhere"
+msgstr "irgendwo"
+
+#: c3bottles/model/location.py:58 c3bottles/model/report.py:56
+#: c3bottles/model/visit.py:52
 msgid "Not given a drop point object."
 msgstr "Kein Drop Point Objekt übergeben."
 
-#: c3bottles/model/location.py:68
+#: c3bottles/model/location.py:64
 msgid "Start time not a datetime object."
 msgstr "Startzeit ist kein datetime-Objekt."
 
-#: c3bottles/model/location.py:73 c3bottles/model/report.py:73
-#: c3bottles/model/visit.py:69
+#: c3bottles/model/location.py:67 c3bottles/model/report.py:65
+#: c3bottles/model/visit.py:61
 msgid "Start time in the future."
 msgstr "Startzeit liegt in der Zukunft."
 
-#: c3bottles/model/location.py:79
+#: c3bottles/model/location.py:71
 msgid "Location older than current."
 msgstr "Ort älter als der aktuelle Ort."
 
-#: c3bottles/model/location.py:88
+#: c3bottles/model/location.py:78
 msgid "Latitude is not a floating point number."
 msgstr "Breitengrad ist keine Zahl."
 
-#: c3bottles/model/location.py:95
+#: c3bottles/model/location.py:83
 msgid "Longitude is not a floating point number."
 msgstr "Längengrad ist keine Zahl."
 
-#: c3bottles/model/location.py:102
+#: c3bottles/model/location.py:88
 msgid "Level is not a number."
 msgstr "Ebene ist keine Zahl."
 
-#: c3bottles/model/location.py:109
+#: c3bottles/model/location.py:93
 msgid "Location description is not a string."
 msgstr "Ortsbeschreibung ist kein String."
 
-#: c3bottles/model/location.py:114
+#: c3bottles/model/location.py:96
 msgid "Location description is too long."
 msgstr "Ortsbeschreiung ist zu lang."
 
-#: c3bottles/model/report.py:63 c3bottles/model/visit.py:59
+#: c3bottles/model/report.py:59 c3bottles/model/visit.py:55
 msgid "Drop point has been removed."
 msgstr "Drop Point wurde entfernt."
 
-#: c3bottles/model/report.py:68 c3bottles/model/visit.py:64
+#: c3bottles/model/report.py:62 c3bottles/model/visit.py:58
 msgid "Time not a datetime object."
 msgstr "Zeit ist nicht ein datetime-Objekt."
 
-#: c3bottles/model/report.py:82
+#: c3bottles/model/report.py:72
 msgid "Invalid or missing reported state."
 msgstr "Ungültiger oder fehlender Status."
 
@@ -124,88 +133,81 @@ msgstr "Der Benutzername ist zu lang."
 msgid "Password hashing failed."
 msgstr "Berechnen der Passwort-Prüfsumme fehlgeschlagen."
 
-#: c3bottles/model/user.py:128 templates/dp_modals.html:44
+#: c3bottles/model/user.py:149 templates/dp_modals.html:44
 #: templates/macros/actions.html:6 templates/macros/states.html:19
 msgid "Unknown"
 msgstr "Unbekannt"
 
-#: c3bottles/model/visit.py:78
+#: c3bottles/model/visit.py:68
 msgid "Invalid or missing maintenance action."
 msgstr "Ungültige oder fehlende Wartungsaktion."
 
-#: c3bottles/views/admin.py:58
+#: c3bottles/views/admin.py:52
 msgid "The user has been disabled successfully."
 msgstr "Der Benutzer wurde erfolgreich deaktiviert."
 
-#: c3bottles/views/admin.py:78
+#: c3bottles/views/admin.py:68
 msgid "The user has been enabled successfully."
 msgstr "Der Benutzer wurde erfolgreich aktiviert."
 
-#: c3bottles/views/admin.py:100
+#: c3bottles/views/admin.py:86
 msgid "The user's permissions have been updated successfully."
 msgstr "Die Berechtigungen des Benutzers wurden erfolgreich aktualisiert."
 
-#: c3bottles/views/admin.py:122
+#: c3bottles/views/admin.py:104
 msgid "The user's password has been changed successfully"
 msgstr "Das Passwort des Benutzers wurde erfolgreich geändert."
 
-#: c3bottles/views/admin.py:131
+#: c3bottles/views/admin.py:113
 msgid "The passwords do not match."
 msgstr "Die Passwörter stimmen nicht überein."
 
-#: c3bottles/views/admin.py:150
+#: c3bottles/views/admin.py:128
 msgid "The user has been deleted successfully."
 msgstr "Der Benutzer wurde erfolgreich gelöscht."
 
-#: c3bottles/views/admin.py:164
+#: c3bottles/views/admin.py:141
 msgid "A user with this name already exists"
 msgstr "Es gibt bereits einen Benutzer mit diesem Namen."
 
-#: c3bottles/views/admin.py:176
+#: c3bottles/views/admin.py:153
 msgid "The new user has been created successfully."
 msgstr "Der neue Benutzer wurde erfolgreich erstellt."
 
-#: c3bottles/views/create.py:39
-msgid "Your drop point has been created successfully."
-msgstr "Der Drop Point wurde erfolgreich erstellt."
+#: c3bottles/views/create.py:35
+#, python-format
+msgid "Your %(category)s has been created successfully."
+msgstr "%(category)s wurde erfolgreich erstellt."
 
-#: c3bottles/views/edit.py:28 c3bottles/views/report.py:21 c3bottles/views/visit.py:23
-msgid "Error!"
-msgstr "Fehler!"
-
-#: c3bottles/views/edit.py:29 c3bottles/views/report.py:22 c3bottles/views/visit.py:24
-msgid "Drop point not found."
-msgstr "Drop Point nicht gefunden."
-
-#: c3bottles/views/edit.py:65
+#: c3bottles/views/edit.py:51
 msgid "Your changes have been saved successfully."
 msgstr "Die Änderungen wurden erfolgreich gespeichert."
 
-#: c3bottles/views/report.py:35
+#: c3bottles/views/report.py:27
 msgid "Errors occurred while processing your report:"
 msgstr "Bei der Meldung sind Fehler aufgetreten:"
 
-#: c3bottles/views/report.py:42 c3bottles/views/visit.py:44 templates/js/l10n.js:2
+#: c3bottles/views/report.py:34 templates/js/l10n.js:2
 msgid "Thank you!"
 msgstr "Danke!"
 
-#: c3bottles/views/report.py:43 templates/js/l10n.js:3
+#: c3bottles/views/report.py:35 templates/js/l10n.js:3
 msgid "Your report has been received successfully."
 msgstr "Der Bericht wurde erfolgreich gespeichert."
 
-#: c3bottles/views/user.py:39
+#: c3bottles/views/user.py:37
 msgid "Login failed!"
 msgstr "Fehler beim Einloggen!"
 
-#: c3bottles/views/user.py:40
+#: c3bottles/views/user.py:38
 msgid "Wrong user name or password."
 msgstr "Falscher Benutzername oder falsches Passwort."
 
-#: c3bottles/views/visit.py:37
+#: c3bottles/views/visit.py:27
 msgid "Errors occurred while processing your visit:"
 msgstr "Bei der Verarbeitung des Besuchs sind Fehler aufgetreten:"
 
-#: c3bottles/views/visit.py:45
+#: c3bottles/views/visit.py:34
 msgid "Your visit has been processed successfully."
 msgstr "Der Besuch wurde erfolgreich verarbeitet."
 
@@ -289,8 +291,8 @@ msgstr "Benutzer löschen"
 #: templates/admin.html:129
 msgid "Are you sure that you want to delete this user? Deletion is irreversible."
 msgstr ""
-"Soll dieser Benutzer wirklich gelöscht werden? Dieser Vorgang lässt sich nicht "
-"rückgängig machen."
+"Soll dieser Benutzer wirklich gelöscht werden? Dieser Vorgang lässt sich "
+"nicht rückgängig machen."
 
 #: templates/create.html:2
 msgid "Create a New Bottle Drop Point"
@@ -438,8 +440,10 @@ msgid ""
 msgstr ""
 "%(project)s ist ein Flaschensammel-Managementsystem für Chaosevents.\n"
 "Das Sammeln des Leerguts ist eine harte Aufgabe auf jeder Veranstaltung,\n"
-"da die Flaschen in großer Anzahl an verschiedenen Orten und zu Zeiten auftauchen,\n"
-"die sich im Vorfeld nur schwer planen lassen. Flaschensammler müssen die ganze\n"
+"da die Flaschen in großer Anzahl an verschiedenen Orten und zu Zeiten "
+"auftauchen,\n"
+"die sich im Vorfeld nur schwer planen lassen. Flaschensammler müssen die "
+"ganze\n"
 "Zeit herumlaufen und nach Leergut suchen."
 
 #: templates/faq.html:33 templates/faq.html:71 templates/index.html:10
@@ -507,11 +511,15 @@ msgid ""
 msgstr ""
 "%(project)s möchte dieses Problem lösen, indem moderne Webtechnologie\n"
 "mit Croudsourcing kombiniert wird: Eine Datenbank enthält Ort und Status\n"
-"aller Drop Points und die Besucher können Berichte von vollen oder überlaufenden\n"
-"Drop Points absetzen. Die Flaschensammler werden dann benachrichtigt und können\n"
+"aller Drop Points und die Besucher können Berichte von vollen oder "
+"überlaufenden\n"
+"Drop Points absetzen. Die Flaschensammler werden dann benachrichtigt und "
+"können\n"
 "prompot reagieren. Außerdem tracken sie ihre Tour und werden vom System auch\n"
-"auf Drop Points aufmerksam gemacht, die lange nicht besucht wurden oder dringend\n"
-"besucht werden müssen. Statistische Auswertungen erlauben eine kontinuierliche\n"
+"auf Drop Points aufmerksam gemacht, die lange nicht besucht wurden oder "
+"dringend\n"
+"besucht werden müssen. Statistische Auswertungen erlauben eine "
+"kontinuierliche\n"
 "Optimierung der Verteilung der Drop Points anhand des Bedarfs."
 
 #: templates/faq.html:77
@@ -547,8 +555,10 @@ msgid ""
 "state."
 msgstr ""
 "Am anderen Ende des Webinterfaces gibt es eine Liste der Drop Points\n"
-"sortiert nach Priorität: Drop Points mit vielen Berichten erhalten eine höhere\n"
-"Priorität, ebenso wie Drop Points, welche lange nicht besucht wurden. So wird\n"
+"sortiert nach Priorität: Drop Points mit vielen Berichten erhalten eine "
+"höhere\n"
+"Priorität, ebenso wie Drop Points, welche lange nicht besucht wurden. So wird"
+"\n"
 "sichergestellt, dass die Flaschensammler alle Drop Points regelmäßig\n"
 "besuchen."
 
@@ -559,7 +569,8 @@ msgid ""
 "always find the nearest drop point to their current location."
 msgstr ""
 "Eine Karte zeigt die Orte aller Drop Points, sodass neue Flaschensammler\n"
-"diese schnell lokalisieren können und Besucher jederzeit den nächsten Drop Point\n"
+"diese schnell lokalisieren können und Besucher jederzeit den nächsten Drop "
+"Point\n"
 "von ihrem aktuellen Ort aus finden."
 
 #: templates/faq.html:108
@@ -626,10 +637,11 @@ msgstr ""
 
 #: templates/faq.html:149
 msgid ""
-"I need some manual labor and bottle collection sounds like a thing for me. What "
-"should I do?"
+"I need some manual labor and bottle collection sounds like a thing for me. "
+"What should I do?"
 msgstr ""
-"Ich brauche manuelle Arbeit und Flaschen sammeln klingt nach Spaß. Was soll ich tun?"
+"Ich brauche manuelle Arbeit und Flaschen sammeln klingt nach Spaß. Was soll "
+"ich tun?"
 
 #: templates/faq.html:153
 msgid ""
@@ -677,7 +689,8 @@ msgstr ""
 "Jeder Drop Point hat zu jeder Zeit einen Zustand, der seinen Füllstand\n"
 "beschreibt. Wenn Drop Points gemeldet werden, sollte man den Zustand\n"
 "wählen, der am besten zur Situation vor Ort passt. Die entsprechende Spalte\n"
-"in der Liste sowie die Marker auf der Karte zeigen den Zustand des jeweiligen\n"
+"in der Liste sowie die Marker auf der Karte zeigen den Zustand des jeweiligen"
+"\n"
 "Drop Points an:"
 
 #: templates/faq.html:188
@@ -784,8 +797,8 @@ msgstr ""
 #: templates/faq.html:284
 msgid "I'm good at coding and think this site could need some help. What should I do?"
 msgstr ""
-"Ich kann programmieren und denke, die Seite könnte Hilfe gebrauchen. Was soll ich "
-"tun?"
+"Ich kann programmieren und denke, die Seite könnte Hilfe gebrauchen. Was soll"
+" ich tun?"
 
 #: templates/faq.html:288
 msgid ""
@@ -813,11 +826,11 @@ msgstr ""
 
 #: templates/faq.html:304
 msgid ""
-"I'm the organizer of some event in the near or far future and like the idea. Can I "
-"use your software?"
+"I'm the organizer of some event in the near or far future and like the idea. "
+"Can I use your software?"
 msgstr ""
-"Ich organisiere ein Event in naher oder ferner Zukunft und mag die Idee. Kann ich "
-"die Software benutzen?"
+"Ich organisiere ein Event in naher oder ferner Zukunft und mag die Idee. Kann"
+" ich die Software benutzen?"
 
 #: templates/faq.html:308
 msgid ""
@@ -828,8 +841,8 @@ msgid ""
 msgstr ""
 "Natürlich. Genau dafür wurde sie entwickelt. Du kannst den Sourcecode bei\n"
 "GitHub herunterladen und dein eigenes System aufsetzen. Wenn du noch Fragen\n"
-"hast, findest du meine Kontaktinformationen <a href=\"https://michik.net/\">hier</"
-"a>."
+"hast, findest du meine Kontaktinformationen <a "
+"href=\"https://michik.net/\">hier</a>."
 
 #: templates/faq.html:316
 msgid "I'm a l33t h4xx0r and think this is fun."
@@ -841,13 +854,13 @@ msgstr "Schön für dich. Hier ist dein Fisch:"
 
 #: templates/footer.html:4
 msgid ""
-"Development takes place on <a href=\"https://github.com/c3bottles/c3bottles"
-"\">GitHub</a>. News can be found on <a href=\"https://twitter.com/c3bottles"
-"\">Twitter</a>."
+"Development takes place on <a "
+"href=\"https://github.com/c3bottles/c3bottles\">GitHub</a>. News can be found"
+" on <a href=\"https://twitter.com/c3bottles\">Twitter</a>."
 msgstr ""
-"Die Entwicklung findet auf <a href=\"https://github.com/c3bottles/c3bottles"
-"\">GitHub</a> statt. Neuigkeiten gibt es auch auf <a href=\"https://twitter.com/"
-"c3bottles\">Twitter</a>."
+"Die Entwicklung findet auf <a "
+"href=\"https://github.com/c3bottles/c3bottles\">GitHub</a> statt. Neuigkeiten"
+" gibt es auch auf <a href=\"https://twitter.com/c3bottles\">Twitter</a>."
 
 #: templates/index.html:2
 msgid "Home"
@@ -869,82 +882,82 @@ msgstr "Willkommen zu %(project)s!"
 #: templates/index.html:13
 #, python-format
 msgid ""
-"%(project)s is the bottle drop and collection management system of your favourite "
-"chaos event. You have no idea what that means? Try the links below!"
+"%(project)s is the bottle drop and collection management system of your "
+"favourite chaos event. You have no idea what that means? Try the links below!"
 msgstr ""
-"%(project)s ist das Verwaltungssystem zur Leergutablage und zum Flaschensammeln auf "
-"deinem bevorzugten Chaos-Event. Keine Ahnung, was dies bedeutet? Probiere die Links "
-"unten aus!"
+"%(project)s ist das Verwaltungssystem zur Leergutablage und zum "
+"Flaschensammeln auf deinem bevorzugten Chaos-Event. Keine Ahnung, was dies "
+"bedeutet? Probiere die Links unten aus!"
 
-#: templates/index.html:22
+#: templates/index.html:21
 msgid "Enter a drop point number"
 msgstr "Drop-Point-Nummer eingeben"
 
-#: templates/index.html:25
+#: templates/index.html:24
 msgid "Report this drop point"
 msgstr "Diesen Drop Point melden"
 
-#: templates/index.html:36
+#: templates/index.html:35
 msgid "Show me the list!"
 msgstr "Zeig mir die Liste!"
 
-#: templates/index.html:39
+#: templates/index.html:38
 msgid ""
-"You like working in text-mode? Great! We have a huge list of bottle drop points and "
-"all the tools to interact with them!"
+"You like working in text-mode? Great! We have a huge list of bottle drop "
+"points and all the tools to interact with them!"
 msgstr ""
-"Du magst den Textmodus? Perfekt! Wir haben eine lange Liste von Bottle Drop Points "
-"und alle Werkzeuge, sie zu verwalten!"
+"Du magst den Textmodus? Perfekt! Wir haben eine lange Liste von Bottle Drop "
+"Points und alle Werkzeuge, sie zu verwalten!"
 
-#: templates/index.html:45
+#: templates/index.html:44
 msgid "To the list"
 msgstr "Zur Liste"
 
-#: templates/index.html:54
+#: templates/index.html:53
 msgid "Show me the map!"
 msgstr "Zeig mir die Karte!"
 
-#: templates/index.html:57
+#: templates/index.html:56
 msgid ""
-"Text is nothing for you? No problem! We have a very cool map which shows all the "
-"drop points and their state in real-time!"
+"Text is nothing for you? No problem! We have a very cool map which shows all "
+"the drop points and their state in real-time!"
 msgstr ""
-"Text ist nichts für dich? Kein Problem! Unsere Karte zeigt alle Bottle Drop Points "
-"und ihren jeweiligen Status - in Echtzeit!"
+"Text ist nichts für dich? Kein Problem! Unsere Karte zeigt alle Bottle Drop "
+"Points und ihren jeweiligen Status - in Echtzeit!"
 
-#: templates/index.html:63
+#: templates/index.html:62
 msgid "To the map"
 msgstr "Zur Karte"
 
-#: templates/index.html:72
+#: templates/index.html:71
 msgid "I want the numbers!"
 msgstr "Ich will die Zahlen!"
 
-#: templates/index.html:75
+#: templates/index.html:74
 msgid ""
-"The sheer beauty of numbers and diagrams amazes you? Good news: The system allows "
-"you to see all the statistics!"
+"The sheer beauty of numbers and diagrams amazes you? Good news: The system "
+"allows you to see all the statistics!"
 msgstr ""
-"Die Schönheit von Zahlen und Diagrammen fasziniert dich? Gute Nachrichten: Unser "
-"System gibt dir Zugriff auf alle Statistiken!"
+"Die Schönheit von Zahlen und Diagrammen fasziniert dich? Gute Nachrichten: "
+"Unser System gibt dir Zugriff auf alle Statistiken!"
 
-#: templates/index.html:81
+#: templates/index.html:80
 msgid "To the numbers"
 msgstr "Zu den Zahlen"
 
-#: templates/index.html:90
+#: templates/index.html:89
 msgid "WTF is this?"
 msgstr "WTF ist das hier?"
 
-#: templates/index.html:93
+#: templates/index.html:92
 msgid ""
-"You have no clue what this is about or how it works? Your questions were asked "
-"before and can be answered."
+"You have no clue what this is about or how it works? Your questions were "
+"asked before and can be answered."
 msgstr ""
-"Du hast keine Ahnung, was das hier sein soll? Deine Fragen gab es schon vorher und "
-"wir haben die Antworten."
+"Du hast keine Ahnung, was das hier sein soll? Deine Fragen gab es schon "
+"vorher und wir haben die Antworten."
 
-#: templates/index.html:99
+#: templates/index.html:98
 msgid "To the FAQ"
 msgstr "Zur FAQ"
 
@@ -952,7 +965,7 @@ msgstr "Zur FAQ"
 msgid "Drop Point List"
 msgstr "Liste von Drop Points"
 
-#: templates/list.html:14
+#: templates/list.html:14 templates/map.html:12
 msgid "All"
 msgstr "Alle"
 
@@ -1005,42 +1018,42 @@ msgstr "Sprache"
 msgid "Report Drop Point %(number)i"
 msgstr "Drop Point %(number)i melden"
 
-#: templates/report_buttons.html:3
+#: templates/report_buttons.html:2
 msgid ""
-"Please use the buttons below to report the current state of the drop point. If you "
-"are unsure which state to report, refer to the FAQ or simply use the very first "
-"button."
+"Please use the buttons below to report the current state of the drop point. "
+"If you are unsure which state to report, refer to the FAQ or simply use the "
+"very first button."
 msgstr ""
-"Bitte nutze die Buttons unten um den Status des Drop Points zu melden. Wenn du dir "
-"unsicher bist, welchen Status du angeben sollst, schau in die FAQ oder nimm den "
-"ersten Button."
+"Bitte nutze die Buttons unten um den Status des Drop Points zu melden. Wenn "
+"du dir unsicher bist, welchen Status du angeben sollst, schau in die FAQ oder"
+" nimm den ersten Button."
 
-#: templates/report_buttons.html:8
+#: templates/report_buttons.html:7
 msgid "I'm not sure, just take a look"
 msgstr "Ich bin mir unsicher"
 
-#: templates/report_buttons.html:12
+#: templates/report_buttons.html:11
 msgid "Drop point is overflowing"
 msgstr "Drop Point läuft über"
 
-#: templates/report_buttons.html:15
+#: templates/report_buttons.html:14
 #, python-format
 msgid "Drop point is 100%% full"
 msgstr "Drop Point ist komplett voll"
 
-#: templates/report_buttons.html:18
+#: templates/report_buttons.html:17
 msgid "Drop point is reasonably full"
 msgstr "Drop Point ist gut gefüllt"
 
-#: templates/report_buttons.html:21
+#: templates/report_buttons.html:20
 msgid "Some bottles are present"
 msgstr "Einige Flaschen sind dort"
 
-#: templates/report_buttons.html:24
+#: templates/report_buttons.html:23
 msgid "Drop point is empty"
 msgstr "Drop Point ist leer"
 
-#: templates/report_buttons.html:28
+#: templates/report_buttons.html:27
 msgid "There are no crates"
 msgstr "Es gibt keine Kisten"
 
@@ -1074,10 +1087,11 @@ msgstr "Besuche pro Drop Point"
 
 #: templates/statistics.html:59
 msgid ""
-"There are no drop points and/or reports yet. Therefore, no statistics are available."
+"There are no drop points and/or reports yet. Therefore, no statistics are "
+"available."
 msgstr ""
-"Da es noch keine Drop Points und/oder Meldungen gibt, gibt es auch noch keine "
-"Statistiken."
+"Da es noch keine Drop Points und/oder Meldungen gibt, gibt es auch noch keine"
+" Statistiken."
 
 #: templates/success.html:2
 msgid "Success"
@@ -1095,15 +1109,6 @@ msgstr "Details von %(category)s %(number)i"
 #: templates/view.html:18
 msgid "Location:"
 msgstr "Ort:"
-
-#: templates/view.html:19 templates/view.html:65
-#, python-format
-msgid "%(location)s on level %(level)i"
-msgstr "%(location)s auf Ebene %(level)i"
-
-#: templates/view.html:19 templates/view.html:65
-msgid "somewhere"
-msgstr "irgendwo"
 
 #: templates/view.html:23
 msgid "Label:"
@@ -1164,8 +1169,8 @@ msgstr "Du darfst keine Drop Points besuchen."
 
 #: templates/visit_buttons.html:3
 msgid ""
-"Please use the buttons below to log the action taken on your visit of this drop "
-"point."
+"Please use the buttons below to log the action taken on your visit of this "
+"drop point."
 msgstr "Bitte nutze die Buttons unten um deinen Besuch zu loggen."
 
 #: templates/visit_buttons.html:8
@@ -1186,10 +1191,11 @@ msgstr "Keine Aktion nötig"
 
 #: templates/visit_buttons.html:29
 msgid ""
-"Please log in as a bottle collector using the login form at the top of this page in "
-"order to visit drop points."
+"Please log in as a bottle collector using the login form at the top of this "
+"page in order to visit drop points."
 msgstr ""
-"Bitte logge dich als Flaschensammler ein, um Besuche von Drop Points zu loggen."
+"Bitte logge dich als Flaschensammler ein, um Besuche von Drop Points zu "
+"loggen."
 
 #: templates/js/l10n.js:5
 msgid "An error occurred while processing your report: "
@@ -1294,30 +1300,3 @@ msgstr "Geleert"
 #: templates/macros/actions.html:5
 msgid "No action"
 msgstr "Keine Aktion"
-
-#~ msgid "Update permissions"
-#~ msgstr "Berechtigungen aktualisieren"
-
-#~ msgid "Drop Point"
-#~ msgstr "Drop Point"
-
-#~ msgid "Drop point number"
-#~ msgstr "Drop-Point-Nummer"
-
-#~ msgid "Edit Drop Point %(number)i"
-#~ msgstr "Drop Point %(number)i bearbeiten"
-
-#~ msgid "Change the details of the drop point:"
-#~ msgstr "Details des Drop Points bearbeiten:"
-
-#~ msgid "Remove drop point"
-#~ msgstr "Drop Point entfernen"
-
-#~ msgid "Details of Drop Point %(number)i"
-#~ msgstr "Details von Drop Point %(number)i"
-
-#~ msgid "Current location:"
-#~ msgstr "Aktueller Ort:"
-
-#~ msgid "Last state"
-#~ msgstr "Letzter Status"

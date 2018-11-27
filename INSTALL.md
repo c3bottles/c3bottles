@@ -1,27 +1,20 @@
-# System Requirements
+# Install c3bottles
 
-In order to install c3bottles, you will need Python 3.5 or newer and the
-following dependencies:
+## System Requirements
 
-*   Flask
-*   Flask-Babel
-*   Flask-Bcrypt
-*   Flask-SQLAlchemy
-*   Flask-Login >= 0.3.0 (versions <0.3.0 will not work since a breaking
-    change has been done in the API)
-*   Flask-WTF
-*   CairoSVG
-*   PyPDF2
-*   Python-QRCode
-*   a WSGI-capable webserver (e.g. Apache)
-*   some SQL server supported by SQLAlchemy
-    (the author uses PostgreSQL but others should work, too)
-*   ImageMagick, GDAL and the gdal2tiles.py script to generate the map tiles
-*   the Node.js package manager (npm)
-*   on Debian, Node.js is fucked up, so the legacy symlink is needed for npm
-    etc. (node-legacy)
+c3bottles is compatible with Python 3.5 or newer. Please see `requirements.txt`
+for the Python dependencies. c3bottles depends on Gunicorn by default to make
+creation of Docker images easier but can run behind any WSGI compatible
+webserver, be it Gunicorn, uWSGI or Apache.
 
-# Installation
+The state of all the drop points is maintained in a database, so you will need
+a database that can is supported by SQLAlchemy, e.g. SQLite or PostgreSQL.
+The author uses PostgreSQL, therefore Psycopg2 is already included in
+`requirements.txt`.
+
+To build the frontend dependencies, you will need Node.js and yarn or npm.
+
+## Installation
 
 1.  Clone the repository from Github:
 
@@ -36,18 +29,18 @@ following dependencies:
     If you are using Debian and the installation fails, you are probably
     missing `libpython3-dev` or `libffi-dev`.
 
-    If you prefer a virtualenv, a Makefile has already been prepared for you,
-    just type `make` to create it and install all dependencies.
+    If you would like to use a virtualenv, a Makefile has already been
+    prepared, just type `make` to create it and install all dependencies.
 
 3.  Fetch the frontend dependencies and build everything:
 
-        $ yarn install
-        $ yarn run build
+        $ yarn
+        $ yarn build
 
 4.  Create a configuriation file `config.py`. You will find a template for
     the configuration in the file `config.default.py`. Although c3bottles will
     work if no `config.py` with the required settings is present, is is
-    recommended to set at least a SECRET_KEY and SQLALCHEMY_DATABASE_URI.
+    recommended to set at least `SECRET_KEY` and `SQLALCHEMY_DATABASE_URI`.
 
 5.  Configure your database accordingly. The user for c3bottles needs full
     access to the database. If you use SQLite, the web server needs write
@@ -61,7 +54,8 @@ following dependencies:
 
         $ ./manage.py user create
 
-    Most user management tasks can be done via the command line interface.
+    User management can be done via the admin web interface but most user
+    management tasks are available via the command line interface as well.
     `./manage.py user --help` provides the details.
 
 8.  For testing purposes, you can run c3bottles with the development web
@@ -72,30 +66,44 @@ following dependencies:
     However, if you want to use c3bottles in a production environment, it is
     strongly advised to use a proper web server like lined out below.
 
-9.  Configure your webserver accordingly to run the WSGI application.
+## Web server configuration
 
-    To use c3bottles with Apache, you need `mod_wsgi` for Python 3 (in Debian:
-    `libapache2-mod-wsgi-py3) and in your virtual host, you need to add a
-    configuration like this:
+c3bottles can be used behind any WSGI compatible webserver. Some options and
+configuration examples are described here.
 
-        WSGIScriptAlias / /path/to/c3bottles/wsgi.py
-        WSGIApplicationGroup %{GLOBAL}
-        Alias /static /path/to/c3bottles/static
+### Gunicorn
 
-    If your Python libraries are installed inside a virtualenv,
-    `WSGIPythonHome` has to be set accordingly. Please keep in mind that this
-    is a global setting of Apache.
+c3bottles ships with Gunicorn by default. Simply run
+`venv/bin/gunicorn --bind 0.0.0.0:5000 wsgi` or similar from the c3bottles
+base directory to use the Gunicorn binary installed in the virtualenv.
 
-    A sample uWSGI configuration file:
+### Apache
 
-        [uwsgi]
-        socket = /tmp/c3bottles.sock
-        venv = /srv/c3bottles/venv
-        chdir = /srv/c3bottles/
-        wsgi-file = wsgi.py
-        callable = c3bottles
+To use c3bottles with Apache, you need `mod_wsgi` for Python 3 (in Debian:
+`libapache2-mod-wsgi-py3`) and in your virtual host, you need to add a
+configuration like this:
 
-# Map
+    WSGIScriptAlias / /path/to/c3bottles/wsgi.py
+    WSGIApplicationGroup %{GLOBAL}
+    Alias /static /path/to/c3bottles/static
 
-This branch of c3bottles uses the from [https://c3nav.de](c3nav). You don't
-have to worry about anything, it will just work.
+If your Python libraries are installed inside a virtualenv, `WSGIPythonHome`
+has to be set accordingly. Please keep in mind that this is a global setting
+of Apache.
+
+### uWSGI
+
+A sample uWSGI configuration file could look like this:
+
+    [uwsgi]
+    socket = /tmp/c3bottles.sock
+    venv = /srv/c3bottles/venv
+    chdir = /srv/c3bottles/
+    wsgi-file = wsgi.py
+    callable = c3bottles
+
+## Map
+
+By default, c3bottles uses the map of [c3nav](https://c3nav.de/). However, it
+is possible to configure any map source that is supported by Leaflet (e.g. Open
+Streetmap) by adapting `js/map.js` accordingly.

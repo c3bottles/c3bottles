@@ -1,30 +1,29 @@
-{% set no = g.no_anonymous_reporting and g.user.is_anonymous %}
 <p>
     {{ _("Please use the buttons below to report the current state of the drop point. If you are unsure which state to report, refer to the FAQ or simply use the very first button.") }}
 </p>
 
 <div class="modal-buttons-div">
-    <button{{ " disabled" if no }} class="btn btn-block btn-default report-button" type="submit" name="state" value="DEFAULT">
+    <button{{ " disabled" if not current_user.can_report }} class="btn btn-block btn-default report-button" type="submit" name="state" value="DEFAULT">
         {{ _("I'm not sure, just take a look") }}
     </button>
     <hr/>
-    <button{{ " disabled" if no }} class="btn btn-block btn-danger report-button" type="submit" name="state" value="OVERFLOW">
+    <button{{ " disabled" if not current_user.can_report }} class="btn btn-block btn-danger report-button" type="submit" name="state" value="OVERFLOW">
         {{ _("Drop point is overflowing") }}
     </button>
-    <button{{ " disabled" if no }} class="btn btn-block btn-warning report-button" type="submit" name="state" value="FULL">
+    <button{{ " disabled" if not current_user.can_report }} class="btn btn-block btn-warning report-button" type="submit" name="state" value="FULL">
         {{ _("Drop point is 100%% full") }}
     </button>
-    <button{{ " disabled" if no }} class="btn btn-block btn-info report-button" type="submit" name="state" value="REASONABLY_FULL">
+    <button{{ " disabled" if not current_user.can_report }} class="btn btn-block btn-info report-button" type="submit" name="state" value="REASONABLY_FULL">
         {{ _("Drop point is reasonably full") }}
     </button>
-    <button{{ " disabled" if no }} class="btn btn-block btn-primary report-button" type="submit" name="state" value="SOME_BOTTLES">
+    <button{{ " disabled" if not current_user.can_report }} class="btn btn-block btn-primary report-button" type="submit" name="state" value="SOME_BOTTLES">
         {{ _("Some bottles are present") }}
     </button>
-    <button{{ " disabled" if no }} class="btn btn-block btn-success report-button" type="submit" name="state" value="EMPTY">
+    <button{{ " disabled" if not current_user.can_report }} class="btn btn-block btn-success report-button" type="submit" name="state" value="EMPTY">
         {{ _("Drop point is empty") }}
     </button>
     <hr/>
-    <button{{ " disabled" if no }} class="btn btn-block btn-default report-button" type="submit" name="state" value="NO_CRATES">
+    <button{{ " disabled" if not current_user.can_report }} class="btn btn-block btn-default report-button" type="submit" name="state" value="NO_CRATES">
         {{ _("There are no crates") }}
     </button>
 </div>

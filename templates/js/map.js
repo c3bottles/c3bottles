@@ -29,7 +29,7 @@ var update_hash = function() {
 }
 map.on("moveend", update_hash);
 map.on("zoomend", update_hash);
-var pane_on_click = "{{ "report" if g.user.is_authenticated and g.user.can_visit else "report" }}"
-{% if g.user.is_authenticated and g.user.can_edit: %}
+var pane_on_click = "report";
+{% if current_user.can_edit: %}
 allow_dp_creation_from_map();
 {% endif %}

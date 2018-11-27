@@ -1,11 +1,10 @@
-from flask import render_template, request, g, abort, make_response, url_for
+from flask import render_template, request, g, abort, make_response, url_for, flash, redirect
 from flask_babel import lazy_gettext
-from flask_login import login_required
 
 from .. import c3bottles, db
-
 from ..model.category import categories_sorted
 from ..model.drop_point import DropPoint
+from . import needs_editing
 
 
 @c3bottles.route("/create", methods=("GET", "POST"))
@@ -13,11 +12,8 @@ from ..model.drop_point import DropPoint
     "/create/<level>/<float:lat>/<float:lng>",
     methods=("GET", "POST")
 )
-@login_required
+@needs_editing
 def create_dp(lat=None, lng=None, level=None, description=None, errors=None):
-    if not g.user.can_edit:
-        abort(401)
-
     if request.method == "POST":
         number = int(request.form.get("number"))
         category_id = int(request.form.get("category_id"))
@@ -26,7 +22,7 @@ def create_dp(lat=None, lng=None, level=None, description=None, errors=None):
         lng = float(request.form.get("lng"))
         level = int(request.form.get("level"))
         try:
-            DropPoint(
+            dp = DropPoint(
                 number=number, category_id=category_id, description=description,
                 lat=lat, lng=lng, level=level
             )
@@ -34,11 +30,13 @@ def create_dp(lat=None, lng=None, level=None, description=None, errors=None):
             errors = e.args
         else:
             db.session.commit()
-            return render_template(
-                "success.html",
-                text=lazy_gettext("Your drop point has been created successfully."),
-                back="{}#{}/{}/{}/3".format(url_for("dp_map"), level, lat, lng)
-            )
+            flash({
+                "class": "success disappear",
+                "text": lazy_gettext(
+                    "Your %(category)s has been created successfully.", category=dp.category
+                )
+            })
+            return redirect("{}#{}/{}/{}/3".format(url_for("dp_map"), level, lat, lng))
     else:
         number = DropPoint.get_next_free_number()
 

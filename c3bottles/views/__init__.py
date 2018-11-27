@@ -1,10 +1,10 @@
 from datetime import datetime
+from functools import wraps
 
-from flask import render_template, g, request, Response, get_flashed_messages
+from flask import render_template, g, request, Response, get_flashed_messages, abort
 from flask_login import current_user
 
 from .. import c3bottles
-
 from ..model.forms import LoginForm
 
 
@@ -12,10 +12,47 @@ from ..model.forms import LoginForm
 def before_request():
     g.alerts = get_flashed_messages()
     g.login_form = LoginForm()
-    g.user = current_user
     g.now = datetime.now()
-    g.no_anonymous_reporting = \
-        c3bottles.config.get("NO_ANONYMOUS_REPORTING", False)
+
+
+def needs_reporting(func):
+    @wraps(func)
+    def decorated_view(*args, **kwargs):
+        if current_user.can_report:
+            return func(*args, **kwargs)
+        else:
+            abort(401)
+    return decorated_view
+
+
+def needs_visiting(func):
+    @wraps(func)
+    def decorated_view(*args, **kwargs):
+        if current_user.can_visit:
+            return func(*args, **kwargs)
+        else:
+            abort(401)
+    return decorated_view
+
+
+def needs_editing(func):
+    @wraps(func)
+    def decorated_view(*args, **kwargs):
+        if current_user.can_edit:
+            return func(*args, **kwargs)
+        else:
+            abort(401)
+    return decorated_view
+
+
+def needs_admin(func):
+    @wraps(func)
+    def decorated_view(*args, **kwargs):
+        if current_user.is_admin:
+            return func(*args, **kwargs)
+        else:
+            abort(401)
+    return decorated_view
 
 
 @c3bottles.errorhandler(400)

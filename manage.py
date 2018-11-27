@@ -59,13 +59,31 @@ def dropdp():
     "--port", "-p",
     help="The port to bind to.", default=5000
 )
+def serve(host, port):
+    """
+    Runs a development server.
+    """
+    c3bottles.jinja_env.auto_reload = True
+    c3bottles.run(debug=True, host=host, port=port)
+
+
+@c3bottles.cli.command()
+@click.option(
+    "--host", "-h",
+    help="The interface to bind to.", default="127.0.0.1"
+)
+@click.option(
+    "--port", "-p",
+    help="The port to bind to.", default=5000
+)
 def profile(host, port):
     """
     Runs a development server with profiling.
 
-    This is similar to the run command. It adds werkzeug's profiler
+    This is similar to the 'serve' command. It adds werkzeug's profiler
     middleware to facilitate easy profiling of the application.
     """
+    c3bottles.jinja_env.auto_reload = True
     c3bottles.config["PROFILE"] = True
     c3bottles.wsgi_app = ProfilerMiddleware(
         c3bottles.wsgi_app, restrictions=[30]

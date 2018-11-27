@@ -1,10 +1,10 @@
 import json
 from datetime import datetime
 
-from flask import request, Response, g, Blueprint
+from flask import request, Response, Blueprint
+from flask_login import current_user
 
 from .. import c3bottles, db
-
 from ..model.drop_point import DropPoint
 from ..model.report import Report
 from ..model.visit import Visit
@@ -33,7 +33,7 @@ def process():
 
 
 def report():
-    if g.no_anonymous_reporting and g.user.is_anonymous:
+    if not current_user.can_report:
         return Response(
             json.dumps(
                 [{"msg": "Not logged in or insufficient privileges."}],
@@ -45,7 +45,7 @@ def report():
     number = request.values.get("number")
     try:
         Report(
-            dp=DropPoint.get(number),
+            dp=DropPoint.query.get(number),
             state=request.values.get("state")
         )
     except ValueError as e:
@@ -63,7 +63,7 @@ def report():
 
 
 def visit():
-    if not (g.user.is_authenticated and g.user.can_visit):
+    if not current_user.can_visit:
         return Response(
             json.dumps(
                 [{"msg": "Not logged in or insufficient privileges."}],
@@ -75,7 +75,7 @@ def visit():
     number = request.values.get("number")
     try:
         Visit(
-            dp=DropPoint.get(number),
+            dp=DropPoint.query.get(number),
             action=request.values.get("maintenance")
         )
     except ValueError as e:

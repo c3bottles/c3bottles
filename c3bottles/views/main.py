@@ -6,11 +6,11 @@ from io import BytesIO
 
 from flask import render_template, Response, request, make_response
 
-from .. import c3bottles, db
-
+from .. import c3bottles
 from ..lib.statistics import stats_obj
 from ..model.category import categories_sorted
 from ..model.drop_point import DropPoint
+from . import needs_visiting
 
 
 @c3bottles.route("/")
@@ -64,51 +64,34 @@ def dp_map_js():
 
 
 @c3bottles.route("/view/<int:number>")
-@c3bottles.route("/view")
-def dp_view(number=None):
-    dp = DropPoint.get(number)
-    if dp:
-        return render_template(
-            "view.html",
-            dp=dp,
-        )
-    else:
-        return render_template(
-            "error.html",
-            heading="Error!",
-            text="Drop point not found.",
-        )
+def dp_view(number):
+    dp = DropPoint.query.get_or_404(number)
+    return render_template("view.html", dp=dp)
 
 
 @c3bottles.route("/view.js/<int:number>")
 def dp_view_js(number):
-    dp = DropPoint.get(number)
     resp = make_response(render_template(
         "js/view.js",
         all_dps_json=DropPoint.get_dps_json(),
-        dp=dp
+        dp=DropPoint.query.get_or_404(number),
     ))
     resp.mimetype = "application/javascript"
     return resp
 
 
 @c3bottles.route("/label/<int:number>.pdf")
-def dp_label(number=None):
-    dp = DropPoint.get(number)
-    if dp:
-        return Response(_pdf(number), mimetype="application/pdf")
-    else:
-        return render_template(
-            "error.html",
-            heading="Error!",
-            text="Drop point not found.",
-        )
+@needs_visiting
+def dp_label(number):
+    DropPoint.query.get_or_404(number)
+    return Response(_pdf(number), mimetype="application/pdf")
 
 
 @c3bottles.route("/label/all.pdf")
+@needs_visiting
 def dp_all_labels():
     output = PdfFileWriter()
-    for dp in db.session.query(DropPoint).filter(DropPoint.removed == None).all():
+    for dp in DropPoint.query.filter(DropPoint.removed == None).all():  # noqa
         output.addPage(PdfFileReader(BytesIO(_pdf(dp.number))).getPage(0))
     f = BytesIO()
     output.write(f)

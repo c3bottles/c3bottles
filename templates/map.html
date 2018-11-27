@@ -17,7 +17,14 @@
 </div>
 <div class="spacer over-map"></div>
 <div class="container over-map">
-    <div id="alerts"></div>
+    <div id="alerts">
+        {% for alert in g.alerts %}
+        <div class="alert alert-{{ alert.get('class', 'info') }}">
+            {% if 'headline' in alert %}<strong>{{ alert.get('headline') }}</strong>{% endif %}
+            {{ alert.get('text', '') }}
+        </div>
+        {% endfor %}
+    </div>
 </div>
 <div id="map" class="map"></div>
 {% include "dp_modals_map.html" %}
