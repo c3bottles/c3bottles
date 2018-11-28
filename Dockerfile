@@ -13,7 +13,7 @@ RUN yarn build
 
 FROM python:3.6-alpine
 RUN apk add -U --no-cache \
-    nodejs py3-virtualenv cairo
+    py3-virtualenv cairo
 COPY --from=builder /usr/lib/libpq.so.5 /usr/lib/libpq.so.5
 COPY --from=builder /usr/lib/libldap_r-2.4.so.2 /usr/lib/libldap_r-2.4.so.2
 COPY --from=builder /usr/lib/liblber-2.4.so.2 /usr/lib/liblber-2.4.so.2
