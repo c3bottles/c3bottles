@@ -63,8 +63,9 @@ def dp_map_js():
     return resp
 
 
+@c3bottles.route("/view")  # This seems useless but we need this for dynamic URL building
 @c3bottles.route("/view/<int:number>")
-def dp_view(number):
+def dp_view(number=None):
     dp = DropPoint.query.get_or_404(number)
     return render_template("view.html", dp=dp)
 
