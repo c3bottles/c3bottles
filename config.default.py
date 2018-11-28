@@ -13,6 +13,12 @@
 # The secret key used for signing the session cookie.
 # SECRET_KEY = "changeme"
 
+# Enable and configure the integrated Prometheus endpoint.
+# (default: False)
+# PROMETHEUS_ENABLED = True
+# PROMETHEUS_ADDRESS = "127.0.0.1"
+# PROMETHEUS_PORT = 9567
+
 # Mark the session and remember cookies as secure. You should enable this if
 # you run c3bottles on a HTTPS server.
 # SESSION_COOKIE_SECURE = True

@@ -8,22 +8,22 @@ class Statistics(object):
     @property
     def drop_point_count(self):
         try:
-            return DropPoint.query.filter(DropPoint.removed == None).count()
-        except:
+            return DropPoint.query.filter(DropPoint.removed == None).count()  # noqa
+        except:  # noqa
             return 0
 
     @property
     def report_count(self):
         try:
             return Report.query.count()
-        except:
+        except:  # noqa
             return 0
 
     @property
     def visit_count(self):
         try:
             return Visit.query.count()
-        except:
+        except:  # noqa
             return 0
 
     @property
@@ -36,7 +36,7 @@ class Statistics(object):
                 if not dp.removed:
                     s = dp.last_state
                     ret[s] = ret[s] + 1 if s in ret else 1
-        except:
+        except:  # noqa
             pass
         return ret
 
@@ -46,7 +46,7 @@ class Statistics(object):
         for state in Report.states:
             try:
                 ret[state] = Report.query.filter(Report.state == state).count()
-            except:
+            except:  # noqa
                 ret[state] = 0
         return ret
 
@@ -56,7 +56,7 @@ class Statistics(object):
         for action in Visit.actions:
             try:
                 ret[action] = Visit.query.filter(Visit.action == action).count()
-            except:
+            except:  # noqa
                 ret[action] = 0
         return ret
 

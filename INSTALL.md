@@ -68,8 +68,10 @@ To build the frontend dependencies, you will need Node.js and yarn or npm.
 
 ## Web server configuration
 
-c3bottles can be used behind any WSGI compatible webserver. Some options and
-configuration examples are described here.
+c3bottles can be used behind any WSGI compatible web server. Some options and
+configuration examples are described here. If you encounter problems with
+modules not being found, please have a look in `wsgi.py` end uncomment the
+modifications to the module search path.
 
 ### Gunicorn
 
@@ -101,6 +103,13 @@ A sample uWSGI configuration file could look like this:
     chdir = /srv/c3bottles/
     wsgi-file = wsgi.py
     callable = c3bottles
+
+## Prometheus
+
+If you use Prometheus to collect service metrics, just uncomment
+`PROMETHEUS_ENABLED` in the configuration. This will start a Prometheus
+exporter together with the WSGI server. By defaults, metrics are available
+at [http://127.0.0.1:9567/](http://127.0.0.1:9567/).
 
 ## Map
 
