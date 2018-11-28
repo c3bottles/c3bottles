@@ -13,25 +13,40 @@ password = "secure_password123"
 testapp = TestApp(c3bottles)
 
 
+def db_setup():
+    db.engine.execute("ATTACH ':memory:' AS meta;")
+    db.create_all()
+
+
+def db_teardown():
+    db.drop_all()
+    db.engine.execute("DETACH meta;")
+
+
 @fixture
-def fresh_state():
+def fresh_state(request):
     testapp.reset()
+    with SessionScope(db):
+        db_setup()
+
+    def fin():
+        with SessionScope(db):
+            db_teardown()
+    request.addfinalizer(fin)
 
 
 @fixture
 def with_admin_user(request):
     testapp.reset()
     with SessionScope(db):
-        db.engine.execute("ATTACH ':memory:' AS meta;")
-        db.create_all()
+        db_setup()
         user = User(name, password, is_admin=True)
         db.session.add(user)
         db.session.commit()
 
     def fin():
         with SessionScope(db):
-            db.drop_all()
-            db.engine.execute("DETACH meta;")
+            db_teardown()
     request.addfinalizer(fin)
     res = testapp.get("/login")
     form = res.forms["login_form"]
@@ -45,16 +60,14 @@ def with_admin_user(request):
 @fixture
 def with_regular_user(request):
     with SessionScope(db):
-        db.engine.execute("ATTACH ':memory:' AS meta;")
-        db.create_all()
+        db_setup()
         user = User(name, password)
         db.session.add(user)
         db.session.commit()
 
     def fin():
         with SessionScope(db):
-            db.drop_all()
-            db.engine.execute("DETACH meta;")
+            db_teardown()
     request.addfinalizer(fin)
     testapp.reset()
     res = testapp.get("/login")
