@@ -10,17 +10,17 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{ url_for('index') }}">
+            <a class="navbar-brand" href="{{ url_for('main.index') }}">
                 <img src="{{ url_for('static', filename='img/header-34c3.svg') }}">
             </a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 {% for _s, _t in (
-                                ('dp_list', _('List')),
-                                ('dp_map', _('Map')),
-                                ('statistics.html', _('Numbers')),
-                                ('faq', _('FAQ'))
+                                ('view.list_', _('List')),
+                                ('view.map_', _('Map')),
+                                ('statistics.numbers', _('Numbers')),
+                                ('main.faq', _('FAQ'))
                             ) %}
                     <li{{ {'class': 'active'}|xmlattr if request.url_rule.endpoint == _s }}>
                         <a href="{{ url_for(_s) }}">{{ _t }}</a>
@@ -43,11 +43,11 @@
                     <ul class="dropdown-menu dropdown-menu-padding">
                         <li>
                             {% if current_user.is_authenticated %}
-                            <form action="{{ url_for('logout') }}" method="GET">
+                            <form action="{{ url_for('user.logout') }}" method="GET">
                                 <button type="submit" class="btn btn-danger btn-block">{{ _("Logout") }}</button>
                             </form>
                             {% else %}
-                            <form action="{{ url_for('login') }}" method="POST">
+                            <form action="{{ url_for('user.login') }}" method="POST">
                                 {{ login_form.back(value=back if back else request.endpoint) }}
                                 {{ login_form.args(value=args if args else request.view_args) }}
                                 {{ login_form.csrf_token }}

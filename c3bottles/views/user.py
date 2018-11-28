@@ -2,19 +2,21 @@ from werkzeug.routing import BuildError
 from json import loads
 from re import sub
 
-from flask import render_template, url_for, redirect, request
+from flask import render_template, url_for, redirect, request, Blueprint
 from flask_babel import lazy_gettext
 from flask_login import current_user, login_user, logout_user
 
-from .. import c3bottles
 from ..model.forms import LoginForm
 from ..model.user import User
 
 
-@c3bottles.route("/login", methods=("POST", "GET"))
+user = Blueprint("user", __name__)
+
+
+@user.route("/login", methods=("POST", "GET"))
 def login():
     if request.method == "GET":
-        return redirect(url_for("index"))
+        return redirect(url_for("main.index"))
     form = LoginForm()
     if form.validate_on_submit():
         try:
@@ -25,7 +27,7 @@ def login():
                 )
             )
         except (BuildError, ValueError):
-            back = redirect(url_for("index"))
+            back = redirect(url_for("main.index"))
         if current_user.is_authenticated:
             return back
         user = User.get(form.username.data)
@@ -41,7 +43,7 @@ def login():
     )
 
 
-@c3bottles.route("/logout")
+@user.route("/logout")
 def logout():
     logout_user()
-    return redirect(url_for("index"))
+    return redirect(url_for("main.index"))

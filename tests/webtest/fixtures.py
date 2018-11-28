@@ -48,7 +48,7 @@ def with_admin_user(request):
         with SessionScope(db):
             db_teardown()
     request.addfinalizer(fin)
-    res = testapp.get("/login")
+    res = testapp.get("/")
     form = res.forms["login_form"]
     form["username"] = name
     form["password"] = password
@@ -70,7 +70,7 @@ def with_regular_user(request):
             db_teardown()
     request.addfinalizer(fin)
     testapp.reset()
-    res = testapp.get("/login")
+    res = testapp.get("/")
     form = res.forms["login_form"]
     form["username"] = name
     form["password"] = password

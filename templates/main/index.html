@@ -14,7 +14,7 @@
         </p>
 
         <div class="spacer"></div>
-        <form class="form" action="{{ url_for('report') }}" method="POST">
+        <form class="form" action="{{ url_for('action.report') }}" method="POST">
         <div class="row">
             <div class="col-xs-8 col-sm-5 col-md-4 col-lg-3">
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
@@ -40,7 +40,7 @@
 
             <p>
                 <a class="btn btn-primary navbar-btn"
-                   href="{{ url_for('dp_list') }}" role="button">
+                   href="{{ url_for('view.list_') }}" role="button">
                     {{ _("To the list") }} &raquo;
                 </a>
             </p>
@@ -58,7 +58,7 @@
 
             <p>
                 <a class="btn btn-primary navbar-btn"
-                   href="{{ url_for('dp_map') }}" role="button">
+                   href="{{ url_for('view.map_') }}" role="button">
                     {{ _("To the map") }} &raquo;
                 </a>
             </p>
@@ -76,7 +76,7 @@
 
             <p>
                 <a class="btn btn-primary navbar-btn"
-                   href="{{ url_for('statistics.html') }}" role="button">
+                   href="{{ url_for('statistics.numbers') }}" role="button">
                     {{ _("To the numbers") }} &raquo;
                 </a>
             </p>
@@ -94,7 +94,7 @@
 
             <p>
                 <a class="btn btn-primary navbar-btn"
-                   href="{{ url_for('faq') }}" role="button">
+                   href="{{ url_for('main.faq') }}" role="button">
                     {{ _("To the FAQ") }} &raquo;
                 </a>
             </p>

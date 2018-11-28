@@ -7,15 +7,15 @@ stats = Blueprint("statistics", __name__)
 
 
 @stats.route("/numbers")
-def html():
+def numbers():
     return render_template(
-        "statistics.html",
+        "statistics/numbers.html",
         stats=stats_obj
     )
 
 
 @stats.route("/numbers.js")
-def js():
+def numbers_js():
     resp = make_response(render_template(
         "js/statistics.js",
         stats=stats_obj

@@ -28,7 +28,7 @@ def handle_404(e):
 @admin.route("/")
 def index():
     return render_template(
-        "admin.html",
+        "admin/index.html",
         users=User.all(),
         user_id_form=UserIdForm(),
         permissions_form=PermissionsForm(),

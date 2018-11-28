@@ -27,7 +27,7 @@
     <div class="col-md-6">
             <h4>{{ _("Change the details:") }}</h4>
             <hr>
-            <form class="form-horizontal" action="{{ url_for("edit_dp", number=number) }}" method="POST">
+            <form class="form-horizontal" action="{{ url_for('manage.edit', number=number) }}" method="POST">
                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                 <input type="hidden" name="lat" id="lat" value="{{ lat }}">
                 <input type="hidden" name="lng" id="lng" value="{{ lng }}">
@@ -68,5 +68,5 @@
     </div>
 {% endblock %}
 {% block scripts %}
-<script src="{{ url_for('edit_dp_js', number=number) }}"></script>
+<script src="{{ url_for('manage.edit_js', number=number) }}"></script>
 {% endblock %}

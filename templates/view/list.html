@@ -32,8 +32,8 @@
         </tr>
         </thead>
     </table>
-{% include "dp_modals_list.html" %}
+{% include "modals/list.html" %}
 {% endblock %}
 {% block scripts %}
-<script src="{{ url_for(js_name) }}"></script>
+<script src="{{ url_for('view.list_js') }}"></script>
 {% endblock %}

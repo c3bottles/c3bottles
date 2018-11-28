@@ -27,8 +27,8 @@
     </div>
 </div>
 <div id="map" class="map"></div>
-{% include "dp_modals_map.html" %}
+{% include "modals/map.html" %}
 {% endblock %}
 {% block scripts %}
-<script src="{{ url_for(js_name) }}"></script>
+<script src="{{ url_for('view.map_js') }}"></script>
 {% endblock %}

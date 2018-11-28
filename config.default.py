@@ -13,6 +13,11 @@
 # The secret key used for signing the session cookie.
 # SECRET_KEY = "changeme"
 
+# The name of the drop point label template. This must be a SVG file placed in
+# the templates/label directory. The setting is the base name of this file,
+# i.e. without extension.
+# LABEL_STYLE = "default"
+
 # Enable and configure the integrated Prometheus endpoint.
 # (default: False)
 # PROMETHEUS_ENABLED = True

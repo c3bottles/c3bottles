@@ -27,3 +27,7 @@ $('.admin-button-user-delete').on('click', ev => {
   $('#admin-input-user-delete-user-id').val($(ev.currentTarget).data('uid'));
   $('#admin-modal-user-delete').modal('show');
 });
+
+$('#admin-button-create-all-labels').on('click', ev => {
+  $(ev.currentTarget).attr('disabled', true);
+});

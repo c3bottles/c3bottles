@@ -10,7 +10,7 @@
     <hr/>
     {% if current_user.can_edit: %}
     <a class="btn btn-block btn-warning modal_dp_link"
-       data-baseurl="{{ url_for("edit_dp") }}">
+       data-baseurl="{{ url_for('manage.edit') }}">
         {{ _("Modified the drop point") }}
     </a>
     {% else %}

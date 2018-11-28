@@ -6,7 +6,12 @@ from c3bottles import c3bottles
 from .fixtures import testapp, fresh_state
 
 
-@pytest.mark.parametrize("view", ["index", "faq", "dp_list", "dp_map", "statistics.html"])
+basic_views = [
+    "main.index", "main.faq", "view.list_", "view.map_", "statistics.numbers"
+]
+
+
+@pytest.mark.parametrize("view", basic_views)
 def test_basic_views(view, fresh_state):
     with c3bottles.test_request_context():
         res = testapp.get(url_for(view))
