@@ -12,7 +12,12 @@ box for a testing or development environment:
     to your setup (for the default docker-compose setup, you should use
     `SQLALCHEMY_DATABASE_URI = "postgresql://postgres:postgres@db/postgres"`).
 
-2.  Start the database using docker-compose:
+2.  By default, docker-compose will download the image from Docker Hub. If you
+    want to build your own image from source, please do:
+
+        docker build -t c3bottles/c3bottles .
+
+3.  Start the database using docker-compose:
 
         docker-compose up -d db
 
@@ -20,16 +25,20 @@ box for a testing or development environment:
 
         docker-compose up -d db adminer
 
-3.  Initialize the database:
+4.  Initialize the database:
 
-       docker-compose run --rm web /c3bottles/manage.py initdb
+        docker-compose run --rm web ./manage.py initdb
 
-4.  Create a user:
+5.  Create a user:
 
-        docker-compose run web /c3bottles/manage.py user create
+        docker-compose run --rm web ./manage.py user create
 
-5.  Start the web interface:
+6.  Start the web interface:
 
         docker-compose up -d web
 
     The web interface will listen on port 5000 by default.
+
+7.  If you are done with testing, simply stop and remove all the containers:
+
+        docker-compose down
