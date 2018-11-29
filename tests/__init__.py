@@ -1,6 +1,6 @@
 import unittest
 
-from c3bottles import c3bottles, db
+from c3bottles import app, db
 from c3bottles.views.user import User
 
 
@@ -9,18 +9,18 @@ PASSWORD = 'test'
 
 
 def load_config():
-    c3bottles.config['SQLALCHEMY_DATABASE_URI'] = "sqlite://"
-    c3bottles.config['TESTING'] = True
-    c3bottles.config['WTF_CSRF_ENABLED'] = False
-    c3bottles.config['SECRET_KEY'] = 'secret'
+    app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite://"
+    app.config['TESTING'] = True
+    app.config['WTF_CSRF_ENABLED'] = False
+    app.config['SECRET_KEY'] = 'secret'
 
 
 class C3BottlesTestCase(unittest.TestCase):
     def setUp(self):
         load_config()
-        self.c3bottles = c3bottles.test_client()
+        self.c3bottles = app.test_client()
         db.create_all()
-        self.ctx = c3bottles.test_request_context()
+        self.ctx = app.test_request_context()
         self.ctx.push()
 
     def tearDown(self):

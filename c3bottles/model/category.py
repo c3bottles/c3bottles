@@ -1,5 +1,7 @@
 from flask_babel import lazy_gettext
 
+from c3bottles.model import drop_point
+
 
 class Category:
     """
@@ -17,8 +19,9 @@ class Category:
         return str(self.name)
 
     def __len__(self):
-        from .drop_point import DropPoint
-        return DropPoint.query.filter(DropPoint.category_id == self.category_id).count()
+        return drop_point.DropPoint.query.filter(
+            drop_point.DropPoint.category_id == self.category_id
+        ).count()
 
     @staticmethod
     def get(category_id):

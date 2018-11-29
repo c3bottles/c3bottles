@@ -4,11 +4,11 @@ from sqlalchemy import desc
 
 from flask_babel import lazy_gettext
 
-from .. import c3bottles, db
-from .category import Category, all_categories
-from .location import Location
-from .report import Report
-from .visit import Visit
+from c3bottles import app, db
+from c3bottles.model.category import Category, all_categories
+from c3bottles.model.location import Location
+from c3bottles.model.report import Report
+from c3bottles.model.visit import Visit
 
 
 class DropPoint(db.Model):
@@ -288,7 +288,7 @@ class DropPoint(db.Model):
         the location of drop points, time of day or a combination
         of those.
         """
-        return 60 * c3bottles.config.get("BASE_VISIT_INTERVAL", 120)
+        return 60 * app.config.get("BASE_VISIT_INTERVAL", 120)
 
     @property
     def priority_factor(self):
@@ -310,7 +310,7 @@ class DropPoint(db.Model):
         # number of standing default reports ensuring that every
         # drop point's priority increases slowly if it is not
         # visited even if no real reports come in.
-        priority = c3bottles.config.get("DEFAULT_VISIT_PRIORITY", 1)
+        priority = app.config.get("DEFAULT_VISIT_PRIORITY", 1)
 
         i = 0
         for report in new_reports:
@@ -386,7 +386,7 @@ class DropPoint(db.Model):
         """
         return json.dumps(
             {number: cls.get_dp_info(number)},
-            indent=4 if c3bottles.debug else None
+            indent=4 if app.debug else None
         )
 
     @staticmethod
@@ -416,7 +416,7 @@ class DropPoint(db.Model):
         for dp in dps:
             ret[dp.number] = DropPoint.get_dp_info(dp.number)
 
-        return json.dumps(ret, indent=4 if c3bottles.debug else None)
+        return json.dumps(ret, indent=4 if app.debug else None)
 
     @staticmethod
     def get_next_free_number():

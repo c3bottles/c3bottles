@@ -19,15 +19,15 @@ import click
 from flask.cli import FlaskGroup
 from werkzeug.contrib.profiler import ProfilerMiddleware
 
-from c3bottles import c3bottles
+from c3bottles import app
 
 
-@click.group(cls=FlaskGroup, create_app=lambda _: c3bottles)
+@click.group(cls=FlaskGroup, create_app=lambda _: app)
 def cli():
     pass
 
 
-@c3bottles.cli.command()
+@app.cli.command()
 def initdb():
     """
     Initializes the database.
@@ -38,7 +38,7 @@ def initdb():
     db.create_all()
 
 
-@c3bottles.cli.command()
+@app.cli.command()
 def dropdp():
     """
     Removes the database.
@@ -50,7 +50,7 @@ def dropdp():
         db.drop_all()
 
 
-@c3bottles.cli.command()
+@app.cli.command()
 @click.option(
     "--host", "-h",
     help="The interface to bind to.", default="127.0.0.1"
@@ -63,11 +63,11 @@ def serve(host, port):
     """
     Runs a development server.
     """
-    c3bottles.jinja_env.auto_reload = True
-    c3bottles.run(debug=True, host=host, port=port)
+    app.jinja_env.auto_reload = True
+    app.run(debug=True, host=host, port=port)
 
 
-@c3bottles.cli.command()
+@app.cli.command()
 @click.option(
     "--host", "-h",
     help="The interface to bind to.", default="127.0.0.1"
@@ -83,12 +83,10 @@ def profile(host, port):
     This is similar to the 'serve' command. It adds werkzeug's profiler
     middleware to facilitate easy profiling of the application.
     """
-    c3bottles.jinja_env.auto_reload = True
-    c3bottles.config["PROFILE"] = True
-    c3bottles.wsgi_app = ProfilerMiddleware(
-        c3bottles.wsgi_app, restrictions=[30]
-    )
-    c3bottles.run(debug=True, host=host, port=port)
+    app.jinja_env.auto_reload = True
+    app.config["PROFILE"] = True
+    app.wsgi_app = ProfilerMiddleware(app.wsgi_app, restrictions=[30])
+    app.run(debug=True, host=host, port=port)
 
 
 if __name__ == '__main__':

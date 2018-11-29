@@ -5,10 +5,12 @@ import os
 parent = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 os.sys.path.insert(0, parent)
 
+from jinja2 import Markup
+
 from flask import render_template
 from flask_babel import force_locale
 
-from c3bottles import c3bottles, languages
+from c3bottles import app, languages
 
 _js_escapes = { 
     '\\': '\\u005C',
@@ -24,6 +26,7 @@ _js_escapes = {
     u'\u2029': '\\u2029'
 }
 
+
 def escapejs(value):
     retval = []
     for letter in value:
@@ -33,10 +36,12 @@ def escapejs(value):
             retval.append(letter)
     return Markup("".join(retval))
 
-c3bottles.jinja_env.filters["escapejs"] = escapejs
+
+app.jinja_env.filters["escapejs"] = escapejs
+
 
 for l in languages:
-    with c3bottles.app_context(), force_locale(l), \
+    with app.app_context(), force_locale(l), \
          open("{}/static/lib/js/{}.js".format(parent, l), "w") as f:
 
         f.write(render_template("js/l10n.js", lang=l))

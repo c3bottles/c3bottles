@@ -2,30 +2,30 @@ from flask import Blueprint, abort, render_template, flash, redirect, url_for, r
 from flask_babel import lazy_gettext
 from flask_login import current_user
 
-from .. import db, bcrypt
-from ..model.forms import UserIdForm, PermissionsForm, PasswordForm, UserCreateForm
-from ..model.user import User, make_secure_token
-from . import not_found, unauthorized, needs_admin
+from c3bottles import db, bcrypt
+from c3bottles.model.user import User, make_secure_token
+from c3bottles.views import not_found, unauthorized, needs_admin
+from c3bottles.views.forms import UserIdForm, PermissionsForm, PasswordForm, UserCreateForm
 
 
-admin = Blueprint("admin", __name__, url_prefix="/admin")
+bp = Blueprint("admin", __name__, url_prefix="/admin")
 
 
-@admin.before_request
+@bp.before_request
 @needs_admin
 def check_for_admin():
     pass
 
 
-@admin.app_errorhandler(404)
+@bp.app_errorhandler(404)
 def handle_404(e):
-    if request.path.startswith(admin.url_prefix) and not current_user.is_admin:
+    if request.path.startswith(bp.url_prefix) and not current_user.is_admin:
         return unauthorized(e)
     else:
         return not_found(e)
 
 
-@admin.route("/")
+@bp.route("/")
 def index():
     return render_template(
         "admin/index.html",
@@ -37,7 +37,7 @@ def index():
     )
 
 
-@admin.route("/disable_user", methods=("POST",))
+@bp.route("/disable_user", methods=("POST",))
 def disable_user():
     form = UserIdForm()
     if not form.validate_on_submit():
@@ -54,7 +54,7 @@ def disable_user():
     return redirect(url_for("admin.index"))
 
 
-@admin.route("/enable_user", methods=("POST",))
+@bp.route("/enable_user", methods=("POST",))
 def enable_user():
     form = UserIdForm()
     if not form.validate_on_submit():
@@ -70,7 +70,7 @@ def enable_user():
     return redirect(url_for("admin.index"))
 
 
-@admin.route("/user_permissions", methods=("POST",))
+@bp.route("/user_permissions", methods=("POST",))
 def user_permissions():
     form = PermissionsForm()
     if not form.validate_on_submit():
@@ -88,7 +88,7 @@ def user_permissions():
     return redirect(url_for("admin.index"))
 
 
-@admin.route("/user_password", methods=("POST",))
+@bp.route("/user_password", methods=("POST",))
 def user_password():
     form = PasswordForm()
     if not form.validate_on_submit():
@@ -115,7 +115,7 @@ def user_password():
         return redirect(url_for("admin.index"))
 
 
-@admin.route("/delete_user", methods=("POST",))
+@bp.route("/delete_user", methods=("POST",))
 def delete_user():
     form = UserIdForm()
     if not form.validate_on_submit():
@@ -130,7 +130,7 @@ def delete_user():
     return redirect(url_for("admin.index"))
 
 
-@admin.route("/create_user", methods=("POST",))
+@bp.route("/create_user", methods=("POST",))
 def create_user():
     form = UserCreateForm()
     if not form.validate_on_submit():

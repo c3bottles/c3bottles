@@ -1,14 +1,14 @@
 from flask import Blueprint, make_response, render_template
 
-from ..lib.statistics import stats_obj
-from ..model.category import categories_sorted
-from ..model.drop_point import DropPoint
+from c3bottles.lib.statistics import stats_obj
+from c3bottles.model.category import categories_sorted
+from c3bottles.model.drop_point import DropPoint
 
 
-view = Blueprint("view", __name__)
+bp = Blueprint("view", __name__)
 
 
-@view.route("/list")
+@bp.route("/list")
 def list_():
     return render_template(
         "view/list.html",
@@ -17,7 +17,7 @@ def list_():
     )
 
 
-@view.route("/list.js")
+@bp.route("/list.js")
 def list_js():
     resp = make_response(render_template(
         "js/list.js",
@@ -27,7 +27,7 @@ def list_js():
     return resp
 
 
-@view.route("/map")
+@bp.route("/map")
 def map_():
     return render_template(
         "view/map.html",
@@ -36,7 +36,7 @@ def map_():
     )
 
 
-@view.route("/map.js")
+@bp.route("/map.js")
 def map_js():
     resp = make_response(render_template(
         "js/map.js",
@@ -46,14 +46,14 @@ def map_js():
     return resp
 
 
-@view.route("/details")  # This seems useless but we need this for dynamic URL building
-@view.route("/details/<int:number>")
+@bp.route("/details")  # This seems useless but we need this for dynamic URL building
+@bp.route("/details/<int:number>")
 def details(number=None):
     dp = DropPoint.query.get_or_404(number)
     return render_template("view/details.html", dp=dp)
 
 
-@view.route("/details.js/<int:number>")
+@bp.route("/details.js/<int:number>")
 def details_js(number):
     resp = make_response(render_template(
         "js/details.js",

@@ -4,11 +4,11 @@ from functools import wraps
 from flask import render_template, g, request, Response, get_flashed_messages, abort
 from flask_login import current_user
 
-from .. import c3bottles
-from ..model.forms import LoginForm
+from c3bottles import app
+from c3bottles.views.forms import LoginForm
 
 
-@c3bottles.before_request
+@app.before_request
 def before_request():
     g.alerts = get_flashed_messages()
     g.login_form = LoginForm()
@@ -55,7 +55,7 @@ def needs_admin(func):
     return decorated_view
 
 
-@c3bottles.errorhandler(400)
+@app.errorhandler(400)
 def bad_request(_):
     before_request()
     if request.path == "/api":
@@ -70,7 +70,7 @@ def bad_request(_):
     ), 400
 
 
-@c3bottles.errorhandler(401)
+@app.errorhandler(401)
 def unauthorized(_):
     return render_template(
         "error.html",
@@ -79,7 +79,7 @@ def unauthorized(_):
     ), 401
 
 
-@c3bottles.errorhandler(404)
+@app.errorhandler(404)
 def not_found(_):
     return render_template(
         "error.html",

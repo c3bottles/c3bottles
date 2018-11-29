@@ -11,17 +11,13 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import CSRFProtect
 
 
-c3bottles = Flask(
-    __name__,
-    static_folder="../static",
-    template_folder="../templates"
-)
+app = Flask(__name__, static_folder="../static", template_folder="../templates")
 
 try:
     import config
-    c3bottles.config.from_object(config)
+    app.config.from_object(config)
 except ImportError:
-    c3bottles.config.update(
+    app.config.update(
         SQLALCHEMY_DATABASE_URI="sqlite:///c3bottles.db",
         SQLALCHEMY_TRACK_MODIFICATIONS=False,
         SECRET_KEY=pwgen(64),
@@ -32,14 +28,14 @@ except ImportError:
           "that the secret key will change on every restart of the\n"
           "server and all users will be logged out forcibly!\n")
 
-Compress(c3bottles)
+Compress(app)
 
-db = SQLAlchemy(c3bottles, session_options={"autoflush": False})
-migrate = Migrate(c3bottles, db)
-lm = LoginManager(c3bottles)
-bcrypt = Bcrypt(c3bottles)
-csrf = CSRFProtect(c3bottles)
-babel = Babel(c3bottles)
+db = SQLAlchemy(app, session_options={"autoflush": False})
+migrate = Migrate(app, db)
+lm = LoginManager(app)
+bcrypt = Bcrypt(app)
+csrf = CSRFProtect(app)
+babel = Babel(app)
 
 languages = ("en", "de")
 locales = {l: Locale(l) for l in languages}
@@ -76,29 +72,29 @@ def set_locale():
 
 
 babel.localeselector(get_locale)
-c3bottles.before_request(set_locale)
+app.before_request(set_locale)
 
 # Trim and strip blocks in jinja2 so no unnecessary
 # newlines and tabs appear in the output:
-c3bottles.jinja_env.trim_blocks = True
-c3bottles.jinja_env.lstrip_blocks = True
+app.jinja_env.trim_blocks = True
+app.jinja_env.lstrip_blocks = True
 
-from c3bottles.views.action import action as bp_action  # noqa
-from c3bottles.views.admin import admin as bp_admin  # noqa
-from c3bottles.views.api import api as bp_api  # noqa
-from c3bottles.views.label import label as bp_label  # noqa
-from c3bottles.views.main import main as bp_main  # noqa
-from c3bottles.views.manage import manage as bp_manage  # noqa
-from c3bottles.views.statistics import stats as bp_stats  # noqa
-from c3bottles.views.user import user as bp_user  # noqa
-from c3bottles.views.view import view as bp_view  # noqa
+from c3bottles.views.action import bp as bp_action  # noqa
+from c3bottles.views.admin import bp as bp_admin  # noqa
+from c3bottles.views.api import bp as bp_api  # noqa
+from c3bottles.views.label import bp as bp_label  # noqa
+from c3bottles.views.main import bp as bp_main  # noqa
+from c3bottles.views.manage import bp as bp_manage  # noqa
+from c3bottles.views.statistics import bp as bp_stats  # noqa
+from c3bottles.views.user import bp as bp_user  # noqa
+from c3bottles.views.view import bp as bp_view  # noqa
 
-c3bottles.register_blueprint(bp_action)
-c3bottles.register_blueprint(bp_admin)
-c3bottles.register_blueprint(bp_api)
-c3bottles.register_blueprint(bp_label)
-c3bottles.register_blueprint(bp_main)
-c3bottles.register_blueprint(bp_manage)
-c3bottles.register_blueprint(bp_stats)
-c3bottles.register_blueprint(bp_user)
-c3bottles.register_blueprint(bp_view)
+app.register_blueprint(bp_action)
+app.register_blueprint(bp_admin)
+app.register_blueprint(bp_api)
+app.register_blueprint(bp_label)
+app.register_blueprint(bp_main)
+app.register_blueprint(bp_manage)
+app.register_blueprint(bp_stats)
+app.register_blueprint(bp_user)
+app.register_blueprint(bp_view)

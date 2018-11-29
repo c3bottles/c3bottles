@@ -4,16 +4,16 @@ from datetime import datetime
 from flask import request, Response, Blueprint
 from flask_login import current_user
 
-from .. import c3bottles, db
-from ..model.drop_point import DropPoint
-from ..model.report import Report
-from ..model.visit import Visit
+from c3bottles import app, db
+from c3bottles.model.drop_point import DropPoint
+from c3bottles.model.report import Report
+from c3bottles.model.visit import Visit
 
 
-api = Blueprint("api", __name__)
+bp = Blueprint("api", __name__)
 
 
-@api.route("/api", methods=("POST", "GET"))
+@bp.route("/api", methods=("POST", "GET"))
 def process():
     if request.values.get("action") == "report":
         return report()
@@ -25,7 +25,7 @@ def process():
     return Response(
         json.dumps(
             "Invalid or missing API action.",
-            indent=4 if c3bottles.debug else None
+            indent=4 if app.debug else None
         ),
         mimetype="application/json",
         status=400
@@ -37,7 +37,7 @@ def report():
         return Response(
             json.dumps(
                 [{"msg": "Not logged in or insufficient privileges."}],
-                indent=4 if c3bottles.debug else None
+                indent=4 if app.debug else None
             ),
             mimetype="application/json",
             status=401
@@ -50,7 +50,7 @@ def report():
         )
     except ValueError as e:
         return Response(
-            json.dumps(e.args, indent=4 if c3bottles.debug else None),
+            json.dumps(e.args, indent=4 if app.debug else None),
             mimetype="application/json",
             status=400
         )
@@ -67,7 +67,7 @@ def visit():
         return Response(
             json.dumps(
                 [{"msg": "Not logged in or insufficient privileges."}],
-                indent=4 if c3bottles.debug else None
+                indent=4 if app.debug else None
             ),
             mimetype="application/json",
             status=401
@@ -80,7 +80,7 @@ def visit():
         )
     except ValueError as e:
         return Response(
-            json.dumps(e.args, indent=4 if c3bottles.debug else None),
+            json.dumps(e.args, indent=4 if app.debug else None),
             mimetype="application/json",
             status=400
         )
@@ -101,7 +101,7 @@ def dp_json():
             )
         except ValueError as e:
             return Response(
-                json.dumps(e.args, indent=4 if c3bottles.debug else None),
+                json.dumps(e.args, indent=4 if app.debug else None),
                 mimetype="application/json",
                 status=400
             )

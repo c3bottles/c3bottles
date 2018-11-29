@@ -1,6 +1,6 @@
-from ..model.drop_point import DropPoint
-from ..model.report import Report
-from ..model.visit import Visit
+from c3bottles.model.drop_point import DropPoint
+from c3bottles.model.report import Report
+from c3bottles.model.visit import Visit
 
 
 class Statistics(object):

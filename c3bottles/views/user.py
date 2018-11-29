@@ -6,14 +6,14 @@ from flask import render_template, url_for, redirect, request, Blueprint
 from flask_babel import lazy_gettext
 from flask_login import current_user, login_user, logout_user
 
-from ..model.forms import LoginForm
-from ..model.user import User
+from c3bottles.model.user import User
+from c3bottles.views.forms import LoginForm
 
 
-user = Blueprint("user", __name__)
+bp = Blueprint("user", __name__)
 
 
-@user.route("/login", methods=("POST", "GET"))
+@bp.route("/login", methods=("POST", "GET"))
 def login():
     if request.method == "GET":
         return redirect(url_for("main.index"))
@@ -43,7 +43,7 @@ def login():
     )
 
 
-@user.route("/logout")
+@bp.route("/logout")
 def logout():
     logout_user()
     return redirect(url_for("main.index"))

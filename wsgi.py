@@ -9,10 +9,10 @@
 # import os
 # sys.path.insert(0, os.path.dirname(os.path.realpath(__file__)))
 
-from c3bottles import c3bottles
+from c3bottles import app
 from c3bottles.lib.metrics import monitor
 
-application = c3bottles
+application = app
 
-if c3bottles.config.get("PROMETHEUS_ENABLED", False):
-    monitor(c3bottles)
+if app.config.get("PROMETHEUS_ENABLED", False):
+    monitor(app)

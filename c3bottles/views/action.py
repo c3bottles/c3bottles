@@ -1,18 +1,18 @@
 from flask import Blueprint, render_template, request, abort, flash, redirect, url_for
 from flask_babel import lazy_gettext
 
-from .. import db
-from ..model.drop_point import DropPoint
-from ..model.report import Report
-from ..model.visit import Visit
-from . import needs_reporting, needs_visiting
+from c3bottles import db
+from c3bottles.model.drop_point import DropPoint
+from c3bottles.model.report import Report
+from c3bottles.model.visit import Visit
+from c3bottles.views import needs_reporting, needs_visiting
 
 
-action = Blueprint("action", __name__)
+bp = Blueprint("action", __name__)
 
 
-@action.route("/report", methods=("GET", "POST"))
-@action.route("/<int:number>")
+@bp.route("/report", methods=("GET", "POST"))
+@bp.route("/<int:number>")
 @needs_reporting
 def report(number=None):
     dp = DropPoint.query.get_or_404(request.values.get("number", number))
@@ -45,8 +45,8 @@ def report(number=None):
         )
 
 
-@action.route("/visit", methods=("GET", "POST"))
-@action.route("/visit/<int:number>")
+@bp.route("/visit", methods=("GET", "POST"))
+@bp.route("/visit/<int:number>")
 @needs_visiting
 def visit(number=None):
     dp = DropPoint.query.get_or_404(request.values.get("number", number))

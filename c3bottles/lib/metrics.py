@@ -3,8 +3,8 @@ from time import time
 
 from flask import request
 
-from .. import c3bottles
-from .statistics import stats_obj
+from c3bottles import app
+from c3bottles.lib.statistics import stats_obj
 
 
 drop_point_count = Gauge(
@@ -46,8 +46,8 @@ def after_request(response):
 
 
 def monitor(app,
-            address=c3bottles.config.get("PROMETHEUS_ADDRESS", "127.0.0.1"),
-            port=c3bottles.config.get("PROMETHEUS_PORT", 9567)):
+            address=app.config.get("PROMETHEUS_ADDRESS", "127.0.0.1"),
+            port=app.config.get("PROMETHEUS_PORT", 9567)):
     app.before_request(before_request)
     app.after_request(after_request)
     start_http_server(port, address)

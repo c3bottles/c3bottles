@@ -2,8 +2,8 @@ from datetime import datetime
 
 from flask_babel import lazy_gettext
 
-from .. import db
-from . import drop_point
+from c3bottles import db
+from c3bottles.model import drop_point
 
 
 class Location(db.Model):

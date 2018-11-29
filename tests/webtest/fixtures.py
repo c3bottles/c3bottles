@@ -3,14 +3,14 @@ from pytest import fixture
 from flask_webtest import TestApp
 from flask_webtest import SessionScope
 
-from c3bottles import c3bottles, db
+from c3bottles import app, db
 from c3bottles.model.user import User
 
 
 name = "foobar"
 password = "secure_password123"
 
-testapp = TestApp(c3bottles)
+testapp = TestApp(app)
 
 
 def db_setup():

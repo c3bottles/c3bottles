@@ -5,7 +5,7 @@ from flask import current_app, abort
 from flask_login import UserMixin, AnonymousUserMixin
 from flask_babel import lazy_gettext
 
-from .. import c3bottles, db, lm, bcrypt
+from c3bottles import app, db, lm, bcrypt
 
 
 MAXLENGTH_NAME = 128
@@ -183,7 +183,7 @@ def make_secure_token():
     return pwgen(TOKEN_LENGTH, no_symbols=True)
 
 
-@c3bottles.cli.group("user")
+@app.cli.group("user")
 def user_management():
     """
     User management.

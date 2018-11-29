@@ -1,12 +1,12 @@
 from flask import render_template, Blueprint, make_response
 
-from ..lib.statistics import stats_obj
+from c3bottles.lib.statistics import stats_obj
 
 
-stats = Blueprint("statistics", __name__)
+bp = Blueprint("statistics", __name__)
 
 
-@stats.route("/numbers")
+@bp.route("/numbers")
 def numbers():
     return render_template(
         "statistics/numbers.html",
@@ -14,7 +14,7 @@ def numbers():
     )
 
 
-@stats.route("/numbers.js")
+@bp.route("/numbers.js")
 def numbers_js():
     resp = make_response(render_template(
         "js/statistics.js",

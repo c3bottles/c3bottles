@@ -3,21 +3,18 @@ from datetime import datetime
 from flask import Blueprint, render_template, request, make_response, url_for, flash, redirect
 from flask_babel import lazy_gettext
 
-from .. import db
-from ..model.category import categories_sorted
-from ..model.drop_point import DropPoint
-from ..model.location import Location
-from . import needs_editing
+from c3bottles import db
+from c3bottles.model.category import categories_sorted
+from c3bottles.model.drop_point import DropPoint
+from c3bottles.model.location import Location
+from c3bottles.views import needs_editing
 
 
-manage = Blueprint("manage", __name__)
+bp = Blueprint("manage", __name__)
 
 
-@manage.route("/create", methods=("GET", "POST"))
-@manage.route(
-    "/create/<level>/<float:lat>/<float:lng>",
-    methods=("GET", "POST")
-)
+@bp.route("/create", methods=("GET", "POST"))
+@bp.route("/create/<level>/<float:lat>/<float:lng>", methods=("GET", "POST"))
 @needs_editing
 def create(lat=None, lng=None, level=None, description=None, errors=None):
     if request.method == "POST":
@@ -66,7 +63,7 @@ def create(lat=None, lng=None, level=None, description=None, errors=None):
     )
 
 
-@manage.route("/create.js/<level>/<float:lat>/<float:lng>")
+@bp.route("/create.js/<level>/<float:lat>/<float:lng>")
 def create_js(level, lat, lng):
     resp = make_response(render_template(
         "js/create.js",
@@ -79,8 +76,8 @@ def create_js(level, lat, lng):
     return resp
 
 
-@manage.route("/edit/<string:number>", methods=("GET", "POST"))
-@manage.route("/edit")
+@bp.route("/edit/<string:number>", methods=("GET", "POST"))
+@bp.route("/edit")
 @needs_editing
 def edit(number=None, errors=None):
     dp = DropPoint.query.get_or_404(request.values.get("number", number))
@@ -154,7 +151,7 @@ def edit(number=None, errors=None):
     )
 
 
-@manage.route("/edit.js/<string:number>")
+@bp.route("/edit.js/<string:number>")
 def edit_js(number):
     resp = make_response(render_template(
         "js/edit.js",

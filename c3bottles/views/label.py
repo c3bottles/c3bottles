@@ -6,22 +6,22 @@ from io import BytesIO
 
 from flask import Blueprint, render_template, request, Response
 
-from . import needs_visiting
-from .. import c3bottles
-from ..model.drop_point import DropPoint
+from c3bottles import app
+from c3bottles.model.drop_point import DropPoint
+from c3bottles.views import needs_visiting
 
 
-label = Blueprint("label", __name__)
+bp = Blueprint("label", __name__)
 
 
-@label.route("/label/<int:number>.pdf")
+@bp.route("/label/<int:number>.pdf")
 @needs_visiting
 def for_dp(number):
     DropPoint.query.get_or_404(number)
     return Response(_create_pdf(number), mimetype="application/pdf")
 
 
-@label.route("/label/all.pdf")
+@bp.route("/label/all.pdf")
 @needs_visiting
 def all_labels():
     output = PdfFileWriter()
@@ -40,5 +40,5 @@ def _create_pdf(number):
     f = BytesIO()
     img.save(f)
     b64 = b64encode(f.getvalue()).decode("utf-8")
-    label_style = c3bottles.config.get("LABEL_STYLE", "default")
+    label_style = app.config.get("LABEL_STYLE", "default")
     return svg2pdf(render_template("label/{}.svg".format(label_style), number=number, qr=b64))
