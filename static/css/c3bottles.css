@@ -8,6 +8,11 @@ body {
     margin-bottom: 90px; /* for footer */
 }
 
+.navbar-brand img {
+    margin-top: -4px;
+    height: 30px;
+}
+
 .large-icon {
     font-size: 500%;
 }
