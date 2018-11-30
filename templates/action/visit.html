@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% set title = _("Visit Drop Point %(number)i", number=dp.number) %}
+{% set title = _("Visit %(category)s %(number)i", number=dp.number, category=dp.category) %}
 {% block content %}
         <div class="page-header">
             <h1>{{ title }}</h1>

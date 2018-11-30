@@ -1,31 +1,20 @@
 {% if current_user.can_visit: %}
-<p>
-    {{ _("Please use the buttons below to log the action taken on your visit of this drop point.") }}
-</p>
-
+<p>{{ _('Please use the buttons below to log the action taken on your visit.') }}</p>
 <div class="modal-buttons-div">
-    <button class="btn btn-block btn-success visit-button" type="submit" name="maintenance" value="EMPTIED">
-        {{ _("Emptied the drop point") }}
-    </button>
+    <button class="btn btn-block btn-success visit-button" type="submit" name="maintenance" value="EMPTIED">{{ _('Emptied') }}</button>
     <hr/>
     {% if current_user.can_edit: %}
-    <a class="btn btn-block btn-warning modal_dp_link"
-       data-baseurl="{{ url_for('manage.edit') }}">
-        {{ _("Modified the drop point") }}
-    </a>
+    {% if request.endpoint == 'action.visit' %}
+    <a class="btn btn-block btn-warning" href="{{ url_for('manage.edit', number=dp.number) }}">{{ _('Edit') }}</a>
     {% else %}
-    <button class="btn btn-block btn-warning disabled"
-            title="{{ _('You can not do this. Please contact your supervisor.') }}">
-        {{ _("Modified the drop point") }}
-    </button>
+    <a class="btn btn-block btn-warning modal_dp_link" data-baseurl="{{ url_for('manage.edit') }}">{{ _("Edit") }}</a>
+    {% endif %}
+    {% else %}
+    <button class="btn btn-block btn-warning disabled" title="{{ _('You can not do this. Please contact your supervisor.') }}">{{ _('Edit') }}</button>
     {% endif %}
     <hr/>
-    <button class="btn btn-block btn-default visit-button" type="submit" name="maintenance" value="NO_ACTION">
-        {{ _("No action necessary") }}
-    </button>
+    <button class="btn btn-block btn-default visit-button" type="submit" name="maintenance" value="NO_ACTION">{{ _('No action necessary') }}</button>
 </div>
 {% else %}
-<p>
-    {{ _("Please log in as a bottle collector using the login form at the top of this page in order to visit drop points.") }}
-</p>
+<p>{{ _('Please log in as a bottle collector using the login form at the top of this page in order to visit drop points.') }}</p>
 {% endif %}

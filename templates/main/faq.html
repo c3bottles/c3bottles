@@ -201,24 +201,23 @@ default state instead.") }}
                     <td><img src="{{ url_for('static', filename='img/markers/0/EMPTY.svg') }}" class="faq-marker"></td>
                     <td>{{ states.label("EMPTY") }}</td>
                     <td>
-{{ _("The drop point has been emptied recently by the
-bottle collection team and hasn't been reported since
-or has been reported as empty.") }}
+{{ _("The drop point has been emptied recently and
+hasn't been reported since or has been reported as
+empty.") }}
                     </td>
                 </tr>
                 <tr>
                     <td><img src="{{ url_for('static', filename='img/markers/0/SOME_BOTTLES.svg') }}" class="faq-marker"></td>
                     <td>{{ states.label("SOME_BOTTLES") }}</td>
                     <td>
-{{ _("The drop point contains a few bottles, but no action is necessary yet.") }}
+{{ _("The drop point starts to fill up, but no action is necessary yet.") }}
                     </td>
                 </tr>
                 <tr>
                     <td><img src="{{ url_for('static', filename='img/markers/0/REASONABLY_FULL.svg') }}" class="faq-marker"></td>
                     <td>{{ states.label("REASONABLY_FULL") }}</td>
                     <td>
-{{ _("The drop point contains a reasonable amount of bottles
-and should be visited by the bottle collection team soon.") }}
+{{ _("The drop point is reasonable filled and should be visited soon.") }}
                     </td>
                 </tr>
                 <tr>
@@ -226,18 +225,15 @@ and should be visited by the bottle collection team soon.") }}
                     <td>{{ states.label("FULL") }}</td>
                     <td>
 {{ _("The drop point is more or less full and should be
-visited as soon as possible by the bottle collection
-team to prevent overflowing.") }}
+visited as soon as possible to prevent overflowing.") }}
                     </td>
                 </tr>
                 <tr>
                     <td><img src="{{ url_for('static', filename='img/markers/0/OVERFLOW.svg') }}" class="faq-marker"></td>
                     <td>{{ states.label("OVERFLOW") }}</td>
                     <td>
-{{ _("The drop point is overflowing, i.e. not only the crates
-at the drop point are completely filled but additional
-bottles are laying around. Cleaning up the mess can be
-troublesome, so the team should try to prevent drop
+{{ _("The drop point is overflowing. Cleaning up the mess
+can be troublesome, so the team should try to prevent drop
 points from reaching this state.") }}
                     </td>
                 </tr>
@@ -245,10 +241,8 @@ points from reaching this state.") }}
                     <td><img src="{{ url_for('static', filename='img/markers/0/NO_CRATES.svg') }}" class="faq-marker"></td>
                     <td>{{ states.label("NO_CRATES") }}</td>
                     <td>
-{{ _("The drop point is missing crates to put bottles in. This
-is a grave situation since visitors will probably just
-drop their empty bottles on the ground. Empty crates
-should be supplied immediately.") }}
+{{ _("The drop point is missing, online the sign is there.
+This  is a grave situation, immediate action is necessary.") }}
                     </td>
                 </tr>
             </table>

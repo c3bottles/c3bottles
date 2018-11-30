@@ -1,5 +1,5 @@
-{% include "js/dp.js" %}
-var imgdir = "{{ url_for('static', filename='img') }}";
+{% include "js/base.js" %}
+
 init_map()
 init_dp_creation();
 var lat = {{ dp.lat }};
