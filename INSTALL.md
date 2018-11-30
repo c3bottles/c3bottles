@@ -26,8 +26,8 @@ To build the frontend dependencies, you will need Node.js and yarn or npm.
 
         $ pip install -r requirements.txt
 
-    If you are using Debian and the installation fails, you are probably
-    missing `libpython3-dev` or `libffi-dev`.
+    Ifthe installation fails, you are probably missing `libpython3-dev`,
+    `libpq-dev` or `libffi-dev`.
 
     If you would like to use a virtualenv, a Makefile has already been
     prepared, just type `make` to create it and install all dependencies.
