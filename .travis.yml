@@ -1,15 +1,31 @@
 language: python
+
+services:
+ - docker
+
 matrix:
  include:
-  - python: 3.5
-  - python: 3.6
-  - python: 3.7
+  - name: "Python 3.5"
+    python: 3.5
+    env: what="python"
+  - name: "Python 3.6"
+    python: 3.6
+    env: what="python"
+  - name: "Python 3.7"
+    python: 3.7
+    env: what="python"
     dist: xenial
     sudo: true
+  - name: "Docker image"
+    env: what="docker"
+
 install:
- - pip install -r requirements.txt
- - yarn
+ - if [ "$what" = "python" ] ; then pip install -r requirements.txt ; fi
+ - if [ "$what" = "python" ] ; then yarn ; fi
+
 script:
- - pytest --cov=c3bottles
- - pycodestyle c3bottles
- - yarn build:deps
+ - if [ "$what" = "python" ] ; then pytest --cov=c3bottles ; fi
+ - if [ "$what" = "python" ] ; then pycodestyle c3bottles ; fi
+ - if [ "$what" = "python" ] ; then yarn build:deps ; fi
+ - if [ "$what" = "docker" ] ; then docker build -t c3bottles/c3bottles . ; fi
+ - if [ "$what" = "docker" ] ; then docker run -it --entrypoint /c3bottles/venv/bin/pytest c3bottles/c3bottles ; fi
