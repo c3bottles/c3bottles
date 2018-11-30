@@ -1,6 +1,6 @@
 venv: venv/bin/activate
 
-venv/bin/activate: requirements.txt
+venv/bin/activate: requirements.txt requirements/all.txt requirements/development.txt requirements/production.txt
 	test -d venv || virtualenv -p python3 venv
 	venv/bin/pip install -Ur requirements.txt
 	touch venv/bin/activate
