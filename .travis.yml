@@ -28,4 +28,5 @@ script:
  - if [ "$what" = "python" ] ; then pycodestyle c3bottles ; fi
  - if [ "$what" = "python" ] ; then yarn build:deps ; fi
  - if [ "$what" = "docker" ] ; then docker build -t c3bottles/c3bottles . ; fi
- - if [ "$what" = "docker" ] ; then docker run -it --entrypoint /c3bottles/venv/bin/pytest c3bottles/c3bottles ; fi
+ - if [ "$what" = "docker" ] ; then docker image ls ; fi
+ - if [ "$what" = "docker" ] ; then docker run --rm --entrypoint /bin/sh c3bottles/c3bottles -c "pip install pytest flask-webtest && pytest" ; fi
