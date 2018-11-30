@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% set title = _("Admin Interface") %}
-{% macro yes() %}<span class="glyphicon glyphicon-ok text-success"></span>{% endmacro %}
-{% macro no() %}<span class="glyphicon glyphicon-remove text-danger"></span>{% endmacro %}
+{% macro yes() %}<i class="text-success fas fa-check"></i>{% endmacro %}
+{% macro no() %}<i class="text-danger fas fa-times"></i>{% endmacro %}
 {% block text %}
     <h2>{{ _("User management") }}</h2>
     <table class="table">
@@ -133,7 +133,7 @@
                         {{ user_id_form.csrf_token }}
                         {{ user_id_form.user_id(id="admin-input-user-delete-user-id") }}
                         <button type="button" class="btn btn-default" data-dismiss="modal" tabindex="-1">{{ _("Cancel") }}</button>
-                        <button type="submit" class="btn btn-danger"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> {{ _("Delete user") }}</button>
+                        <button type="submit" class="btn btn-danger"><i class="far fa-trash-alt"></i> {{ _("Delete user") }}</button>
                     </form>
                 </div>
             </div>

@@ -29,5 +29,7 @@ $('.admin-button-user-delete').on('click', ev => {
 });
 
 $('#admin-button-create-all-labels').on('click', ev => {
-  $(ev.currentTarget).attr('disabled', true);
+  $(ev.currentTarget)
+    .attr('disabled', true)
+    .prepend('<i class="fas fa-circle-notch fa-spin"></i> ');
 });

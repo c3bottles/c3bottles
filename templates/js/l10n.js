@@ -8,6 +8,9 @@ var translations = {
     "Sorry, the minimum value was reached.": "{{ _('Sorry, the minimum value was reached.') }}",
     "Sorry, the maximum value was reached.": "{{ _('Sorry, the maximum value was reached.') }}",
     "Create a new drop point": "{{ _('Create a new drop point') }}",
+    "Details": "{{ _('Details') }}",
+    "Report": "{{ _('Report') }}",
+    "Visit": "{{ _('Visit') }}",
     "dt": {
         "sEmptyTable": "{{ _('No data available in table') }}",
         "sInfo": "{{ _('Showing _START_ to _END_ of _TOTAL_ entries') }}",

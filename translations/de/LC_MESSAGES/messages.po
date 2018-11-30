@@ -1,24 +1,24 @@
+
 msgid ""
 msgstr ""
-"Project-Id-Version: c3bottles\n"
+"Project-Id-Version:  c3bottles\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-11-28 22:02+0100\n"
+"POT-Creation-Date: 2018-11-30 02:26+0100\n"
 "PO-Revision-Date: 2018-11-28 22:03+0100\n"
 "Last-Translator: MichiK <michik@michik.net>\n"
 "Language: de\n"
 "Language-Team: \n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.6.0\n"
-"X-Generator: Poedit 2.2\n"
 
-#: c3bottles/model/category.py:40
+#: c3bottles/model/category.py:43
 msgid "Bottle Drop Point"
 msgstr "Bottle Drop Point"
 
-#: c3bottles/model/category.py:41
+#: c3bottles/model/category.py:44
 msgid "Trashcan"
 msgstr "Mülleimer"
 
@@ -58,12 +58,12 @@ msgstr "Zeit der Entfernung ist kein datetime-Objekt."
 msgid "Removal time in the future."
 msgstr "Zeit der Entfernung liegt in der Zukunft."
 
-#: c3bottles/model/drop_point.py:159 templates/view.html:65
+#: c3bottles/model/drop_point.py:159 templates/view/details.html:63
 #, python-format
 msgid "%(location)s on level %(level)i"
 msgstr "%(location)s auf Ebene %(level)i"
 
-#: c3bottles/model/drop_point.py:161 templates/view.html:65
+#: c3bottles/model/drop_point.py:161 templates/view/details.html:63
 msgid "somewhere"
 msgstr "irgendwo"
 
@@ -133,14 +133,34 @@ msgstr "Der Benutzername ist zu lang."
 msgid "Password hashing failed."
 msgstr "Berechnen der Passwort-Prüfsumme fehlgeschlagen."
 
-#: c3bottles/model/user.py:149 templates/dp_modals.html:44
-#: templates/macros/actions.html:6 templates/macros/states.html:19
+#: c3bottles/model/user.py:149 templates/macros/actions.html:6
+#: templates/macros/states.html:19 templates/modals/base.html:44
 msgid "Unknown"
 msgstr "Unbekannt"
 
 #: c3bottles/model/visit.py:68
 msgid "Invalid or missing maintenance action."
 msgstr "Ungültige oder fehlende Wartungsaktion."
+
+#: c3bottles/views/action.py:31
+msgid "Errors occurred while processing your report:"
+msgstr "Bei der Meldung sind Fehler aufgetreten:"
+
+#: c3bottles/views/action.py:38 templates/js/l10n.js:2
+msgid "Thank you!"
+msgstr "Danke!"
+
+#: c3bottles/views/action.py:39 templates/js/l10n.js:3
+msgid "Your report has been received successfully."
+msgstr "Der Bericht wurde erfolgreich gespeichert."
+
+#: c3bottles/views/action.py:65
+msgid "Errors occurred while processing your visit:"
+msgstr "Bei der Verarbeitung des Besuchs sind Fehler aufgetreten:"
+
+#: c3bottles/views/action.py:72
+msgid "Your visit has been processed successfully."
+msgstr "Der Besuch wurde erfolgreich verarbeitet."
 
 #: c3bottles/views/admin.py:52
 msgid "The user has been disabled successfully."
@@ -174,26 +194,14 @@ msgstr "Es gibt bereits einen Benutzer mit diesem Namen."
 msgid "The new user has been created successfully."
 msgstr "Der neue Benutzer wurde erfolgreich erstellt."
 
-#: c3bottles/views/create.py:35
+#: c3bottles/views/manage.py:38
 #, python-format
 msgid "Your %(category)s has been created successfully."
 msgstr "%(category)s wurde erfolgreich erstellt."
 
-#: c3bottles/views/edit.py:51
+#: c3bottles/views/manage.py:118
 msgid "Your changes have been saved successfully."
 msgstr "Die Änderungen wurden erfolgreich gespeichert."
-
-#: c3bottles/views/report.py:27
-msgid "Errors occurred while processing your report:"
-msgstr "Bei der Meldung sind Fehler aufgetreten:"
-
-#: c3bottles/views/report.py:34 templates/js/l10n.js:2
-msgid "Thank you!"
-msgstr "Danke!"
-
-#: c3bottles/views/report.py:35 templates/js/l10n.js:3
-msgid "Your report has been received successfully."
-msgstr "Der Bericht wurde erfolgreich gespeichert."
 
 #: c3bottles/views/user.py:39
 msgid "Login failed!"
@@ -203,784 +211,28 @@ msgstr "Fehler beim Einloggen!"
 msgid "Wrong user name or password."
 msgstr "Falscher Benutzername oder falsches Passwort."
 
-#: c3bottles/views/visit.py:27
-msgid "Errors occurred while processing your visit:"
-msgstr "Bei der Verarbeitung des Besuchs sind Fehler aufgetreten:"
-
-#: c3bottles/views/visit.py:34
-msgid "Your visit has been processed successfully."
-msgstr "Der Besuch wurde erfolgreich verarbeitet."
-
-#: templates/admin.html:2 templates/navbar.html:89
-msgid "Admin Interface"
-msgstr "Adminbereich"
-
-#: templates/admin.html:6
-msgid "User management"
-msgstr "Benutzerverwaltung"
-
-#: templates/admin.html:10 templates/admin.html:45 templates/navbar.html:55
-msgid "User name"
-msgstr "Benutzername"
-
-#: templates/admin.html:11
-msgid "Active"
-msgstr "Aktiv"
-
-#: templates/admin.html:12 templates/admin.html:47 templates/admin.html:71
-msgid "Visit drop points"
-msgstr "Drop Points besuchen"
-
-#: templates/admin.html:13 templates/admin.html:48 templates/admin.html:76
-msgid "Edit drop points"
-msgstr "Drop Points editieren"
-
-#: templates/admin.html:14 templates/admin.html:49 templates/admin.html:81
-msgid "Admin"
-msgstr "Admin"
-
-#: templates/admin.html:29
-msgid "Disable"
-msgstr "Deaktivieren"
-
-#: templates/admin.html:31
-msgid "Enable"
-msgstr "Aktivieren"
-
-#: templates/admin.html:33 templates/admin.html:66
-msgid "Permissions"
-msgstr "Berechtigungen"
-
-#: templates/admin.html:34 templates/admin.html:46 templates/admin.html:105
-#: templates/navbar.html:58
-msgid "Password"
-msgstr "Passwort"
-
-#: templates/admin.html:35
-msgid "Delete"
-msgstr "Löschen"
-
-#: templates/admin.html:42
-msgid "Create a new user"
-msgstr "Neuen Benutzer erstellen"
-
-#: templates/admin.html:50
-msgid "Create user"
-msgstr "Benutzer erstellen"
-
-#: templates/admin.html:88 templates/admin.html:114 templates/admin.html:135
-msgid "Cancel"
-msgstr "Abbrechen"
-
-#: templates/admin.html:89 templates/admin.html:115
-msgid "Update"
-msgstr "Aktualisieren"
-
-#: templates/admin.html:101
-msgid "Change password"
-msgstr "Passwort ändern"
-
-#: templates/admin.html:108
-msgid "Confirmation"
-msgstr "Bestätigung"
-
-#: templates/admin.html:126 templates/admin.html:136
-msgid "Delete user"
-msgstr "Benutzer löschen"
-
-#: templates/admin.html:129
-msgid "Are you sure that you want to delete this user? Deletion is irreversible."
-msgstr ""
-"Soll dieser Benutzer wirklich gelöscht werden? Dieser Vorgang lässt sich nicht "
-"rückgängig machen."
-
-#: templates/admin.html:143
-msgid "Drop point labels"
-msgstr "Drop-Point-Schilder"
-
-#: templates/admin.html:144
-msgid "Create labels for all drop points at once (slow!)"
-msgstr "Schilder für alle Drop Points erstellen (langsam!)"
-
-#: templates/create.html:2
-msgid "Create a New Bottle Drop Point"
-msgstr "Neuen Drop Point erstellen"
-
-#: templates/create.html:11 templates/edit_dp.html:11
-msgid "An error occurred!"
-msgstr "Es ist ein Fehler aufgetreten!"
-
-#: templates/create.html:23
-msgid "1. Select the position of the new drop point on the map"
-msgstr "1. Position des neuen Drop Points auf der Karte wählen"
-
-#: templates/create.html:28
-msgid "2. Enter the details of your newly created drop point"
-msgstr "2. Details des neuen Drop Points angeben"
-
-#: templates/create.html:35 templates/list.html:23
-msgid "Category"
-msgstr "Kategorie"
-
-#: templates/create.html:45 templates/create.html:48 templates/edit_dp.html:35
-#: templates/edit_dp.html:37 templates/list.html:25
-msgid "Level"
-msgstr "Ebene"
-
-#: templates/create.html:52 templates/edit_dp.html:41 templates/list.html:24
-msgid "Location"
-msgstr "Ort"
-
-#: templates/create.html:58 templates/edit_dp.html:47 templates/list.html:22
-msgid "Number"
-msgstr "Nummer"
-
-#: templates/create.html:65
-msgid "Create drop point"
-msgstr "Drop Point erstellen"
-
-#: templates/dp_modals.html:18
-msgid "Details"
-msgstr "Details"
-
-#: templates/dp_modals.html:22 templates/view.html:33
-msgid "Report"
-msgstr "Melden"
-
-#: templates/dp_modals.html:26 templates/view.html:36
-msgid "Visit"
-msgstr "Besuchen"
-
-#: templates/dp_modals.html:35 templates/view.html:16
-msgid "Current state:"
-msgstr "Aktueller Status:"
-
-#: templates/dp_modals.html:37 templates/macros/states.html:12
-msgid "Overflowing"
-msgstr "Überfüllt"
-
-#: templates/dp_modals.html:38 templates/macros/states.html:13
-msgid "Full"
-msgstr "Voll"
-
-#: templates/dp_modals.html:39 templates/macros/states.html:14
-msgid "Reasonably full"
-msgstr "Gut gefüllt"
-
-#: templates/dp_modals.html:40 templates/macros/states.html:15
-msgid "Some bottles"
-msgstr "Einige Flaschen"
-
-#: templates/dp_modals.html:41 templates/macros/states.html:16
-msgid "Empty"
-msgstr "Leer"
-
-#: templates/dp_modals.html:42 templates/macros/states.html:17
-msgid "New"
-msgstr "Neu"
-
-#: templates/dp_modals.html:43 templates/macros/states.html:18
-msgid "No crates"
-msgstr "Keine Kisten"
-
-#: templates/dp_modals.html:48 templates/view.html:20
-msgid "Visit priority:"
-msgstr "Besuchspriorität:"
-
-#: templates/dp_modals_list.html:6 templates/dp_modals_map.html:5
-msgid "More details"
-msgstr "Mehr Details"
-
-#: templates/dp_modals_list.html:9 templates/navbar.html:21
-msgid "Map"
-msgstr "Karte"
-
-#: templates/edit_dp.html:2
-#, python-format
-msgid "Edit %(category)s %(number)i"
-msgstr "%(category)s %(number)i bearbeiten"
-
-#: templates/edit_dp.html:23
-msgid "Change the position by dragging the black marker on the map:"
-msgstr "Position ändern durch Bewegen des schwarzen Markers:"
-
-#: templates/edit_dp.html:28
-msgid "Change the details:"
-msgstr "Die Details ändern:"
-
-#: templates/edit_dp.html:57
-msgid "Remove"
-msgstr "Entfernen"
-
-#: templates/edit_dp.html:64
-msgid "Submit changes"
-msgstr "Änderungen speichern"
-
 #: templates/error.html:2
 msgid "Error"
 msgstr "Fehler"
 
-#: templates/error.html:17 templates/js/l10n.js:4
+#: templates/error.html:10 templates/js/l10n.js:4
 msgid "Oh no!"
 msgstr "Oh nein!"
 
-#: templates/faq.html:16 templates/navbar.html:23
-msgid "FAQ"
-msgstr "FAQ"
-
-#: templates/faq.html:20
-msgid "Frequently Asked Questions"
-msgstr "Häufig gestellte Fragen"
-
-#: templates/faq.html:24
-msgid "What is all this about in the first place?"
-msgstr "Um was geht es hier eigentlich?"
-
-#: templates/faq.html:28
-#, python-format
-msgid ""
-"%(project)s is a bottle drop and collection management system for\n"
-"chaos events. Collecting all the empty bottles is a hard task\n"
-"at every event since they appear in large numbers at places and\n"
-"times you cannot always anticipate beforehand. Bottle collectors\n"
-"need to roam the area all the time and check it periodically for\n"
-"any left empty bottles."
-msgstr ""
-"%(project)s ist ein Flaschensammel-Managementsystem für Chaosevents.\n"
-"Das Sammeln des Leerguts ist eine harte Aufgabe auf jeder Veranstaltung,\n"
-"da die Flaschen in großer Anzahl an verschiedenen Orten und zu Zeiten auftauchen,\n"
-"die sich im Vorfeld nur schwer planen lassen. Flaschensammler müssen die ganze\n"
-"Zeit herumlaufen und nach Leergut suchen."
-
-#: templates/faq.html:33 templates/faq.html:71 templates/index.html:10
-#: templates/index.html:13 templates/layout.html:9
-msgid "c3bottles"
-msgstr "c3bottles"
-
-#: templates/faq.html:37
-msgid ""
-"To make this job a lot easier, bottle drop points were invented:\n"
-"Empty crates are placed at spots in the area where a high level\n"
-"of empty bottles is expected, e.g. exits of lecture halls,\n"
-"lounges or the main exit/entrance of a building. The visitors\n"
-"are advised to leave their bottles not at random but rather\n"
-"only at the designated bottle drop points. The bottle collectors\n"
-"then only need to visit these points to do their job."
-msgstr ""
-"Um die Aufgabe leichter zu machen, wurden Bottle Drop Points\n"
-"erfunden. Leere Kisten werden an Orten verteilt, wo man mit hohem\n"
-"Leergutaufkommen rechnet, etwa an den Ausgängen von Vortragsräumen,\n"
-"in der Partyzone oder am Haupteingang des Gebäudes. Besucher werden\n"
-"gebeten, ihr Leergut nicht einfach irgendwo stehen zu lassen, sonden\n"
-"an den dafür vorgesehenen Orten, um den Flaschensammlern die Arbeit\n"
-"zu erleichtern."
-
-#: templates/faq.html:47
-msgid ""
-"However, there are some caveats: In a large building like the\n"
-"CCH nobody is able to memorize all the drop points and some of\n"
-"them may be forgotten and overflow without anyone noticing. In\n"
-"addition, if the planning in advance was not perfect (as always),\n"
-"some drop points in popular locations may overflow very quickly\n"
-"making the job of the collectors a lot harder. At an overflowing\n"
-"drop point, they can't simply exchange a full crate for an empty\n"
-"one but instead have to put all the bottles laying on and around\n"
-"the more than full crate into their fresh one. In the worst case\n"
-"they then have lots of full but no empty crates left in\n"
-"locations with a high bottle drop rate. If that ever happens,\n"
-"the bottlecalypse is inevitable."
-msgstr ""
-"Allerdings gibt es einige Probleme: In einem großen Gebäude wie\n"
-"dem CCH kann niemand alle Bottle Drop Points im Kopf behalten und\n"
-"manche von ihnen werden vergessen und laufen über, ohne dass\n"
-"die Flaschensammler dies bemerken. Darüber hinaus ist die Planung\n"
-"im Voraus nie perfekt: Einzelne Drop Points laufen schnell über, was\n"
-"die Arbeit der Flaschensammler erschwert. An einem übergelaufenen\n"
-"Drop Point kann man nicht einfach eine volle durch eine leere Kiste\n"
-"ersetzen, sondern muss manuell Flaschen umsortieren. Wenn ein Punkt\n"
-"erreicht ist, wo es zwar herumstehendes Leergut, aber keine Leerkisten\n"
-"mehr gibt, ist die Bottlekalypse unvermeidlich."
-
-#: templates/faq.html:62
-#, python-format
-msgid ""
-"%(project)s aims to solve this problem using modern web technology\n"
-"combined with crowdsourcing: A database tracks the state of all\n"
-"the drop points and visitors noticing full or overflowing drop\n"
-"points can report that fact. The bottle collectors will be\n"
-"notified and can react promptly. They track their tour and the\n"
-"system can notify them of drop points not visited in a long time\n"
-"or needing immediate action. Statistical analysis allows for\n"
-"continuous optimization of drop point placement by scaling drop\n"
-"points according to the demand or abandoning drop points in\n"
-"remote locations which are not used much anyway."
-msgstr ""
-"%(project)s möchte dieses Problem lösen, indem moderne Webtechnologie\n"
-"mit Croudsourcing kombiniert wird: Eine Datenbank enthält Ort und Status\n"
-"aller Drop Points und die Besucher können Berichte von vollen oder überlaufenden\n"
-"Drop Points absetzen. Die Flaschensammler werden dann benachrichtigt und können\n"
-"prompot reagieren. Außerdem tracken sie ihre Tour und werden vom System auch\n"
-"auf Drop Points aufmerksam gemacht, die lange nicht besucht wurden oder dringend\n"
-"besucht werden müssen. Statistische Auswertungen erlauben eine kontinuierliche\n"
-"Optimierung der Verteilung der Drop Points anhand des Bedarfs."
-
-#: templates/faq.html:77
-msgid "How does this work?"
-msgstr "Wie funktioniert das?"
-
-#: templates/faq.html:81
-msgid ""
-"During placement of bottle drop points, every drop point is\n"
-"registered in the database with its number and position.\n"
-"It gets a label telling the\n"
-"visitors to report full drop points using a URL specific for\n"
-"every drop point. On the website, the visitor can report the drop\n"
-"point as needing attention by simply clicking a button.\n"
-"Optionally, the visitor may inform the bottle collectors about\n"
-"the filling level of the drop point."
-msgstr ""
-"Bei der Einrichtung der Bottle Drop Points wird jeder Drop Point\n"
-"mit Nummer und Ort in die Datenbank eingetragen. Er bekommt\n"
-"ein Schild, welches die Besucher auffordert, den Status zu berichten,\n"
-"indem die URL auf dem Schild aufgerufen wird. Auf der Webseite können\n"
-"die Besucher durch einen einfachen Klick einen Statusbericht absetzen\n"
-"und die Flaschensammler über den Zustand des Drop Points informieren."
-
-#: templates/faq.html:92
-msgid ""
-"The other end of the web interface shows a list of drop points to\n"
-"visit ordered by priority: Drop points reported a lot lately get\n"
-"a high priority which is even higher if the respective drop point\n"
-"experiences a lot or traffic and is\n"
-"reported multiple times. Drop points not visited for a long time\n"
-"get a high priority too, so the collectors can check their current\n"
-"state."
-msgstr ""
-"Am anderen Ende des Webinterfaces gibt es eine Liste der Drop Points\n"
-"sortiert nach Priorität: Drop Points mit vielen Berichten erhalten eine höhere\n"
-"Priorität, ebenso wie Drop Points, welche lange nicht besucht wurden. So wird\n"
-"sichergestellt, dass die Flaschensammler alle Drop Points regelmäßig\n"
-"besuchen."
-
-#: templates/faq.html:102
-msgid ""
-"A map shows the location of all the drop points so new members of\n"
-"the bottle collector team can find them easily and visitors can\n"
-"always find the nearest drop point to their current location."
-msgstr ""
-"Eine Karte zeigt die Orte aller Drop Points, sodass neue Flaschensammler\n"
-"diese schnell lokalisieren können und Besucher jederzeit den nächsten Drop Point\n"
-"von ihrem aktuellen Ort aus finden."
-
-#: templates/faq.html:108
-msgid ""
-"The bottle collectors track their actions when visiting drop\n"
-"points by clicking a button whenever they empty a drop point.\n"
-"In addition to that, bottle collection supervisors can add and\n"
-"remove drop points or change the location of existing\n"
-"drop points if needed."
-msgstr ""
-"Die Flaschensammler tracken ihre Aktionen wenn sie Drop Points\n"
-"besuchen mit einem Klick. Die Leiter des Flaschensammler-Teams\n"
-"können außerdem Drop Points anlegen und löschen sowie bearbeiten,\n"
-"wann immer dies nötig ist."
-
-#: templates/faq.html:118
-msgid "I'm a visitor and want to help. What should I do?"
-msgstr "Ich bin ein Besucher und will helfen. Was soll ich tun?"
-
-#: templates/faq.html:122
-msgid ""
-"Great! Helping is easy: If you spot a bottle drop point that seems\n"
-"to need attention, just visit the URL printed on the sign posted\n"
-"there. You are presented with a website containing a few buttons.\n"
-"Just click on the one you think fits most. Congratulations! :)"
-msgstr ""
-"Super! Helfen ist einfach: Wenn du einen Bottle Drop Points siehst,\n"
-"der Aufmerksamkeit benötigt, besuche einfach die URL auf dem Schild,\n"
-"welches dort hängt. Du bekommst dann eine Webseite mit einigen Buttons.\n"
-"Klicke auf den, der dem Zustand des Drop Points am nächsten kommt.\n"
-"Fertig! :)"
-
-#: templates/faq.html:129
-msgid ""
-"Please do not abuse the system like reporting the same drop point\n"
-"multiple times since it can only work as good as its input is. If\n"
-"you accidentally pressed the wrong button and e.g. reported an\n"
-"overflowing drop point as empty, don't hesitate to report it again\n"
-"with the correct state. The system will react to this accordingly."
-msgstr ""
-"Das System lebt davon, dass es nicht missbraucht wird, etwa durch\n"
-"häufige Berichte des selben Drop Points. Das ganze System kann nur\n"
-"so gut funktionieren, wie die Eingabedaten sind. Wenn du ausversehen den\n"
-"falschen Button geklickt hast und beispielsweise einen überlaufenden Drop\n"
-"Point als leer gemeldet hast, klicke danach einfach noch einmal auf den\n"
-"besser passenden Button."
-
-#: templates/faq.html:137
-msgid ""
-"Any report of a drop point is helpful, even if it is not overflowing.\n"
-"Reports of empty or only sparsely used drop points help the bottle\n"
-"collectors prioritize their visits, plan their tours optimally and\n"
-"rearrange crates or moving drop points as they see fit. The\n"
-"optimization works better the more detailed the reporting is.\n"
-"Last but not least, the statistics gets more impressive with\n"
-"larger numbers."
-msgstr ""
-"Jede Meldung eines Drop Points ist hilfreich, auch wenn er nicht\n"
-"überläuft. Berichte von leeren oder nur wenig belegten Drop Points\n"
-"helfen den Flaschensammlern bei der Priorisierung ihrer Besuche und\n"
-"der Planung ihrer Touren. Diese Optimierung funktioniert um so besser,\n"
-"je detaillierter die Meldungen sind. Außerdem werden die Statistiken\n"
-"eindrucksvoller, wenn die Zahlen größer sind."
-
-#: templates/faq.html:149
-msgid ""
-"I need some manual labor and bottle collection sounds like a thing for me. What "
-"should I do?"
-msgstr ""
-"Ich brauche manuelle Arbeit und Flaschen sammeln klingt nach Spaß. Was soll ich tun?"
-
-#: templates/faq.html:153
-msgid ""
-"The bottle collectors are volunteers and help is always appreciated.\n"
-"More hands collect and sort more bottles more quickly. If this is a\n"
-"congress and you already are an angel, just search and register for\n"
-"bottle collection shifts in the angel system. If this is a congress\n"
-"and you are not yet an angel, ask for heaven, go there and tell the\n"
-"friendly people there want to help."
-msgstr ""
-"Die Flaschensammler sind freiwillige Helfer und Hilfe ist immer willkommen.\n"
-"Mehr Hände sammeln und sortieren mehr Flaschen schneller. Wenn dies ein\n"
-"Congress ist und du schon Engel bist, solltest du passende Schichten im\n"
-"Engelsystem finden. Wenn dies ein Congress ist und du noch kein Engel bist,\n"
-"finde den Himmel und biete deine Hilfe an."
-
-#: templates/faq.html:162
-msgid ""
-"If this is any other event in the chaos family, it should work\n"
-"similarly to congress but the names heaven and angels might differ.\n"
-"Just ask some people who look like they could know what's up. In\n"
-"doubt, just report your nearest drop point and wait for the\n"
-"collector team to show up. They should know what they're doing."
-msgstr ""
-"Wenn dies ein anderes Event aus der Chaosfamilie ist, sollte es so\n"
-"ähnlich funktionieren, aber die Namen Himmel und Engel können\n"
-"sich unterscheiden. Frag einfach Leute, die so aussehen, als ob sie\n"
-"wüssten, was Sache ist. Im Zweifel warte einfach am nächsten Drop\n"
-"Point auf die Flaschensammler. Diese sollten wissen, wie ihnen zu\n"
-"helfen ist."
-
-#: templates/faq.html:172
-msgid "What do the report states mean? What state should I choose when reporting?"
-msgstr "Was bedeuten die Zustände? Welchen soll ich auswählen?"
-
-#: templates/faq.html:176
-msgid ""
-"Every drop point at all times has a state that describes its\n"
-"filling level. When drop points are being reported, the reporters\n"
-"should select a state roughly corresponding to the situation they\n"
-"see. The state column in the drop point list as well as the markers\n"
-"in the map indicate the current (last reported) state of the drop\n"
-"point in question:"
-msgstr ""
-"Jeder Drop Point hat zu jeder Zeit einen Zustand, der seinen Füllstand\n"
-"beschreibt. Wenn Drop Points gemeldet werden, sollte man den Zustand\n"
-"wählen, der am besten zur Situation vor Ort passt. Die entsprechende Spalte\n"
-"in der Liste sowie die Marker auf der Karte zeigen den Zustand des jeweiligen\n"
-"Drop Points an:"
-
-#: templates/faq.html:188
-msgid ""
-"The drop point has been reported, however, the reporter\n"
-"was not sure which state to choose and reported the\n"
-"default state instead."
-msgstr ""
-"Der Drop Point wurde gemeldet, aber die Person, die ihn\n"
-"gemdeldet hat war sich unsicher, welcher Zustand der passende\n"
-"ist."
-
-#: templates/faq.html:197
-msgid "The drop point has been just created and has not been reported yet."
-msgstr "Der Drop Point wurde soeben angelegt und noch nicht gemeldet."
-
-#: templates/faq.html:204
-msgid ""
-"The drop point has been emptied recently by the\n"
-"bottle collection team and hasn't been reported since\n"
-"or has been reported as empty."
-msgstr ""
-"Der Drop Point wurde vor kurzem durch die Flaschensammler geleert\n"
-"und wurde entweder seitdem nicht gemeldet oder als leer gemeldet."
-
-#: templates/faq.html:213
-msgid "The drop point contains a few bottles, but no action is necessary yet."
-msgstr "Der Drop Point enthält wenige Flaschen, aber es ist noch kein Besuch nötig."
-
-#: templates/faq.html:220
-msgid ""
-"The drop point contains a reasonable amount of bottles\n"
-"and should be visited by the bottle collection team soon."
-msgstr ""
-"Der Drop Point enthält einige Flaschen und sollte demächst\n"
-"von den Flaschensammlern besucht werden."
-
-#: templates/faq.html:228
-msgid ""
-"The drop point is more or less full and should be\n"
-"visited as soon as possible by the bottle collection\n"
-"team to prevent overflowing."
-msgstr ""
-"Der Drop Point ist mehr oder weniger voll und sollte sehr\n"
-"bald von den Flaschensammlern besucht werden, um ein\n"
-"Überlaufen zu vermeiden."
-
-#: templates/faq.html:237
-msgid ""
-"The drop point is overflowing, i.e. not only the crates\n"
-"at the drop point are completely filled but additional\n"
-"bottles are laying around. Cleaning up the mess can be\n"
-"troublesome, so the team should try to prevent drop\n"
-"points from reaching this state."
-msgstr ""
-"Der Drop Point läuft über, d.h. nicht nur die dort stehenden Kisten\n"
-"sind voll, sondern die leeren Flaschen fangen an, sich daneben zu\n"
-"türmen. Aufräumen kann schwierig werden, also sollte die\n"
-"Flaschensammler schnellstmöglich handeln."
-
-#: templates/faq.html:248
-msgid ""
-"The drop point is missing crates to put bottles in. This\n"
-"is a grave situation since visitors will probably just\n"
-"drop their empty bottles on the ground. Empty crates\n"
-"should be supplied immediately."
-msgstr ""
-"Dem Drop Point fehlen Kisten. Dies ist eine kritische Situation,\n"
-"denn Besucher werden vermutlich ihre leeren Flaschen einfach\n"
-"chaotisch auf dem Boden stehen lassen. Leere Kisten sollten\n"
-"schnellstmöglich bereitgestellt werden."
-
-#: templates/faq.html:259
-msgid "What is the priority and how is it calculated?"
-msgstr "Was ist die Priorität und wie wird sie berechnet?"
-
-#: templates/faq.html:263
-msgid ""
-"Each drop point gets assigned a visit priority and the idea is\n"
-"that the bottle collectors visit the drop points in order of\n"
-"their priority."
-msgstr ""
-"Jeder Drop Point bekommt eine Besuchspriorität zugewiesen und die\n"
-"Idee ist, dass die Flaschensammler die Drop Points mit der höchsten\n"
-"Priorität zuerst besuchen."
-
-#: templates/faq.html:269
-msgid ""
-"The priority is calculated by taking the time since the last\n"
-"visit as a base value relative to a base visit interval that\n"
-"determines how often a typical drop point should be visited.\n"
-"Each report of a drop point adds to the priority, where the\n"
-"severity of the report (the most severe is obviously\n"
-"\"overflowing\"). The latest report counts the most and\n"
-"earlier reports count less and less. The crate count of the\n"
-"drop point gives an additional bonus so that larger drop\n"
-"points get a slight increase in priority since a higher\n"
-"throughput is expected in such locations."
-msgstr ""
-"Die Priorität wird berechnet, indem die Zeit seit dem letzten Besuch\n"
-"als Basiswert genommen wird. Dieser wert erhöht sich mit jedem Bericht\n"
-"abhängig vom gemeldeten Status."
-
-#: templates/faq.html:284
-msgid "I'm good at coding and think this site could need some help. What should I do?"
-msgstr ""
-"Ich kann programmieren und denke, die Seite könnte Hilfe gebrauchen. Was soll ich "
-"tun?"
-
-#: templates/faq.html:288
-msgid ""
-"I started this project because I finally wanted to get my head\n"
-"around modern web development techniques. It is written in Python\n"
-"using the Flask web framework. The database is accessed using\n"
-"SQLAlchemy and the backend of choice is PostgreSQL. If you are (or\n"
-"want to become) familiar with all that stuff and feel comfortable\n"
-"with the choices made, you are invited to contribute."
-msgstr ""
-"Ich habe dieses Projekt angefangen, weil ich endlich in die moderne\n"
-"Webentwicklung einsteigen wollte. Es ist in Python mit Flask geschrieben.\n"
-"Die Datenbank wird per SQLAlchemy angebunden, wobei mein Favorit\n"
-"PostgreSQL ist. Wenn du dich damit auskennst (oder es lernen möchtest)\n"
-"und mit den getroffenen Entscheidungen einverstanden bist, kannst du dich\n"
-"gerne an der Entwicklung beteiligen."
-
-#: templates/faq.html:297
-msgid ""
-"The link in the footer of this page will lead you to the GitHub\n"
-"repository where development takes place."
-msgstr ""
-"Der Link unten auf dieser Seite führt dich zum GitHub-Repository, in dem\n"
-"die Entwicklung stattfindet."
-
-#: templates/faq.html:304
-msgid ""
-"I'm the organizer of some event in the near or far future and like the idea. Can I "
-"use your software?"
-msgstr ""
-"Ich organisiere ein Event in naher oder ferner Zukunft und mag die Idee. Kann ich "
-"die Software benutzen?"
-
-#: templates/faq.html:308
-msgid ""
-"Absolutely. In the end, that's what I created it for. Feel free to\n"
-"download the source code from GitHub and set up your own copy.\n"
-"If you still have questions, find my contact information\n"
-"<a href=\"https://michik.net/\">here</a>."
-msgstr ""
-"Natürlich. Genau dafür wurde sie entwickelt. Du kannst den Sourcecode bei\n"
-"GitHub herunterladen und dein eigenes System aufsetzen. Wenn du noch Fragen\n"
-"hast, findest du meine Kontaktinformationen <a href=\"https://michik.net/\">hier</"
-"a>."
-
-#: templates/faq.html:316
-msgid "I'm a l33t h4xx0r and think this is fun."
-msgstr "Ich bin ein l33t h4xx0r und das hier ist lustig."
-
-#: templates/faq.html:320
-msgid "Good for you. Here's your fish:"
-msgstr "Schön für dich. Hier ist dein Fisch:"
-
 #: templates/footer.html:4
 msgid ""
-"Development takes place on <a href=\"https://github.com/c3bottles/c3bottles"
-"\">GitHub</a>. News can be found on <a href=\"https://twitter.com/c3bottles"
-"\">Twitter</a>."
+"Development takes place on <a "
+"href=\"https://github.com/c3bottles/c3bottles\">GitHub</a>. News can be found"
+" on <a href=\"https://twitter.com/c3bottles\">Twitter</a>."
 msgstr ""
-"Die Entwicklung findet auf <a href=\"https://github.com/c3bottles/c3bottles"
-"\">GitHub</a> statt. Neuigkeiten gibt es auch auf <a href=\"https://twitter.com/"
-"c3bottles\">Twitter</a>."
+"Die Entwicklung findet auf <a "
+"href=\"https://github.com/c3bottles/c3bottles\">GitHub</a> statt. Neuigkeiten"
+" gibt es auch auf <a href=\"https://twitter.com/c3bottles\">Twitter</a>."
 
-#: templates/index.html:2
-msgid "Home"
-msgstr "Start"
-
-#: templates/index.html:6 templates/report.html:9 templates/visit.html:9
-msgid "Attention!"
-msgstr "Achtung!"
-
-#: templates/index.html:6 templates/report.html:9
-msgid "Anonymous reporting has been disabled."
-msgstr "Anonymes Melden wurde deaktiviert."
-
-#: templates/index.html:10
-#, python-format
-msgid "Welcome to %(project)s!"
-msgstr "Willkommen zu %(project)s!"
-
-#: templates/index.html:13
-#, python-format
-msgid ""
-"%(project)s is the bottle drop and collection management system of your favourite "
-"chaos event. You have no idea what that means? Try the links below!"
-msgstr ""
-"%(project)s ist das Verwaltungssystem zur Leergutablage und zum Flaschensammeln auf "
-"deinem bevorzugten Chaos-Event. Keine Ahnung, was dies bedeutet? Probiere die Links "
-"unten aus!"
-
-#: templates/index.html:21
-msgid "Enter a drop point number"
-msgstr "Drop-Point-Nummer eingeben"
-
-#: templates/index.html:24
-msgid "Report this drop point"
-msgstr "Diesen Drop Point melden"
-
-#: templates/index.html:35
-msgid "Show me the list!"
-msgstr "Zeig mir die Liste!"
-
-#: templates/index.html:38
-msgid ""
-"You like working in text-mode? Great! We have a huge list of bottle drop points and "
-"all the tools to interact with them!"
-msgstr ""
-"Du magst den Textmodus? Perfekt! Wir haben eine lange Liste von Bottle Drop Points "
-"und alle Werkzeuge, sie zu verwalten!"
-
-#: templates/index.html:44
-msgid "To the list"
-msgstr "Zur Liste"
-
-#: templates/index.html:53
-msgid "Show me the map!"
-msgstr "Zeig mir die Karte!"
-
-#: templates/index.html:56
-msgid ""
-"Text is nothing for you? No problem! We have a very cool map which shows all the "
-"drop points and their state in real-time!"
-msgstr ""
-"Text ist nichts für dich? Kein Problem! Unsere Karte zeigt alle Bottle Drop Points "
-"und ihren jeweiligen Status - in Echtzeit!"
-
-#: templates/index.html:62
-msgid "To the map"
-msgstr "Zur Karte"
-
-#: templates/index.html:71
-msgid "I want the numbers!"
-msgstr "Ich will die Zahlen!"
-
-#: templates/index.html:74
-msgid ""
-"The sheer beauty of numbers and diagrams amazes you? Good news: The system allows "
-"you to see all the statistics!"
-msgstr ""
-"Die Schönheit von Zahlen und Diagrammen fasziniert dich? Gute Nachrichten: Unser "
-"System gibt dir Zugriff auf alle Statistiken!"
-
-#: templates/index.html:80
-msgid "To the numbers"
-msgstr "Zu den Zahlen"
-
-#: templates/index.html:89
-msgid "WTF is this?"
-msgstr "WTF ist das hier?"
-
-#: templates/index.html:92
-msgid ""
-"You have no clue what this is about or how it works? Your questions were asked "
-"before and can be answered."
-msgstr ""
-"Du hast keine Ahnung, was das hier sein soll? Deine Fragen gab es schon vorher und "
-"wir haben die Antworten."
-
-#: templates/index.html:98
-msgid "To the FAQ"
-msgstr "Zur FAQ"
-
-#: templates/list.html:2
-msgid "Drop Point List"
-msgstr "Liste von Drop Points"
-
-#: templates/list.html:14 templates/map.html:12
-msgid "All"
-msgstr "Alle"
-
-#: templates/list.html:26
-msgid "State"
-msgstr "Status"
-
-#: templates/list.html:27
-msgid "Priority"
-msgstr "Priorität"
-
-#: templates/list.html:28
-msgid "Reports"
-msgstr "Berichte"
-
-#: templates/map.html:2
-msgid "Drop Point Map"
-msgstr "Drop-Point-Karte"
+#: templates/layout.html:9 templates/main/faq.html:33 templates/main/faq.html:71
+#: templates/main/index.html:10 templates/main/index.html:13
+msgid "c3bottles"
+msgstr "c3bottles"
 
 #: templates/navbar.html:8
 msgid "Toggle navigation"
@@ -990,9 +242,17 @@ msgstr "Navigation ein-/ausschalten"
 msgid "List"
 msgstr "Liste"
 
-#: templates/navbar.html:22 templates/statistics.html:3
+#: templates/modals/list.html:9 templates/navbar.html:21
+msgid "Map"
+msgstr "Karte"
+
+#: templates/navbar.html:22 templates/statistics/numbers.html:3
 msgid "Numbers"
 msgstr "Zahlen"
+
+#: templates/main/faq.html:16 templates/navbar.html:23
+msgid "FAQ"
+msgstr "FAQ"
 
 #: templates/navbar.html:39
 msgid "Log in"
@@ -1002,6 +262,16 @@ msgstr "Einloggen"
 msgid "Logout"
 msgstr "Ausloggen"
 
+#: templates/admin/index.html:10 templates/admin/index.html:45
+#: templates/navbar.html:55
+msgid "User name"
+msgstr "Benutzername"
+
+#: templates/admin/index.html:34 templates/admin/index.html:46
+#: templates/admin/index.html:105 templates/navbar.html:58
+msgid "Password"
+msgstr "Passwort"
+
 #: templates/navbar.html:60
 msgid "Login"
 msgstr "Einloggen"
@@ -1010,187 +280,191 @@ msgstr "Einloggen"
 msgid "Language"
 msgstr "Sprache"
 
-#: templates/report.html:2
-#, python-format
-msgid "Report Drop Point %(number)i"
-msgstr "Drop Point %(number)i melden"
-
-#: templates/report_buttons.html:2
-msgid ""
-"Please use the buttons below to report the current state of the drop point. If you "
-"are unsure which state to report, refer to the FAQ or simply use the very first "
-"button."
-msgstr ""
-"Bitte nutze die Buttons unten um den Status des Drop Points zu melden. Wenn du dir "
-"unsicher bist, welchen Status du angeben sollst, schau in die FAQ oder nimm den "
-"ersten Button."
-
-#: templates/report_buttons.html:7
-msgid "I'm not sure, just take a look"
-msgstr "Ich bin mir unsicher"
-
-#: templates/report_buttons.html:11
-msgid "Drop point is overflowing"
-msgstr "Drop Point läuft über"
-
-#: templates/report_buttons.html:14
-#, python-format
-msgid "Drop point is 100%% full"
-msgstr "Drop Point ist komplett voll"
-
-#: templates/report_buttons.html:17
-msgid "Drop point is reasonably full"
-msgstr "Drop Point ist gut gefüllt"
-
-#: templates/report_buttons.html:20
-msgid "Some bottles are present"
-msgstr "Einige Flaschen sind dort"
-
-#: templates/report_buttons.html:23
-msgid "Drop point is empty"
-msgstr "Drop Point ist leer"
-
-#: templates/report_buttons.html:27
-msgid "There are no crates"
-msgstr "Es gibt keine Kisten"
-
-#: templates/statistics.html:11
-msgid "Drop points by state"
-msgstr "Drop Points nach Status"
-
-#: templates/statistics.html:29
-msgid "Reports by state"
-msgstr "Meldungen nach Status"
-
-#: templates/statistics.html:37
-msgid "drop points in the database"
-msgstr "Drop Points in der Datenbank"
-
-#: templates/statistics.html:41
-msgid "state reports by helpful visitors"
-msgstr "Statusmeldungen von Besuchern"
-
-#: templates/statistics.html:45
-msgid "visits by the bottle collectors"
-msgstr "Besuche von den Flaschensammlern"
-
-#: templates/statistics.html:51
-msgid "reports per drop point"
-msgstr "Meldungen pro Drop Point"
-
-#: templates/statistics.html:55
-msgid "visits per drop point"
-msgstr "Besuche pro Drop Point"
-
-#: templates/statistics.html:59
-msgid ""
-"There are no drop points and/or reports yet. Therefore, no statistics are available."
-msgstr ""
-"Da es noch keine Drop Points und/oder Meldungen gibt, gibt es auch noch keine "
-"Statistiken."
+#: templates/admin/index.html:2 templates/navbar.html:88
+msgid "Admin Interface"
+msgstr "Adminbereich"
 
 #: templates/success.html:2
 msgid "Success"
 msgstr "Erfolg"
 
-#: templates/success.html:22
+#: templates/success.html:15
 msgid "Success!"
 msgstr "Erfolg!"
 
-#: templates/view.html:2
+#: templates/action/report.html:2
 #, python-format
-msgid "Details of %(category)s %(number)i"
-msgstr "Details von %(category)s %(number)i"
+msgid "Report Drop Point %(number)i"
+msgstr "Drop Point %(number)i melden"
 
-#: templates/view.html:18
-msgid "Location:"
-msgstr "Ort:"
+#: templates/action/report.html:9 templates/action/visit.html:9
+#: templates/main/index.html:6
+msgid "Attention!"
+msgstr "Achtung!"
 
-#: templates/view.html:23
-msgid "Label:"
-msgstr "Schild:"
+#: templates/action/report.html:9 templates/main/index.html:6
+msgid "Anonymous reporting has been disabled."
+msgstr "Anonymes Melden wurde deaktiviert."
 
-#: templates/view.html:26
-msgid "Download PDF"
-msgstr "PDF herunterladen"
+#: templates/action/report_buttons.html:2
+msgid ""
+"Please use the buttons below to report the current state of the drop point. "
+"If you are unsure which state to report, refer to the FAQ or simply use the "
+"very first button."
+msgstr ""
+"Bitte nutze die Buttons unten um den Status des Drop Points zu melden. Wenn "
+"du dir unsicher bist, welchen Status du angeben sollst, schau in die FAQ oder"
+" nimm den ersten Button."
 
-#: templates/view.html:39
-msgid "Edit"
-msgstr "Bearbeiten"
+#: templates/action/report_buttons.html:7
+msgid "I'm not sure, just take a look"
+msgstr "Ich bin mir unsicher"
 
-#: templates/view.html:48
-msgid "History"
-msgstr "Geschichte"
+#: templates/action/report_buttons.html:11
+msgid "Drop point is overflowing"
+msgstr "Drop Point läuft über"
 
-#: templates/view.html:53
-msgid "Time"
-msgstr "Zeit"
-
-#: templates/view.html:54
-msgid "Event"
-msgstr "Ereignis"
-
-#: templates/view.html:63
+#: templates/action/report_buttons.html:14
 #, python-format
-msgid "Drop point %(number)i created"
-msgstr "Drop Point %(number)i erstellt"
+msgid "Drop point is 100%% full"
+msgstr "Drop Point ist komplett voll"
 
-#: templates/view.html:65
-#, python-format
-msgid "Location changed to %(location)s"
-msgstr "Ort zu %(location)s geändert"
+#: templates/action/report_buttons.html:17
+msgid "Drop point is reasonably full"
+msgstr "Drop Point ist gut gefüllt"
 
-#: templates/view.html:67
-#, python-format
-msgid "Report submitted and drop point seen as: %(state)s"
-msgstr "Drop Point gemeldet als: %(state)s"
+#: templates/action/report_buttons.html:20
+msgid "Some bottles are present"
+msgstr "Einige Flaschen sind dort"
 
-#: templates/view.html:69
-#, python-format
-msgid "Drop point visited and maintenance performed: %(action)s"
-msgstr "Drop Point besucht und Wartung durchgeführt: %(action)s"
+#: templates/action/report_buttons.html:23
+msgid "Drop point is empty"
+msgstr "Drop Point ist leer"
 
-#: templates/view.html:71
-msgid "Drop point marked as removed"
-msgstr "Drop Point als entfernt markiert"
+#: templates/action/report_buttons.html:27
+msgid "There are no crates"
+msgstr "Es gibt keine Kisten"
 
-#: templates/visit.html:2
+#: templates/action/visit.html:2
 #, python-format
 msgid "Visit Drop Point %(number)i"
 msgstr "Drop Point %(number)i besuchen"
 
-#: templates/visit.html:9
+#: templates/action/visit.html:9
 msgid "You are not allowed to visit drop points."
 msgstr "Du darfst keine Drop Points besuchen."
 
-#: templates/visit_buttons.html:3
+#: templates/action/visit_buttons.html:3
 msgid ""
-"Please use the buttons below to log the action taken on your visit of this drop "
-"point."
+"Please use the buttons below to log the action taken on your visit of this "
+"drop point."
 msgstr "Bitte nutze die Buttons unten um deinen Besuch zu loggen."
 
-#: templates/visit_buttons.html:8
+#: templates/action/visit_buttons.html:8
 msgid "Emptied the drop point"
 msgstr "Drop Point geleert"
 
-#: templates/visit_buttons.html:14 templates/visit_buttons.html:19
+#: templates/action/visit_buttons.html:14 templates/action/visit_buttons.html:19
 msgid "Modified the drop point"
 msgstr "Drop Point bearbeitet"
 
-#: templates/visit_buttons.html:18
+#: templates/action/visit_buttons.html:18
 msgid "You can not do this. Please contact your supervisor."
 msgstr "Du hast nicht die Berechtigung für diese Aktion."
 
-#: templates/visit_buttons.html:24
+#: templates/action/visit_buttons.html:24
 msgid "No action necessary"
 msgstr "Keine Aktion nötig"
 
-#: templates/visit_buttons.html:29
+#: templates/action/visit_buttons.html:29
 msgid ""
-"Please log in as a bottle collector using the login form at the top of this page in "
-"order to visit drop points."
+"Please log in as a bottle collector using the login form at the top of this "
+"page in order to visit drop points."
 msgstr ""
-"Bitte logge dich als Flaschensammler ein, um Besuche von Drop Points zu loggen."
+"Bitte logge dich als Flaschensammler ein, um Besuche von Drop Points zu "
+"loggen."
+
+#: templates/admin/index.html:6
+msgid "User management"
+msgstr "Benutzerverwaltung"
+
+#: templates/admin/index.html:11
+msgid "Active"
+msgstr "Aktiv"
+
+#: templates/admin/index.html:12 templates/admin/index.html:47
+#: templates/admin/index.html:71
+msgid "Visit drop points"
+msgstr "Drop Points besuchen"
+
+#: templates/admin/index.html:13 templates/admin/index.html:48
+#: templates/admin/index.html:76
+msgid "Edit drop points"
+msgstr "Drop Points editieren"
+
+#: templates/admin/index.html:14 templates/admin/index.html:49
+#: templates/admin/index.html:81
+msgid "Admin"
+msgstr "Admin"
+
+#: templates/admin/index.html:29
+msgid "Disable"
+msgstr "Deaktivieren"
+
+#: templates/admin/index.html:31
+msgid "Enable"
+msgstr "Aktivieren"
+
+#: templates/admin/index.html:33 templates/admin/index.html:66
+msgid "Permissions"
+msgstr "Berechtigungen"
+
+#: templates/admin/index.html:35
+msgid "Delete"
+msgstr "Löschen"
+
+#: templates/admin/index.html:42
+msgid "Create a new user"
+msgstr "Neuen Benutzer erstellen"
+
+#: templates/admin/index.html:50
+msgid "Create user"
+msgstr "Benutzer erstellen"
+
+#: templates/admin/index.html:88 templates/admin/index.html:114
+#: templates/admin/index.html:135
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: templates/admin/index.html:89 templates/admin/index.html:115
+msgid "Update"
+msgstr "Aktualisieren"
+
+#: templates/admin/index.html:101
+msgid "Change password"
+msgstr "Passwort ändern"
+
+#: templates/admin/index.html:108
+msgid "Confirmation"
+msgstr "Bestätigung"
+
+#: templates/admin/index.html:126 templates/admin/index.html:136
+msgid "Delete user"
+msgstr "Benutzer löschen"
+
+#: templates/admin/index.html:129
+msgid "Are you sure that you want to delete this user? Deletion is irreversible."
+msgstr ""
+"Soll dieser Benutzer wirklich gelöscht werden? Dieser Vorgang lässt sich "
+"nicht rückgängig machen."
+
+#: templates/admin/index.html:143
+msgid "Drop point labels"
+msgstr "Drop-Point-Schilder"
+
+#: templates/admin/index.html:144
+msgid "Create labels for all drop points at once (slow!)"
+msgstr "Schilder für alle Drop Points erstellen (langsam!)"
 
 #: templates/js/l10n.js:5
 msgid "An error occurred while processing your report: "
@@ -1216,67 +490,81 @@ msgstr "Das Maximum wurde erreicht."
 msgid "Create a new drop point"
 msgstr "Drop Point erstellen"
 
-#: templates/js/l10n.js:12
+#: templates/js/l10n.js:11 templates/modals/base.html:18
+msgid "Details"
+msgstr "Details"
+
+#: templates/js/l10n.js:12 templates/modals/base.html:22
+#: templates/view/details.html:31
+msgid "Report"
+msgstr "Melden"
+
+#: templates/js/l10n.js:13 templates/modals/base.html:26
+#: templates/view/details.html:34
+msgid "Visit"
+msgstr "Besuchen"
+
+#: templates/js/l10n.js:15
 msgid "No data available in table"
 msgstr "Keine Daten in der Tabelle vorhanden"
 
-#: templates/js/l10n.js:13
+#: templates/js/l10n.js:16
 msgid "Showing _START_ to _END_ of _TOTAL_ entries"
 msgstr "Zeige _START_ bis _END_ von _TOTAL_ Einträgen"
 
-#: templates/js/l10n.js:14
+#: templates/js/l10n.js:17
 msgid "No entries available"
 msgstr "Keine Einträge verfügbar"
 
-#: templates/js/l10n.js:15
+#: templates/js/l10n.js:18
 msgid "(filtered from _MAX_ total entries)"
 msgstr "(gefiltert aus _MAX_ Einträgen insgesamt)"
 
-#: templates/js/l10n.js:17
+#: templates/js/l10n.js:20
 msgid ","
 msgstr "."
 
-#: templates/js/l10n.js:18
+#: templates/js/l10n.js:21
 msgid "Show _MENU_ entries"
 msgstr "Zeige _MENU_ Einträge"
 
-#: templates/js/l10n.js:19
+#: templates/js/l10n.js:22
 msgid "Loading..."
 msgstr "Lade..."
 
-#: templates/js/l10n.js:20
+#: templates/js/l10n.js:23
 msgid "Processing..."
 msgstr "Verarbeite..."
 
-#: templates/js/l10n.js:21
+#: templates/js/l10n.js:24
 msgid "Search:"
 msgstr "Suche:"
 
-#: templates/js/l10n.js:22
+#: templates/js/l10n.js:25
 msgid "No matching records found"
 msgstr "Keine passenden Einträge gefunden"
 
-#: templates/js/l10n.js:24
+#: templates/js/l10n.js:27
 msgid "First"
 msgstr "Anfang"
 
-#: templates/js/l10n.js:25
+#: templates/js/l10n.js:28
 msgid "Last"
 msgstr "Ende"
 
-#: templates/js/l10n.js:26
+#: templates/js/l10n.js:29
 msgid "Next"
 msgstr "Vor"
 
-#: templates/js/l10n.js:27
+#: templates/js/l10n.js:30
 msgid "Previous"
 msgstr "Zurück"
 
-#: templates/js/l10n.js:30
+#: templates/js/l10n.js:33
 msgid ": activate to sort column ascending"
 msgstr ": aktivieren, um Spalte aufsteigend zu sortieren"
 
-#: templates/js/l10n.js:31
+#: templates/js/l10n.js:34
 msgid ": activate to sort column descending"
 msgstr ": aktivieren, um Spalte absteigend zu sortieren"
 
@@ -1295,3 +583,740 @@ msgstr "Geleert"
 #: templates/macros/actions.html:5
 msgid "No action"
 msgstr "Keine Aktion"
+
+#: templates/macros/states.html:12 templates/modals/base.html:37
+msgid "Overflowing"
+msgstr "Überfüllt"
+
+#: templates/macros/states.html:13 templates/modals/base.html:38
+msgid "Full"
+msgstr "Voll"
+
+#: templates/macros/states.html:14 templates/modals/base.html:39
+msgid "Reasonably full"
+msgstr "Gut gefüllt"
+
+#: templates/macros/states.html:15 templates/modals/base.html:40
+msgid "Some bottles"
+msgstr "Einige Flaschen"
+
+#: templates/macros/states.html:16 templates/modals/base.html:41
+msgid "Empty"
+msgstr "Leer"
+
+#: templates/macros/states.html:17 templates/modals/base.html:42
+msgid "New"
+msgstr "Neu"
+
+#: templates/macros/states.html:18 templates/modals/base.html:43
+msgid "No crates"
+msgstr "Keine Kisten"
+
+#: templates/main/faq.html:20
+msgid "Frequently Asked Questions"
+msgstr "Häufig gestellte Fragen"
+
+#: templates/main/faq.html:24
+msgid "What is all this about in the first place?"
+msgstr "Um was geht es hier eigentlich?"
+
+#: templates/main/faq.html:28
+#, python-format
+msgid ""
+"%(project)s is a bottle drop and collection management system for\n"
+"chaos events. Collecting all the empty bottles is a hard task\n"
+"at every event since they appear in large numbers at places and\n"
+"times you cannot always anticipate beforehand. Bottle collectors\n"
+"need to roam the area all the time and check it periodically for\n"
+"any left empty bottles."
+msgstr ""
+"%(project)s ist ein Flaschensammel-Managementsystem für Chaosevents.\n"
+"Das Sammeln des Leerguts ist eine harte Aufgabe auf jeder Veranstaltung,\n"
+"da die Flaschen in großer Anzahl an verschiedenen Orten und zu Zeiten "
+"auftauchen,\n"
+"die sich im Vorfeld nur schwer planen lassen. Flaschensammler müssen die "
+"ganze\n"
+"Zeit herumlaufen und nach Leergut suchen."
+
+#: templates/main/faq.html:37
+msgid ""
+"To make this job a lot easier, bottle drop points were invented:\n"
+"Empty crates are placed at spots in the area where a high level\n"
+"of empty bottles is expected, e.g. exits of lecture halls,\n"
+"lounges or the main exit/entrance of a building. The visitors\n"
+"are advised to leave their bottles not at random but rather\n"
+"only at the designated bottle drop points. The bottle collectors\n"
+"then only need to visit these points to do their job."
+msgstr ""
+"Um die Aufgabe leichter zu machen, wurden Bottle Drop Points\n"
+"erfunden. Leere Kisten werden an Orten verteilt, wo man mit hohem\n"
+"Leergutaufkommen rechnet, etwa an den Ausgängen von Vortragsräumen,\n"
+"in der Partyzone oder am Haupteingang des Gebäudes. Besucher werden\n"
+"gebeten, ihr Leergut nicht einfach irgendwo stehen zu lassen, sonden\n"
+"an den dafür vorgesehenen Orten, um den Flaschensammlern die Arbeit\n"
+"zu erleichtern."
+
+#: templates/main/faq.html:47
+msgid ""
+"However, there are some caveats: In a large building like the\n"
+"CCH nobody is able to memorize all the drop points and some of\n"
+"them may be forgotten and overflow without anyone noticing. In\n"
+"addition, if the planning in advance was not perfect (as always),\n"
+"some drop points in popular locations may overflow very quickly\n"
+"making the job of the collectors a lot harder. At an overflowing\n"
+"drop point, they can't simply exchange a full crate for an empty\n"
+"one but instead have to put all the bottles laying on and around\n"
+"the more than full crate into their fresh one. In the worst case\n"
+"they then have lots of full but no empty crates left in\n"
+"locations with a high bottle drop rate. If that ever happens,\n"
+"the bottlecalypse is inevitable."
+msgstr ""
+"Allerdings gibt es einige Probleme: In einem großen Gebäude wie\n"
+"dem CCH kann niemand alle Bottle Drop Points im Kopf behalten und\n"
+"manche von ihnen werden vergessen und laufen über, ohne dass\n"
+"die Flaschensammler dies bemerken. Darüber hinaus ist die Planung\n"
+"im Voraus nie perfekt: Einzelne Drop Points laufen schnell über, was\n"
+"die Arbeit der Flaschensammler erschwert. An einem übergelaufenen\n"
+"Drop Point kann man nicht einfach eine volle durch eine leere Kiste\n"
+"ersetzen, sondern muss manuell Flaschen umsortieren. Wenn ein Punkt\n"
+"erreicht ist, wo es zwar herumstehendes Leergut, aber keine Leerkisten\n"
+"mehr gibt, ist die Bottlekalypse unvermeidlich."
+
+#: templates/main/faq.html:62
+#, python-format
+msgid ""
+"%(project)s aims to solve this problem using modern web technology\n"
+"combined with crowdsourcing: A database tracks the state of all\n"
+"the drop points and visitors noticing full or overflowing drop\n"
+"points can report that fact. The bottle collectors will be\n"
+"notified and can react promptly. They track their tour and the\n"
+"system can notify them of drop points not visited in a long time\n"
+"or needing immediate action. Statistical analysis allows for\n"
+"continuous optimization of drop point placement by scaling drop\n"
+"points according to the demand or abandoning drop points in\n"
+"remote locations which are not used much anyway."
+msgstr ""
+"%(project)s möchte dieses Problem lösen, indem moderne Webtechnologie\n"
+"mit Croudsourcing kombiniert wird: Eine Datenbank enthält Ort und Status\n"
+"aller Drop Points und die Besucher können Berichte von vollen oder "
+"überlaufenden\n"
+"Drop Points absetzen. Die Flaschensammler werden dann benachrichtigt und "
+"können\n"
+"prompot reagieren. Außerdem tracken sie ihre Tour und werden vom System auch\n"
+"auf Drop Points aufmerksam gemacht, die lange nicht besucht wurden oder "
+"dringend\n"
+"besucht werden müssen. Statistische Auswertungen erlauben eine "
+"kontinuierliche\n"
+"Optimierung der Verteilung der Drop Points anhand des Bedarfs."
+
+#: templates/main/faq.html:77
+msgid "How does this work?"
+msgstr "Wie funktioniert das?"
+
+#: templates/main/faq.html:81
+msgid ""
+"During placement of bottle drop points, every drop point is\n"
+"registered in the database with its number and position.\n"
+"It gets a label telling the\n"
+"visitors to report full drop points using a URL specific for\n"
+"every drop point. On the website, the visitor can report the drop\n"
+"point as needing attention by simply clicking a button.\n"
+"Optionally, the visitor may inform the bottle collectors about\n"
+"the filling level of the drop point."
+msgstr ""
+"Bei der Einrichtung der Bottle Drop Points wird jeder Drop Point\n"
+"mit Nummer und Ort in die Datenbank eingetragen. Er bekommt\n"
+"ein Schild, welches die Besucher auffordert, den Status zu berichten,\n"
+"indem die URL auf dem Schild aufgerufen wird. Auf der Webseite können\n"
+"die Besucher durch einen einfachen Klick einen Statusbericht absetzen\n"
+"und die Flaschensammler über den Zustand des Drop Points informieren."
+
+#: templates/main/faq.html:92
+msgid ""
+"The other end of the web interface shows a list of drop points to\n"
+"visit ordered by priority: Drop points reported a lot lately get\n"
+"a high priority which is even higher if the respective drop point\n"
+"experiences a lot or traffic and is\n"
+"reported multiple times. Drop points not visited for a long time\n"
+"get a high priority too, so the collectors can check their current\n"
+"state."
+msgstr ""
+"Am anderen Ende des Webinterfaces gibt es eine Liste der Drop Points\n"
+"sortiert nach Priorität: Drop Points mit vielen Berichten erhalten eine "
+"höhere\n"
+"Priorität, ebenso wie Drop Points, welche lange nicht besucht wurden. So wird"
+"\n"
+"sichergestellt, dass die Flaschensammler alle Drop Points regelmäßig\n"
+"besuchen."
+
+#: templates/main/faq.html:102
+msgid ""
+"A map shows the location of all the drop points so new members of\n"
+"the bottle collector team can find them easily and visitors can\n"
+"always find the nearest drop point to their current location."
+msgstr ""
+"Eine Karte zeigt die Orte aller Drop Points, sodass neue Flaschensammler\n"
+"diese schnell lokalisieren können und Besucher jederzeit den nächsten Drop "
+"Point\n"
+"von ihrem aktuellen Ort aus finden."
+
+#: templates/main/faq.html:108
+msgid ""
+"The bottle collectors track their actions when visiting drop\n"
+"points by clicking a button whenever they empty a drop point.\n"
+"In addition to that, bottle collection supervisors can add and\n"
+"remove drop points or change the location of existing\n"
+"drop points if needed."
+msgstr ""
+"Die Flaschensammler tracken ihre Aktionen wenn sie Drop Points\n"
+"besuchen mit einem Klick. Die Leiter des Flaschensammler-Teams\n"
+"können außerdem Drop Points anlegen und löschen sowie bearbeiten,\n"
+"wann immer dies nötig ist."
+
+#: templates/main/faq.html:118
+msgid "I'm a visitor and want to help. What should I do?"
+msgstr "Ich bin ein Besucher und will helfen. Was soll ich tun?"
+
+#: templates/main/faq.html:122
+msgid ""
+"Great! Helping is easy: If you spot a bottle drop point that seems\n"
+"to need attention, just visit the URL printed on the sign posted\n"
+"there. You are presented with a website containing a few buttons.\n"
+"Just click on the one you think fits most. Congratulations! :)"
+msgstr ""
+"Super! Helfen ist einfach: Wenn du einen Bottle Drop Points siehst,\n"
+"der Aufmerksamkeit benötigt, besuche einfach die URL auf dem Schild,\n"
+"welches dort hängt. Du bekommst dann eine Webseite mit einigen Buttons.\n"
+"Klicke auf den, der dem Zustand des Drop Points am nächsten kommt.\n"
+"Fertig! :)"
+
+#: templates/main/faq.html:129
+msgid ""
+"Please do not abuse the system like reporting the same drop point\n"
+"multiple times since it can only work as good as its input is. If\n"
+"you accidentally pressed the wrong button and e.g. reported an\n"
+"overflowing drop point as empty, don't hesitate to report it again\n"
+"with the correct state. The system will react to this accordingly."
+msgstr ""
+"Das System lebt davon, dass es nicht missbraucht wird, etwa durch\n"
+"häufige Berichte des selben Drop Points. Das ganze System kann nur\n"
+"so gut funktionieren, wie die Eingabedaten sind. Wenn du ausversehen den\n"
+"falschen Button geklickt hast und beispielsweise einen überlaufenden Drop\n"
+"Point als leer gemeldet hast, klicke danach einfach noch einmal auf den\n"
+"besser passenden Button."
+
+#: templates/main/faq.html:137
+msgid ""
+"Any report of a drop point is helpful, even if it is not overflowing.\n"
+"Reports of empty or only sparsely used drop points help the bottle\n"
+"collectors prioritize their visits, plan their tours optimally and\n"
+"rearrange crates or moving drop points as they see fit. The\n"
+"optimization works better the more detailed the reporting is.\n"
+"Last but not least, the statistics gets more impressive with\n"
+"larger numbers."
+msgstr ""
+"Jede Meldung eines Drop Points ist hilfreich, auch wenn er nicht\n"
+"überläuft. Berichte von leeren oder nur wenig belegten Drop Points\n"
+"helfen den Flaschensammlern bei der Priorisierung ihrer Besuche und\n"
+"der Planung ihrer Touren. Diese Optimierung funktioniert um so besser,\n"
+"je detaillierter die Meldungen sind. Außerdem werden die Statistiken\n"
+"eindrucksvoller, wenn die Zahlen größer sind."
+
+#: templates/main/faq.html:149
+msgid ""
+"I need some manual labor and bottle collection sounds like a thing for me. "
+"What should I do?"
+msgstr ""
+"Ich brauche manuelle Arbeit und Flaschen sammeln klingt nach Spaß. Was soll "
+"ich tun?"
+
+#: templates/main/faq.html:153
+msgid ""
+"The bottle collectors are volunteers and help is always appreciated.\n"
+"More hands collect and sort more bottles more quickly. If this is a\n"
+"congress and you already are an angel, just search and register for\n"
+"bottle collection shifts in the angel system. If this is a congress\n"
+"and you are not yet an angel, ask for heaven, go there and tell the\n"
+"friendly people there want to help."
+msgstr ""
+"Die Flaschensammler sind freiwillige Helfer und Hilfe ist immer willkommen.\n"
+"Mehr Hände sammeln und sortieren mehr Flaschen schneller. Wenn dies ein\n"
+"Congress ist und du schon Engel bist, solltest du passende Schichten im\n"
+"Engelsystem finden. Wenn dies ein Congress ist und du noch kein Engel bist,\n"
+"finde den Himmel und biete deine Hilfe an."
+
+#: templates/main/faq.html:162
+msgid ""
+"If this is any other event in the chaos family, it should work\n"
+"similarly to congress but the names heaven and angels might differ.\n"
+"Just ask some people who look like they could know what's up. In\n"
+"doubt, just report your nearest drop point and wait for the\n"
+"collector team to show up. They should know what they're doing."
+msgstr ""
+"Wenn dies ein anderes Event aus der Chaosfamilie ist, sollte es so\n"
+"ähnlich funktionieren, aber die Namen Himmel und Engel können\n"
+"sich unterscheiden. Frag einfach Leute, die so aussehen, als ob sie\n"
+"wüssten, was Sache ist. Im Zweifel warte einfach am nächsten Drop\n"
+"Point auf die Flaschensammler. Diese sollten wissen, wie ihnen zu\n"
+"helfen ist."
+
+#: templates/main/faq.html:172
+msgid "What do the report states mean? What state should I choose when reporting?"
+msgstr "Was bedeuten die Zustände? Welchen soll ich auswählen?"
+
+#: templates/main/faq.html:176
+msgid ""
+"Every drop point at all times has a state that describes its\n"
+"filling level. When drop points are being reported, the reporters\n"
+"should select a state roughly corresponding to the situation they\n"
+"see. The state column in the drop point list as well as the markers\n"
+"in the map indicate the current (last reported) state of the drop\n"
+"point in question:"
+msgstr ""
+"Jeder Drop Point hat zu jeder Zeit einen Zustand, der seinen Füllstand\n"
+"beschreibt. Wenn Drop Points gemeldet werden, sollte man den Zustand\n"
+"wählen, der am besten zur Situation vor Ort passt. Die entsprechende Spalte\n"
+"in der Liste sowie die Marker auf der Karte zeigen den Zustand des jeweiligen"
+"\n"
+"Drop Points an:"
+
+#: templates/main/faq.html:188
+msgid ""
+"The drop point has been reported, however, the reporter\n"
+"was not sure which state to choose and reported the\n"
+"default state instead."
+msgstr ""
+"Der Drop Point wurde gemeldet, aber die Person, die ihn\n"
+"gemdeldet hat war sich unsicher, welcher Zustand der passende\n"
+"ist."
+
+#: templates/main/faq.html:197
+msgid "The drop point has been just created and has not been reported yet."
+msgstr "Der Drop Point wurde soeben angelegt und noch nicht gemeldet."
+
+#: templates/main/faq.html:204
+msgid ""
+"The drop point has been emptied recently by the\n"
+"bottle collection team and hasn't been reported since\n"
+"or has been reported as empty."
+msgstr ""
+"Der Drop Point wurde vor kurzem durch die Flaschensammler geleert\n"
+"und wurde entweder seitdem nicht gemeldet oder als leer gemeldet."
+
+#: templates/main/faq.html:213
+msgid "The drop point contains a few bottles, but no action is necessary yet."
+msgstr "Der Drop Point enthält wenige Flaschen, aber es ist noch kein Besuch nötig."
+
+#: templates/main/faq.html:220
+msgid ""
+"The drop point contains a reasonable amount of bottles\n"
+"and should be visited by the bottle collection team soon."
+msgstr ""
+"Der Drop Point enthält einige Flaschen und sollte demächst\n"
+"von den Flaschensammlern besucht werden."
+
+#: templates/main/faq.html:228
+msgid ""
+"The drop point is more or less full and should be\n"
+"visited as soon as possible by the bottle collection\n"
+"team to prevent overflowing."
+msgstr ""
+"Der Drop Point ist mehr oder weniger voll und sollte sehr\n"
+"bald von den Flaschensammlern besucht werden, um ein\n"
+"Überlaufen zu vermeiden."
+
+#: templates/main/faq.html:237
+msgid ""
+"The drop point is overflowing, i.e. not only the crates\n"
+"at the drop point are completely filled but additional\n"
+"bottles are laying around. Cleaning up the mess can be\n"
+"troublesome, so the team should try to prevent drop\n"
+"points from reaching this state."
+msgstr ""
+"Der Drop Point läuft über, d.h. nicht nur die dort stehenden Kisten\n"
+"sind voll, sondern die leeren Flaschen fangen an, sich daneben zu\n"
+"türmen. Aufräumen kann schwierig werden, also sollte die\n"
+"Flaschensammler schnellstmöglich handeln."
+
+#: templates/main/faq.html:248
+msgid ""
+"The drop point is missing crates to put bottles in. This\n"
+"is a grave situation since visitors will probably just\n"
+"drop their empty bottles on the ground. Empty crates\n"
+"should be supplied immediately."
+msgstr ""
+"Dem Drop Point fehlen Kisten. Dies ist eine kritische Situation,\n"
+"denn Besucher werden vermutlich ihre leeren Flaschen einfach\n"
+"chaotisch auf dem Boden stehen lassen. Leere Kisten sollten\n"
+"schnellstmöglich bereitgestellt werden."
+
+#: templates/main/faq.html:259
+msgid "What is the priority and how is it calculated?"
+msgstr "Was ist die Priorität und wie wird sie berechnet?"
+
+#: templates/main/faq.html:263
+msgid ""
+"Each drop point gets assigned a visit priority and the idea is\n"
+"that the bottle collectors visit the drop points in order of\n"
+"their priority."
+msgstr ""
+"Jeder Drop Point bekommt eine Besuchspriorität zugewiesen und die\n"
+"Idee ist, dass die Flaschensammler die Drop Points mit der höchsten\n"
+"Priorität zuerst besuchen."
+
+#: templates/main/faq.html:269
+msgid ""
+"The priority is calculated by taking the time since the last\n"
+"visit as a base value relative to a base visit interval that\n"
+"determines how often a typical drop point should be visited.\n"
+"Each report of a drop point adds to the priority, where the\n"
+"severity of the report (the most severe is obviously\n"
+"\"overflowing\"). The latest report counts the most and\n"
+"earlier reports count less and less. The crate count of the\n"
+"drop point gives an additional bonus so that larger drop\n"
+"points get a slight increase in priority since a higher\n"
+"throughput is expected in such locations."
+msgstr ""
+"Die Priorität wird berechnet, indem die Zeit seit dem letzten Besuch\n"
+"als Basiswert genommen wird. Dieser wert erhöht sich mit jedem Bericht\n"
+"abhängig vom gemeldeten Status."
+
+#: templates/main/faq.html:284
+msgid "I'm good at coding and think this site could need some help. What should I do?"
+msgstr ""
+"Ich kann programmieren und denke, die Seite könnte Hilfe gebrauchen. Was soll"
+" ich tun?"
+
+#: templates/main/faq.html:288
+msgid ""
+"I started this project because I finally wanted to get my head\n"
+"around modern web development techniques. It is written in Python\n"
+"using the Flask web framework. The database is accessed using\n"
+"SQLAlchemy and the backend of choice is PostgreSQL. If you are (or\n"
+"want to become) familiar with all that stuff and feel comfortable\n"
+"with the choices made, you are invited to contribute."
+msgstr ""
+"Ich habe dieses Projekt angefangen, weil ich endlich in die moderne\n"
+"Webentwicklung einsteigen wollte. Es ist in Python mit Flask geschrieben.\n"
+"Die Datenbank wird per SQLAlchemy angebunden, wobei mein Favorit\n"
+"PostgreSQL ist. Wenn du dich damit auskennst (oder es lernen möchtest)\n"
+"und mit den getroffenen Entscheidungen einverstanden bist, kannst du dich\n"
+"gerne an der Entwicklung beteiligen."
+
+#: templates/main/faq.html:297
+msgid ""
+"The link in the footer of this page will lead you to the GitHub\n"
+"repository where development takes place."
+msgstr ""
+"Der Link unten auf dieser Seite führt dich zum GitHub-Repository, in dem\n"
+"die Entwicklung stattfindet."
+
+#: templates/main/faq.html:304
+msgid ""
+"I'm the organizer of some event in the near or far future and like the idea. "
+"Can I use your software?"
+msgstr ""
+"Ich organisiere ein Event in naher oder ferner Zukunft und mag die Idee. Kann"
+" ich die Software benutzen?"
+
+#: templates/main/faq.html:308
+msgid ""
+"Absolutely. In the end, that's what I created it for. Feel free to\n"
+"download the source code from GitHub and set up your own copy.\n"
+"If you still have questions, find my contact information\n"
+"<a href=\"https://michik.net/\">here</a>."
+msgstr ""
+"Natürlich. Genau dafür wurde sie entwickelt. Du kannst den Sourcecode bei\n"
+"GitHub herunterladen und dein eigenes System aufsetzen. Wenn du noch Fragen\n"
+"hast, findest du meine Kontaktinformationen <a "
+"href=\"https://michik.net/\">hier</a>."
+
+#: templates/main/faq.html:316
+msgid "I'm a l33t h4xx0r and think this is fun."
+msgstr "Ich bin ein l33t h4xx0r und das hier ist lustig."
+
+#: templates/main/faq.html:320
+msgid "Good for you. Here's your fish:"
+msgstr "Schön für dich. Hier ist dein Fisch:"
+
+#: templates/main/index.html:2
+msgid "Home"
+msgstr "Start"
+
+#: templates/main/index.html:10
+#, python-format
+msgid "Welcome to %(project)s!"
+msgstr "Willkommen zu %(project)s!"
+
+#: templates/main/index.html:13
+#, python-format
+msgid ""
+"%(project)s is the bottle drop and collection management system of your "
+"favourite chaos event. You have no idea what that means? Try the links below!"
+msgstr ""
+"%(project)s ist das Verwaltungssystem zur Leergutablage und zum "
+"Flaschensammeln auf deinem bevorzugten Chaos-Event. Keine Ahnung, was dies "
+"bedeutet? Probiere die Links unten aus!"
+
+#: templates/main/index.html:21
+msgid "Enter a drop point number"
+msgstr "Drop-Point-Nummer eingeben"
+
+#: templates/main/index.html:24
+msgid "Report this drop point"
+msgstr "Diesen Drop Point melden"
+
+#: templates/main/index.html:32
+msgid "Show me the list!"
+msgstr "Zeig mir die Liste!"
+
+#: templates/main/index.html:35
+msgid ""
+"You like working in text-mode? Great! We have a huge list of bottle drop "
+"points and all the tools to interact with them!"
+msgstr ""
+"Du magst den Textmodus? Perfekt! Wir haben eine lange Liste von Bottle Drop "
+"Points und alle Werkzeuge, sie zu verwalten!"
+
+#: templates/main/index.html:41
+msgid "To the list"
+msgstr "Zur Liste"
+
+#: templates/main/index.html:47
+msgid "Show me the map!"
+msgstr "Zeig mir die Karte!"
+
+#: templates/main/index.html:50
+msgid ""
+"Text is nothing for you? No problem! We have a very cool map which shows all "
+"the drop points and their state in real-time!"
+msgstr ""
+"Text ist nichts für dich? Kein Problem! Unsere Karte zeigt alle Bottle Drop "
+"Points und ihren jeweiligen Status - in Echtzeit!"
+
+#: templates/main/index.html:56
+msgid "To the map"
+msgstr "Zur Karte"
+
+#: templates/main/index.html:62
+msgid "I want the numbers!"
+msgstr "Ich will die Zahlen!"
+
+#: templates/main/index.html:65
+msgid ""
+"The sheer beauty of numbers and diagrams amazes you? Good news: The system "
+"allows you to see all the statistics!"
+msgstr ""
+"Die Schönheit von Zahlen und Diagrammen fasziniert dich? Gute Nachrichten: "
+"Unser System gibt dir Zugriff auf alle Statistiken!"
+
+#: templates/main/index.html:71
+msgid "To the numbers"
+msgstr "Zu den Zahlen"
+
+#: templates/main/index.html:77
+msgid "WTF is this?"
+msgstr "WTF ist das hier?"
+
+#: templates/main/index.html:80
+msgid ""
+"You have no clue what this is about or how it works? Your questions were "
+"asked before and can be answered."
+msgstr ""
+"Du hast keine Ahnung, was das hier sein soll? Deine Fragen gab es schon "
+"vorher und wir haben die Antworten."
+
+#: templates/main/index.html:86
+msgid "To the FAQ"
+msgstr "Zur FAQ"
+
+#: templates/manage/create.html:2
+msgid "Create a New Bottle Drop Point"
+msgstr "Neuen Drop Point erstellen"
+
+#: templates/manage/create.html:11 templates/manage/edit.html:11
+msgid "An error occurred!"
+msgstr "Es ist ein Fehler aufgetreten!"
+
+#: templates/manage/create.html:23
+msgid "1. Select the position of the new drop point on the map"
+msgstr "1. Position des neuen Drop Points auf der Karte wählen"
+
+#: templates/manage/create.html:28
+msgid "2. Enter the details of your newly created drop point"
+msgstr "2. Details des neuen Drop Points angeben"
+
+#: templates/manage/create.html:35 templates/view/list.html:23
+msgid "Category"
+msgstr "Kategorie"
+
+#: templates/manage/create.html:45 templates/manage/create.html:48
+#: templates/manage/edit.html:35 templates/manage/edit.html:37
+#: templates/view/list.html:25
+msgid "Level"
+msgstr "Ebene"
+
+#: templates/manage/create.html:52 templates/manage/edit.html:41
+#: templates/view/list.html:24
+msgid "Location"
+msgstr "Ort"
+
+#: templates/manage/create.html:58 templates/manage/edit.html:47
+#: templates/view/list.html:22
+msgid "Number"
+msgstr "Nummer"
+
+#: templates/manage/create.html:65
+msgid "Create drop point"
+msgstr "Drop Point erstellen"
+
+#: templates/manage/edit.html:2
+#, python-format
+msgid "Edit %(category)s %(number)i"
+msgstr "%(category)s %(number)i bearbeiten"
+
+#: templates/manage/edit.html:23
+msgid "Change the position by dragging the black marker on the map:"
+msgstr "Position ändern durch Bewegen des schwarzen Markers:"
+
+#: templates/manage/edit.html:28
+msgid "Change the details:"
+msgstr "Die Details ändern:"
+
+#: templates/manage/edit.html:57
+msgid "Remove"
+msgstr "Entfernen"
+
+#: templates/manage/edit.html:64
+msgid "Submit changes"
+msgstr "Änderungen speichern"
+
+#: templates/modals/base.html:35 templates/view/details.html:16
+msgid "Current state:"
+msgstr "Aktueller Status:"
+
+#: templates/modals/base.html:48 templates/view/details.html:20
+msgid "Visit priority:"
+msgstr "Besuchspriorität:"
+
+#: templates/modals/list.html:6 templates/modals/map.html:5
+msgid "More details"
+msgstr "Mehr Details"
+
+#: templates/statistics/numbers.html:11
+msgid "Drop points by state"
+msgstr "Drop Points nach Status"
+
+#: templates/statistics/numbers.html:29
+msgid "Reports by state"
+msgstr "Meldungen nach Status"
+
+#: templates/statistics/numbers.html:37
+msgid "drop points in the database"
+msgstr "Drop Points in der Datenbank"
+
+#: templates/statistics/numbers.html:41
+msgid "state reports by helpful visitors"
+msgstr "Statusmeldungen von Besuchern"
+
+#: templates/statistics/numbers.html:45
+msgid "visits by the bottle collectors"
+msgstr "Besuche von den Flaschensammlern"
+
+#: templates/statistics/numbers.html:51
+msgid "reports per drop point"
+msgstr "Meldungen pro Drop Point"
+
+#: templates/statistics/numbers.html:55
+msgid "visits per drop point"
+msgstr "Besuche pro Drop Point"
+
+#: templates/statistics/numbers.html:59
+msgid ""
+"There are no drop points and/or reports yet. Therefore, no statistics are "
+"available."
+msgstr ""
+"Da es noch keine Drop Points und/oder Meldungen gibt, gibt es auch noch keine"
+" Statistiken."
+
+#: templates/view/details.html:2
+#, python-format
+msgid "Details of %(category)s %(number)i"
+msgstr "Details von %(category)s %(number)i"
+
+#: templates/view/details.html:18
+msgid "Location:"
+msgstr "Ort:"
+
+#: templates/view/details.html:23
+msgid "Label:"
+msgstr "Schild:"
+
+#: templates/view/details.html:25
+msgid "Download PDF"
+msgstr "PDF herunterladen"
+
+#: templates/view/details.html:37
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#: templates/view/details.html:46
+msgid "History"
+msgstr "Geschichte"
+
+#: templates/view/details.html:51
+msgid "Time"
+msgstr "Zeit"
+
+#: templates/view/details.html:52
+msgid "Event"
+msgstr "Ereignis"
+
+#: templates/view/details.html:61
+#, python-format
+msgid "Drop point %(number)i created"
+msgstr "Drop Point %(number)i erstellt"
+
+#: templates/view/details.html:63
+#, python-format
+msgid "Location changed to %(location)s"
+msgstr "Ort zu %(location)s geändert"
+
+#: templates/view/details.html:65
+#, python-format
+msgid "Report submitted and drop point seen as: %(state)s"
+msgstr "Drop Point gemeldet als: %(state)s"
+
+#: templates/view/details.html:67
+#, python-format
+msgid "Drop point visited and maintenance performed: %(action)s"
+msgstr "Drop Point besucht und Wartung durchgeführt: %(action)s"
+
+#: templates/view/details.html:69
+msgid "Drop point marked as removed"
+msgstr "Drop Point als entfernt markiert"
+
+#: templates/view/list.html:2
+msgid "Drop Point List"
+msgstr "Liste von Drop Points"
+
+#: templates/view/list.html:14 templates/view/map.html:12
+msgid "All"
+msgstr "Alle"
+
+#: templates/view/list.html:26
+msgid "State"
+msgstr "Status"
+
+#: templates/view/list.html:27
+msgid "Priority"
+msgstr "Priorität"
+
+#: templates/view/list.html:28
+msgid "Reports"
+msgstr "Berichte"
+
+#: templates/view/map.html:2
+msgid "Drop Point Map"
+msgstr "Drop-Point-Karte"
+

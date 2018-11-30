@@ -5,9 +5,15 @@ require('datatables.net-bs')(window, $);
 
 const offset = $("meta[name='time']").attr('content') - Date.now() / 1000;
 
-const icon_details = $('<span></span>').addClass('clickable glyphicon glyphicon-search dp_modal details');
-const icon_report = $('<span></span>').addClass('clickable glyphicon glyphicon-bullhorn dp_modal report');
-const icon_visit = $('<span></span>').addClass('clickable glyphicon glyphicon-wrench dp_modal visit');
+const icon_details = $('<i></i>')
+  .addClass('clickable fas fa-search dp_modal details')
+  .attr('title', gettext('Details'));
+const icon_report = $('<span></span>')
+  .addClass('clickable fas fa-bullhorn dp_modal report')
+  .attr('title', gettext('Report'));
+const icon_visit = $('<i></i>')
+  .addClass('clickable fas fa-wrench dp_modal visit')
+  .attr('title', gettext('Visit'));
 
 let category = -1;
 

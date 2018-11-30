@@ -22,9 +22,7 @@
                     {% if current_user.can_visit %}
                     <dt>{{ _("Label:") }}</dt>
                     <dd>
-                        <a href="{{ url_for('label.for_dp', number=dp.number) }}">
-                            <span class="glyphicon glyphicon-file" aria-hidden="true"></span> {{ _("Download PDF") }}
-                        </a>
+                        <a href="{{ url_for('label.for_dp', number=dp.number) }}"><i class="far fa-file-pdf"></i> {{ _("Download PDF") }}</a>
                     </dd>
                     {% endif %}
                 </dl>
