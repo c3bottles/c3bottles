@@ -182,7 +182,7 @@ point in question:") }}
         </p>
             <table class="table">
                 <tr>
-                    <td><img src="{{ url_for("static", filename="img/markers/DEFAULT.svg") }}" class="faq-marker"></td>
+                    <td><img src="{{ url_for('static', filename='img/markers/0/DEFAULT.svg') }}" class="faq-marker"></td>
                     <td>{{ states.label("DEFAULT") }}</td>
                     <td>
 {{ _("The drop point has been reported, however, the reporter
@@ -191,14 +191,14 @@ default state instead.") }}
                     </td>
                 </tr>
                 <tr>
-                    <td><img src="{{ url_for("static", filename="img/markers/NEW.svg") }}" class="faq-marker"></td>
+                    <td><img src="{{ url_for('static', filename='img/markers/0/NEW.svg') }}" class="faq-marker"></td>
                     <td>{{ states.label("NEW") }}</td>
                     <td>
 {{ _("The drop point has been just created and has not been reported yet.") }}
                     </td>
                 </tr>
                 <tr>
-                    <td><img src="{{ url_for("static", filename="img/markers/EMPTY.svg") }}" class="faq-marker"></td>
+                    <td><img src="{{ url_for('static', filename='img/markers/0/EMPTY.svg') }}" class="faq-marker"></td>
                     <td>{{ states.label("EMPTY") }}</td>
                     <td>
 {{ _("The drop point has been emptied recently by the
@@ -207,14 +207,14 @@ or has been reported as empty.") }}
                     </td>
                 </tr>
                 <tr>
-                    <td><img src="{{ url_for("static", filename="img/markers/SOME_BOTTLES.svg") }}" class="faq-marker"></td>
+                    <td><img src="{{ url_for('static', filename='img/markers/0/SOME_BOTTLES.svg') }}" class="faq-marker"></td>
                     <td>{{ states.label("SOME_BOTTLES") }}</td>
                     <td>
 {{ _("The drop point contains a few bottles, but no action is necessary yet.") }}
                     </td>
                 </tr>
                 <tr>
-                    <td><img src="{{ url_for("static", filename="img/markers/REASONABLY_FULL.svg") }}" class="faq-marker"></td>
+                    <td><img src="{{ url_for('static', filename='img/markers/0/REASONABLY_FULL.svg') }}" class="faq-marker"></td>
                     <td>{{ states.label("REASONABLY_FULL") }}</td>
                     <td>
 {{ _("The drop point contains a reasonable amount of bottles
@@ -222,7 +222,7 @@ and should be visited by the bottle collection team soon.") }}
                     </td>
                 </tr>
                 <tr>
-                    <td><img src="{{ url_for("static", filename="img/markers/FULL.svg") }}" class="faq-marker"></td>
+                    <td><img src="{{ url_for('static', filename='img/markers/0/FULL.svg') }}" class="faq-marker"></td>
                     <td>{{ states.label("FULL") }}</td>
                     <td>
 {{ _("The drop point is more or less full and should be
@@ -231,7 +231,7 @@ team to prevent overflowing.") }}
                     </td>
                 </tr>
                 <tr>
-                    <td><img src="{{ url_for("static", filename="img/markers/OVERFLOW.svg") }}" class="faq-marker"></td>
+                    <td><img src="{{ url_for('static', filename='img/markers/0/OVERFLOW.svg') }}" class="faq-marker"></td>
                     <td>{{ states.label("OVERFLOW") }}</td>
                     <td>
 {{ _("The drop point is overflowing, i.e. not only the crates
@@ -242,7 +242,7 @@ points from reaching this state.") }}
                     </td>
                 </tr>
                 <tr>
-                    <td><img src="{{ url_for("static", filename="img/markers/NO_CRATES.svg") }}" class="faq-marker"></td>
+                    <td><img src="{{ url_for('static', filename='img/markers/0/NO_CRATES.svg') }}" class="faq-marker"></td>
                     <td>{{ states.label("NO_CRATES") }}</td>
                     <td>
 {{ _("The drop point is missing crates to put bottles in. This
