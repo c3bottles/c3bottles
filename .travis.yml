@@ -7,28 +7,29 @@ matrix:
  include:
   - name: "Python 3.5"
     python: 3.5
-    env: what="python"
+    env: what="python3.5"
   - name: "Python 3.6"
     python: 3.6
-    env: what="python"
+    env: what="python3.6"
     dist: xenial
     sudo: true
   - name: "Python 3.7"
     python: 3.7
-    env: what="python"
+    env: what="python3.7"
     dist: xenial
     sudo: true
   - name: "Docker image"
     env: what="docker"
 
 install:
- - if [ "$what" = "python" ] ; then pip install -r requirements.txt ; fi
- - if [ "$what" = "python" ] ; then yarn ; fi
+ - if [[ $what == python* ]] ; then pip install -r requirements.txt ; fi
+ - if [[ $what == python* ]] ; then yarn ; fi
 
 script:
- - if [ "$what" = "python" ] ; then pytest --cov=c3bottles ; fi
- - if [ "$what" = "python" ] ; then pycodestyle c3bottles ; fi
- - if [ "$what" = "python" ] ; then yarn build:deps ; fi
- - if [ "$what" = "docker" ] ; then docker build -t c3bottles/c3bottles . ; fi
- - if [ "$what" = "docker" ] ; then docker image ls ; fi
- - if [ "$what" = "docker" ] ; then docker run --rm --entrypoint /bin/sh c3bottles/c3bottles -c "pip install pytest flask-webtest && pytest" ; fi
+ - if [[ $what == python* ]] ; then pytest --cov=c3bottles ; fi
+ - if [[ $what == python* ]] ; then pycodestyle c3bottles ; fi
+ - if [[ $what == python* ]] ; then yarn build:deps ; fi
+ - if [[ $what == python3.6 ]] ; then pip install codecov && codecov ; fi
+ - if [[ $what == docker ]] ; then docker build -t c3bottles/c3bottles . ; fi
+ - if [[ $what == docker ]] ; then docker image ls ; fi
+ - if [[ $what == docker ]] ; then docker run --rm --entrypoint /bin/sh c3bottles/c3bottles -c "pip install pytest flask-webtest && pytest" ; fi

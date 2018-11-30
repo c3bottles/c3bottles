@@ -1,0 +1,9 @@
+comment: off
+
+coverage:
+  range: 60..100
+  status:
+    project:
+      target: auto
+      threshold: null
+      base: auto

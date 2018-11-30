@@ -1,6 +1,7 @@
 # c3bottles
 
 [![Build Status](https://travis-ci.org/c3bottles/c3bottles.svg)](https://travis-ci.org/c3bottles/c3bottles)
+[![codecov](https://codecov.io/gh/c3bottles/c3bottles/branch/master/graph/badge.svg)](https://codecov.io/gh/c3bottles/c3bottles)
 
 Please have a look in [INSTALL.md](INSTALL.md) on how to install and build
 c3bottles. All the scripts and configuration needed to run c3bottles in
