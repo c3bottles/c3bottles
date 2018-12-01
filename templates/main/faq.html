@@ -1,26 +1,8 @@
-{# Use this snippet as template for new questions:
-
-			<p class="lead collapse-toggle" data-toggle="collapse"
-			   data-target="#some-question">
-				{{ _("What was the question again?") }}
-			</p>
-			<div id="some-question" class="collapse">
-				<p>
-{{ _("TODO: Answer me!") }}
-				</p>
-				<hr/>
-			</div>
-
-#}
 {% extends "layout.html" %}
-{% set title = _("FAQ") %}
+{% set title = _("Frequently Asked Questions") %}
 {% import "macros/states.html" as states %}
-{% block content %}
-    <div class="page-header">
-        <h1>{{ _("Frequently Asked Questions") }}</h1>
-    </div>
-    <p class="lead collapse-toggle" data-toggle="collapse"
-       data-target="#what-is-this-about">
+{% block text %}
+    <p class="lead collapse-toggle" data-toggle="collapse" data-target="#what-is-this-about">
         {{ _("What is all this about in the first place?") }}
     </p>
     <div id="what-is-this-about" class="collapse">
@@ -72,8 +54,7 @@ remote locations which are not used much anyway.", project=_("c3bottles")) }}
         </p>
         <hr/>
     </div>
-    <p class="lead collapse-toggle" data-toggle="collapse"
-       data-target="#how-does-it-work">
+    <p class="lead collapse-toggle" data-toggle="collapse" data-target="#how-does-it-work">
         {{ _("How does this work?") }}
     </p>
     <div id="how-does-it-work" class="collapse">
@@ -113,8 +94,7 @@ drop points if needed.") }}
         </p>
         <hr/>
     </div>
-    <p class="lead collapse-toggle" data-toggle="collapse"
-       data-target="#help-as-visitor">
+    <p class="lead collapse-toggle" data-toggle="collapse" data-target="#help-as-visitor">
         {{ _("I'm a visitor and want to help. What should I do?") }}
     </p>
     <div id="help-as-visitor" class="collapse">
@@ -144,8 +124,7 @@ larger numbers.") }}
         </p>
         <hr/>
     </div>
-    <p class="lead collapse-toggle" data-toggle="collapse"
-       data-target="#help-as-angel">
+    <p class="lead collapse-toggle" data-toggle="collapse" data-target="#help-as-angel">
         {{ _("I need some manual labor and bottle collection sounds like a thing for me. What should I do?") }}
     </p>
     <div id="help-as-angel" class="collapse">
@@ -167,8 +146,7 @@ collector team to show up. They should know what they're doing.") }}
         </p>
         <hr/>
     </div>
-    <p class="lead collapse-toggle" data-toggle="collapse"
-       data-target="#what-are-report-states">
+    <p class="lead collapse-toggle" data-toggle="collapse" data-target="#what-are-report-states">
         {{ _("What do the report states mean? What state should I choose when reporting?") }}
     </p>
     <div id="what-are-report-states" class="collapse">
@@ -248,8 +226,7 @@ This  is a grave situation, immediate action is necessary.") }}
             </table>
         <hr/>
     </div>
-    <p class="lead collapse-toggle" data-toggle="collapse"
-       data-target="#what-is-priority">
+    <p class="lead collapse-toggle" data-toggle="collapse" data-target="#what-is-priority">
         {{ _("What is the priority and how is it calculated?") }}
     </p>
     <div id="what-is-priority" class="collapse">
@@ -273,8 +250,7 @@ throughput is expected in such locations.") }}
         </p>
         <hr/>
     </div>
-    <p class="lead collapse-toggle" data-toggle="collapse"
-       data-target="#help-as-developer">
+    <p class="lead collapse-toggle" data-toggle="collapse" data-target="#help-as-developer">
         {{ _("I'm good at coding and think this site could need some help. What should I do?") }}
     </p>
     <div id="help-as-developer" class="collapse">
@@ -293,8 +269,7 @@ repository where development takes place.") }}
         </p>
         <hr/>
     </div>
-    <p class="lead collapse-toggle" data-toggle="collapse"
-       data-target="#using-on-events">
+    <p class="lead collapse-toggle" data-toggle="collapse" data-target="#using-on-events">
 {{ _("I'm the organizer of some event in the near or far future and like the idea. Can I use your software?") }}
     </p>
     <div id="using-on-events" class="collapse">
@@ -306,10 +281,10 @@ If you still have questions, find my contact information
         </p>
         <hr/>
     </div>
-    <p class="lead collapse-toggle" data-toggle="collapse" data-target="#1337">
+    <p class="lead collapse-toggle" data-toggle="collapse" data-target="#haxx0r">
         {{ _("I'm a l33t h4xx0r and think this is fun.") }}
     </p>
-    <div id="1337" class="collapse">
+    <div id="haxx0r" class="collapse">
         <p>
             {{ _("Good for you. Here's your fish:") }} {{ "<°)))><" }}
         </p>

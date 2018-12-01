@@ -26,10 +26,10 @@ function setCategory(num) {
   global.map_category = num;
   $('.map-category-select-button')
     .removeClass('btn-primary')
-    .addClass('btn-default');
+    .addClass('btn-light');
   $('.map-category-select-button')
     .filter(`[data-category_id='${num}']`)
-    .removeClass('btn-default')
+    .removeClass('btn-light')
     .addClass('btn-primary');
   redraw_markers();
 }

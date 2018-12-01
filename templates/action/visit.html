@@ -1,24 +1,21 @@
 {% extends "layout.html" %}
 {% set title = _("Visit %(category)s %(number)i", number=dp.number, category=dp.category) %}
-{% block content %}
-        <div class="page-header">
-            <h1>{{ title }}</h1>
-        </div>
+{% block text %}
         {% if not current_user.can_visit %}
         <div class="alert alert-warning">
             <strong>{{ _("Attention!") }}</strong> {{ _("You are not allowed to visit drop points.") }}
         </div>
         {% else %}
         <div class="row">
-        <div class="col-md-2 col-md-offset-4">
-        <div class="centered-button-holder">
-            <form action="{{ url_for('action.visit') }}" method="POST">
-                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                <input type="hidden" name="number" value="{{ dp.number }}">
-                {% include "action/visit_buttons.html" %}
-            </form>
-        </div>
-        </div>
+            <div class="col-sm-2 col-md-3 col-lg-4"></div>
+            <div class="col-sm-8 col-md-6 col-lg-4">
+                <form action="{{ url_for('action.visit') }}" method="POST">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <input type="hidden" name="number" value="{{ dp.number }}">
+                    {% include "action/visit_buttons.html" %}
+                </form>
+            </div>
+            <div class="col-sm-2 col-md-3 col-lg-4"></div>
         </div>
         {% endif %}
 {% endblock %}

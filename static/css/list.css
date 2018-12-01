@@ -1,11 +1,26 @@
-table.dataTable thead > tr > th {
-    padding-left: 30px !important;
-    padding-right: initial !important;
+table.dataTable thead th {
+    position: relative;
+    background-image: none !important;
 }
 
-table.dataTable thead .sorting:after,
-table.dataTable thead .sorting_asc:after,
-table.dataTable thead .sorting_desc:after {
-    left: 8px !important;
-    right: auto !important;
+table.dataTable thead th.sorting:after,
+table.dataTable thead th.sorting_asc:after,
+table.dataTable thead th.sorting_desc:after {
+    position: absolute !important;
+    top: 12px !important;
+    right: 8px !important;
+    display: block !important;
+    font-family: FontAwesome !important;
+}
+table.dataTable thead th.sorting:after {
+    content: "\f0dc" !important;
+    color: #ddd !important;
+    font-size: 0.8em !important;
+    padding-top: 0.12em !important;
+}
+table.dataTable thead th.sorting_asc:after {
+    content: "\f0de" !important;
+}
+table.dataTable thead th.sorting_desc:after {
+    content: "\f0dd" !important;
 }

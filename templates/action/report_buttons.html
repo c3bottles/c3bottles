@@ -1,6 +1,6 @@
 <p>{{ _('Please use the buttons below to report the current state. If you are unsure which state to report, refer to the FAQ or simply use the very first button.') }}</p>
 <div class="modal-buttons-div">
-    <button{{ ' disabled' if not current_user.can_report }} class="btn btn-block btn-default report-button" type="submit" name="state" value="DEFAULT">{{ _('I\'m not sure, just take a look') }}</button>
+    <button{{ ' disabled' if not current_user.can_report }} class="btn btn-block btn-secondary report-button" type="submit" name="state" value="DEFAULT">{{ _('I\'m not sure, just take a look') }}</button>
     <hr/>
     <button{{ ' disabled' if not current_user.can_report }} class="btn btn-block btn-danger report-button" type="submit" name="state" value="OVERFLOW">{{ _('Overflowing') }}</button>
     <button{{ ' disabled' if not current_user.can_report }} class="btn btn-block btn-warning report-button" type="submit" name="state" value="FULL">{{ _('Completely full') }}</button>
@@ -8,5 +8,5 @@
     <button{{ ' disabled' if not current_user.can_report }} class="btn btn-block btn-primary report-button" type="submit" name="state" value="SOME_BOTTLES">{{ _('Partially filled') }}</button>
     <button{{ ' disabled' if not current_user.can_report }} class="btn btn-block btn-success report-button" type="submit" name="state" value="EMPTY">{{ _('Empty') }}</button>
     <hr/>
-    <button{{ ' disabled' if not current_user.can_report }} class="btn btn-block btn-default report-button" type="submit" name="state" value="NO_CRATES">{{ _('Nothing here') }}</button>
+    <button{{ ' disabled' if not current_user.can_report }} class="btn btn-block btn-light report-button" type="submit" name="state" value="NO_CRATES">{{ _('Nothing here') }}</button>
 </div>

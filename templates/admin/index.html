@@ -9,8 +9,8 @@
             <tr>
                 <th>{{ _("User name") }}</th>
                 <th>{{ _("Active") }}</th>
-                <th>{{ _("Visit drop points") }}</th>
-                <th>{{ _("Edit drop points") }}</th>
+                <th>{{ _("Visit") }}</th>
+                <th>{{ _("Edit") }}</th>
                 <th>{{ _("Admin") }}</th>
                 <th></th>
             </tr>
@@ -26,13 +26,13 @@
                 <td class="text-right form-inline">
                     <div class="btn-group" role="group">
                         {% if user.is_active %}
-                        <button type="submit" class="admin-button-user-disable btn btn-xs btn-warning" data-uid="{{ user.user_id }}"{{ ' disabled' if user == current_user }}>{{ _("Disable") }}</button>
+                        <button type="submit" class="admin-button-user-disable btn btn-sm btn-warning" data-uid="{{ user.user_id }}"{{ ' disabled' if user == current_user }}>{{ _("Disable") }}</button>
                         {% else %}
-                        <button type="submit" class="admin-button-user-enable btn btn-xs btn-success" data-uid="{{ user.user_id }}"{{ ' disabled' if user == current_user }}>{{ _("Enable") }}</button>
+                        <button type="submit" class="admin-button-user-enable btn btn-sm btn-success" data-uid="{{ user.user_id }}"{{ ' disabled' if user == current_user }}>{{ _("Enable") }}</button>
                         {% endif %}
-                        <button type="button" class="admin-button-user-permissions btn btn-xs btn-primary" data-visit="{{ user.can_visit|lower }}" data-edit="{{ user.can_edit|lower }}" data-admin="{{ user.is_admin|lower }}" data-uid="{{ user.user_id }}">{{ _("Permissions") }}</button>
-                        <button type="button" class="admin-button-user-password btn btn-xs btn-primary" data-uid="{{ user.user_id }}">{{ _("Password") }}</button>
-                        <button type="button" class="admin-button-user-delete btn btn-xs btn-danger" data-uid="{{ user.user_id }}"{{ ' disabled' if user == current_user }}>{{ _("Delete") }}</button>
+                        <button type="button" class="admin-button-user-permissions btn btn-sm btn-primary" data-visit="{{ user.can_visit|lower }}" data-edit="{{ user.can_edit|lower }}" data-admin="{{ user.is_admin|lower }}" data-uid="{{ user.user_id }}">{{ _("Permissions") }}</button>
+                        <button type="button" class="admin-button-user-password btn btn-sm btn-primary" data-uid="{{ user.user_id }}">{{ _("Password") }}</button>
+                        <button type="button" class="admin-button-user-delete btn btn-sm btn-danger" data-uid="{{ user.user_id }}"{{ ' disabled' if user == current_user }}>{{ _("Delete") }}</button>
                     </div>
                 </td>
             </tr>
@@ -42,12 +42,12 @@
     <h3>{{ _("Create a new user") }}</h3>
     <form class="form-inline" action="{{ url_for('admin.create_user') }}" method="post">
         {{ user_create_form.csrf_token }}
-        {{ user_create_form.username(class="form-control", placeholder=_("User name")) }}
-        {{ user_create_form.password(class="form-control", placeholder=_("Password")) }}
-        <div class="checkbox"><label>{{ user_create_form.can_visit }} {{ _("Visit drop points") }}</label></div>
-        <div class="checkbox"><label>{{ user_create_form.can_edit }} {{ _("Edit drop points") }}</label></div>
-        <div class="checkbox"><label>{{ user_create_form.is_admin }} {{ _("Admin") }}</label></div>
-        <button type="submit" class="btn btn-success">{{ _("Create user") }}</button>
+        {{ user_create_form.username(class="form-control mb-2 mr-sm-2", placeholder=_("User name")) }}
+        {{ user_create_form.password(class="form-control mb-2 mr-sm-2", placeholder=_("Password")) }}
+        <div class="form-check mb-2 mr-sm-2"><label class="form-check-label">{{ user_create_form.can_visit(class="form-check-input") }} {{ _("Visit") }}</label></div>
+        <div class="form-check mb-2 mr-sm-2"><label class="form-check-label">{{ user_create_form.can_edit(class="form-check-input") }} {{ _("Edit") }}</label></div>
+        <div class="form-check mb-2 mr-sm-2"><label class="form-check-label">{{ user_create_form.is_admin(class="form-check-input") }} {{ _("Admin") }}</label></div>
+        <button type="submit" class="btn btn-success mb-2">{{ _("Create user") }}</button>
     </form>
     <form id="admin-form-user-enable" action="{{ url_for('admin.enable_user') }}" method="post">
         {{ user_id_form.csrf_token }}
@@ -58,22 +58,22 @@
         {{ user_id_form.user_id(id="admin-input-user-disable-user-id") }}
     </form>
     <div class="modal fade" tabindex="-1" role="dialog" id="admin-modal-user-permissions">
-        <div class="modal-dialog modal-sm">
+        <div class="modal-dialog modal-sm" role="document">
             <div class="modal-content">
                 <form action="{{ url_for('admin.user_permissions') }}" method="post">
                     <div class="modal-header">
+                        <h5 class="modal-title">{{ _("Permissions") }}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close" tabindex="-1"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">{{ _("Permissions") }}</h4>
                     </div>
                     <div class="modal-body">
                         <div class="checkbox">
                             <label>
-                                {{ permissions_form.can_visit(id="admin-input-user-permissions-can-visit") }} {{ _("Visit drop points") }}
+                                {{ permissions_form.can_visit(id="admin-input-user-permissions-can-visit") }} {{ _("Visit") }}
                             </label>
                         </div>
                         <div class="checkbox">
                             <label>
-                                {{ permissions_form.can_edit(id="admin-input-user-permissions-can-edit") }} {{ _("Edit drop points") }}
+                                {{ permissions_form.can_edit(id="admin-input-user-permissions-can-edit") }} {{ _("Edit") }}
                             </label>
                         </div>
                         <div class="checkbox">
@@ -85,7 +85,7 @@
                     <div class="modal-footer">
                         {{ permissions_form.csrf_token }}
                         {{ permissions_form.user_id(id="admin-input-user-permissions-user-id") }}
-                        <button type="button" class="btn btn-default" data-dismiss="modal" tabindex="-1">{{ _("Cancel") }}</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" tabindex="-1">{{ _("Cancel") }}</button>
                         <button type="submit" class="btn btn-primary">{{ _("Update") }}</button>
                     </div>
                 </form>
@@ -93,12 +93,12 @@
         </div>
     </div>
     <div class="modal fade" tabindex="-1" role="dialog" id="admin-modal-user-password">
-        <div class="modal-dialog modal-sm">
+        <div class="modal-dialog modal-sm" role="document">
             <div class="modal-content">
                 <form action="{{ url_for('admin.user_password') }}" method="post">
                     <div class="modal-header">
+                        <h5 class="modal-title">{{ _("Change password") }}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close" tabindex="-1"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">{{ _("Change password") }}</h4>
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
@@ -111,7 +111,7 @@
                     <div class="modal-footer">
                         {{ password_form.csrf_token }}
                         {{ password_form.user_id(id="admin-input-user-password-user-id") }}
-                        <button type="button" class="btn btn-default" data-dismiss="modal" tabindex="-1">{{ _("Cancel") }}</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" tabindex="-1">{{ _("Cancel") }}</button>
                         <button type="submit" class="btn btn-primary">{{ _("Update") }}</button>
                     </div>
                 </form>
@@ -119,11 +119,11 @@
         </div>
     </div>
     <div class="modal fade" tabindex="-1" role="dialog" id="admin-modal-user-delete">
-        <div class="modal-dialog modal-sm">
+        <div class="modal-dialog modal-sm" role="document">
             <div class="modal-content">
                 <div class="modal-header">
+                    <h5 class="modal-title">{{ _("Delete user") }}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close" tabindex="-1"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">{{ _("Delete user") }}</h4>
                 </div>
                 <div class="modal-body">
                     {{ _("Are you sure that you want to delete this user? Deletion is irreversible.") }}
@@ -132,7 +132,7 @@
                     <form action="{{ url_for('admin.delete_user') }}" method="post">
                         {{ user_id_form.csrf_token }}
                         {{ user_id_form.user_id(id="admin-input-user-delete-user-id") }}
-                        <button type="button" class="btn btn-default" data-dismiss="modal" tabindex="-1">{{ _("Cancel") }}</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" tabindex="-1">{{ _("Cancel") }}</button>
                         <button type="submit" class="btn btn-danger"><i class="far fa-trash-alt"></i> {{ _("Delete user") }}</button>
                     </form>
                 </div>

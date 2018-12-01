@@ -16,3 +16,7 @@ $.ajaxSetup({
 setTimeout(() => {
   $('.disappear').slideUp();
 }, 5000);
+
+$('#login-form-dropdown').on('shown.bs.dropdown', () => {
+  $('#username').focus();
+});
