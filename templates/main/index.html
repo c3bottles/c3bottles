@@ -1,7 +1,12 @@
 {% extends "layout.html" %}
 {% set title = _("Home") %}
 {% block content %}
-    {% if config.NO_ANONYMOUS_REPORTING %}
+    {% if not config.get('MAP_SOURCE') %}
+    <div class="alert alert-danger">
+        <strong>{{ _("Warning!") }}</strong> {{ _("The map source has not been configured. Large parts of c3bottles will not work correctly.") }}
+    </div>
+    {% endif %}
+    {% if config.get('NO_ANONYMOUS_REPORTING') %}
     <div class="alert alert-warning">
         <strong>{{ _("Attention!") }}</strong> {{ _("Anonymous reporting has been disabled.") }}
     </div>
@@ -51,7 +56,7 @@
             </p>
 
             <p>
-                <a class="btn btn-primary navbar-btn"
+                <a class="btn btn-primary navbar-btn{{ ' disabled' if not config.get('MAP_SOURCE') }}"
                    href="{{ url_for('view.map_') }}" role="button">
                     {{ _("To the map") }} &raquo;
                 </a>

@@ -16,16 +16,10 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                {% for _s, _t in (
-                                ('view.list_', _('List')),
-                                ('view.map_', _('Map')),
-                                ('statistics.numbers', _('Numbers')),
-                                ('main.faq', _('FAQ'))
-                            ) %}
-                    <li{{ {'class': 'active'}|xmlattr if request.url_rule.endpoint == _s }}>
-                        <a href="{{ url_for(_s) }}">{{ _t }}</a>
-                    </li>
-                {% endfor %}
+                <li{{ {'class': 'active'}|xmlattr if request.url_rule.endpoint == 'view.list_' }}><a href="{{ url_for('view.list_') }}">{{ _('List') }}</a></li>
+                <li{{ {'class': 'disabled'}|xmlattr if not config.get('MAP_SOURCE') }}{{ {'class': 'active'}|xmlattr if request.url_rule.endpoint == 'view.map_' }}><a href="{{ url_for('view.map_') }}">{{ _('Map') }}</a></li>
+                <li{{ {'class': 'active'}|xmlattr if request.url_rule.endpoint == 'statistics.numbers' }}><a href="{{ url_for('statistics.numbers') }}">{{ _('Numbers') }}</a></li>
+                <li{{ {'class': 'active'}|xmlattr if request.url_rule.endpoint == 'main.faq' }}><a href="{{ url_for('main.faq') }}">{{ _('FAQ') }}</a></li>
             </ul>
 
 
