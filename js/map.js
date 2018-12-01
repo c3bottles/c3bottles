@@ -4,7 +4,7 @@ const L = require('leaflet');
 const gettext = require('./gettext.js');
 
 global.map = undefined;
-global.current_level = undefined;
+global.current_level = 0;
 global.map_category = -1;
 
 let layer_control = null;
@@ -53,19 +53,6 @@ function setCategory(num) {
 
 global.setMapCategory = setCategory;
 
-// use 257x257 px tiles from c3nav correctly
-const originalInitTile = L.GridLayer.prototype._initTile;
-
-L.GridLayer.include({
-  _initTile(tile) {
-    originalInitTile.call(this, tile);
-    const tileSize = this.getTileSize();
-
-    tile.style.width = `${tileSize.x + 1}px`;
-    tile.style.height = `${tileSize.y + 1}px`;
-  },
-});
-
 // from c3nav: site/static/site/js/c3nav.js
 const LayerControl = L.Control.extend({
   options: {
@@ -87,8 +74,9 @@ const LayerControl = L.Control.extend({
     this._tileLayers[id] = L.tileLayer(`${global.map_source.tile_server + String(id)}/{z}/{x}/{y}.png`, {
       minZoom: global.map_source.min_zoom,
       maxZoom: global.map_source.max_zoom,
-      bounds: L.GeoJSON.coordsToLatLngs(global.map_source.bounds),
+      bounds: global.map_source.bounds !== undefined ? L.GeoJSON.coordsToLatLngs(global.map_source.bounds) : undefined,
       attribution: global.map_source.attribution,
+      subdomains: global.map_source.tile_server_subdomains ? global.map_source.tile_server_subdomains : undefined,
     });
     const overlay = L.layerGroup();
 
@@ -149,37 +137,75 @@ const LayerControl = L.Control.extend({
 });
 
 global.set_map_level = function(level) {
-  current_level = parseInt(level, 10);
-  layer_control.setLayer(get_layer(current_level));
+  if (global.map_source.level_config !== undefined) {
+    current_level = parseInt(level, 10);
+    layer_control.setLayer(get_layer(current_level));
+  } else {
+    current_level = 0;
+  }
 };
 
 global.init_map = function() {
-  map = L.map('map', {
+  if (global.map_source.hack_257px) {
+    const originalInitTile = L.GridLayer.prototype._initTile;
+
+    L.GridLayer.include({
+      _initTile(tile) {
+        originalInitTile.call(this, tile);
+        const tileSize = this.getTileSize();
+
+        tile.style.width = `${tileSize.x + 1}px`;
+        tile.style.height = `${tileSize.y + 1}px`;
+      },
+    });
+  }
+
+  const map_options = {
     attributionControl: true,
     zoom: global.map_source.initial_zoom,
     minZoom: global.map_source.min_zoom,
     maxZoom: global.map_source.max_zoom,
-    crs: L.CRS.Simple,
-    maxBounds: L.GeoJSON.coordsToLatLngs(global.map_source.bounds),
-  });
+    maxBounds: global.map_source.bounds ? L.GeoJSON.coordsToLatLngs(global.map_source.bounds) : undefined,
+  };
 
-  layer_control = new LayerControl().addTo(map);
-  const locationLayers = {};
-
-  const levels = global.map_source.level_config;
-
-  for (let l = levels.length - 1; l >= 0; l--) {
-    const level = levels[l];
-    const layerGroup = layer_control.addLayer(level[0], String(level[1]));
-
-    locationLayers[level[0]] = L.layerGroup().addTo(layerGroup);
+  if (global.map_source.simple_crs) {
+    map_options.crs = L.CRS.Simple;
   }
-  layer_control.finalize();
 
-  set_map_level(0);
+  map = L.map('map', map_options);
+
+  if (global.map_source.level_config !== undefined) {
+    layer_control = new LayerControl().addTo(map);
+    const locationLayers = {};
+
+    const levels = global.map_source.level_config;
+
+    for (let l = levels.length - 1; l >= 0; l--) {
+      const level = levels[l];
+      const layerGroup = layer_control.addLayer(level[0], String(level[1]));
+
+      locationLayers[level[0]] = L.layerGroup().addTo(layerGroup);
+    }
+    layer_control.finalize();
+    set_map_level(0);
+  } else {
+    L.tileLayer(`${global.map_source.tile_server}{z}/{x}/{y}.png`, {
+      minZoom: global.map_source.min_zoom,
+      maxZoom: global.map_source.max_zoom,
+      bounds: global.map_source.bounds !== undefined ? L.GeoJSON.coordsToLatLngs(global.map_source.bounds) : undefined,
+      attribution: global.map_source.attribution,
+      subdomains: global.map_source.tile_server_subdomains ? global.map_source.tile_server_subdomains : undefined,
+    }).addTo(map);
+  }
 
   global.default_map_view = function() {
-    map.fitBounds(global.map_source.bounds);
+    if (global.map_source.bounds !== undefined) {
+      map.fitBounds(global.map_source.bounds);
+    } else if (global.map_source.initial_view !== undefined) {
+      const initial = global.map_source.initial_view;
+
+      map.setView([initial.lat, initial.lng], initial.zoom);
+    }
   };
 
   redraw_markers();
