@@ -3,14 +3,31 @@ const $ = require('jquery');
 const L = require('leaflet');
 const gettext = require('./gettext.js');
 
-const bounds = [[0.0, 0.0], [800.0, 550.0]];
-const levels = [[6, '-1'], [7, '0'], [8, '1'], [9, '2']];
-const tile_server = 'https://35c3.c3nav.de/map/';
-
 global.map = undefined;
 global.current_level = undefined;
-global.level_control = undefined;
 global.map_category = -1;
+
+let layer_control = null;
+
+function get_layer(level) {
+  const level_config = global.map_source.level_config;
+
+  for (const item in level_config) {
+    if (level_config[item][1] === parseInt(level, 10)) {
+      return level_config[item][0];
+    }
+  }
+}
+
+function get_level(layer) {
+  const level_config = global.map_source.level_config;
+
+  for (const item in level_config) {
+    if (level_config[item][0] === parseInt(layer, 10)) {
+      return level_config[item][1];
+    }
+  }
+}
 
 function redraw_markers() {
   for (const dp in drop_points) {
@@ -50,7 +67,7 @@ L.GridLayer.include({
 });
 
 // from c3nav: site/static/site/js/c3nav.js
-const LevelControl = L.Control.extend({
+const LayerControl = L.Control.extend({
   options: {
     position: 'bottomright',
     addClasses: '',
@@ -66,12 +83,12 @@ const LevelControl = L.Control.extend({
     return this._container;
   },
 
-  addLevel(id, title) {
-    this._tileLayers[id] = L.tileLayer(`${tile_server + String(id)}/{z}/{x}/{y}.png`, {
-      minZoom: -2,
-      maxZoom: 5,
-      bounds: L.GeoJSON.coordsToLatLngs(bounds),
-      attribution: 'Powered by <a href="https://c3nav.de/">c3nav</a>',
+  addLayer(id, title) {
+    this._tileLayers[id] = L.tileLayer(`${global.map_source.tile_server + String(id)}/{z}/{x}/{y}.png`, {
+      minZoom: global.map_source.min_zoom,
+      maxZoom: global.map_source.max_zoom,
+      bounds: L.GeoJSON.coordsToLatLngs(global.map_source.bounds),
+      attribution: global.map_source.attribution,
     });
     const overlay = L.layerGroup();
 
@@ -90,7 +107,7 @@ const LevelControl = L.Control.extend({
     return overlay;
   },
 
-  setLevel(id) {
+  setLayer(id) {
     if (id === this.currentLevel) {
       return true;
     }
@@ -114,8 +131,8 @@ const LevelControl = L.Control.extend({
   _levelClick(e) {
     e.preventDefault();
     e.stopPropagation();
-    this.setLevel(e.target.level);
-    current_level = e.target.level - 7;
+    this.setLayer(e.target.level);
+    current_level = get_level(e.target.level);
     if (typeof update_hash === 'function') {
       update_hash();
     }
@@ -131,39 +148,38 @@ const LevelControl = L.Control.extend({
   },
 });
 
-global.set_map_level = function(lvl) {
-  if (typeof levels[lvl++] === 'undefined') {
-    lvl = 0;
-  }
-  current_level = lvl - 1;
-  level_control.setLevel(levels[lvl][0]);
+global.set_map_level = function(level) {
+  current_level = parseInt(level, 10);
+  layer_control.setLayer(get_layer(current_level));
 };
 
 global.init_map = function() {
   map = L.map('map', {
     attributionControl: true,
-    zoom: 0,
-    minZoom: 0,
-    maxZoom: 5,
+    zoom: global.map_source.initial_zoom,
+    minZoom: global.map_source.min_zoom,
+    maxZoom: global.map_source.max_zoom,
     crs: L.CRS.Simple,
-    maxBounds: L.GeoJSON.coordsToLatLngs(bounds),
+    maxBounds: L.GeoJSON.coordsToLatLngs(global.map_source.bounds),
   });
 
-  level_control = new LevelControl().addTo(map);
+  layer_control = new LayerControl().addTo(map);
   const locationLayers = {};
+
+  const levels = global.map_source.level_config;
 
   for (let l = levels.length - 1; l >= 0; l--) {
     const level = levels[l];
-    const layerGroup = level_control.addLevel(level[0], level[1]);
+    const layerGroup = layer_control.addLayer(level[0], String(level[1]));
 
     locationLayers[level[0]] = L.layerGroup().addTo(layerGroup);
   }
-  level_control.finalize();
+  layer_control.finalize();
 
   set_map_level(0);
 
   global.default_map_view = function() {
-    map.fitBounds(bounds);
+    map.fitBounds(global.map_source.bounds);
   };
 
   redraw_markers();
