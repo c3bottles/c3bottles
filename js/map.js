@@ -71,12 +71,12 @@ const LayerControl = L.Control.extend({
   },
 
   addLayer(id, title) {
-    this._tileLayers[id] = L.tileLayer(`${global.map_source.tile_server + String(id)}/{z}/{x}/{y}.png`, {
+    this._tileLayers[id] = L.tileLayer(`${global.map_source.tileserver + String(id)}/{z}/{x}/{y}.png`, {
       minZoom: global.map_source.min_zoom,
       maxZoom: global.map_source.max_zoom,
       bounds: global.map_source.bounds !== undefined ? L.GeoJSON.coordsToLatLngs(global.map_source.bounds) : undefined,
       attribution: global.map_source.attribution,
-      subdomains: global.map_source.tile_server_subdomains ? global.map_source.tile_server_subdomains : undefined,
+      subdomains: global.map_source.tileserver_subdomains,
     });
     const overlay = L.layerGroup();
 
@@ -189,12 +189,12 @@ global.init_map = function() {
     layer_control.finalize();
     set_map_level(0);
   } else {
-    L.tileLayer(`${global.map_source.tile_server}{z}/{x}/{y}.png`, {
+    L.tileLayer(`${global.map_source.tileserver}{z}/{x}/{y}.png`, {
       minZoom: global.map_source.min_zoom,
       maxZoom: global.map_source.max_zoom,
       bounds: global.map_source.bounds !== undefined ? L.GeoJSON.coordsToLatLngs(global.map_source.bounds) : undefined,
       attribution: global.map_source.attribution,
-      subdomains: global.map_source.tile_server_subdomains ? global.map_source.tile_server_subdomains : undefined,
+      subdomains: global.map_source.tileserver_subdomains,
     }).addTo(map);
   }
 

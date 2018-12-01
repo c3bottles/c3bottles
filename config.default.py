@@ -15,8 +15,12 @@
 
 # The map to use. The different maps are defined in c3bottles/config/map.py
 # and the setting here selects one of the different maps that are available.
-from c3bottles.config.map import *
-MAP_SOURCE = C3Nav35C3
+# Any setting can be overridden by calling the override() method of any map
+# configuration. This can be useful if settings need to be changed at runtime
+# without redeployment which could mean rebuilding containers etc.
+# from c3bottles.config.map import *
+# MAP_SOURCE = C3Nav35C3
+# C3Nav35C3.override("tileserver", "https://tiles.example.tld/")
 
 # The name of the drop point label template. This must be a SVG file placed in
 # the templates/label directory. The setting is the base name of this file,
