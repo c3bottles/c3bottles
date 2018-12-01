@@ -9,14 +9,14 @@
 0{% endif %}{% endmacro %}
 
 {% macro label(state) %}{% if state == "OVERFLOW" %}
-<span class="label label-danger">{{ _("Overflowing") }}</span>{% elif state == "FULL" %}
-<span class="label label-warning">{{ _("Completely full") }}</span>{% elif state == "REASONABLY_FULL" %}
-<span class="label label-info">{{ _("Reasonably full") }}</span>{% elif state == "SOME_BOTTLES" %}
-<span class="label label-primary">{{ _("Partially filled") }}</span>{% elif state == "EMPTY" %}
-<span class="label label-success">{{ _("Empty") }}</span>{%  elif state == "NEW" %}
-<span class="label label-default">{{ _("New") }}</span>{%  elif state == "NO_CRATES" %}
-<span class="label label-danger">{{ _("Missing") }}</span>{% else %}
-<span class="label label-unknown">{{ _("Unknown") }}</span>{% endif %}{% endmacro %}
+<span class="badge badge-danger">{{ _("Overflowing") }}</span>{% elif state == "FULL" %}
+<span class="badge badge-warning">{{ _("Completely full") }}</span>{% elif state == "REASONABLY_FULL" %}
+<span class="badge badge-info">{{ _("Reasonably full") }}</span>{% elif state == "SOME_BOTTLES" %}
+<span class="badge badge-primary">{{ _("Partially filled") }}</span>{% elif state == "EMPTY" %}
+<span class="badge badge-success">{{ _("Empty") }}</span>{%  elif state == "NEW" %}
+<span class="badge badge-secondary">{{ _("New") }}</span>{%  elif state == "NO_CRATES" %}
+<span class="badge badge-danger">{{ _("Missing") }}</span>{% else %}
+<span class="badge badge-dark">{{ _("Unknown") }}</span>{% endif %}{% endmacro %}
 
 {% macro color(state) %}{% if state == "OVERFLOW" %}
 #d9534f{% elif state == "FULL" %}

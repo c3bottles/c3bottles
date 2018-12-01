@@ -1,19 +1,17 @@
 {% import "macros/states.html" as states %}
 {% extends "layout.html" %}
 {% set title = _("Numbers") %}
-{% block content %}
-    <div class="page-header">
-        <h1>{{ title }}</h1>
-    </div>
+{% block text %}
 {% if stats.drop_point_count > 0 and stats.report_count > 0: %}
     <div class="row">
-        <div class="col-md-4 col-md-offset-1 col-sm-4 col-xs-12 text-center">
+        <div class="col-md-1"></div>
+        <div class="col-md-4 col-sm-4 col-xs-12 text-center">
             <p><label for="drop_points_by_state">{{ _("Drop points by state") }}</label></p>
             <canvas class="piechart" id="drop_points_by_state"></canvas>
             <div class="spacer"></div>
         </div>
         <div class="col-md-2 col-sm-4 col-xs-12">
-            <table class="table table-condensed">
+            <table class="table table-sm">
                 {% set d = stats.drop_points_by_state %}
                 {% set r = stats.reports_by_state %}
                 {% for s in ["DEFAULT", "NO_CRATES", "OVERFLOW", "FULL", "REASONABLY_FULL", "SOME_BOTTLES", "EMPTY", "NEW"]: %}
@@ -46,11 +44,13 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-3 col-sm-offset-2 col-xs-6 text-center">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-3 col-xs-6 text-center">
             <p class="large-icon average">{{ (stats.report_count / stats.drop_point_count)|round(1) }}</p>
             <p>{{ _("reports per drop point") }}</p>
         </div>
-        <div class="col-sm-3 col-sm-offset-2 col-xs-6 text-center">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-3 col-xs-6 text-center">
             <p class="large-icon average">{{ (stats.visit_count / stats.drop_point_count)|round(1) }}</p>
             <p>{{ _("visits per drop point") }}</p>
         </div>

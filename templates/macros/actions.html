@@ -1,6 +1,6 @@
 {% macro label(action) %}{%  if action == "REMOVED" %}
-<span class="label label-danger">{{ _("Removed") }}</span>{% elif action == "MODIFIED" %}
-<span class="label label-warning">{{ _("Modified") }}</span>{% elif action == "EMPTIED" %}
-<span class="label label-success">{{ _("Emptied") }}</span>{%  elif action == "NO_ACTION" %}
-<span class="label label-default">{{ _("No action") }}</span>{% else %}
-<span class="label label-danger">{{ _("Unknown") }}</span>{% endif %}{% endmacro %}
+<span class="badge badge-danger">{{ _("Removed") }}</span>{% elif action == "MODIFIED" %}
+<span class="badge badge-warning">{{ _("Modified") }}</span>{% elif action == "EMPTIED" %}
+<span class="badge badge-success">{{ _("Emptied") }}</span>{%  elif action == "NO_ACTION" %}
+<span class="badge badge-secondary">{{ _("No action") }}</span>{% else %}
+<span class="badge badge-danger">{{ _("Unknown") }}</span>{% endif %}{% endmacro %}
