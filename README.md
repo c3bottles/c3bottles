@@ -1,6 +1,9 @@
 # c3bottles
 
+[![Codacy](https://api.codacy.com/project/badge/Grade/ab7d4e458baf487b984e5f6baa16e57f)](https://www.codacy.com/app/michik-github/c3bottles)
+[![Coverage](https://api.codacy.com/project/badge/Coverage/ab7d4e458baf487b984e5f6baa16e57f)](https://www.codacy.com/app/c3bottles/c3bottles)
 [![Build Status](https://travis-ci.org/c3bottles/c3bottles.svg)](https://travis-ci.org/c3bottles/c3bottles)
+[![MIT License](https://img.shields.io/github/license/c3bottles/c3bottles.svg?maxAge=2592000)](https://github.com/c3bottles/c3bottles/blob/master/LICENSE.md)
 
 Please have a look in [INSTALL.md](INSTALL.md) on how to install and build
 c3bottles. All the scripts and configuration needed to run c3bottles in
@@ -78,4 +81,4 @@ more or less frequently based on user feedback.
 
 The map started as custom tiles rendered from a large PNG file and over time
 has been extended to be compatible with a number of different map sources that
-can be used with Leaflet, e.g. Open Streetmap or [c3nav](https://c3nav.de/).
+can be used with Leaflet, e.g. OpenStreetMap or [c3nav](https://c3nav.de/).
