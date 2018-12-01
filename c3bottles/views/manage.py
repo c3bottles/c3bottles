@@ -108,6 +108,8 @@ def edit(number=None, errors=None):
 
             if remove == "yes":
                 dp.removed = datetime.now()
+            else:
+                dp.removed = None
 
         except ValueError as e:
             errors = e.args
