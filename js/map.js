@@ -246,8 +246,8 @@ global.allow_dp_creation_from_map = function() {
       $(map).one('click', () => {
         map.removeLayer(marker);
       });
-      const lat = marker._latlng.lat.toFixed(2);
-      const lng = marker._latlng.lng.toFixed(2);
+      const lat = marker._latlng.lat.toPrecision(7);
+      const lng = marker._latlng.lng.toPrecision(7);
 
       marker.bindPopup(
         L.popup({ closeButton: false }).setContent(
@@ -257,8 +257,8 @@ global.allow_dp_creation_from_map = function() {
         )
       );
       marker.on('dragend', function() {
-        const lat = this._latlng.lat.toFixed(2);
-        const lng = this._latlng.lng.toFixed(2);
+        const lat = this._latlng.lat.toPrecision(7);
+        const lng = this._latlng.lng.toPrecision(7);
 
         this._popup.setContent(
           `<a class='btn btn-primary white' href='${create_dp_url}/${current_level}/${lat}/${lng}'>${gettext(
@@ -335,7 +335,7 @@ $('.map-category-select-button').on('click', ev => {
 
   setCategory(num);
 
-  let hash = `#${current_level}/${map.getCenter().lat.toFixed(2)}/${map.getCenter().lng.toFixed(2)}/${map.getZoom()}`;
+  let hash = `#${current_level}/${map.getCenter().lat.toPrecision(7)}/${map.getCenter().lng.toPrecision(7)}/${map.getZoom()}`;
 
   if (global.map_category > -1) {
     hash += `/${global.map_category}`;

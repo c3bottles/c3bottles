@@ -34,8 +34,8 @@ global.draw_new_dp = function(lat, lng) {
 };
 
 global.set_info_from_marker = function(latlng) {
-  const lat = latlng.lat.toFixed(2);
-  const lng = latlng.lng.toFixed(2);
+  const lat = latlng.lat.toPrecision(7);
+  const lng = latlng.lng.toPrecision(7);
 
   $('#lat').val(lat);
   $('#lng').val(lng);
