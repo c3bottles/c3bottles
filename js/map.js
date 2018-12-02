@@ -2,6 +2,7 @@
 const $ = require('jquery');
 const L = require('leaflet');
 const gettext = require('./gettext');
+const modals = require('./modals');
 
 const imgDir = $('meta[name=endpoint]').data('img');
 
@@ -84,7 +85,7 @@ function drawMarker(num) {
         marker.on('click', e => {
           const dp = e.target.feature;
 
-          show_dp_modal(dp.properties.number, pane_on_click);
+          modals.show(dp.properties.number, pane_on_click);
         });
         if (mapObj.getZoom() > mapObj.getMaxZoom() - 2) {
           marker.bindTooltip(num, {

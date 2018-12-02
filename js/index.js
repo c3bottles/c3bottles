@@ -5,5 +5,4 @@ global.refresh = require('./refresh');
 global.stats = require('./stats');
 
 require('./admin');
-require('./dp_modals');
 require('./main');

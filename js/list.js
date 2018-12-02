@@ -1,5 +1,6 @@
 const $ = require('jquery');
-const gettext = require('./gettext.js');
+const gettext = require('./gettext');
+const modals = require('./modals');
 
 require('datatables.net-bs4')(window, $);
 
@@ -112,7 +113,7 @@ module.exports.initializeTable = function(mapSource) {
         const my_icon = icon_details.clone();
 
         my_icon.click(() => {
-          show_dp_modal(data.number, 'details');
+          modals.show(data.number, 'details');
         });
         $(data.details_cell)
           .empty()
@@ -130,7 +131,7 @@ module.exports.initializeTable = function(mapSource) {
         const my_icon = icon_report.clone();
 
         my_icon.click(() => {
-          show_dp_modal(data.number, 'report');
+          modals.show(data.number, 'report');
         });
         $(data.report_cell)
           .empty()
@@ -148,7 +149,7 @@ module.exports.initializeTable = function(mapSource) {
         const my_icon = icon_visit.clone();
 
         my_icon.click(() => {
-          show_dp_modal(data.number, 'visit');
+          modals.show(data.number, 'visit');
         });
         $(data.visit_cell)
           .empty()
