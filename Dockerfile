@@ -1,6 +1,6 @@
 FROM alpine:3.8 as base
 RUN apk add -U --no-cache \
-    python3 py3-virtualenv cairo
+    python3 py3-virtualenv cairo libpq
 
 
 FROM base as builder
@@ -18,10 +18,6 @@ RUN yarn build ; rm -r /c3bottles/node_modules/
 
 
 FROM base
-COPY --from=builder /usr/lib/libpq.so.5 /usr/lib/libpq.so.5
-COPY --from=builder /usr/lib/libldap_r-2.4.so.2 /usr/lib/libldap_r-2.4.so.2
-COPY --from=builder /usr/lib/liblber-2.4.so.2 /usr/lib/liblber-2.4.so.2
-COPY --from=builder /usr/lib/libsasl2.so.3 /usr/lib/libsasl2.so.3
 COPY --from=builder /c3bottles /c3bottles
 WORKDIR /c3bottles
 ENV PATH=/c3bottles/venv/bin:$PATH
