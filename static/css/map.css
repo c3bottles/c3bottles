@@ -1,9 +1,20 @@
 #map {
     width: 100%;
-    height: calc(100% - 51px - 60px);
     position: absolute;
     top: 51px;
     z-index: 1;
+}
+
+@media (max-width: 767px) {
+    #map {
+        height: calc(100% - 51px);
+    }
+}
+
+@media (min-width: 768px) {
+    #map {
+        height: calc(100% - 51px - 60px);
+    }
 }
 
 .over-map {

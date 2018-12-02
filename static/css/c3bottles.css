@@ -4,8 +4,13 @@ html {
 }
 
 body {
-    padding-top: 70px; /* for navbar */
-    margin-bottom: 90px; /* for footer */
+    padding-top: 70px;
+}
+
+@media (min-width: 768px) {
+    body {
+        margin-bottom: 90px;
+    }
 }
 
 .navbar-brand img {
