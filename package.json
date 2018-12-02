@@ -9,7 +9,7 @@
     "build:js": "NODE_ENV=production webpack",
     "build:js:debug": "webpack",
     "prebuild:css": "yarn run prebuild",
-    "build:css": "cp node_modules/bootstrap/dist/css/* node_modules/bootstrap-select/dist/css/* node_modules/datatables.net-bs/css/* node_modules/leaflet/dist/leaflet.css static/lib/css/ ; cp node_modules/@fortawesome/fontawesome-free/css/*.css static/lib/css/fontawesome/",
+    "build:css": "cp node_modules/bootstrap/dist/css/* node_modules/bootstrap-select/dist/css/* node_modules/datatables.net-bs4/css/* node_modules/leaflet/dist/leaflet.css static/lib/css/ ; cp node_modules/@fortawesome/fontawesome-free/css/*.css static/lib/css/fontawesome/",
     "prebuild:fonts": "yarn run prebuild",
     "build:babel": "venv/bin/pybabel compile -d translations/ && venv/bin/python translations/translate-js.py",
     "build:fonts": "cp node_modules/@fortawesome/fontawesome-free/webfonts/* static/lib/css/webfonts/",
