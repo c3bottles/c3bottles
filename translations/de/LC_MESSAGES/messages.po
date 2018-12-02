@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: c3bottles\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-11-30 19:25+0100\n"
-"PO-Revision-Date: 2018-11-30 19:25+0100\n"
+"POT-Creation-Date: 2018-12-02 00:52+0100\n"
+"PO-Revision-Date: 2018-12-02 00:53+0100\n"
 "Last-Translator: MichiK <michik@michik.net>\n"
 "Language: de\n"
 "Language-Team: \n"
@@ -230,7 +230,7 @@ msgstr ""
 "c3bottles\">Twitter</a>."
 
 #: templates/layout.html:9 templates/main/faq.html:33 templates/main/faq.html:71
-#: templates/main/index.html:10 templates/main/index.html:13
+#: templates/main/index.html:15 templates/main/index.html:18
 msgid "c3bottles"
 msgstr "c3bottles"
 
@@ -238,49 +238,49 @@ msgstr "c3bottles"
 msgid "Toggle navigation"
 msgstr "Navigation ein-/ausschalten"
 
-#: templates/navbar.html:20
+#: templates/navbar.html:19
 msgid "List"
 msgstr "Liste"
 
-#: templates/modals/list.html:9 templates/navbar.html:21
+#: templates/modals/list.html:9 templates/navbar.html:20
 msgid "Map"
 msgstr "Karte"
 
-#: templates/navbar.html:22 templates/statistics/numbers.html:3
+#: templates/navbar.html:21 templates/statistics/numbers.html:3
 msgid "Numbers"
 msgstr "Zahlen"
 
-#: templates/main/faq.html:16 templates/navbar.html:23
+#: templates/main/faq.html:16 templates/navbar.html:22
 msgid "FAQ"
 msgstr "FAQ"
 
-#: templates/navbar.html:39
+#: templates/navbar.html:33
 msgid "Log in"
 msgstr "Einloggen"
 
-#: templates/navbar.html:47
+#: templates/navbar.html:41
 msgid "Logout"
 msgstr "Ausloggen"
 
 #: templates/admin/index.html:10 templates/admin/index.html:45
-#: templates/navbar.html:55
+#: templates/navbar.html:49
 msgid "User name"
 msgstr "Benutzername"
 
 #: templates/admin/index.html:34 templates/admin/index.html:46
-#: templates/admin/index.html:105 templates/navbar.html:58
+#: templates/admin/index.html:105 templates/navbar.html:52
 msgid "Password"
 msgstr "Passwort"
 
-#: templates/navbar.html:60
+#: templates/navbar.html:54
 msgid "Login"
 msgstr "Einloggen"
 
-#: templates/navbar.html:71
+#: templates/navbar.html:65
 msgid "Language"
 msgstr "Sprache"
 
-#: templates/admin/index.html:2 templates/navbar.html:88
+#: templates/admin/index.html:2 templates/navbar.html:82
 msgid "Admin Interface"
 msgstr "Adminbereich"
 
@@ -298,11 +298,11 @@ msgid "Report %(category)s %(number)i"
 msgstr "%(category)s %(number)i melden"
 
 #: templates/action/report.html:9 templates/action/visit.html:9
-#: templates/main/index.html:6
+#: templates/main/index.html:11
 msgid "Attention!"
 msgstr "Achtung!"
 
-#: templates/action/report.html:9 templates/main/index.html:6
+#: templates/action/report.html:9 templates/main/index.html:11
 msgid "Anonymous reporting has been disabled."
 msgstr "Anonymes Melden wurde deaktiviert."
 
@@ -997,12 +997,24 @@ msgstr "Schön für dich. Hier ist dein Fisch:"
 msgid "Home"
 msgstr "Start"
 
-#: templates/main/index.html:10
+#: templates/main/index.html:6
+msgid "Warning!"
+msgstr "Warnung!"
+
+#: templates/main/index.html:6
+msgid ""
+"The map source has not been configured. Large parts of c3bottles will not work "
+"correctly."
+msgstr ""
+"Es wurde keine Kartenquelle konfiguriert. c3bottles wird deshalb nur teilweise "
+"funktionieren."
+
+#: templates/main/index.html:15
 #, python-format
 msgid "Welcome to %(project)s!"
 msgstr "Willkommen zu %(project)s!"
 
-#: templates/main/index.html:13
+#: templates/main/index.html:18
 #, python-format
 msgid ""
 "%(project)s is the bottle drop and collection management system of your favourite "
@@ -1012,19 +1024,19 @@ msgstr ""
 "deinem bevorzugten Chaos-Event. Keine Ahnung, was dies bedeutet? Probiere die Links "
 "unten aus!"
 
-#: templates/main/index.html:21
+#: templates/main/index.html:26
 msgid "Enter a drop point number"
 msgstr "Drop-Point-Nummer eingeben"
 
-#: templates/main/index.html:24
+#: templates/main/index.html:29
 msgid "Report this drop point"
 msgstr "Diesen Drop Point melden"
 
-#: templates/main/index.html:32
+#: templates/main/index.html:37
 msgid "Show me the list!"
 msgstr "Zeig mir die Liste!"
 
-#: templates/main/index.html:35
+#: templates/main/index.html:40
 msgid ""
 "You like working in text-mode? Great! We have a huge list of bottle drop points and "
 "all the tools to interact with them!"
@@ -1032,15 +1044,15 @@ msgstr ""
 "Du magst den Textmodus? Perfekt! Wir haben eine lange Liste von Bottle Drop Points "
 "und alle Werkzeuge, sie zu verwalten!"
 
-#: templates/main/index.html:41
+#: templates/main/index.html:46
 msgid "To the list"
 msgstr "Zur Liste"
 
-#: templates/main/index.html:47
+#: templates/main/index.html:52
 msgid "Show me the map!"
 msgstr "Zeig mir die Karte!"
 
-#: templates/main/index.html:50
+#: templates/main/index.html:55
 msgid ""
 "Text is nothing for you? No problem! We have a very cool map which shows all the "
 "drop points and their state in real-time!"
@@ -1048,15 +1060,15 @@ msgstr ""
 "Text ist eher nichts für dich? Kein Problem! Unsere Karte zeigt dir alle Bottle "
 "Drop Points und ihren jeweiligen Status - in Echtzeit!"
 
-#: templates/main/index.html:56
+#: templates/main/index.html:61
 msgid "To the map"
 msgstr "Zur Karte"
 
-#: templates/main/index.html:62
+#: templates/main/index.html:67
 msgid "I want the numbers!"
 msgstr "Ich will die Zahlen!"
 
-#: templates/main/index.html:65
+#: templates/main/index.html:70
 msgid ""
 "The sheer beauty of numbers and diagrams amazes you? Good news: The system allows "
 "you to see all the statistics!"
@@ -1064,15 +1076,15 @@ msgstr ""
 "Die Schönheit von Zahlen und Diagrammen fasziniert dich? Gute Nachrichten: Unser "
 "System gibt dir Zugriff auf alle Statistiken!"
 
-#: templates/main/index.html:71
+#: templates/main/index.html:76
 msgid "To the numbers"
 msgstr "Zu den Zahlen"
 
-#: templates/main/index.html:77
+#: templates/main/index.html:82
 msgid "WTF is this?"
 msgstr "WTF ist das hier?"
 
-#: templates/main/index.html:80
+#: templates/main/index.html:85
 msgid ""
 "You have no clue what this is about or how it works? Your questions were asked "
 "before and can be answered."
@@ -1080,7 +1092,7 @@ msgstr ""
 "Du hast keine Ahnung, was das hier sein soll? Die meisten deiner Fragen gab es "
 "schon vorher und wir haben die Antworten dazu."
 
-#: templates/main/index.html:86
+#: templates/main/index.html:91
 msgid "To the FAQ"
 msgstr "Zur FAQ"
 

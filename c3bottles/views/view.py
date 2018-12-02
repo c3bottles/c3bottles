@@ -1,5 +1,6 @@
-from flask import Blueprint, make_response, render_template
+from flask import Blueprint, make_response, render_template, abort
 
+from c3bottles import app
 from c3bottles.lib.statistics import stats_obj
 from c3bottles.model.category import categories_sorted
 from c3bottles.model.drop_point import DropPoint
@@ -29,6 +30,8 @@ def list_js():
 
 @bp.route("/map")
 def map_():
+    if not app.config.get("MAP_SOURCE"):
+        abort(404)
     return render_template(
         "view/map.html",
         total_drop_points=stats_obj.drop_point_count,

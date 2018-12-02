@@ -111,3 +111,12 @@ a.current {
 .leaflet-interactive {
     cursor: pointer;
 }
+
+div.bootstrap-select button, div.bootstrap-select button:hover, div.bootstrap-select button:active {
+    background-color: #fff !important;
+    border: 1px solid #ced4da !important;
+}
+
+.like-form-control{
+    line-height: calc(2.25rem + 2px);
+}

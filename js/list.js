@@ -57,6 +57,106 @@ function redraw_table() {
 
 global.dt = undefined;
 global.init_table = function() {
+  let columns = [
+    {
+      data: 'number',
+    },
+    {
+      data: 'category',
+    },
+    {
+      data: 'description_with_level',
+    },
+  ];
+
+  if (global.map_source.level_config !== undefined) {
+    columns.push({
+      data: 'level',
+    });
+  }
+  columns = columns.concat([
+    {
+      data: null,
+      render(data, type) {
+        if (type === 'sort') {
+          return labels[data.last_state][0];
+        }
+
+        return labels[data.last_state][1][0].outerHTML;
+      },
+    },
+    {
+      data: null,
+      sort: 'desc',
+      className: 'hidden-xs',
+      render(data) {
+        const prio = (Date.now() / 1000 + offset - data.base_time) * data.priority_factor;
+
+        drop_points[data.number].priority = prio.toFixed(2);
+
+        return prio.toFixed(2);
+      },
+    },
+    {
+      data: 'reports_new',
+      className: 'hidden-xs',
+    },
+    {
+      data: null,
+      orderable: false,
+      defaultContent: '',
+      createdCell(td, cd, rd) {
+        rd.details_cell = td;
+      },
+      render(data) {
+        const my_icon = icon_details.clone();
+
+        my_icon.click(() => {
+          show_dp_modal(data.number, 'details');
+        });
+        $(data.details_cell)
+          .empty()
+          .append(my_icon);
+      },
+    },
+    {
+      data: null,
+      orderable: false,
+      defaultContent: '',
+      createdCell(td, cd, rd) {
+        rd.report_cell = td;
+      },
+      render(data) {
+        const my_icon = icon_report.clone();
+
+        my_icon.click(() => {
+          show_dp_modal(data.number, 'report');
+        });
+        $(data.report_cell)
+          .empty()
+          .append(my_icon);
+      },
+    },
+    {
+      data: null,
+      orderable: false,
+      defaultContent: '',
+      createdCell(td, cd, rd) {
+        rd.visit_cell = td;
+      },
+      render(data) {
+        const my_icon = icon_visit.clone();
+
+        my_icon.click(() => {
+          show_dp_modal(data.number, 'visit');
+        });
+        $(data.visit_cell)
+          .empty()
+          .append(my_icon);
+      },
+    },
+  ]);
+
   dt = $('#dp_list').DataTable({
     language: gettext('dt'),
     paging: false,
@@ -65,100 +165,7 @@ global.init_table = function() {
     createdRow(row, data) {
       drop_points[data.number].row = row;
     },
-    columns: [
-      {
-        data: 'number',
-      },
-      {
-        data: 'category',
-      },
-      {
-        data: 'description_with_level',
-      },
-      {
-        data: 'level',
-      },
-      {
-        data: null,
-        render(data, type) {
-          if (type === 'sort') {
-            return labels[data.last_state][0];
-          }
-
-          return labels[data.last_state][1][0].outerHTML;
-        },
-      },
-      {
-        data: null,
-        sort: 'desc',
-        className: 'hidden-xs',
-        render(data) {
-          const prio = (Date.now() / 1000 + offset - data.base_time) * data.priority_factor;
-
-          drop_points[data.number].priority = prio.toFixed(2);
-
-          return prio.toFixed(2);
-        },
-      },
-      {
-        data: 'reports_new',
-        className: 'hidden-xs',
-      },
-      {
-        data: null,
-        orderable: false,
-        defaultContent: '',
-        createdCell(td, cd, rd) {
-          rd.details_cell = td;
-        },
-        render(data) {
-          const my_icon = icon_details.clone();
-
-          my_icon.click(() => {
-            show_dp_modal(data.number, 'details');
-          });
-          $(data.details_cell)
-            .empty()
-            .append(my_icon);
-        },
-      },
-      {
-        data: null,
-        orderable: false,
-        defaultContent: '',
-        createdCell(td, cd, rd) {
-          rd.report_cell = td;
-        },
-        render(data) {
-          const my_icon = icon_report.clone();
-
-          my_icon.click(() => {
-            show_dp_modal(data.number, 'report');
-          });
-          $(data.report_cell)
-            .empty()
-            .append(my_icon);
-        },
-      },
-      {
-        data: null,
-        orderable: false,
-        defaultContent: '',
-        createdCell(td, cd, rd) {
-          rd.visit_cell = td;
-        },
-        render(data) {
-          const my_icon = icon_visit.clone();
-
-          my_icon.click(() => {
-            show_dp_modal(data.number, 'visit');
-          });
-          $(data.visit_cell)
-            .empty()
-            .append(my_icon);
-        },
-      },
-    ],
+    columns,
   });
 
   setTimeout(() => {

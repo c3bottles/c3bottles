@@ -113,6 +113,13 @@ at [http://127.0.0.1:9567/](http://127.0.0.1:9567/).
 
 ## Map
 
-By default, c3bottles uses the map of [c3nav](https://c3nav.de/). However, it
-is possible to configure any map source that is supported by Leaflet (e.g. Open
-Streetmap) by adapting `js/map.js` accordingly.
+c3bottles is only useful if a map is configured. To do this, you have to set a
+`MAP_SOURCE` in `config.py`. The different sources available are implemented
+in `c3bottles/config/map.py`. If you do not want to redefine one of the sources
+directly in the Python code, you can override single parameters of the current
+source in `config.py`.
+
+In general, c3bottles is able to use any map that can be configured as a layer
+in [Leaflet](https://leafletjs.com/). Please see [MAP.md](MAP.md) for all
+documentation regarding map sources, their parameters and how to define your
+own.

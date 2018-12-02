@@ -21,8 +21,8 @@ if (hash.length === 4 || hash.length === 5) {
 }
 var update_hash = function() {
     let hash =
-        "#" + current_level + "/" + map.getCenter().lat.toFixed(2) +
-        "/" + map.getCenter().lng.toFixed(2) + "/" + map.getZoom();
+        "#" + current_level + "/" + map.getCenter().lat.toPrecision(7) +
+        "/" + map.getCenter().lng.toPrecision(7) + "/" + map.getZoom();
     if (map_category > -1) {
         hash += "/" + map_category;
     }

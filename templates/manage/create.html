@@ -16,12 +16,12 @@
 {% block text %}
     <div class="row">
         <div class="col-md-6">
-            <h5>{{ _("1. Select the position of the new drop point on the map") }}</h5>
+            <h5>{{ _("Change the position by dragging the black marker on the map:") }}</h5>
             <hr>
             <div id="map" class="map map-small"></div>
         </div>
     <div class="col-md-6">
-            <h5>{{ _("2. Enter the details of your newly created drop point") }}</h5>
+            <h5>{{ _("Change the details:") }}</h5>
             <hr>
             <form class="form-horizontal" action="{{ url_for('manage.create') }}" method="POST">
                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
@@ -29,18 +29,20 @@
                 <input type="hidden" name="lng" id="lng" value="{{ lng if lng is not none }}">
                 <input type="hidden" name="number" value="{{ number if number is not none }}">
                 <input type="hidden" name="level" value="{{ level }}">
-                <div class="form-group row">
+                <div class="form-group row like-form-control">
                     <div class="col-sm-4 text-right"><strong>{{ _("Number") }}</strong></div>
                     <div class="col-sm-2">{{ number }}</div>
                 </div>
-                <div class="form-group row">
+                {% if config.get('MAP_SOURCE', {}).get('level_config', [])|length > 1 %}
+                <div class="form-group row like-form-control">
                     <div class="col-sm-4 text-right"><strong>{{ _("Level") }}</strong></div>
-                    <div class="col-sm-8">{{ _("Level") }} {{ level }}</div>
+                    <div class="col-sm-8 l">{{ _("Level") }} {{ level }}</div>
                 </div>
+                {% endif %}
                 <div class="form-group row">
                     <label for="category" class="col-sm-4 col-form-label text-right"><strong>{{ _("Category") }}</strong></label>
                     <div class="col-sm-8{{ ' has-error' if 'category' in error_fields }}">
-                        <select name="category_id" class="selectpicker">
+                        <select name="category_id" class="selectpicker form-control">
                             {% for category in categories %}
                             <option value="{{ category.category_id }}">{{ category.name }}</option>
                             {% endfor %}
@@ -54,7 +56,7 @@
                     </div>
                 </div>
                 <div class="spacer"></div>
-                <div class="text-right"><button type="submit" class="btn btn-success" name="action" value="finish">{{ _("Create drop point") }}</button></div>
+                <div class="text-right"><button type="submit" class="btn btn-success">{{ _("Create drop point") }}</button></div>
             </form>
         </div>
     </div>
