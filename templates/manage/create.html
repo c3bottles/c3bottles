@@ -31,6 +31,7 @@
                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                 <input type="hidden" name="lat" id="lat" value="{{ lat if lat is not none }}">
                 <input type="hidden" name="lng" id="lng" value="{{ lng if lng is not none }}">
+                <input type="hidden" name="level" value="{{ level }}">
                 <div class="form-group">
                     <label for="category" class="col-sm-4 control-label">{{ _("Category") }}</label>
                     <div class="col-sm-8{{ ' has-error' if 'category' in error_fields }}">
@@ -41,13 +42,14 @@
                         </select>
                     </div>
                 </div>
+                {% if config.get('MAP_SOURCE', {}).get('level_config', [])|length > 1 %}
                 <div class="form-group">
                     <div class="col-sm-4 text-right"><strong>{{ _("Level") }}</strong></div>
                     <div class="col-sm-8">
-                        <input type="hidden" name="level" value="{{ level }}">
                         {{ _("Level") }} {{ level }}
                     </div>
                 </div>
+                {% endif %}
                 <div class="form-group{{ ' has-error' if 'description' in error_fields }}">
                     <label for="room" class="col-sm-4 control-label">{{ _("Location") }}</label>
                     <div class="col-sm-8{{ ' has-error' if 'description' in error_fields }}">

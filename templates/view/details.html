@@ -60,7 +60,7 @@
                 {% if event.drop_point %}
                     {{ _("Drop point %(number)i created", number=event.drop_point.number) }}
                 {% elif event.location %}
-                    {{ _("Location changed to %(location)s", location=_("%(location)s on level %(level)i", location=event.location.description if event.location.description else _("somewhere"), level=event.location.level)) }}
+                    {{ _("Location changed to %(location)s", location=event.location.description_with_level) }}
                 {% elif event.report %}
                     {{ _("Report submitted and drop point seen as: %(state)s", state=states.label(event.report.state)) }}
                 {% elif event.visit %}

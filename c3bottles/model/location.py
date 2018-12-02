@@ -2,7 +2,7 @@ from datetime import datetime
 
 from flask_babel import lazy_gettext
 
-from c3bottles import db
+from c3bottles import app, db
 from c3bottles.model import drop_point
 
 
@@ -99,6 +99,18 @@ class Location(db.Model):
             raise ValueError(*errors)
 
         db.session.add(self)
+
+    @property
+    def description_with_level(self):
+        map_source = app.config.get("MAP_SOURCE", {})
+        if len(map_source.get("level_config", [])) > 1:
+            return lazy_gettext(
+                "%(location)s on level %(level)i",
+                location=self.description if self.description else lazy_gettext("somewhere"),
+                level=self.level
+            )
+        else:
+            return self.description if self.description else lazy_gettext("somewhere")
 
     def __repr__(self):
         return "Location %s of drop point %s (%s since %s)" % (

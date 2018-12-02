@@ -156,11 +156,15 @@ class DropPoint(db.Model):
 
     @property
     def description_with_level(self):
-        return lazy_gettext(
-            "%(location)s on level %(level)i",
-            location=self.description if self.description else lazy_gettext("somewhere"),
-            level=self.level
-        )
+        map_source = app.config.get("MAP_SOURCE", {})
+        if len(map_source.get("level_config", [])) > 1:
+            return lazy_gettext(
+                "%(location)s on level %(level)i",
+                location=self.description if self.description else lazy_gettext("somewhere"),
+                level=self.level
+            )
+        else:
+            return self.description if self.description else lazy_gettext("somewhere")
 
     @property
     def location(self):
