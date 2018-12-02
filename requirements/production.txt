@@ -10,7 +10,7 @@ Flask-Migrate>=2.3.0
 Flask-SQLAlchemy>=2.1
 Flask-WTF>=0.14
 gunicorn>=19.9.0
-pillow>=5.3.0 --install-option="build_ext" --install-option="--disable-jpeg"
+pillow>=5.3.0
 prometheus-client>=0.4.2
 psycopg2-binary>=2.7.5
 pwgen>=0.7

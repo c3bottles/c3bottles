@@ -9,8 +9,8 @@ RUN apk add -U --no-cache \
     python3-dev nodejs yarn py3-pip libffi-dev gcc libc-dev zlib-dev postgresql-dev \
     && virtualenv -p python3 /c3bottles/venv
 ENV PATH=/c3bottles/venv/bin:$PATH
-COPY requirements/production.txt /c3bottles/requirements-production.txt
-RUN pip install -r requirements-production.txt --no-cache-dir
+COPY requirements/docker.txt requirements/production.txt /c3bottles/requirements/
+RUN pip install -r requirements/docker.txt --no-cache-dir
 COPY package.json yarn.lock /c3bottles/
 RUN yarn
 COPY . /c3bottles
