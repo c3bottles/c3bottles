@@ -15,9 +15,10 @@ const icon_visit = $('<i></i>')
   .addClass('clickable fas fa-wrench dp_modal visit')
   .attr('title', gettext('Visit'));
 
+let dt;
 let category = -1;
 
-function get_table_data() {
+function getTableData() {
   const arr = [];
 
   for (const num in drop_points) {
@@ -39,24 +40,23 @@ function setCategory(num) {
     .removeClass('btn-light')
     .addClass('btn-primary');
   dt.clear();
-  dt.rows.add(get_table_data());
+  dt.rows.add(getTableData());
   dt.draw(true);
 }
 
-global.setListCategory = setCategory;
+module.exports.setCategory = setCategory;
 
-function redraw_table() {
+function redrawTable() {
   dt
     .rows()
     .invalidate()
     .draw(false);
   setTimeout(() => {
-    redraw_table();
+    redrawTable();
   }, 10000);
 }
 
-global.dt = undefined;
-global.init_table = function() {
+module.exports.initializeTable = function(mapSource) {
   let columns = [
     {
       data: 'number',
@@ -69,7 +69,7 @@ global.init_table = function() {
     },
   ];
 
-  if (global.map_source.level_config !== undefined) {
+  if (mapSource.level_config !== undefined) {
     columns.push({
       data: 'level',
     });
@@ -160,7 +160,7 @@ global.init_table = function() {
   dt = $('#dp_list').DataTable({
     language: gettext('dt'),
     paging: false,
-    data: get_table_data(),
+    data: getTableData(),
     order: [[5, 'desc']],
     createdRow(row, data) {
       drop_points[data.number].row = row;
@@ -169,11 +169,11 @@ global.init_table = function() {
   });
 
   setTimeout(() => {
-    redraw_table();
+    redrawTable();
   }, 10000);
 };
 
-global.draw_row = function(num) {
+module.exports.drawRow = function(num) {
   if (drop_points[num] && drop_points[num].row) {
     dt
       .row(drop_points[num].row)
@@ -182,6 +182,10 @@ global.draw_row = function(num) {
   } else if (drop_points[num]) {
     dt.row.add(drop_points[num]).draw(false);
   }
+};
+
+module.exports.isInitialized = function() {
+  return dt !== undefined;
 };
 
 $('.list-category-select-button').on('click', ev => {

@@ -1,14 +1,15 @@
 const $ = require('jquery');
+const list = require('./list');
 const map = require('./map');
 
-const api_url = $('meta[name="endpoint"]').data('api');
+const apiUrl = $('meta[name="endpoint"]').data('api');
 
 function refreshDropPoint(num) {
   if (map.isInitialized()) {
     map.drawMarker(num);
   }
-  if (typeof dt != 'undefined') {
-    draw_row(num);
+  if (list.isInitialized()) {
+    list.drawRow(num);
   }
 }
 
@@ -19,7 +20,7 @@ function update(ts) {
 
   $.ajax({
     type: 'POST',
-    url: api_url,
+    url: apiUrl,
     data: {
       action: 'dp_json',
       ts,

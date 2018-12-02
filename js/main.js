@@ -1,7 +1,6 @@
 global.$ = global.jQuery = require('jquery');
 require('bootstrap');
 require('bootstrap-select');
-global.stats = require('./stats');
 
 const csrftoken = $('meta[name=csrf_token]').attr('content');
 
