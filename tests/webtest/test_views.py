@@ -7,7 +7,7 @@ from .fixtures import testapp, fresh_state
 
 
 basic_views = [
-    "main.index", "main.faq", "view.list_", "view.map_", "statistics.numbers"
+    "main.index", "main.faq", "view.list_", "statistics.numbers"
 ]
 
 
@@ -15,6 +15,17 @@ basic_views = [
 def test_basic_views(view, fresh_state):
     with app.test_request_context():
         res = testapp.get(url_for(view))
+    assert res.status_int == 200
+
+
+def test_map_view(fresh_state):
+    with app.test_request_context():
+        res = testapp.get(url_for("view.map_"), expect_errors=True)
+    assert res.status_int == 404
+    assert "Not found" in res
+    app.config["MAP_SOURCE"] = {"testing": True}
+    with app.test_request_context():
+        res = testapp.get(url_for("view.map_"))
     assert res.status_int == 200
 
 
