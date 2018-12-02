@@ -19,7 +19,6 @@ class C3Nav35C3(MapSource):
     tileserver = "https://35c3.c3nav.de/map/"
     min_zoom = 0
     max_zoom = 5
-    initial_zoom = 0
     bounds = [[0.0, 0.0], [800.0, 550.0]]
     level_config = [[6, -1], [7, 0], [8, 1], [9, 2]]
     simple_crs = True
@@ -31,9 +30,8 @@ class OpenStreetMapCamp2019(MapSource):
         "<a href='https://www.openstreetmap.org/copyright'>© OpenStreepMap contributers</a>"
     tileserver = "https://{s}.tile.openstreetmap.org/"
     tileserver_subdomains = ["a", "b", "c"]
-    min_zoom = 17
+    min_zoom = 16
     max_zoom = 19
-    initial_zoom = 17
     initial_view = {
         "lat": 53.03124,
         "lng": 13.30734,

@@ -11,7 +11,6 @@ var map_source = {
     level_config: {{ map_source.get("level_config", "undefined") }},
     min_zoom: {{ map_source.get("min_zoom", 0) }},
     max_zoom: {{ map_source.get("max_zoom", 0) }},
-    initial_zoom: {{ map_source.get("initial_zoom", 0) }},
     simple_crs: {{ map_source.get("simple_crs", false)|lower }},
     hack_257px: {{ map_source.get("hack_257px", false)|lower }}
 };

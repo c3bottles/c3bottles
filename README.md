@@ -5,11 +5,11 @@
 [![Build Status](https://travis-ci.org/c3bottles/c3bottles.svg)](https://travis-ci.org/c3bottles/c3bottles)
 [![MIT License](https://img.shields.io/github/license/c3bottles/c3bottles.svg?maxAge=2592000)](https://github.com/c3bottles/c3bottles/blob/master/LICENSE.md)
 
-Please have a look in [INSTALL.md](INSTALL.md) on how to install and build
+Please have a look in [INSTALL.md](doc/INSTALL.md) on how to install and build
 c3bottles. All the scripts and configuration needed to run c3bottles in
-Docker are available as well, please see [DOCKER.md](DOCKER.md) for the details.
+Docker are available as well, please see [DOCKER.md](doc/DOCKER.md) for the details.
 If you want to get involved and improve c3bottles or adapt it to your specific
-needs, please have a look at [DEVELOPMENT.md](DEVELOPMENT.md).
+needs, please have a look at [DEVELOPMENT.md](doc/DEVELOPMENT.md).
 
 ## What is this about?
 
@@ -82,3 +82,5 @@ more or less frequently based on user feedback.
 The map started as custom tiles rendered from a large PNG file and over time
 has been extended to be compatible with a number of different map sources that
 can be used with Leaflet, e.g. OpenStreetMap or [c3nav](https://c3nav.de/).
+The details regarding different map configurations can be found in
+[MAP.md](doc/MAP.md).

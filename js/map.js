@@ -162,7 +162,6 @@ global.init_map = function() {
 
   const map_options = {
     attributionControl: true,
-    zoom: global.map_source.initial_zoom,
     minZoom: global.map_source.min_zoom,
     maxZoom: global.map_source.max_zoom,
     maxBounds: global.map_source.bounds ? L.GeoJSON.coordsToLatLngs(global.map_source.bounds) : undefined,
@@ -199,12 +198,14 @@ global.init_map = function() {
   }
 
   global.default_map_view = function() {
-    if (global.map_source.bounds !== undefined) {
-      map.fitBounds(global.map_source.bounds);
-    } else if (global.map_source.initial_view !== undefined) {
+    if (global.map_source.initial_view !== undefined) {
       const initial = global.map_source.initial_view;
 
       map.setView([initial.lat, initial.lng], initial.zoom);
+    } else if (global.map_source.bounds !== undefined) {
+      map.fitBounds(global.map_source.bounds);
+    } else {
+      map.fitWorld();
     }
   };
 
