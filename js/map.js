@@ -194,6 +194,8 @@ global.init_map = function() {
       bounds: global.map_source.bounds !== undefined ? L.GeoJSON.coordsToLatLngs(global.map_source.bounds) : undefined,
       attribution: global.map_source.attribution,
       subdomains: global.map_source.tileserver_subdomains,
+      tms: global.map_source.tms,
+      noWrap: global.map_source.no_wrap,
     }).addTo(map);
   }
 

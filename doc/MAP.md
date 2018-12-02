@@ -135,3 +135,53 @@ The following configuration parameters are currently used from map sources
 Specific map sources may have their own configuration parameters used as
 special hacks to enable code only needed for these sources. For these
 parameters see the list of preconfigured map sources above.
+
+## Rendering your own tiles
+
+Originally, c3bottles has been used with a map that was a huge image and from
+which tiles could rendered with a semi-automatic toolchain. Other maps were
+simply used by exchanging the base image and rendering new tiles.
+
+The tiles are built using Imagemagick, GDAL and gdal2tiles. If you use Debian,
+you can install the dependencies like this:
+
+    sudo apt install imagemagick gdal-bin libgdal-dev
+    pip install gdal2tiles
+
+The base image for the tiles needs to be a square with a size that is a power
+of 2. Suppose your image is named `static/img/map.png`, then you first have
+to convert it to a square of the next power of 2. You can find out the size
+of the image with `file` or `identify`:
+
+    cd static/img
+    identify map.png
+
+The output looks like this:
+
+    map.png PNG 5500x10500 5500x10500+0+0 8-bit sRGB 21.7418MiB 0.000u 0:00.000
+
+In this case, the next power of 2 larger than 10500 pixels would be 16384, so
+the image needs to be resized to 16384x16384 pixels:
+
+    convert map.png -background white -compose Copy -gravity center \
+                  -resize 16384x16384 -extent 16384x16384 map_sq.png
+
+If this fails, you may have to increase your ImageMagick memory limit in
+`/etc/ImageMagick-6/policy.xml`
+
+After you have successfully create a square image, you can render the tiles
+from `map_sq.png` using GDAL and gdal2tiles:
+
+    gdal_translate -of vrt map_sq.png map_sq.vrt
+    gdal2tiles.py -w none -p raster map_sq.vrt tiles
+
+Your tiles will be in the `static/img/tiles` directory and can be used with a
+map source like this in `c3bottles/config/map.py`:
+
+    class CustomTiles(MapSource):
+        attribution = "self-made"
+        tileserver = "/static/img/tiles/"
+        min_zoom = 0
+        max_zoom = 6
+        tms = True
+        no_wrap = True
