@@ -1,6 +1,8 @@
 const $ = require('jquery');
 const gettext = require('./gettext.js');
-const offset = $("meta[name='time']").attr('content') - Date.now() / 1000;
+
+const offset = $('meta[name="time"]').attr('content') - Date.now() / 1000;
+const api_url = $('meta[name="endpoint"]').data('api');
 
 function add_alert(type, title, message) {
   const alert = $('<div></div>')
@@ -35,7 +37,7 @@ function report_dp(num, state) {
   $('#dp_modal').modal('hide');
   $.ajax({
     type: 'POST',
-    url: apiurl,
+    url: api_url,
     data: {
       action: 'report',
       number: num,
@@ -117,7 +119,7 @@ function visit_dp(num, action) {
   }
   $.ajax({
     type: 'POST',
-    url: apiurl,
+    url: api_url,
     data: {
       action: 'visit',
       number: num,

@@ -1,8 +1,5 @@
-var apiurl = "{{ url_for('api.process') }}";
-var imgdir = "{{ url_for('static', filename='img') }}";
-
 {% set map_source = config.get("MAP_SOURCE", {}) %}
-var map_source = {
+var mapSource = {
     attribution: "{{ map_source.get('attribution', '') }}",
     tileserver: "{{ map_source.get('tileserver', '') }}",
     tileserver_subdomains: {{ map_source.get("tileserver_subdomains", '[]') }},
@@ -19,5 +16,5 @@ var map_source = {
 
 var drop_points = {{ all_dps_json|safe }};
 
-init_drop_point_refreshing();
+refresh.startPeriodicRefresh();
 

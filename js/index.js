@@ -1,9 +1,10 @@
+global.create = require('./create');
+global.map = require('./map');
+global.refresh = require('./refresh');
+
 require('./admin');
-require('./create_dp');
 require('./dp_modals');
-require('./drop_points');
 require('./gettext');
 require('./list');
 require('./main');
-require('./map');
 require('./stats');

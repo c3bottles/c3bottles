@@ -1,10 +1,12 @@
 {% include "js/base.js" %}
 
-init_map()
-init_dp_creation();
+var mapObj = map.initializeMap(mapSource)
+create.initializeCreation(mapObj);
+
 var lat = {{ dp.lat }};
 var lng = {{ dp.lng }};
-map.setView([{{ dp.lat }}, {{ dp.lng }}], 3);
-set_map_level({{ dp.level }});
-redraw_markers();
-draw_new_dp({{ dp.lat }}, {{ dp.lng }});
+
+mapObj.setView([{{ dp.lat }}, {{ dp.lng }}], 3);
+map.setLevel({{ dp.level }});
+
+create.drawNewDp({{ dp.lat }}, {{ dp.lng }});
