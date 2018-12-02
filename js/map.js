@@ -43,10 +43,10 @@ function setCategory(num) {
   global.map_category = num;
   $('.map-category-select-button')
     .removeClass('btn-primary')
-    .addClass('btn-default');
+    .addClass('btn-light');
   $('.map-category-select-button')
     .filter(`[data-category_id='${num}']`)
-    .removeClass('btn-default')
+    .removeClass('btn-light')
     .addClass('btn-primary');
   redraw_markers();
 }
@@ -335,7 +335,11 @@ $('.map-category-select-button').on('click', ev => {
 
   setCategory(num);
 
-  let hash = `#${current_level}/${map.getCenter().lat.toPrecision(7)}/${map.getCenter().lng.toPrecision(7)}/${map.getZoom()}`;
+  let hash =
+    `#${current_level}/` +
+    `${map.getCenter().lat.toPrecision(7)}/` +
+    `${map.getCenter().lng.toPrecision(7)}/` +
+    `${map.getZoom()}`;
 
   if (global.map_category > -1) {
     hash += `/${global.map_category}`;

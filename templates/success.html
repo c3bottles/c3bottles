@@ -8,11 +8,11 @@
 {% block content %}
     <div class="jumbotron">
         <div class="row">
-            <div class="col-xs-2 text-right">
-                <h1><span class="text-success"><i class="fas fa-check-circle"></i></span></h1>
+            <div class="col-sm-2 text-right">
+                <h1 class="text-success display-3"><i class="fas fa-check-circle"></i></h1>
             </div>
-            <div class="col-xs-8">
-                <h1><span class="text-success">{{ heading if heading else _("Success!") }}</span></h1>
+            <div class="col-sm-8">
+                <h1 class="text-success display-3"><strong>{{ heading if heading else _("Success!") }}</strong></h1>
                 <h2>{{ text }}</h2>
             </div>
         </div>

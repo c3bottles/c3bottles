@@ -1,7 +1,7 @@
 const $ = require('jquery');
 const gettext = require('./gettext.js');
 
-require('datatables.net-bs')(window, $);
+require('datatables.net-bs4')(window, $);
 
 const offset = $("meta[name='time']").attr('content') - Date.now() / 1000;
 
@@ -33,10 +33,10 @@ function setCategory(num) {
   category = num;
   $('.list-category-select-button')
     .removeClass('btn-primary')
-    .addClass('btn-default');
+    .addClass('btn-light');
   $('.list-category-select-button')
     .filter(`[data-category_id='${num}']`)
-    .removeClass('btn-default')
+    .removeClass('btn-light')
     .addClass('btn-primary');
   dt.clear();
   dt.rows.add(get_table_data());

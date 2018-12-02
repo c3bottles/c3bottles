@@ -1,46 +1,66 @@
 {% set login_form = g.login_form if not login_form %}
-<nav class="navbar navbar-inverse navbar-fixed-top">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed"
-                    data-toggle="collapse" data-target="#navbar"
-                    aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">{{ _("Toggle navigation") }}</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="{{ url_for('main.index') }}">
-                <img src="{{ url_for('static', filename='img/header-35c3.svg') }}">
-            </a>
-        </div>
+        <a class="navbar-brand" href="{{ url_for('main.index') }}">
+            <img src="{{ url_for('static', filename='img/header-35c3.svg') }}">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
         <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li{{ {'class': 'active'}|xmlattr if request.url_rule.endpoint == 'view.list_' }}><a href="{{ url_for('view.list_') }}">{{ _('List') }}</a></li>
-                <li{{ {'class': 'disabled'}|xmlattr if not config.get('MAP_SOURCE') }}{{ {'class': 'active'}|xmlattr if request.url_rule.endpoint == 'view.map_' }}><a href="{{ url_for('view.map_') }}">{{ _('Map') }}</a></li>
-                <li{{ {'class': 'active'}|xmlattr if request.url_rule.endpoint == 'statistics.numbers' }}><a href="{{ url_for('statistics.numbers') }}">{{ _('Numbers') }}</a></li>
-                <li{{ {'class': 'active'}|xmlattr if request.url_rule.endpoint == 'main.faq' }}><a href="{{ url_for('main.faq') }}">{{ _('FAQ') }}</a></li>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item{{ ' active' if request.url_rule.endpoint == 'view.list_' }}"><a class="nav-link" href="{{ url_for('view.list_') }}">{{ _('List') }}</a></li>
+                <li class="nav-item{{ ' active' if request.url_rule.endpoint == 'view.map_' }}{{ ' disabled' if not config.get('MAP_SOURCE') }}"><a class="nav-link" href="{{ url_for('view.map_') }}">{{ _('Map') }}</a></li>
+                <li class="nav-item{{ ' active' if request.url_rule.endpoint == 'statistics.numbers' }}"><a class="nav-link" href="{{ url_for('statistics.numbers') }}">{{ _('Numbers') }}</a></li>
+                <li class="nav-item{{ ' active' if request.url_rule.endpoint == 'main.faq' }}"><a class="nav-link" href="{{ url_for('main.faq') }}">{{ _('FAQ') }}</a></li>
             </ul>
-
-
+            {% if current_user.is_admin %}
             <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                    <a href="" class="dropdown-toggle" data-toggle="dropdown">
-                        {% if current_user.is_authenticated %}
-                        <i class="fas fa-user"></i>
-                        {{ current_user.name }}
-                        {% else %}
-                        {{ _("Log in") }}
-                        {% endif %}
+                <li class="nav-item {{ ' active' if request.blueprint == 'admin' }}">
+                    <a class="nav-link" href="{{ url_for('admin.index') }}">
+                        <i class="fas fa-wrench"></i> {{ _('Admin Interface') }}
+                    </a>
+                </li>
+            </ul>
+            {% endif %}
+            {% if g.languages|length > 1 %}
+            <ul class="navbar-nav navbar-right">
+                <li class="nav-item dropdown">
+                    <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                        {{ _("Language") }}
                         <span class="caret"></span>
+                    </a>
+                    <div class="dropdown-menu">
+                        {% for l in g.languages %}
+                        <a class="dropdown-item" href="{{ request.path }}?lang={{ l }}">{{ g.locales[l].get_display_name() }}</a>
+                        {% endfor %}
+                    </div>
+                </li>
+            </ul>
+            {% endif %}
+            {% if current_user.is_authenticated %}
+            <ul class="navbar-nav navbar-right">
+                <li class="nav-item dropdown">
+                    <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                        <i class="fas fa-user"></i> {{ current_user.name }} <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-padding">
                         <li>
-                            {% if current_user.is_authenticated %}
                             <form action="{{ url_for('user.logout') }}" method="GET">
                                 <button type="submit" class="btn btn-danger btn-block">{{ _("Logout") }}</button>
                             </form>
-                            {% else %}
+                         </li>
+                    </ul>
+                </li>
+            </ul>
+            {% else %}
+            <ul class="navbar-nav navbar-right">
+                <li class="nav-item dropdown" id="login-form-dropdown">
+                    <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                        {{ _("Log in") }} <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-padding">
+                        <li>
                             <form action="{{ url_for('user.login') }}" method="POST">
                                 {{ login_form.back(value=back if back else request.endpoint) }}
                                 {{ login_form.args(value=args if args else request.view_args) }}
@@ -53,34 +73,8 @@
                                 </div>
                                 <button type="submit" class="btn btn-success btn-block">{{ _("Login") }}</button>
                             </form>
-                            {% endif %}
                         </li>
                     </ul>
-                </li>
-            </ul>
-            {% if g.languages|length > 1 %}
-            <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                    <a href="" class="dropdown-toggle" data-toggle="dropdown">
-                        {{ _("Language") }}
-                        <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        {% for l in g.languages %}
-                        <li>
-                            <a href="{{ request.path }}?lang={{ l }}">{{ g.locales[l].get_display_name() }}</a>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                </li>
-            </ul>
-            {% endif %}
-            {% if current_user.is_admin %}
-            <ul class="nav navbar-nav navbar-right">
-                <li{{ {'class': 'active'}|xmlattr if request.blueprint == 'admin' }}>
-                    <a href="{{ url_for('admin.index') }}">
-                        <i class="fas fa-wrench"></i> {{ _('Admin Interface') }}
-                    </a>
                 </li>
             </ul>
             {% endif %}

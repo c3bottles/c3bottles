@@ -12,7 +12,7 @@
     </div>
     {% endif %}
     <div class="jumbotron"><div class="container">
-        <h1>{{ _("Welcome to %(project)s!", project=_("c3bottles")) }}</h1>
+        <h1 class="display-3"><strong>{{ _("Welcome to %(project)s!", project=_("c3bottles")) }}</strong></h1>
 
         <p class="lead">
             {{ _("%(project)s is the bottle drop and collection management system of your favourite chaos event. You have no idea what that means? Try the links below!", project=_("c3bottles")) }}
@@ -21,7 +21,7 @@
         <div class="spacer"></div>
         <form class="form" action="{{ url_for('action.report') }}" method="POST">
         <div class="row">
-            <div class="col-xs-12 col-sm-5 col-md-4 col-lg-3">
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
             <input{{ ' disabled' if not current_user.can_report }} type="number" step="1" name="number" class="form-control" placeholder="{{ _('Enter a drop point number') }}" required>
             </div>

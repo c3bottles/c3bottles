@@ -178,8 +178,8 @@ global.show_dp_modal = function(num, pane) {
   for (const key in details) {
     $(`.modal_dp_${key}`).text(details[key]);
   }
-  $('.dp-label').addClass('hidden');
-  $(`.dp-label.${drop_points[num].last_state}`).removeClass('hidden');
+  $('.dp-label').prop('hidden', true);
+  $(`.dp-label.${drop_points[num].last_state}`).prop('hidden', false);
   const links = $('.modal_dp_link');
 
   for (let i = 0; i < links.length; i++) {
