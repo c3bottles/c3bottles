@@ -3,34 +3,37 @@
 var create_dp_url = "{{ url_for('manage.create') }}";
 var hash = location.hash.substr(1).split("/");
 
-init_map();
+var mapObj = map.initializeMap(mapSource);
+
 if (hash.length === 4 || hash.length === 5) {
-    set_map_level(hash[0]);
-    redraw_markers();
-    map.setView([hash[1], hash[2]], hash[3]);
+    map.setLevel(hash[0]);
+    mapObj.setView([hash[1], hash[2]], hash[3]);
     if (hash.length === 5) {
         var category = parseInt(hash[4]);
         if (Number.isInteger(category)) {
-            setMapCategory(category);
+            map.setCategory(category);
         }
     }
 } else {
-    if (typeof default_map_view === "function") {
-        default_map_view();
-    }
+    map.setLevel(0);
+    map.setDefaultView();
 }
-var update_hash = function() {
+
+var updateHash = function() {
     let hash =
-        "#" + current_level + "/" + map.getCenter().lat.toPrecision(7) +
-        "/" + map.getCenter().lng.toPrecision(7) + "/" + map.getZoom();
-    if (map_category > -1) {
-        hash += "/" + map_category;
+        "#" + map.getLevel() + "/" + mapObj.getCenter().lat.toPrecision(7) +
+        "/" + mapObj.getCenter().lng.toPrecision(7) + "/" + mapObj.getZoom();
+    if (map.getCategory() > -1) {
+        hash += "/" + map.getCategory();
     }
     location.hash = hash;
 }
-map.on("moveend", update_hash);
-map.on("zoomend", update_hash);
+
+mapObj.on("moveend", updateHash);
+mapObj.on("zoomend", updateHash);
+
 var pane_on_click = "report";
+
 {% if current_user.can_edit: %}
-allow_dp_creation_from_map();
+map.allowDpCreation();
 {% endif %}

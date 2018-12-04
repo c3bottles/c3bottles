@@ -6,12 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf_token" content="{{ csrf_token() }}">
     <meta name="time" content="{{ g.now.strftime('%s.%f') }}">
+    <meta name="endpoint" content="{{ request.endpoint }}" data-api="{{ url_for('api.process') }}" data-img="{{ url_for('static', filename='img') }}">
     <title>{{ _("c3bottles") }}{% if title %} - {{ title }}{% endif %}</title>
     <link href="{{ url_for('static', filename='lib/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='lib/css/bootstrap-select.min.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='lib/css/fontawesome/all.min.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/c3bottles.css') }}" rel="stylesheet">
-    <link rel="icon" href="{{ url_for('static', filename='img/refund-black.png') }}" type="image/png">
+    <link href="{{ url_for('static', filename='img/refund-black.png') }}" rel="icon" type="image/png">
 {% block header %}{% endblock %}
 </head>
 <body>
