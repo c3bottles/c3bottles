@@ -11,6 +11,7 @@ class Category:
     groups within the same team to organize their work through the same
     frontend. Therefore, each drop point belongs to one category.
     """
+
     def __init__(self, category_id, name):
         self.category_id = category_id
         self.name = name
@@ -20,7 +21,9 @@ class Category:
 
     def __len__(self):
         return drop_point.DropPoint.query.filter(
-            drop_point.DropPoint.category_id == self.category_id
+            drop_point.DropPoint.category_id == self.category_id,
+            # noqa - pep wants is None, sqlAlchemy wants == None
+            drop_point.DropPoint.removed == None
         ).count()
 
     @staticmethod
