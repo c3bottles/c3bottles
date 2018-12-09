@@ -26,8 +26,8 @@ function getMarker(latlng) {
       getMarker(marker._latlng);
     }
   });
-  marker.on('drag', function() {
-    setInfoFromMarker(this._latlng);
+  marker.on('drag', () => {
+    setInfoFromMarker(marker._latlng);
   });
   mapObj.addLayer(marker);
 

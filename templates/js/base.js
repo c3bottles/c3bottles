@@ -15,6 +15,3 @@ var mapSource = {
 };
 
 var drop_points = {{ all_dps_json|safe }};
-
-refresh.startPeriodicRefresh();
-

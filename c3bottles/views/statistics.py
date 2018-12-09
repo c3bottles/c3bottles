@@ -1,4 +1,4 @@
-from flask import render_template, Blueprint, make_response
+from flask import render_template, Blueprint, make_response, jsonify
 
 from c3bottles.lib.statistics import stats_obj
 
@@ -12,6 +12,14 @@ def numbers():
         "statistics/numbers.html",
         stats=stats_obj
     )
+
+
+@bp.route("/numbers.json")
+def numbers_json():
+    return jsonify({
+        "dropPoints": stats_obj.drop_points_by_state,
+        "reports": stats_obj.reports_by_state
+    })
 
 
 @bp.route("/numbers.js")
