@@ -8,6 +8,8 @@ matrix:
   - name: "Python 3.5"
     python: 3.5
     env: what="python3.5"
+    dist: xenial
+    sudo: true
   - name: "Python 3.6"
     python: 3.6
     env: what="python3.6"
