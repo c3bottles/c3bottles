@@ -2,6 +2,9 @@
 {% extends "layout.html" %}
 {% set title = _("Numbers") %}
 {% block text %}
+<script>
+{{ states.label_js() }}
+</script>
 {% if stats.drop_point_count > 0 and stats.report_count > 0: %}
     <div class="row">
         <div class="col-md-1"></div>
@@ -60,5 +63,5 @@
 {% endif %}
 {% endblock %}
 {% block scripts %}
-<script src="{{ url_for('statistics.numbers_js') }}"></script>
+<script src="{{ url_for('static', filename='lib/js/numbers.js') }}"></script>
 {% endblock %}

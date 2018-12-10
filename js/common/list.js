@@ -48,8 +48,7 @@ function setCategory(num) {
 module.exports.setCategory = setCategory;
 
 function redrawTable() {
-  dt
-    .rows()
+  dt.rows()
     .invalidate()
     .draw(false);
   setTimeout(() => {
@@ -83,7 +82,7 @@ module.exports.initializeTable = function(mapSource) {
           return labels[data.last_state][0];
         }
 
-        return labels[data.last_state][1][0].outerHTML;
+        return labels[data.last_state][1];
       },
     },
     {
@@ -176,8 +175,7 @@ module.exports.initializeTable = function(mapSource) {
 
 module.exports.drawRow = function(num) {
   if (drop_points[num] && drop_points[num].row) {
-    dt
-      .row(drop_points[num].row)
+    dt.row(drop_points[num].row)
       .data(drop_points[num])
       .draw(false);
   } else if (drop_points[num]) {

@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const nodeEnv = (process.env.NODE_ENV || 'development').trim();
+const TerserPlugin = require('terser-webpack-plugin');
 
 // eslint-disable-next-line
 const __DEV__ = nodeEnv !== 'production';
@@ -13,48 +14,61 @@ const plugins = [
       NODE_ENV: JSON.stringify(nodeEnv),
     },
   }),
+  new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
 ];
 
+const optimization = {
+  splitChunks: {
+    cacheGroups: {
+      commons: {
+        name: 'commons',
+        chunks: 'initial',
+        minChunks: 2,
+      },
+    },
+  },
+  minimizer: [],
+};
+
 if (!__DEV__) {
-  plugins.push(
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false,
-      },
-      output: {
-        comments: false,
-      },
-      screwIe8: true,
-      sourceMap: false,
+  optimization.minimizer.push(
+    new TerserPlugin({
+      parallel: true,
+      extractComments: true,
     })
   );
 }
 
 module.exports = {
+  mode: __DEV__ ? 'development' : 'production',
   context: __dirname,
   resolve: {
     // Extension die wir weglassen können
     extensions: ['.js', '.jsx'],
     modules: ['node_modules'],
   },
-  entry: ['babel-polyfill', './js/index.js'],
+  entry: {
+    lib: './js/entries/index.js',
+    numbers: './js/entries/numbers.js',
+  },
   output: {
     path: path.resolve('static/lib/js'),
-    filename: 'lib.js',
+    filename: '[name].js',
     publicPath: '/',
   },
   module: {
     rules: [
       {
-        test: /\.jsx?$/,
+        test: /\.js$/,
         exclude: /(node_modules)/,
         loader: 'babel-loader',
       },
       {
         parser: { amd: false },
-      }
+      },
     ],
   },
   plugins,
   devtool,
+  optimization,
 };

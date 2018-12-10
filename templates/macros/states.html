@@ -31,6 +31,6 @@
 {%  macro label_js() %}
 var labels = {
     {% for state in ["OVERFLOW", "NO_CRATES", "FULL", "REASONABLY_FULL", "SOME_BOTTLES", "EMPTY", "NEW", "DEFAULT", "UNKNOWN"] %}
-    {{ state }}: [{{ num(state) }}, $('{{ label(state) }}'), "{{ color(state) }}"],
+    {{ state }}: [{{ num(state) }}, '{{ label(state) }}', "{{ color(state) }}"],
     {% endfor %}
 }{% endmacro %}

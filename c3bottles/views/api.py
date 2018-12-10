@@ -1,7 +1,7 @@
 import json
 from datetime import datetime
 
-from flask import request, Response, Blueprint
+from flask import request, Response, Blueprint, jsonify
 from flask_login import current_user
 
 from c3bottles import app, db
@@ -30,6 +30,30 @@ def process():
         mimetype="application/json",
         status=400
     )
+
+
+@bp.route("/api/all_dp.json", methods=("POST", "GET"))
+def all_dp():
+    return dp_json()
+
+
+@bp.route("/api/map_source.json")
+def map_source():
+    map_source = app.config.get('MAP_SOURCE', {})
+    return jsonify({
+        "attribution": map_source.get('attribution', ''),
+        "tileserver": map_source.get('tileserver', ''),
+        "tileserver_subdomains": map_source.get("tileserver_subdomains", []),
+        "bounds": map_source.get("bounds", None),
+        "initial_view": map_source.get("initial_view", None),
+        "level_config": map_source.get("level_config", None),
+        "min_zoom": map_source.get("min_zoom", 0),
+        "max_zoom": map_source.get("max_zoom", 0),
+        "simple_crs": map_source.get("simple_crs", False),
+        "hack_257px": map_source.get("hack_257px", False),
+        "tms": map_source.get("tms", False),
+        "no_wrap": map_source.get("no_wrap", False)
+    })
 
 
 def report():

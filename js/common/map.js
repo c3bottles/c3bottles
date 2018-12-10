@@ -42,7 +42,7 @@ function getIcon(category, state) {
 
   return L.icon({
     iconSize: [size * zoom, size * zoom],
-    iconAnchor: [size * zoom / 2, size * zoom],
+    iconAnchor: [(size * zoom) / 2, size * zoom],
     iconUrl: `${imgDir}/markers/${category}/${state}.svg`,
     popupAnchor: [0, -size * zoom],
   });
@@ -104,8 +104,6 @@ function drawMarker(num) {
   mapObj.addLayer(drop_points[num].layer);
 }
 
-module.exports.drawMarker = drawMarker;
-
 function redrawMarkers() {
   for (const dp in drop_points) {
     if (!drop_points[dp].removed) {
@@ -113,8 +111,6 @@ function redrawMarkers() {
     }
   }
 }
-
-module.exports.redrawMakers = redrawMarkers;
 
 module.exports.getCategory = function() {
   return mapCategory;
@@ -133,10 +129,6 @@ function setCategory(num) {
 }
 
 module.exports.setCategory = setCategory;
-
-module.exports.isInitialized = function() {
-  return mapObj !== undefined;
-};
 
 module.exports.getLevel = function() {
   return currentLevel;
@@ -331,11 +323,11 @@ module.exports.allowDpCreation = function() {
           )}</a>`
         )
       );
-      marker.on('dragend', function() {
-        const lat = this._latlng.lat.toPrecision(7);
-        const lng = this._latlng.lng.toPrecision(7);
+      marker.on('dragend', () => {
+        const lat = marker._latlng.lat.toPrecision(7);
+        const lng = marker._latlng.lng.toPrecision(7);
 
-        this._popup.setContent(
+        marker._popup.setContent(
           `<a class='btn btn-primary white' href='${create_dp_url}/${currentLevel}/${lat}/${lng}'>${gettext(
             'Create a new drop point'
           )}</a>`
@@ -368,3 +360,9 @@ $('.map-category-select-button').on('click', ev => {
 
   location.hash = hash;
 });
+
+global.refreshDropPoint = num => {
+  if (mapObj) {
+    drawMarker(num);
+  }
+};

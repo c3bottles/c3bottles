@@ -1,6 +1,5 @@
 const $ = require('jquery');
 const gettext = require('./gettext.js');
-const refresh = require('./refresh');
 
 const offset = $('meta[name="time"]').attr('content') - Date.now() / 1000;
 const api_url = $('meta[name="endpoint"]').data('api');
@@ -15,8 +14,8 @@ function add_alert(type, title, message) {
     );
 
   $('#alerts').prepend(alert);
-  $('.alert-hide').on('click', function() {
-    $(this)
+  $('.alert-hide').on('click', e => {
+    $(e.currentTarget)
       .parent()
       .slideUp();
   });
@@ -40,7 +39,7 @@ function report_dp(num, state) {
     success(response) {
       add_alert('success', gettext('Thank you!'), gettext('Your report has been received successfully.'));
       $.extend(true, drop_points, response);
-      refresh.refreshDropPoint(num);
+      global.refreshDropPoint(num);
     },
     error(response) {
       const errors = $.parseJSON(response.responseText);
@@ -58,11 +57,12 @@ function report_dp(num, state) {
   });
 }
 
-$('#dp_modal').on('hidden.bs.modal', function() {
-  $(this).removeData('bs.modal');
+$('#dp_modal').on('hidden.bs.modal', e => {
+  $(e.currentTarget).removeData('bs.modal');
 });
 
 $('.report-button').each(function() {
+  // eslint-disable-next-line babel/no-invalid-this
   $(this).on('click', e => {
     report_dp(
       $('.modal_dp_number')
@@ -100,7 +100,7 @@ function visit_dp(num, action) {
     success(response) {
       add_alert('success', gettext('Thank you!'), gettext('Your visit has been logged successfully.'));
       $.extend(true, drop_points, response);
-      refresh.refreshDropPoint(num);
+      global.refreshDropPoint(num);
     },
     error(response) {
       const errors = $.parseJSON(response.responseText);
@@ -119,6 +119,7 @@ function visit_dp(num, action) {
 }
 
 $('.visit-button').each(function() {
+  // eslint-disable-next-line babel/no-invalid-this
   $(this).on('click', e => {
     visit_dp(
       $('.modal_dp_number')

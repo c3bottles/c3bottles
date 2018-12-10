@@ -17,3 +17,5 @@ venv/
 yarn-error.log
 npm-shrinkwrap.json
 .coverage
+.vscode/
+BundleReport.html

@@ -8,7 +8,7 @@ const options = {
   tooltips: { bodyFontSize: 20 },
 };
 
-exports.draw_drop_points_by_state = function(_data) {
+function draw_drop_points_by_state(_data) {
   const d = [];
   const l = [];
   const c = [];
@@ -35,9 +35,9 @@ exports.draw_drop_points_by_state = function(_data) {
     },
     options,
   });
-};
+}
 
-exports.draw_reports_by_state = function(_data) {
+function draw_reports_by_state(_data) {
   const d = [];
   const l = [];
   const c = [];
@@ -64,4 +64,12 @@ exports.draw_reports_by_state = function(_data) {
     },
     options,
   });
-};
+}
+
+$.get({
+  url: '/numbers.json',
+  success: data => {
+    draw_drop_points_by_state(data.dropPoints);
+    draw_reports_by_state(data.reports);
+  },
+});
