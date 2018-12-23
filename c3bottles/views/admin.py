@@ -104,7 +104,7 @@ def user_password():
             "text": lazy_gettext("The user's password has been changed successfully")
         })
         if user == current_user:
-            return redirect(url_for("index"))
+            return redirect(url_for("main.index"))
         else:
             return redirect(url_for("admin.index"))
     else:
