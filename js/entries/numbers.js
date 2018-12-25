@@ -21,7 +21,7 @@ function draw_drop_points_by_state(_data) {
     c.push(labels[state][2]);
     l.push($(labels[state][1]).text());
   }
-  new Chart($('#drop_points_by_state'), {
+  new Chart($('#overall_drop_points_by_state'), {
     type: 'doughnut',
     data: {
       labels: l,
