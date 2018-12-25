@@ -1,17 +1,40 @@
+from stringcase import snakecase, lowercase
 from prometheus_client import Counter, Histogram, start_http_server, Gauge
 from time import time
-
 from flask import request
 
 from c3bottles import app
 from c3bottles.lib.statistics import stats_obj
 
 
-drop_point_count = Gauge(
-    "c3bottles_drop_point_count", "c3bottles total nmumber of drop points"
+overall_drop_point_count = Gauge(
+    "c3bottles_overall_drop_point_count", "c3bottles total nmumber of drop points"
 )
 
-drop_point_count.set_function(lambda: stats_obj.drop_point_count)
+overall_drop_point_count.set_function(lambda: stats_obj.overall_drop_point_count)
+
+for name, count in stats_obj.drop_points_by_category.items():
+    category_gauge = Gauge("c3bottles_" + snakecase(lowercase(name)) + "_count",
+                           "c3bottles number of " + name + " points")
+    category_gauge.set(count)
+
+for name, count in stats_obj.overall_drop_points_by_state.items():
+    dp_gauge = Gauge("c3bottles_overall_" + snakecase(lowercase(name)) +
+                     "_count", "c3bottles number of overall " + name + " points")
+    dp_gauge.set(count)
+
+for cat_name, cat in stats_obj.drop_points_by_category_and_state.items():
+    for state_name, count in cat.items():
+        gauge = Gauge("c3bottles_" + snakecase(lowercase(cat_name)) + "_" +
+                      snakecase(lowercase(state_name)), "c3bottles number of " + cat_name + " " + state_name)  # noqa
+        gauge.set(count)
+
+for cat_name, cat in stats_obj.drop_points_by_category_and_state.items():
+    for state_name, cunt in cat.items():
+        gauge = Gauge("c3bottles_reports_" + snakecase(lowercase(cat_name)) + "_" +
+                      snakecase(lowercase(state_name)), "c3bottles number of reports " + cat_name + " " + state_name)  # noqa
+        gauge.set(count)
+
 
 report_count = Gauge(
     "c3bottles_report_count", "c3bottles total number of reports"
