@@ -17,7 +17,7 @@ def numbers():
 @bp.route("/numbers.json")
 def numbers_json():
     return jsonify({
-        "dropPoints": stats_obj.drop_points_by_state,
+        "dropPoints": stats_obj.overall_drop_points_by_state,
         "reports": stats_obj.reports_by_state
     })
 

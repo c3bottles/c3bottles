@@ -17,3 +17,4 @@ pwgen>=0.7
 pyPDF2>=1.23
 qrcode>=5.3
 werkzeug>=0.12.2
+stringcase>=1.2.0

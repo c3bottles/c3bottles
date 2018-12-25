@@ -13,7 +13,7 @@ bp = Blueprint("view", __name__)
 def list_():
     return render_template(
         "view/list.html",
-        total_drop_points=stats_obj.drop_point_count,
+        total_drop_points=stats_obj.overall_drop_point_count,
         categories=categories_sorted(),
     )
 
@@ -34,7 +34,7 @@ def map_():
         abort(404)
     return render_template(
         "view/map.html",
-        total_drop_points=stats_obj.drop_point_count,
+        total_drop_points=stats_obj.overall_drop_point_count,
         categories=categories_sorted(),
     )
 
