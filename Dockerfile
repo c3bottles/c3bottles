@@ -19,9 +19,9 @@ RUN yarn build ; rm -r /c3bottles/node_modules/
 
 FROM base
 RUN apk add --no-cache fontconfig wget \
-    && mkdir -p /usr/share/fonts && cd /usr/share/fonts/ \
-    && wget https://github.com/google/fonts/raw/master/ofl/montserrat/Montserrat-Black.ttf \
-    && wget https://github.com/google/fonts/raw/master/ofl/montserrat/Montserrat-Light.ttf \
+    && mkdir -p /usr/share/fonts \
+    && wget https://github.com/google/fonts/raw/master/ofl/montserrat/Montserrat-Black.ttf -O /usr/share/fonts/Montserrat-Black.ttf \
+    && wget https://github.com/google/fonts/raw/master/ofl/montserrat/Montserrat-Light.ttf -O /usr/share/fonts/Montserrat-Light.ttf \
     && apk del wget
 COPY --from=builder /c3bottles /c3bottles
 WORKDIR /c3bottles
