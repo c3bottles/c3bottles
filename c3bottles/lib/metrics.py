@@ -13,27 +13,27 @@ overall_drop_point_count = Gauge(
 
 overall_drop_point_count.set_function(lambda: stats_obj.overall_drop_point_count)
 
-for name, count in stats_obj.drop_points_by_category.items():
+for name, countFn in stats_obj.drop_points_by_category.items():
     category_gauge = Gauge("c3bottles_" + snakecase(lowercase(name)) + "_count",
                            "c3bottles number of " + name + " points")
-    category_gauge.set(count)
+    category_gauge.set_function(countFn)
 
-for name, count in stats_obj.overall_drop_points_by_state.items():
+for name, countFn in stats_obj.overall_drop_points_by_state_prometheus.items():
     dp_gauge = Gauge("c3bottles_overall_" + snakecase(lowercase(name)) +
                      "_count", "c3bottles number of overall " + name + " points")
-    dp_gauge.set(count)
+    dp_gauge.set_function(countFn)
 
 for cat_name, cat in stats_obj.drop_points_by_category_and_state.items():
-    for state_name, count in cat.items():
+    for state_name, countFn in cat.items():
         gauge = Gauge("c3bottles_" + snakecase(lowercase(cat_name)) + "_" +
                       snakecase(lowercase(state_name)), "c3bottles number of " + cat_name + " " + state_name)  # noqa
-        gauge.set(count)
+        gauge.set_function(countFn)
 
-for cat_name, cat in stats_obj.drop_points_by_category_and_state.items():
-    for state_name, cunt in cat.items():
+for cat_name, cat in stats_obj.reports_by_category_and_state.items():
+    for state_name, countFn in cat.items():
         gauge = Gauge("c3bottles_reports_" + snakecase(lowercase(cat_name)) + "_" +
                       snakecase(lowercase(state_name)), "c3bottles number of reports " + cat_name + " " + state_name)  # noqa
-        gauge.set(count)
+        gauge.set_function(countFn)
 
 
 report_count = Gauge(
