@@ -986,8 +986,8 @@ msgstr ""
 "a>."
 
 #: templates/main/faq.html:310
-msgid "I'm a l33t h4xx0r and think this is fun."
-msgstr "Ich bin ein l33t h4xx0r und das hier ist lustig."
+msgid "I'm a 1337 h4xx0r and think this is fun."
+msgstr "Ich bin ein 1337 h4xx0r und das hier ist lustig."
 
 #: templates/main/faq.html:314
 msgid "Good for you. Here's your fish:"
