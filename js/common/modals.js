@@ -61,7 +61,7 @@ $('#dp_modal').on('hidden.bs.modal', e => {
   $(e.currentTarget).removeData('bs.modal');
 });
 
-$('.report-button').each(function() {
+$('.modal-body .report-button').each(function() {
   // eslint-disable-next-line babel/no-invalid-this
   $(this).on('click', e => {
     report_dp(

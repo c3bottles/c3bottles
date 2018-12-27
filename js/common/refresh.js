@@ -8,7 +8,7 @@ function update(ts) {
   $.post('/api/all_dp.json', {
     ts,
   }).then(response => {
-    drop_points = drop_points || [];
+    global.drop_points = global.drop_points || [];
     $.extend(true, drop_points, response);
     for (const num in response) {
       global.refreshDropPoint(num);

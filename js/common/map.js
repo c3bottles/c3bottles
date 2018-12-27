@@ -105,9 +105,11 @@ function drawMarker(num) {
 }
 
 function redrawMarkers() {
-  for (const dp in drop_points) {
-    if (!drop_points[dp].removed) {
-      drawMarker(dp);
+  if (window.drop_points) {
+    for (const dp in window.drop_points) {
+      if (!drop_points[dp].removed) {
+        drawMarker(dp);
+      }
     }
   }
 }
