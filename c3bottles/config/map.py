@@ -24,6 +24,21 @@ class C3Nav35C3(MapSource):
     simple_crs = True
     hack_257px = True
 
+class EH19(MapSource):
+    attribution = "Powered by <a href='https://c3nav.de/'>c3nav</a>"
+    tileserver = "https://eh19.c3nav.de/map/"
+    min_zoom = 3
+    max_zoom = 6
+    bounds = [[-33.9, -66.9], [155.07, 122.07]]
+    level_config = [[1, 0], [200, 0.5], [4, 1], [8, 2], [9, 3], [10, 4], [11, 5], [12, 6]]
+    simple_crs = True
+    hack_257px = True
+    initial_view = {
+        "lat": 27.93750,
+        "lng": 60.62500,
+        "zoom": 3
+    }
+
 
 class OpenStreetMapCamp2019(MapSource):
     attribution = \

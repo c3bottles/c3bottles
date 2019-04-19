@@ -23,6 +23,9 @@ RUN apk add --no-cache fontconfig wget \
     && wget https://github.com/google/fonts/raw/master/ofl/montserrat/Montserrat-Black.ttf -O /usr/share/fonts/Montserrat-Black.ttf \
     && wget https://github.com/google/fonts/raw/master/ofl/montserrat/Montserrat-Light.ttf -O /usr/share/fonts/Montserrat-Light.ttf \
     && apk del wget
+RUN apk --no-cache add msttcorefonts-installer fontconfig && \
+    update-ms-fonts && \
+    fc-cache -f
 COPY --from=builder /c3bottles /c3bottles
 WORKDIR /c3bottles
 ENV PATH=/c3bottles/venv/bin:$PATH

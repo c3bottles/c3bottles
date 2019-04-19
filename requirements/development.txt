@@ -1,5 +1,5 @@
 flake8>=3.6.0
-Flask-Shell-IPython>=0.3.0
+Flask-Shell-IPython>=0.3.0,<0.4.0
 Flask-WebTest>=0.0.9
 pycodestyle>=2.4.0
 pylint>=2.1.1
