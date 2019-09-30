@@ -24,6 +24,7 @@ class C3Nav35C3(MapSource):
     simple_crs = True
     hack_257px = True
 
+
 class EH19(MapSource):
     attribution = "Powered by <a href='https://c3nav.de/'>c3nav</a>"
     tileserver = "https://eh19.c3nav.de/map/"
