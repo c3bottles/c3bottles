@@ -86,27 +86,27 @@ class FreshDropPointTestCase(BaseDropPointTestCase):
     def test_dp_number_unique():
         with pytest.raises(ValueError) as e:
             DropPoint(dp_number, lat=0, lng=0, level=1)
-        assert "already exists" in str(e)
+        assert "already exists" in str(e.value)
 
     @staticmethod
     def test_dp_illegal_number():
         for num in [-1, "foo", None]:
             with pytest.raises(ValueError) as e:
                 DropPoint(num, lat=0, lng=0, level=1)
-            assert "number" in str(e)
+            assert "number" in str(e.value)
 
     @staticmethod
     def test_dp_created_in_future():
         with pytest.raises(ValueError) as e:
             time_in_future = datetime.today() + timedelta(hours=1)
             DropPoint(dp_number+1, time=time_in_future, lat=0, lng=0, level=1)
-        assert "future" in str(e)
+        assert "future" in str(e.value)
 
     @staticmethod
     def test_dp_invalid_creation_time():
         with pytest.raises(ValueError) as e:
             DropPoint(dp_number + 1, time="foo", lat=0, lng=0, level=1)
-        assert "not a datetime" in str(e)
+        assert "not a datetime" in str(e.value)
 
     def test_dp_getter_returns_dp(self):
         assert DropPoint.query.get(dp_number) == self.dp
@@ -192,18 +192,18 @@ class FreshDropPointTestCase(BaseDropPointTestCase):
     def test_dp_removal_in_future(self):
         with pytest.raises(ValueError) as e:
             self.dp.remove(datetime.today() + timedelta(hours=1))
-        assert "future" in str(e)
+        assert "future" in str(e.value)
 
     def test_dp_invalid_removal_time(self):
         with pytest.raises(TypeError) as e:
             self.dp.remove("foo")
-        assert "not a datetime" in str(e)
+        assert "not a datetime" in str(e.value)
 
     def test_dp_already_removed(self):
         self.dp.remove()
         with pytest.raises(RuntimeError) as e:
             self.dp.remove()
-        assert "already removed" in str(e)
+        assert "already removed" in str(e.value)
 
 
 class OnceReportedDropPointTestCase(BaseDropPointTestCase):

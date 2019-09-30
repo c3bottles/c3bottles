@@ -39,20 +39,20 @@ class UserTestCase(C3BottlesTestCase):
     def test_create_user_invalid(self):
         with pytest.raises(ValueError) as err:
             User(NAME, '')
-        assert 'User needs a name and a password' in str(err)
-        assert 'Password hashing failed' in str(err)
+        assert 'User needs a name and a password' in str(err.value)
+        assert 'Password hashing failed' in str(err.value)
 
         with pytest.raises(ValueError) as err:
             User('', PASSWORD)
-        assert 'User needs a name and a password' in str(err)
+        assert 'User needs a name and a password' in str(err.value)
 
         with pytest.raises(ValueError) as err:
             User(NAME * 33, PASSWORD)
-        assert 'User name is too long' in str(err)
+        assert 'User name is too long' in str(err.value)
 
         with pytest.raises(ValueError) as err:
             User(33, PASSWORD)
-        assert 'User name is not a string' in str(err)
+        assert 'User name is not a string' in str(err.value)
 
     def test_validate_password(self):
         user = self.create_test_user()
