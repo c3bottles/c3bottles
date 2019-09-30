@@ -14,10 +14,10 @@ environment or your system's default Python interpreter. To use this script
 in a virtual environment, either activate the virtual environment first
 or call it like `venv/bin/python manage.py`.
 """
-import click
+import click, os
 
 from flask.cli import FlaskGroup
-from werkzeug.contrib.profiler import ProfilerMiddleware
+from werkzeug.middleware.profiler import ProfilerMiddleware
 
 from c3bottles import app
 
@@ -63,6 +63,7 @@ def serve(host, port):
     """
     Runs a development server.
     """
+    os.environ["FLASK_RUN_FROM_CLI"] = "false"
     app.jinja_env.auto_reload = True
     app.run(debug=True, host=host, port=port)
 
