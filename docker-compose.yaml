@@ -1,12 +1,31 @@
-version: '3'
+version: '3.7'
 services:
-  web:
+  app:
     image: c3bottles/c3bottles
     volumes:
-     - ./config.py:/c3bottles/config.py
+      - type: volume
+        source: datavolume
+        target: /c3bottles/static
+      - type: bind
+        source: ./config.py
+        target: /c3bottles/config.py
     ports:
-     - "5000:5000"
-     - 9567:9567
+     - "9567:9567"
+
+  web:
+    image: nginx:1.17-alpine
+    user: 65534:65534
+    volumes:
+      - type: volume
+        source: datavolume
+        target: /c3bottles/static
+        volume:
+          nocopy: true
+      - type: bind
+        source: ./nginx.conf
+        target: /etc/nginx/nginx.conf
+    ports:
+     - "8000:8000"
 
   db:
     image: postgres:11-alpine
@@ -21,3 +40,6 @@ services:
     restart: always
     ports:
       - 8080:8080
+
+volumes:
+  datavolume: {}

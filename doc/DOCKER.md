@@ -27,17 +27,17 @@ box for a testing or development environment:
 
 4.  Initialize the database:
 
-        docker-compose run --rm web ./manage.py initdb
+        docker-compose run --rm app ./manage.py initdb
 
 5.  Create a user:
 
-        docker-compose run --rm web ./manage.py user create
+        docker-compose run --rm app ./manage.py user create
 
 6.  Start the web interface:
 
-        docker-compose up -d web
+        docker-compose up -d app web
 
-    The web interface will listen on port 5000 by default.
+    The web interface will listen on port 8000 by default.
 
 7.  If you are done with testing, simply stop and remove all the containers:
 
