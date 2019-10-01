@@ -28,6 +28,7 @@ RUN apk --no-cache add msttcorefonts-installer fontconfig && \
     fc-cache -f
 COPY --from=builder /c3bottles /c3bottles
 WORKDIR /c3bottles
+VOLUME /c3bottles/static
 ENV PATH=/c3bottles/venv/bin:$PATH
 EXPOSE 5000
 EXPOSE 9567
