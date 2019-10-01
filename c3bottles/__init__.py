@@ -1,3 +1,5 @@
+import sys
+
 from babel import Locale
 from pwgen import pwgen
 
@@ -13,20 +15,21 @@ from flask_wtf import CSRFProtect
 
 app = Flask(__name__, static_folder="../static", template_folder="../templates")
 
-try:
-    import config
-    app.config.from_object(config)
-except ImportError:
-    app.config.update(
-        SQLALCHEMY_DATABASE_URI="sqlite:///c3bottles.db",
-        SQLALCHEMY_TRACK_MODIFICATIONS=False,
-        SECRET_KEY=pwgen(64),
-        BABEL_TRANSLATION_DIRECTORIES="../translations"
-    )
-    print("\nWARNING: c3bottles is not configured properly and this\n"
-          "instance fell back to the default configuration. This means\n"
-          "that the secret key will change on every restart of the\n"
-          "server and all users will be logged out forcibly!\n")
+if "pytest" not in sys.modules:
+    try:
+        import config
+        app.config.from_object(config)
+    except ImportError:
+        app.config.update(
+            SQLALCHEMY_DATABASE_URI="sqlite:///c3bottles.db",
+            SQLALCHEMY_TRACK_MODIFICATIONS=False,
+            SECRET_KEY=pwgen(64),
+            BABEL_TRANSLATION_DIRECTORIES="../translations"
+        )
+        print("\nWARNING: c3bottles is not configured properly and this\n"
+              "instance fell back to the default configuration. This means\n"
+              "that the secret key will change on every restart of the\n"
+              "server and all users will be logged out forcibly!\n")
 
 Compress(app)
 
