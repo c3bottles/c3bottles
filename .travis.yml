@@ -40,12 +40,3 @@ script:
  - if [[ $what = docker ]] ; then
      docker run --rm --entrypoint /bin/sh c3bottles/c3bottles -c "pip install pytest flask-webtest && pytest" ;
    fi
- - if [[ $what = docker ]] ; then
-     pip install docker-compose &&
-     echo 'SECRET_KEY = "changeme"' > config.py &&
-     docker-compose up -d &&
-     [ $(curl --write-out %{http_code} --silent --output /dev/null http://localhost:8000/faq) -eq 200 ] &&
-     docker-compose stop app &&
-     [ $(curl --write-out %{http_code} --silent --output /dev/null http://localhost:8000/faq) -eq 404 ] &&
-     [ $(curl --write-out %{http_code} --silent --output /dev/null http://localhost:8000/static/css/c3bottles.css) -eq 200 ] ;
-   fi
