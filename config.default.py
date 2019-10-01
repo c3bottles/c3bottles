@@ -10,6 +10,9 @@
 # Example SQLAlchemy database URI for SQLite (relative path).
 # SQLALCHEMY_DATABASE_URI = "sqlite:///c3bottles.db"
 
+# Database URL for the Docker service as in docker-compose.yml.
+# SQLALCHEMY_DATABASE_URI = "postgresql://postgres:postgres@db/postgres
+
 # The secret key used for signing the session cookie.
 # SECRET_KEY = "changeme"
 

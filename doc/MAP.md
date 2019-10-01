@@ -1,6 +1,6 @@
 # Map configuration
 
-c3bottles can use any map source that can be configured as a layer in 
+c3bottles can use any map source that can be configured as a layer in
 [Leaflet](https://leafletjs.com/). Map configuration happens in two stages:
 
 1.  Map sources and their paramters (e.g. tile server URL, zoom levels, layers
@@ -8,11 +8,11 @@ c3bottles can use any map source that can be configured as a layer in
     of Python objects in `c3bottles/config/map.py`. These are hard-coded but
     can of course be adapted to specific setups if needed.
  
-2.  One of these sources is chosen via `config.py` by setting the `MAP_SOURCE`
+2.  One of these sources is chosen in `config.py` by setting the `MAP_SOURCE`
     configuration parameter. In addition to selecting one of the map sources,
     the user can decide to override specific parameters (typically tile server
     URLs) by doing something like this in `config.py`:
-    
+
         from c3bottles.config.map import ExampleMapSource
         MAP_SOURCE = ExampleMapSource
         ExampleMapSource.override("tileserver", "https://tiles.example.org/")
@@ -26,19 +26,18 @@ c3bottles ships with a number of map sources that can be used directly:
 
 *   **OpenStreetMap**: This is the easiest way to use geographical tiles for
     an outdoor event. This source uses tiles directly from the tile servers
-    behind https://www.openstreetmap.org/.
-    
+    behind [OpenStreetMap](https://www.openstreetmap.org/).
+
     The *OpenStreetMapCamp2019* configuration is an example for OpenStreetMap
     and pointing at the location of the Chaos Communication Camp 2019 in
-    Mildenberg. The starting location and zoom levels available can be easily
-    adapted as needed. OpenStreepMap only has one layer. The
-    `tileserver_subdomains` option is used to distribute load over different
-    tile servers. 
+    Mildenberg. The starting location and zoom levels can be easily adapted
+    as needed. OpenStreepMap only has one layer. The `tileserver_subdomains`
+    option is used to distribute load over different tile servers.
 
-*   **c3nav**: Originally, c3nav is a routing webservice for chaos events that
-    is available for use at https://c3nav.de/ and being developed at
-    https://github.com/c3nav/c3nav/.
-    
+*   **c3nav**: c3nav is a routing webservice for chaos events that is available
+    for use at [https://c3nav.de/](https://c3nav.de/) and being developed at
+    [https://github.com/c3nav/c3nav/](https://github.com/c3nav/c3nav/).
+
     Like c3bottles, c3nav is based on Leaflet and provides high-quality tiles
     of venues for events like the Chaos Communication Congress which we can
     use via this map source. The configuration named *C3Nav35C3* contains an
@@ -49,17 +48,17 @@ c3bottles ships with a number of map sources that can be used directly:
 
     In addition, it needs a number of specific hacks, which are needed to
     properly use the  tiles:
-    
+
     *   The `hack_257px` option enables a code snippet in `js/map.js` to deal
         with the non-standard tile size of 257x257 pixels.
     *   The `simple_crs` option changes the coordinate reference system used
         from the default (geographical coordinates) to a simpler one that is
         better suited for hand-crafted custom tiles for a plane like a building
-        instead of a globe. 
+        instead of a globe.
 
-    If you want to use tiles from c3nav, please contactn the c3nav developers
-    beforehand. It is their decision, if they let you use their tiles (and the
-    bandwidth on their tile servers). 
+    If you want to use tiles from c3nav, please contact the c3nav developers
+    beforehand. It is their decision if they let you use their tiles (and the
+    bandwidth on their tile servers).
 
 ## Adding map sources
 
@@ -107,12 +106,12 @@ The following configuration parameters are currently used from map sources
     floats, like such:
 
         [[min_x, min_y], [max_x, max_y]]
-    
+
     Make sure to use *lists* here instead of *tuples* as this value is
     directly embedded in JavaScript code.
 
-*   **initial_view** (*dict*, optional): The initial default view used on
-    the map. This is a *dict* that needs three values: `lat` for the
+*   **initial_view** (*dict* of *floats*, optional): The initial default view
+    used on the map. This is a *dict* that needs three values: `lat` for the
     latitude, `lng` for the longitude and `zoom`. if this is not set, the
     map will call Leaflet's `fitBound()` method, if `bounds` have been
     set and `fitWorld()` otherwise.
@@ -123,9 +122,9 @@ The following configuration parameters are currently used from map sources
     to be given where the first corresponds to a map layer number and the
     second one to a level number that is used in the c3bottles database and
     shown in the level selector widget on the map, like such:
-    
+
         [[23, -1], [30, 0], [42, 1]]
-    
+
     If no `level_config` has been set, all drop points will default to a
     level of 0 and levels will be disabled completely in the frontend.
 
@@ -138,20 +137,20 @@ parameters see the list of preconfigured map sources above.
 
 ## Rendering your own tiles
 
-Originally, c3bottles has been used with a map that was a huge image and from
-which tiles could rendered with a semi-automatic toolchain. Other maps were
-simply used by exchanging the base image and rendering new tiles.
+Originally, c3bottles has been designed for a map that was a huge image and
+from which tiles could rendered with a semi-automatic toolchain. Other maps
+then can simply be used by exchanging the base image and rendering new tiles.
 
-The tiles are built using Imagemagick, GDAL and gdal2tiles. If you use Debian,
-you can install the dependencies like this:
+These tiles are built using Imagemagick, GDAL and gdal2tiles. If you use
+Debian, you can install the dependencies like this:
 
     sudo apt install imagemagick gdal-bin libgdal-dev
     pip install gdal2tiles
 
 The base image for the tiles needs to be a square with a size that is a power
 of 2. Suppose your image is named `static/img/map.png`, then you first have
-to convert it to a square of the next power of 2. You can find out the size
-of the image with `file` or `identify`:
+to convert it to a square with an edge length of the next power of 2. You can
+find out the size of the image with `file` or `identify`:
 
     cd static/img
     identify map.png

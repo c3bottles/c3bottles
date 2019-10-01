@@ -1,6 +1,6 @@
 The MIT License (MIT)
 
-Copyright (c) 2015-2018 MichiK [<michik@michik.net>](mailto:michik@michik.net)
+Copyright (c) 2015-2019 MichiK [<michik@michik.net>](mailto:michik@michik.net)
 and contributors
 
 Permission is hereby granted, free of charge, to any person obtaining a copy

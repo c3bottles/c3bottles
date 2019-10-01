@@ -1,16 +1,17 @@
 # Install c3bottles using Docker
 
 You probably want to adjust the `Dockerfile` and `docker-compose.yml` to your
-specific requirements. However, the defaults should work just fin out of the
+specific requirements. However, the defaults should work just fine out of the
 box for a testing or development environment:
 
-1.  First you need to create your config.py file:
+1.  First you need to create a config.py file:
 
         cp config.default.py config.py
 
     Please set at least the `SECRET_KEY` and change the `SQLALCHEMY_DATABASE_URI`
     to your setup (for the default docker-compose setup, you should use
-    `SQLALCHEMY_DATABASE_URI = "postgresql://postgres:postgres@db/postgres"`).
+    `SQLALCHEMY_DATABASE_URI = "postgresql://postgres:postgres@db/postgres"`)
+    like in `config.default.py`.
 
 2.  By default, docker-compose will download the image from Docker Hub. If you
     want to build your own image from source, please do:
