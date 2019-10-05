@@ -30,10 +30,11 @@
 # i.e. without extension.
 # LABEL_STYLE = "default"
 
-# Enable and configure the integrated Prometheus endpoint.
-# (default: False)
-# PROMETHEUS_ENABLED = True
-# PROMETHEUS_ADDRESS = "127.0.0.1"
+# Enable and configure the integrated Prometheus endpoint. To use Prometheus in
+# Docker, please set PROMETHEUS_ADDRESS to 0.0.0.0 instead of 127.0.0.1 to make
+# it accessible from outside the container.
+# PROMETHEUS_ENABLED = True  # (default: False)
+# PROMETHEUS_ADDRESS = "0.0.0.0"  # (default: 127.0.0.1)
 # PROMETHEUS_PORT = 9567
 
 # Mark the session and remember cookies as secure. You should enable this if

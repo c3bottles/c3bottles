@@ -13,6 +13,9 @@ box for a testing or development environment:
     `SQLALCHEMY_DATABASE_URI = "postgresql://postgres:postgres@db/postgres"`)
     like in `config.default.py`.
 
+    To query the Prometheus metrics from outside the container, set
+    `PROMETHEUS_ADDRESS` to "0.0.0.0".
+
 2.  By default, docker-compose will download the image from Docker Hub. If you
     want to build your own image from source, please do:
 
