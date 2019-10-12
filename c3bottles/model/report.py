@@ -74,6 +74,9 @@ class Report(db.Model):
         if errors:
             raise ValueError(*errors)
 
+        dp.last_state = self.state
+
+        db.session.add(dp)
         db.session.add(self)
         db.session.commit()
 

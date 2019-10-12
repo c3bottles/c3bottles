@@ -36,6 +36,11 @@ class DropPoint(db.Model):
     reports = db.relationship("Report", lazy="dynamic")
     visits = db.relationship("Visit", lazy="dynamic")
 
+    _last_state = db.Column(
+        db.Enum(*Report.states, name="drop_point_states"),
+        default=Report.states[1], name="last_state"
+    )
+
     def __init__(
             self,
             number,
@@ -204,28 +209,11 @@ class DropPoint(db.Model):
         If neither reports nor visits have been recorded yet or only visits
         without any actions, the drop point state is returned as new.
         """
-        last_report = self.last_report
-        last_visit = self.last_visit
+        return self._last_state
 
-        if last_report is not None and last_visit is not None:
-            if last_visit.time > last_report.time:
-                visits = self.visits \
-                    .filter(Visit.time > last_report.time) \
-                    .order_by(Visit.time.desc()) \
-                    .all()
-                for visit in visits:
-                    if visit.action == Visit.actions[0]:
-                        return Report.states[-1]
-                return last_report.state
-
-        if last_report is not None:
-            return last_report.state
-
-        if last_visit is not None:
-            if last_visit.action == Visit.actions[0]:
-                return Report.states[-1]
-
-        return Report.states[1]
+    @last_state.setter
+    def last_state(self, state):
+        self._last_state = state
 
     @property
     def last_report(self):

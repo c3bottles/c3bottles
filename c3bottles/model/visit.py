@@ -4,6 +4,7 @@ from flask_babel import lazy_gettext
 
 from c3bottles import db
 from c3bottles.model import drop_point
+from c3bottles.model import report
 
 
 class Visit(db.Model):
@@ -69,6 +70,10 @@ class Visit(db.Model):
 
         if errors:
             raise ValueError(*errors)
+
+        if self.action == Visit.actions[0]:
+            dp.last_state = report.Report.states[-1]
+            db.session.add(dp)
 
         db.session.add(self)
         db.session.commit()
