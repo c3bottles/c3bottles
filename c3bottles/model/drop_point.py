@@ -100,6 +100,7 @@ class DropPoint(db.Model):
             raise ValueError(*errors)
 
         db.session.add(self)
+        db.session.commit()
 
     def remove(self, time=None):
         """

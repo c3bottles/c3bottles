@@ -99,6 +99,7 @@ class Location(db.Model):
             raise ValueError(*errors)
 
         db.session.add(self)
+        db.session.commit()
 
     @property
     def description_with_level(self):

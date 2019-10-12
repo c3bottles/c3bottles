@@ -71,6 +71,7 @@ class Visit(db.Model):
             raise ValueError(*errors)
 
         db.session.add(self)
+        db.session.commit()
 
     def __repr__(self):
         return "Visit %s of drop point %s (action %s at %s)" % (

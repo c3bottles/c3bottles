@@ -32,7 +32,6 @@ def report(number=None):
                 errors=[v for d in e.args for v in d.values()]
             )
         else:
-            db.session.commit()
             return render_template(
                 "success.html",
                 heading=lazy_gettext("Thank you!"),
@@ -66,7 +65,6 @@ def visit(number=None):
                 errors=[v for d in e.args for v in d.values()]
             )
         else:
-            db.session.commit()
             flash({
                 "class": "success disappear",
                 "text": lazy_gettext("Your visit has been processed successfully."),

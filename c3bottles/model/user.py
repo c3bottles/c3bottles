@@ -62,6 +62,9 @@ class User(db.Model, UserMixin):
         if errors:
             raise ValueError(*errors)
 
+        db.session.add(self)
+        db.session.commit()
+
     @property
     def user_id(self):
         return self._id
@@ -217,8 +220,6 @@ def create_user(name, password, can_visit, can_edit, admin):
         exit(1)
     else:
         user = User(name, password, can_visit, can_edit, admin, False)
-        db.session.add(user)
-        db.session.commit()
         print("User created successfully.")
 
 

@@ -75,6 +75,7 @@ class Report(db.Model):
             raise ValueError(*errors)
 
         db.session.add(self)
+        db.session.commit()
 
     def get_weight(self):
         """Get the weight (i.e. significance) of a report.

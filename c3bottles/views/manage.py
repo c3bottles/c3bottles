@@ -29,10 +29,6 @@ def create(lat=None, lng=None, level=None, description=None, errors=None):
                 number=number, category_id=category_id, description=description,
                 lat=lat, lng=lng, level=level
             )
-        except ValueError as e:
-            errors = e.args
-        else:
-            db.session.commit()
             flash({
                 "class": "success disappear",
                 "text": lazy_gettext(
@@ -40,6 +36,8 @@ def create(lat=None, lng=None, level=None, description=None, errors=None):
                 )
             })
             return redirect("{}#{}/{}/{}/3".format(url_for("view.map_"), level, lat, lng))
+        except ValueError as e:
+            errors = e.args
     else:
         number = DropPoint.get_next_free_number()
 
@@ -95,7 +93,6 @@ def edit(number=None, errors=None):
         remove = request.form.get("remove")
 
         try:
-
             if description != description_old \
                     or lat != lat_old or lng != lng_old:
                 Location(
@@ -105,21 +102,19 @@ def edit(number=None, errors=None):
                     lng=lng,
                     level=level
                 )
-
             if remove == "yes":
                 dp.removed = datetime.now()
             else:
                 dp.removed = None
-
-        except ValueError as e:
-            errors = e.args
-        else:
             db.session.commit()
             flash({
                 "class": "success disappear",
                 "text": lazy_gettext("Your changes have been saved successfully."),
             })
             return redirect("{}#{}/{}/{}/3".format(url_for("view.map_"), level, lat, lng))
+
+        except ValueError as e:
+            errors = e.args
 
     else:
         description = description_old
