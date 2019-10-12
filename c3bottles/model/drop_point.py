@@ -72,9 +72,8 @@ class DropPoint(db.Model):
         else:
             if self.number < 1:
                 errors.append({"number": lazy_gettext("Drop point number is not positive.")})
-            with db.session.no_autoflush:
-                if DropPoint.query.get(self.number):
-                    errors.append({"number": lazy_gettext("That drop point already exists.")})
+            if DropPoint.query.get(self.number):
+                errors.append({"number": lazy_gettext("That drop point already exists.")})
 
         if category_id in all_categories:
             self.category_id = category_id
@@ -89,6 +88,9 @@ class DropPoint(db.Model):
 
         self.time = time if time else datetime.today()
 
+        if errors:
+            raise ValueError(*errors)
+
         try:
             Location(
                 self,
@@ -100,8 +102,6 @@ class DropPoint(db.Model):
             )
         except ValueError as e:
             errors += e.args
-
-        if errors:
             raise ValueError(*errors)
 
         db.session.add(self)

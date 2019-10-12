@@ -32,7 +32,7 @@ if "pytest" not in sys.modules:
 
 Compress(app)
 
-db = SQLAlchemy(app, session_options={"autoflush": False})
+db = SQLAlchemy(app)
 lm = LoginManager(app)
 bcrypt = Bcrypt(app)
 csrf = CSRFProtect(app)
