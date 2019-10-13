@@ -5,6 +5,7 @@ from sqlalchemy import desc
 from flask_babel import lazy_gettext
 
 from c3bottles import app, db
+from c3bottles.lib import metrics
 from c3bottles.model.category import Category, all_categories
 from c3bottles.model.location import Location
 from c3bottles.model.report import Report
@@ -107,6 +108,10 @@ class DropPoint(db.Model):
         db.session.add(self)
         db.session.commit()
 
+        metrics.drop_point_count.labels(
+            state=self.last_state, category=self.category.metrics_name
+        ).inc()
+
     def remove(self, time=None):
         """
         Remove a drop point.
@@ -127,6 +132,9 @@ class DropPoint(db.Model):
             raise ValueError({"DropPoint": lazy_gettext("Removal time in the future.")})
 
         self.removed = time if time else datetime.today()
+        metrics.drop_point_count.labels(
+            state=self.last_state, category=self.category.metrics_name
+        ).dec()
 
     def report(self, state=None, time=None):
         """
@@ -213,6 +221,12 @@ class DropPoint(db.Model):
 
     @last_state.setter
     def last_state(self, state):
+        metrics.drop_point_count.labels(
+            state=self.last_state, category=self.category.metrics_name
+        ).dec()
+        metrics.drop_point_count.labels(
+            state=state, category=self.category.metrics_name
+        ).inc()
         self._last_state = state
 
     @property

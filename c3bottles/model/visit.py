@@ -3,6 +3,7 @@ from datetime import datetime
 from flask_babel import lazy_gettext
 
 from c3bottles import db
+from c3bottles.lib import metrics
 from c3bottles.model import drop_point
 from c3bottles.model import report
 
@@ -77,6 +78,10 @@ class Visit(db.Model):
 
         db.session.add(self)
         db.session.commit()
+
+        metrics.visit_count.labels(
+            action=self.action, category=self.dp.category.metrics_name
+        ).inc()
 
     def __repr__(self):
         return "Visit %s of drop point %s (action %s at %s)" % (

@@ -15,6 +15,7 @@ class Category:
     def __init__(self, category_id, name):
         self.category_id = category_id
         self.name = name
+        self.metrics_name = str(name)
 
     def __str__(self):
         return str(self.name)
