@@ -6,7 +6,6 @@ module.exports = {
         loose: false,
         useBuiltIns: 'entry',
       },
-      'babel-preset-joblift',
     ],
   ],
 };
