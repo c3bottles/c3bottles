@@ -1,5 +1,5 @@
 module.exports = {
-  extends: ['joblift/base'],
+  extends: ['marudor/base'],
   env: {
     es6: true,
     browser: true,

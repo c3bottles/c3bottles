@@ -1,4 +1,4 @@
-FROM alpine:3.10 as base
+FROM alpine:3.11 as base
 RUN apk add -U --no-cache \
     python3 py3-virtualenv cairo libpq
 
@@ -21,7 +21,7 @@ FROM base as fontloader
 RUN apk add --no-cache wget \
     && mkdir -p /usr/share/fonts \
     && wget https://github.com/google/fonts/raw/master/ofl/montserrat/Montserrat-Black.ttf -O /usr/share/fonts/Montserrat-Black.ttf \
-    && wget https://github.com/google/fonts/raw/master/ofl/montserrat/Montserrat-Light.ttf -O /usr/share/fonts/Montserrat-Light.ttf 
+    && wget https://github.com/google/fonts/raw/master/ofl/montserrat/Montserrat-Light.ttf -O /usr/share/fonts/Montserrat-Light.ttf
 
 
 FROM base
@@ -31,7 +31,7 @@ RUN apk --no-cache add msttcorefonts-installer fontconfig && \
     update-ms-fonts && \
     fc-cache -f
 RUN find / -name .exe -exec rm -rf {} \;
-RUN addgroup -S c3bottles && adduser -S -G c3bottles c3bottles 
+RUN addgroup -S c3bottles && adduser -S -G c3bottles c3bottles
 COPY --from=builder --chown=c3bottles:c3bottles /c3bottles /c3bottles
 USER c3bottles
 WORKDIR /c3bottles
