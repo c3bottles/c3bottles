@@ -39,14 +39,14 @@ def initdb():
 
 
 @app.cli.command()
-def dropdp():
+def dropdb():
     """
     Removes the database.
 
     This removes everything from the database.
     """
     from c3bottles import db
-    with click.confirm("This deletes everything from the database!"):
+    if click.confirm("This deletes everything from the database!"):
         db.drop_all()
 
 

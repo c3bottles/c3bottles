@@ -8,7 +8,6 @@ from flask_babel import Babel
 from flask_bcrypt import Bcrypt
 from flask_compress import Compress
 from flask_login import LoginManager
-from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import CSRFProtect
 
@@ -33,8 +32,7 @@ if "pytest" not in sys.modules:
 
 Compress(app)
 
-db = SQLAlchemy(app, session_options={"autoflush": False})
-migrate = Migrate(app, db)
+db = SQLAlchemy(app)
 lm = LoginManager(app)
 bcrypt = Bcrypt(app)
 csrf = CSRFProtect(app)

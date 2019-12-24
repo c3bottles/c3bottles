@@ -3,6 +3,7 @@ from datetime import datetime
 from flask_babel import lazy_gettext
 
 from c3bottles import db
+from c3bottles.lib import metrics
 from c3bottles.model import drop_point
 
 
@@ -74,7 +75,15 @@ class Report(db.Model):
         if errors:
             raise ValueError(*errors)
 
+        dp.last_state = self.state
+
+        db.session.add(dp)
         db.session.add(self)
+        db.session.commit()
+
+        metrics.report_count.labels(
+            state=self.state, category=self.dp.category.metrics_name
+        ).inc()
 
     def get_weight(self):
         """Get the weight (i.e. significance) of a report.

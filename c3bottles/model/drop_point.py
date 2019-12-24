@@ -5,6 +5,7 @@ from sqlalchemy import desc
 from flask_babel import lazy_gettext
 
 from c3bottles import app, db
+from c3bottles.lib import metrics
 from c3bottles.model.category import Category, all_categories
 from c3bottles.model.location import Location
 from c3bottles.model.report import Report
@@ -35,6 +36,11 @@ class DropPoint(db.Model):
     locations = db.relationship("Location", order_by="Location.time")
     reports = db.relationship("Report", lazy="dynamic")
     visits = db.relationship("Visit", lazy="dynamic")
+
+    _last_state = db.Column(
+        db.Enum(*Report.states, name="drop_point_states"),
+        default=Report.states[1], name="last_state"
+    )
 
     def __init__(
             self,
@@ -67,9 +73,8 @@ class DropPoint(db.Model):
         else:
             if self.number < 1:
                 errors.append({"number": lazy_gettext("Drop point number is not positive.")})
-            with db.session.no_autoflush:
-                if DropPoint.query.get(self.number):
-                    errors.append({"number": lazy_gettext("That drop point already exists.")})
+            if DropPoint.query.get(self.number):
+                errors.append({"number": lazy_gettext("That drop point already exists.")})
 
         if category_id in all_categories:
             self.category_id = category_id
@@ -84,6 +89,9 @@ class DropPoint(db.Model):
 
         self.time = time if time else datetime.today()
 
+        if errors:
+            raise ValueError(*errors)
+
         try:
             Location(
                 self,
@@ -95,11 +103,14 @@ class DropPoint(db.Model):
             )
         except ValueError as e:
             errors += e.args
-
-        if errors:
             raise ValueError(*errors)
 
         db.session.add(self)
+        db.session.commit()
+
+        metrics.drop_point_count.labels(
+            state=self.last_state, category=self.category.metrics_name
+        ).inc()
 
     def remove(self, time=None):
         """
@@ -121,6 +132,9 @@ class DropPoint(db.Model):
             raise ValueError({"DropPoint": lazy_gettext("Removal time in the future.")})
 
         self.removed = time if time else datetime.today()
+        metrics.drop_point_count.labels(
+            state=self.last_state, category=self.category.metrics_name
+        ).dec()
 
     def report(self, state=None, time=None):
         """
@@ -203,28 +217,17 @@ class DropPoint(db.Model):
         If neither reports nor visits have been recorded yet or only visits
         without any actions, the drop point state is returned as new.
         """
-        last_report = self.last_report
-        last_visit = self.last_visit
+        return self._last_state
 
-        if last_report is not None and last_visit is not None:
-            if last_visit.time > last_report.time:
-                visits = self.visits \
-                    .filter(Visit.time > last_report.time) \
-                    .order_by(Visit.time.desc()) \
-                    .all()
-                for visit in visits:
-                    if visit.action == Visit.actions[0]:
-                        return Report.states[-1]
-                return last_report.state
-
-        if last_report is not None:
-            return last_report.state
-
-        if last_visit is not None:
-            if last_visit.action == Visit.actions[0]:
-                return Report.states[-1]
-
-        return Report.states[1]
+    @last_state.setter
+    def last_state(self, state):
+        metrics.drop_point_count.labels(
+            state=self.last_state, category=self.category.metrics_name
+        ).dec()
+        metrics.drop_point_count.labels(
+            state=state, category=self.category.metrics_name
+        ).inc()
+        self._last_state = state
 
     @property
     def last_report(self):

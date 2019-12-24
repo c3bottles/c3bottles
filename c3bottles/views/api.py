@@ -79,7 +79,6 @@ def report():
             status=400
         )
     else:
-        db.session.commit()
         return Response(
             DropPoint.get_dp_json(number),
             mimetype="application/json"
@@ -109,7 +108,6 @@ def visit():
             status=400
         )
     else:
-        db.session.commit()
         return Response(
             DropPoint.get_dp_json(number),
             mimetype="application/json"
