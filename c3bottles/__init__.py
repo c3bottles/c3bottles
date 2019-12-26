@@ -10,9 +10,11 @@ from flask_compress import Compress
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import CSRFProtect
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 
 app = Flask(__name__, static_folder="../static", template_folder="../templates")
+app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
 
 if "pytest" not in sys.modules:
     try:
