@@ -14,7 +14,7 @@ bp = Blueprint("manage", __name__)
 
 
 @bp.route("/create", methods=("GET", "POST"))
-@bp.route("/create/<level>/<float:lat>/<float:lng>", methods=("GET", "POST"))
+@bp.route("/create/<level>/<lat>/<lng>", methods=("GET", "POST"))
 @needs_editing
 def create(lat=None, lng=None, level=None, description=None, errors=None):
     if request.method == "POST":
@@ -51,8 +51,8 @@ def create(lat=None, lng=None, level=None, description=None, errors=None):
     return render_template(
         "manage/create.html",
         number=number,
-        lat=lat,
-        lng=lng,
+        lat=float(lat),
+        lng=float(lng),
         level=int(level),
         description=description,
         error_list=error_list,
@@ -61,14 +61,14 @@ def create(lat=None, lng=None, level=None, description=None, errors=None):
     )
 
 
-@bp.route("/create.js/<level>/<float:lat>/<float:lng>")
+@bp.route("/create.js/<level>/<lat>/<lng>")
 def create_js(level, lat, lng):
     resp = make_response(render_template(
         "js/create.js",
         all_dps_json=DropPoint.get_dps_json(),
         level=int(level),
-        lat=lat,
-        lng=lng
+        lat=float(lat),
+        lng=float(lng)
     ))
     resp.mimetype = "application/javascript"
     return resp
