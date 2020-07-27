@@ -412,9 +412,9 @@ class DropPoint(db.Model):
             dp_set = set()
             dp_set.update(
                 [dp for dp in DropPoint.query.filter(DropPoint.time > time).all()],
-                [l.dp for l in Location.query.filter(Location.time > time).all()],
-                [v.dp for v in Visit.query.filter(Visit.time > time).all()],
-                [r.dp for r in Report.query.filter(Report.time > time).all()]
+                [loc.dp for loc in Location.query.filter(Location.time > time).all()],
+                [vis.dp for vis in Visit.query.filter(Visit.time > time).all()],
+                [rep.dp for rep in Report.query.filter(Report.time > time).all()]
             )
             dps = list(dp_set)
 

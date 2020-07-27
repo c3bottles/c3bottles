@@ -41,9 +41,9 @@ csrf = CSRFProtect(app)
 babel = Babel(app)
 
 languages = ("en", "de")
-locales = {l: Locale(l) for l in languages}
+locales = {lang: Locale(lang) for lang in languages}
 language_list = sorted(
-    [l for l in languages],
+    [lang for lang in languages],
     key=lambda k: locales[k].get_display_name()
 )
 
