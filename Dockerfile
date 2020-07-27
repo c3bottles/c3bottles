@@ -49,6 +49,14 @@ RUN apk add --no-cache wget zip \
     && cd /usr/share/fonts && unzip Blackout_Midnight_Umlauts.ttf.zip && rm -rf Blackout_Midnight_Umlauts.ttf.zip
 
 
+FROM base AS testrunner
+COPY --from=builder /c3bottles /c3bottles
+WORKDIR /c3bottles
+ENV PATH=/c3bottles/venv/bin:$PATH
+RUN pip install pytest flask-webtest
+USER c3bottles
+
+
 FROM base
 COPY --from=fontloader /usr/share/fonts/ /usr/share/fonts/
 COPY --from=builder /c3bottles /c3bottles
