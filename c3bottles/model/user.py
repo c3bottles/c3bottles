@@ -219,7 +219,7 @@ def create_user(name, password, can_visit, can_edit, admin):
         print("A user with the name {} already exists!".format(name))
         exit(1)
     else:
-        user = User(name, password, can_visit, can_edit, admin, False)
+        User(name, password, can_visit, can_edit, admin, False)
         print("User created successfully.")
 
 

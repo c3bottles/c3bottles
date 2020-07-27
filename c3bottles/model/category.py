@@ -23,8 +23,7 @@ class Category:
     def __len__(self):
         return drop_point.DropPoint.query.filter(
             drop_point.DropPoint.category_id == self.category_id,
-            # noqa - pep wants is None, sqlAlchemy wants == None
-            drop_point.DropPoint.removed == None
+            drop_point.DropPoint.removed == None  # noqa - pep wants is None, sqlAlchemy wants == None
         ).count()
 
     @staticmethod

@@ -1,7 +1,6 @@
 from flask import Blueprint, render_template, request, abort, flash, redirect, url_for
 from flask_babel import lazy_gettext
 
-from c3bottles import db
 from c3bottles.model.drop_point import DropPoint
 from c3bottles.model.report import Report
 from c3bottles.model.visit import Visit
