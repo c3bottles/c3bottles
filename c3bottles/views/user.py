@@ -1,10 +1,10 @@
-from werkzeug.routing import BuildError
 from json import loads
 from re import sub
 
 from flask import render_template, url_for, redirect, request, Blueprint
 from flask_babel import lazy_gettext
 from flask_login import current_user, login_user, logout_user
+from werkzeug.routing import BuildError
 
 from c3bottles.model.user import User
 from c3bottles.views.forms import LoginForm
@@ -21,10 +21,7 @@ def login():
     if form.validate_on_submit():
         try:
             back = redirect(
-                url_for(
-                    form.back.data,
-                    **loads(sub("( u)?'", "\"", form.args.data))
-                )
+                url_for(form.back.data, **loads(sub("( u)?'", '"', form.args.data)))
             )
         except (BuildError, ValueError):
             back = redirect(url_for("main.index"))
@@ -39,7 +36,7 @@ def login():
         heading=lazy_gettext("Login failed!"),
         text=lazy_gettext("Wrong user name or password."),
         back=form.back.data,
-        args=form.args.data
+        args=form.args.data,
     )
 
 

@@ -1,5 +1,11 @@
 from flask_wtf import FlaskForm
-from wtforms.fields import StringField, PasswordField, HiddenField, IntegerField, BooleanField
+from wtforms.fields import (
+    StringField,
+    PasswordField,
+    HiddenField,
+    IntegerField,
+    BooleanField,
+)
 from wtforms.validators import DataRequired
 from wtforms.widgets import HiddenInput
 

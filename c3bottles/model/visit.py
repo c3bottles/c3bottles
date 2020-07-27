@@ -1,6 +1,7 @@
 from datetime import datetime
+from typing import Dict, List, Tuple
 
-from flask_babel import lazy_gettext
+from flask_babel import lazy_gettext, LazyString
 
 from c3bottles import db
 from c3bottles.lib import metrics
@@ -18,35 +19,30 @@ class Visit(db.Model):
     so, they log their visit and the action taken.
     """
 
-    actions = (
-        "EMPTIED",          # 0 should be the action that empties a drop point
+    actions: Tuple[str] = (
+        "EMPTIED",  # 0 should be the action that empties a drop point
         "ADDED_CRATE",
         "REMOVED_CRATE",
         "RELOCATED",
         "REMOVED",
-        "NO_ACTION"
+        "NO_ACTION",
     )
 
     vis_id = db.Column(db.Integer, primary_key=True)
 
-    dp_id = db.Column(
-        db.Integer,
-        db.ForeignKey("drop_point.number"),
-        nullable=False
-    )
+    dp_id = db.Column(db.Integer, db.ForeignKey("drop_point.number"), nullable=False)
 
     dp = db.relationship("DropPoint")
 
     time = db.Column(db.DateTime, nullable=False)
 
-    action = db.Column(
-        db.Enum(*actions, name="visit_actions"),
-        default=actions[0]
-    )
+    action = db.Column(db.Enum(*actions, name="visit_actions"), default=actions[0])
 
-    def __init__(self, dp, time=None, action=None):
+    def __init__(
+        self, dp: "drop_point.DropPoint", time: datetime = None, action: str = None
+    ):
 
-        errors = []
+        errors: List[Dict[str, LazyString]] = []
 
         self.dp = dp
 
@@ -67,7 +63,9 @@ class Visit(db.Model):
         if action in Visit.actions:
             self.action = action
         else:
-            errors.append({"Visit": lazy_gettext("Invalid or missing maintenance action.")})
+            errors.append(
+                {"Visit": lazy_gettext("Invalid or missing maintenance action.")}
+            )
 
         if errors:
             raise ValueError(*errors)
@@ -83,8 +81,5 @@ class Visit(db.Model):
             action=self.action, category=self.dp.category.metrics_name
         ).inc()
 
-    def __repr__(self):
-        return "Visit %s of drop point %s (action %s at %s)" % (
-            self.vis_id, self.dp_id,
-            self.action, self.time
-        )
+    def __repr__(self) -> str:
+        return f"Visit {self.vis_id} of drop point {self.dp_id} (action {self.action} at {self.time})"

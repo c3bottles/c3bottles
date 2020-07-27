@@ -4,7 +4,6 @@ class _MapSourceType(type):
 
 
 class MapSource(metaclass=_MapSourceType):
-
     @classmethod
     def get(cls, attr, default=None):
         return getattr(cls, attr) if attr in dir(cls) else default
@@ -31,25 +30,25 @@ class EH19(MapSource):
     min_zoom = 3
     max_zoom = 6
     bounds = [[-33.9, -66.9], [155.07, 122.07]]
-    level_config = [[1, 0], [200, 0.5], [4, 1], [8, 2], [9, 3], [10, 4], [11, 5], [12, 6]]
+    level_config = [
+        [1, 0],
+        [200, 0.5],
+        [4, 1],
+        [8, 2],
+        [9, 3],
+        [10, 4],
+        [11, 5],
+        [12, 6],
+    ]
     simple_crs = True
     hack_257px = True
-    initial_view = {
-        "lat": 27.93750,
-        "lng": 60.62500,
-        "zoom": 3
-    }
+    initial_view = {"lat": 27.93750, "lng": 60.62500, "zoom": 3}
 
 
 class OpenStreetMapCamp2019(MapSource):
-    attribution = \
-        "<a href='https://www.openstreetmap.org/copyright'>© OpenStreepMap contributers</a>"
+    attribution = "<a href='https://www.openstreetmap.org/copyright'>© OpenStreepMap contributers</a>"
     tileserver = "https://{s}.tile.openstreetmap.org/"
     tileserver_subdomains = ["a", "b", "c"]
     min_zoom = 16
     max_zoom = 19
-    initial_view = {
-        "lat": 53.03124,
-        "lng": 13.30734,
-        "zoom": 17
-    }
+    initial_view = {"lat": 53.03124, "lng": 13.30734, "zoom": 17}

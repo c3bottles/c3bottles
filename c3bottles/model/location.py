@@ -1,6 +1,7 @@
 from datetime import datetime
+from typing import Dict, List, Union
 
-from flask_babel import lazy_gettext
+from flask_babel import lazy_gettext, LazyString
 
 from c3bottles import app, db
 from c3bottles.model import drop_point
@@ -24,35 +25,31 @@ class Location(db.Model):
     null, the location of that drop point is unknown.
     """
 
-    max_description = 140
+    MAX_DESCRIPTION: int = 140
 
     loc_id = db.Column(db.Integer, primary_key=True)
 
-    dp_id = db.Column(
-        db.Integer,
-        db.ForeignKey("drop_point.number"),
-        nullable=False
-    )
+    dp_id = db.Column(db.Integer, db.ForeignKey("drop_point.number"), nullable=False)
 
     dp = db.relationship("DropPoint")
 
     time = db.Column(db.DateTime)
-    description = db.Column(db.String(max_description))
+    description = db.Column(db.String(MAX_DESCRIPTION))
     lat = db.Column(db.Float)
     lng = db.Column(db.Float)
     level = db.Column(db.Integer)
 
     def __init__(
-            self,
-            dp,
-            time=None,
-            description=None,
-            lat=None,
-            lng=None,
-            level=None
+        self,
+        dp: "drop_point.DropPoint",
+        time: datetime = None,
+        description: str = None,
+        lat: float = None,
+        lng: float = None,
+        level: int = None,
     ):
 
-        errors = []
+        errors: List[Dict[str, LazyString]] = []
 
         if not isinstance(dp, drop_point.DropPoint):
             errors.append({"Location": lazy_gettext("Not given a drop point object.")})
@@ -61,26 +58,31 @@ class Location(db.Model):
         self.dp = dp
 
         if time and not isinstance(time, datetime):
-            errors.append({"Location": lazy_gettext("Start time not a datetime object.")})
+            errors.append(
+                {"Location": lazy_gettext("Start time not a datetime object.")}
+            )
 
-        if isinstance(time, datetime) and time > datetime.today():
+        if isinstance(time, datetime) and time > datetime.now():
             errors.append({"Location": lazy_gettext("Start time in the future.")})
 
-        if dp.locations and isinstance(time, datetime) and \
-                time < dp.locations[-1].time:
+        if dp.locations and isinstance(time, datetime) and time < dp.locations[-1].time:
             errors.append({"Location": lazy_gettext("Location older than current.")})
 
-        self.time = time if time else datetime.today()
+        self.time = time if time else datetime.now()
 
         try:
             self.lat = float(lat)
         except (TypeError, ValueError):
-            errors.append({"lat": lazy_gettext("Latitude is not a floating point number.")})
+            errors.append(
+                {"lat": lazy_gettext("Latitude is not a floating point number.")}
+            )
 
         try:
             self.lng = float(lng)
         except (TypeError, ValueError):
-            errors.append({"lng": lazy_gettext("Longitude is not a floating point number.")})
+            errors.append(
+                {"lng": lazy_gettext("Longitude is not a floating point number.")}
+            )
 
         try:
             self.level = int(level)
@@ -90,10 +92,14 @@ class Location(db.Model):
         try:
             self.description = str(description)
         except (TypeError, ValueError):
-            errors.append({"description": lazy_gettext("Location description is not a string.")})
+            errors.append(
+                {"description": lazy_gettext("Location description is not a string.")}
+            )
         else:
-            if len(self.description) > self.max_description:
-                errors.append({"description": lazy_gettext("Location description is too long.")})
+            if len(self.description) > self.MAX_DESCRIPTION:
+                errors.append(
+                    {"description": lazy_gettext("Location description is too long.")}
+                )
 
         if errors:
             raise ValueError(*errors)
@@ -102,19 +108,21 @@ class Location(db.Model):
         db.session.commit()
 
     @property
-    def description_with_level(self):
+    def description_with_level(self) -> Union[str, LazyString]:
         map_source = app.config.get("MAP_SOURCE", {})
         if len(map_source.get("level_config", [])) > 1:
             return lazy_gettext(
                 "%(location)s on level %(level)i",
-                location=self.description if self.description else lazy_gettext("somewhere"),
-                level=self.level
+                location=self.description
+                if self.description
+                else lazy_gettext("somewhere"),
+                level=self.level,
             )
         else:
             return self.description if self.description else lazy_gettext("somewhere")
 
-    def __repr__(self):
-        return "Location %s of drop point %s (%s since %s)" % (
-            self.loc_id, self.dp_id,
-            self.description, self.time
+    def __repr__(self) -> str:
+        return (
+            f"Location {self.loc_id} of drop point {self.dp_id} "
+            f"({self.description} since {self.time})"
         )

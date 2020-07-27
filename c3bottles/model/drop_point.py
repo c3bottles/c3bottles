@@ -1,8 +1,9 @@
 import json
 from datetime import datetime
-from sqlalchemy import desc
+from typing import Any, Dict, Iterable, List, Optional, Union
 
-from flask_babel import lazy_gettext
+from flask_babel import lazy_gettext, LazyString
+from sqlalchemy import desc
 
 from c3bottles import app, db
 from c3bottles.lib import metrics
@@ -39,18 +40,19 @@ class DropPoint(db.Model):
 
     _last_state = db.Column(
         db.Enum(*Report.states, name="drop_point_states"),
-        default=Report.states[1], name="last_state"
+        default=Report.states[1],
+        name="last_state",
     )
 
     def __init__(
-            self,
-            number,
-            category_id=0,
-            description=None,
-            lat=None,
-            lng=None,
-            level=None,
-            time=None,
+        self,
+        number: int,
+        category_id: int = 0,
+        description: str = None,
+        lat: float = None,
+        lng: float = None,
+        level: int = None,
+        time: datetime = None,
     ):
         """
         Create a new drop point object.
@@ -64,17 +66,23 @@ class DropPoint(db.Model):
             indicate in which part of the creation the error occurred.
         """
 
-        errors = []
+        errors: List[Dict[str, LazyString]] = []
 
         try:
             self.number = int(number)
         except (TypeError, ValueError):
-            errors.append({"number": lazy_gettext("Drop point number is not a number.")})
+            errors.append(
+                {"number": lazy_gettext("Drop point number is not a number.")}
+            )
         else:
             if self.number < 1:
-                errors.append({"number": lazy_gettext("Drop point number is not positive.")})
+                errors.append(
+                    {"number": lazy_gettext("Drop point number is not positive.")}
+                )
             if DropPoint.query.get(self.number):
-                errors.append({"number": lazy_gettext("That drop point already exists.")})
+                errors.append(
+                    {"number": lazy_gettext("That drop point already exists.")}
+                )
 
         if category_id in all_categories:
             self.category_id = category_id
@@ -82,12 +90,14 @@ class DropPoint(db.Model):
             errors.append({"cat_id": lazy_gettext("Invalid drop point category.")})
 
         if time and not isinstance(time, datetime):
-            errors.append({"DropPoint": lazy_gettext("Creation time not a datetime object.")})
+            errors.append(
+                {"DropPoint": lazy_gettext("Creation time not a datetime object.")}
+            )
 
-        if isinstance(time, datetime) and time > datetime.today():
+        if isinstance(time, datetime) and time > datetime.now():
             errors.append({"DropPoint": lazy_gettext("Creation time in the future.")})
 
-        self.time = time if time else datetime.today()
+        self.time = time if time else datetime.now()
 
         if errors:
             raise ValueError(*errors)
@@ -99,7 +109,7 @@ class DropPoint(db.Model):
                 description=description,
                 lat=lat,
                 lng=lng,
-                level=level
+                level=level,
             )
         except ValueError as e:
             errors += e.args
@@ -112,7 +122,7 @@ class DropPoint(db.Model):
             state=self.last_state, category=self.category.metrics_name
         ).inc()
 
-    def remove(self, time=None):
+    def remove(self, time: datetime = None) -> None:
         """
         Remove a drop point.
 
@@ -123,83 +133,87 @@ class DropPoint(db.Model):
         """
 
         if self.removed:
-            raise RuntimeError({"DropPoint": lazy_gettext("Drop point already removed.")})
+            raise RuntimeError(
+                {"DropPoint": lazy_gettext("Drop point already removed.")}
+            )
 
         if time and not isinstance(time, datetime):
-            raise TypeError({"DropPoint": lazy_gettext("Removal time not a datetime object.")})
+            raise TypeError(
+                {"DropPoint": lazy_gettext("Removal time not a datetime object.")}
+            )
 
-        if time and time > datetime.today():
+        if time and time > datetime.now():
             raise ValueError({"DropPoint": lazy_gettext("Removal time in the future.")})
 
-        self.removed = time if time else datetime.today()
+        self.removed = time if time else datetime.now()
         metrics.drop_point_count.labels(
             state=self.last_state, category=self.category.metrics_name
         ).dec()
 
-    def report(self, state=None, time=None):
+    def report(self, state=None, time=None) -> None:
         """
         Submit a report for a drop point.
         """
         Report(self, time=time, state=state)
 
-    def visit(self, action=None, time=None):
+    def visit(self, action=None, time=None) -> None:
         """
         Perform a visit of a drop point.
         """
         Visit(self, time=time, action=action)
 
     @property
-    def category(self):
+    def category(self) -> Category:
         return Category.get(self.category_id)
 
     @property
-    def level(self):
+    def level(self) -> Optional[int]:
         return self.locations[-1].level if self.locations else None
 
     @property
-    def lat(self):
+    def lat(self) -> Optional[float]:
         return self.locations[-1].lat if self.locations else None
 
     @property
-    def lng(self):
+    def lng(self) -> Optional[float]:
         return self.locations[-1].lng if self.locations else None
 
     @property
-    def description(self):
+    def description(self) -> Optional[Union[str, LazyString]]:
         return self.locations[-1].description if self.locations else None
 
     @property
-    def description_with_level(self):
+    def description_with_level(self) -> Union[str, LazyString]:
         map_source = app.config.get("MAP_SOURCE", {})
         if len(map_source.get("level_config", [])) > 1:
             return lazy_gettext(
                 "%(location)s on level %(level)i",
-                location=self.description if self.description else lazy_gettext("somewhere"),
-                level=self.level
+                location=self.description
+                if self.description
+                else lazy_gettext("somewhere"),
+                level=self.level,
             )
         else:
             return self.description if self.description else lazy_gettext("somewhere")
 
     @property
-    def location(self):
+    def location(self) -> Optional[Location]:
         return self.locations[-1] if self.locations else None
 
     @property
-    def total_report_count(self):
+    def total_report_count(self) -> int:
         return self.reports.count()
 
     @property
-    def new_report_count(self):
+    def new_report_count(self) -> int:
         last_visit = self.last_visit
         if last_visit:
-            return self.reports \
-                .filter(Report.time > last_visit.time) \
-                .count()
+            return self.reports.filter(Report.time > last_visit.time).count()
         else:
             return self.total_report_count
 
     @property
-    def last_state(self):
+    def last_state(self) -> str:
         """
         Get the current state of a drop point.
 
@@ -220,7 +234,7 @@ class DropPoint(db.Model):
         return self._last_state
 
     @last_state.setter
-    def last_state(self, state):
+    def last_state(self, state: str):
         metrics.drop_point_count.labels(
             state=self.last_state, category=self.category.metrics_name
         ).dec()
@@ -230,21 +244,21 @@ class DropPoint(db.Model):
         self._last_state = state
 
     @property
-    def last_report(self):
+    def last_report(self) -> Optional[Report]:
         """
         Get the last report of a drop point.
         """
         return self.reports.order_by(Report.time.desc()).first()
 
     @property
-    def last_visit(self):
+    def last_visit(self) -> Optional[Visit]:
         """
         Get the last visit of a drop point.
         """
         return self.visits.order_by(Visit.time.desc()).first()
 
     @property
-    def new_reports(self):
+    def new_reports(self) -> Iterable[Report]:
         """
         Get the reports since the last visit of a drop point.
 
@@ -255,15 +269,16 @@ class DropPoint(db.Model):
         """
         last_visit = self.last_visit
         if last_visit:
-            return self.reports \
-                .filter(Report.time > last_visit.time) \
-                .order_by(Report.time.desc()) \
+            return (
+                self.reports.filter(Report.time > last_visit.time)
+                .order_by(Report.time.desc())
                 .all()
+            )
         else:
             return self.reports.order_by(Report.time.desc()).all()
 
     @property
-    def history(self):
+    def history(self) -> Iterable[Dict[str, Any]]:
         history = []
 
         for visit in self.visits.all():
@@ -283,7 +298,7 @@ class DropPoint(db.Model):
         return sorted(history, key=lambda k: k["time"], reverse=True)
 
     @property
-    def visit_interval(self):
+    def visit_interval(self) -> int:
         """
         Get the visit interval for this drop point.
 
@@ -298,7 +313,7 @@ class DropPoint(db.Model):
         return 60 * app.config.get("BASE_VISIT_INTERVAL", 120)
 
     @property
-    def priority_factor(self):
+    def priority_factor(self) -> float:
         """
         Get the priority factor.
 
@@ -321,15 +336,15 @@ class DropPoint(db.Model):
 
         i = 0
         for report in new_reports:
-            priority += report.get_weight() / 2**i
+            priority += report.get_weight() / 2 ** i
             i += 1
 
-        priority /= (1.0 * self.visit_interval)
+        priority /= 1.0 * self.visit_interval
 
         return priority
 
     @property
-    def priority_base_time(self):
+    def priority_base_time(self) -> datetime:
         """
         Get the base time for visit priority calculation of a drop point.
 
@@ -342,7 +357,7 @@ class DropPoint(db.Model):
             return self.time
 
     @property
-    def priority(self):
+    def priority(self) -> float:
         """
         Get the priority to visit this drop point.
 
@@ -354,13 +369,15 @@ class DropPoint(db.Model):
         This ensures that every drop point is visited from time to
         time.
         """
-        priority = self.priority_factor * \
-            (datetime.today() - self.priority_base_time).total_seconds()
+        priority = (
+            self.priority_factor
+            * (datetime.today() - self.priority_base_time).total_seconds()
+        )
 
         return round(priority, 2)
 
     @classmethod
-    def get_dp_info(cls, number):
+    def get_dp_info(cls, number: int) -> Optional[Dict[str, Any]]:
         dp = cls.query.get(number)
         if dp is not None:
             return {
@@ -378,13 +395,13 @@ class DropPoint(db.Model):
                 "removed": True if dp.removed else False,
                 "lat": dp.lat,
                 "lng": dp.lng,
-                "level": dp.level
+                "level": dp.level,
             }
         else:
             return None
 
     @classmethod
-    def get_dp_json(cls, number):
+    def get_dp_json(cls, number: int) -> str:
         """
         Get a JSON string characterizing a drop point.
 
@@ -392,12 +409,11 @@ class DropPoint(db.Model):
         :meth:`get_dp_info()`.
         """
         return json.dumps(
-            {number: cls.get_dp_info(number)},
-            indent=4 if app.debug else None
+            {number: cls.get_dp_info(number)}, indent=4 if app.debug else None
         )
 
     @staticmethod
-    def get_dps_json(time=None):
+    def get_dps_json(time: datetime = None) -> str:
         """
         Get drop points as a JSON string.
 
@@ -414,7 +430,7 @@ class DropPoint(db.Model):
                 [dp for dp in DropPoint.query.filter(DropPoint.time > time).all()],
                 [loc.dp for loc in Location.query.filter(Location.time > time).all()],
                 [vis.dp for vis in Visit.query.filter(Visit.time > time).all()],
-                [rep.dp for rep in Report.query.filter(Report.time > time).all()]
+                [rep.dp for rep in Report.query.filter(Report.time > time).all()],
             )
             dps = list(dp_set)
 
@@ -426,20 +442,15 @@ class DropPoint(db.Model):
         return json.dumps(ret, indent=4 if app.debug else None)
 
     @staticmethod
-    def get_next_free_number():
+    def get_next_free_number() -> int:
         """
         Get the next free drop point number.
         """
-        last = DropPoint.query \
-            .order_by(desc(DropPoint.number)) \
-            .limit(1).first()
+        last = DropPoint.query.order_by(desc(DropPoint.number)).limit(1).first()
         if last:
             return last.number + 1
         else:
             return 1
 
-    def __repr__(self):
-        return "Drop point %s (%s)" % (
-            self.number,
-            "inactive" if self.removed else "active"
-        )
+    def __repr__(self) -> str:
+        return f"Drop point {self.number} ({'inactive' if self.removed else 'active'})"

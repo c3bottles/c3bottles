@@ -13,7 +13,7 @@ bp = Blueprint("action", __name__)
 @bp.route("/report", methods=("GET", "POST"))
 @bp.route("/<int:number>")
 @needs_reporting
-def report(number=None):
+def report(number: int = None):
     dp = DropPoint.query.get_or_404(request.values.get("number", number))
 
     if dp.removed:
@@ -28,7 +28,7 @@ def report(number=None):
             return render_template(
                 "error.html",
                 text=lazy_gettext("Errors occurred while processing your report:"),
-                errors=[v for d in e.args for v in d.values()]
+                errors=[v for d in e.args for v in d.values()],
             )
         else:
             return render_template(
@@ -37,16 +37,13 @@ def report(number=None):
                 text=lazy_gettext("Your report has been received successfully."),
             )
     else:
-        return render_template(
-            "action/report.html",
-            dp=dp
-        )
+        return render_template("action/report.html", dp=dp)
 
 
 @bp.route("/visit", methods=("GET", "POST"))
 @bp.route("/visit/<int:number>")
 @needs_visiting
-def visit(number=None):
+def visit(number: int = None):
     dp = DropPoint.query.get_or_404(request.values.get("number", number))
 
     if dp.removed:
@@ -61,16 +58,15 @@ def visit(number=None):
             return render_template(
                 "error.html",
                 text=lazy_gettext("Errors occurred while processing your visit:"),
-                errors=[v for d in e.args for v in d.values()]
+                errors=[v for d in e.args for v in d.values()],
             )
         else:
-            flash({
-                "class": "success disappear",
-                "text": lazy_gettext("Your visit has been processed successfully."),
-            })
-            return redirect("{}#{}/{}/{}/3".format(url_for("view.map_"), dp.level, dp.lat, dp.lng))
+            flash(
+                {
+                    "class": "success disappear",
+                    "text": lazy_gettext("Your visit has been processed successfully."),
+                }
+            )
+            return redirect(f"{url_for('view.map_')}#{dp.level}/{dp.lat}/{dp.lng}/3")
     else:
-        return render_template(
-            "action/visit.html",
-            dp=dp,
-        )
+        return render_template("action/visit.html", dp=dp,)

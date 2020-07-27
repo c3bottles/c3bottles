@@ -1,8 +1,6 @@
 import sys
 
 from babel import Locale
-from pwgen import pwgen
-
 from flask import Flask, g, session, request
 from flask_babel import Babel
 from flask_bcrypt import Bcrypt
@@ -10,6 +8,7 @@ from flask_compress import Compress
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import CSRFProtect
+from pwgen import pwgen
 from werkzeug.middleware.proxy_fix import ProxyFix
 
 
@@ -19,18 +18,27 @@ app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
 if "pytest" not in sys.modules:
     try:
         import config
+
         app.config.from_object(config)
     except ImportError:
         app.config.update(
             SQLALCHEMY_DATABASE_URI="sqlite:///c3bottles.db",
             SQLALCHEMY_TRACK_MODIFICATIONS=False,
             SECRET_KEY=pwgen(64),
-            BABEL_TRANSLATION_DIRECTORIES="../translations"
+            BABEL_TRANSLATION_DIRECTORIES="../translations",
         )
-        print("\nWARNING: c3bottles is not configured properly and this\n"
-              "instance fell back to the default configuration. This means\n"
-              "that the secret key will change on every restart of the\n"
-              "server and all users will be logged out forcibly!\n")
+        print(
+            "\nWARNING: c3bottles is not configured properly and this\n"
+            "instance fell back to the default configuration. This means\n"
+            "that the secret key will change on every restart of the\n"
+            "server and all users will be logged out forcibly!\n"
+        )
+else:
+    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///:memory:"
+    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+    app.config["TESTING"] = True
+    app.config["WTF_CSRF_ENABLED"] = False
+    app.config["SECRET_KEY"] = "secret"
 
 Compress(app)
 
@@ -43,12 +51,11 @@ babel = Babel(app)
 languages = ("en", "de")
 locales = {lang: Locale(lang) for lang in languages}
 language_list = sorted(
-    [lang for lang in languages],
-    key=lambda k: locales[k].get_display_name()
+    (lang for lang in languages), key=lambda k: locales[k].get_display_name()
 )
 
 
-def get_locale():
+def get_locale() -> str:
     """
     Get the locale from the session. If no locale is available, set it.
     """
@@ -57,7 +64,7 @@ def get_locale():
     return session["lang"]
 
 
-def set_locale():
+def set_locale() -> None:
     """
     Set the locale in the session to one of the available languages.
     If a language has been given via the URL, it is set if it is a valid

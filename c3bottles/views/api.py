@@ -23,12 +23,9 @@ def process():
         return dp_json()
 
     return Response(
-        json.dumps(
-            "Invalid or missing API action.",
-            indent=4 if app.debug else None
-        ),
+        json.dumps("Invalid or missing API action.", indent=4 if app.debug else None),
         mimetype="application/json",
-        status=400
+        status=400,
     )
 
 
@@ -39,21 +36,23 @@ def all_dp():
 
 @bp.route("/api/map_source.json")
 def map_source():
-    map_source = app.config.get('MAP_SOURCE', {})
-    return jsonify({
-        "attribution": map_source.get('attribution', ''),
-        "tileserver": map_source.get('tileserver', ''),
-        "tileserver_subdomains": map_source.get("tileserver_subdomains", []),
-        "bounds": map_source.get("bounds", None),
-        "initial_view": map_source.get("initial_view", None),
-        "level_config": map_source.get("level_config", None),
-        "min_zoom": map_source.get("min_zoom", 0),
-        "max_zoom": map_source.get("max_zoom", 0),
-        "simple_crs": map_source.get("simple_crs", False),
-        "hack_257px": map_source.get("hack_257px", False),
-        "tms": map_source.get("tms", False),
-        "no_wrap": map_source.get("no_wrap", False)
-    })
+    map_source = app.config.get("MAP_SOURCE", {})
+    return jsonify(
+        {
+            "attribution": map_source.get("attribution", ""),
+            "tileserver": map_source.get("tileserver", ""),
+            "tileserver_subdomains": map_source.get("tileserver_subdomains", []),
+            "bounds": map_source.get("bounds", None),
+            "initial_view": map_source.get("initial_view", None),
+            "level_config": map_source.get("level_config", None),
+            "min_zoom": map_source.get("min_zoom", 0),
+            "max_zoom": map_source.get("max_zoom", 0),
+            "simple_crs": map_source.get("simple_crs", False),
+            "hack_257px": map_source.get("hack_257px", False),
+            "tms": map_source.get("tms", False),
+            "no_wrap": map_source.get("no_wrap", False),
+        }
+    )
 
 
 def report():
@@ -61,28 +60,22 @@ def report():
         return Response(
             json.dumps(
                 [{"msg": "Not logged in or insufficient privileges."}],
-                indent=4 if app.debug else None
+                indent=4 if app.debug else None,
             ),
             mimetype="application/json",
-            status=401
+            status=401,
         )
     number = request.values.get("number")
     try:
-        Report(
-            dp=DropPoint.query.get(number),
-            state=request.values.get("state")
-        )
+        Report(dp=DropPoint.query.get(number), state=request.values.get("state"))
     except ValueError as e:
         return Response(
             json.dumps(e.args, indent=4 if app.debug else None),
             mimetype="application/json",
-            status=400
+            status=400,
         )
     else:
-        return Response(
-            DropPoint.get_dp_json(number),
-            mimetype="application/json"
-        )
+        return Response(DropPoint.get_dp_json(number), mimetype="application/json")
 
 
 def visit():
@@ -90,47 +83,36 @@ def visit():
         return Response(
             json.dumps(
                 [{"msg": "Not logged in or insufficient privileges."}],
-                indent=4 if app.debug else None
+                indent=4 if app.debug else None,
             ),
             mimetype="application/json",
-            status=401
+            status=401,
         )
     number = request.values.get("number")
     try:
-        Visit(
-            dp=DropPoint.query.get(number),
-            action=request.values.get("maintenance")
-        )
+        Visit(dp=DropPoint.query.get(number), action=request.values.get("maintenance"))
     except ValueError as e:
         return Response(
             json.dumps(e.args, indent=4 if app.debug else None),
             mimetype="application/json",
-            status=400
+            status=400,
         )
     else:
-        return Response(
-            DropPoint.get_dp_json(number),
-            mimetype="application/json"
-        )
+        return Response(DropPoint.get_dp_json(number), mimetype="application/json")
 
 
 def dp_json():
     ts = request.values.get("ts")
     if ts:
         try:
-            dps = DropPoint.get_dps_json(
-                time=datetime.fromtimestamp(float(ts))
-            )
+            dps = DropPoint.get_dps_json(time=datetime.fromtimestamp(float(ts)))
         except ValueError as e:
             return Response(
                 json.dumps(e.args, indent=4 if app.debug else None),
                 mimetype="application/json",
-                status=400
+                status=400,
             )
     else:
         dps = DropPoint.get_dps_json()
 
-    return Response(
-        dps,
-        mimetype="application/json"
-    )
+    return Response(dps, mimetype="application/json")

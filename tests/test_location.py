@@ -117,7 +117,7 @@ class LocationTestCase(C3BottlesTestCase):
             with self.assertRaisesRegex(ValueError, "level"):
                 Location(dp, lat=0, lng=0, level=level)
 
-        too_long = "a" * (Location.max_description + 1)
+        too_long = "a" * (Location.MAX_DESCRIPTION + 1)
 
         with self.assertRaisesRegex(ValueError, "too long"):
             Location(dp, lat=0, lng=0, level=1, description=too_long)

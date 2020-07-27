@@ -24,5 +24,5 @@ flake8: venv
 pycodestyle: venv
 	venv/bin/pycodestyle c3bottles
 
-pyline: venv
+pylint: venv
 	venv/bin/pylint c3bottles

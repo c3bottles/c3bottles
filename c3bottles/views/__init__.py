@@ -22,6 +22,7 @@ def needs_reporting(func):
             return func(*args, **kwargs)
         else:
             abort(401)
+
     return decorated_view
 
 
@@ -32,6 +33,7 @@ def needs_visiting(func):
             return func(*args, **kwargs)
         else:
             abort(401)
+
     return decorated_view
 
 
@@ -42,6 +44,7 @@ def needs_editing(func):
             return func(*args, **kwargs)
         else:
             abort(401)
+
     return decorated_view
 
 
@@ -52,6 +55,7 @@ def needs_admin(func):
             return func(*args, **kwargs)
         else:
             abort(401)
+
     return decorated_view
 
 
@@ -60,29 +64,37 @@ def bad_request(_):
     before_request()
     if request.path == "/api":
         return Response(
-            "[{\"e\": \"API request failed.\"}]",
-            mimetype="application/json",
-            status=400)
-    return render_template(
-        "error.html",
-        heading="Bad request",
-        text="Your browser sent an invalid request."
-    ), 400
+            '[{"e": "API request failed."}]', mimetype="application/json", status=400
+        )
+    return (
+        render_template(
+            "error.html",
+            heading="Bad request",
+            text="Your browser sent an invalid request.",
+        ),
+        400,
+    )
 
 
 @app.errorhandler(401)
 def unauthorized(_):
-    return render_template(
-        "error.html",
-        heading="Unauthorized",
-        text="You do not have permission to view this page."
-    ), 401
+    return (
+        render_template(
+            "error.html",
+            heading="Unauthorized",
+            text="You do not have permission to view this page.",
+        ),
+        401,
+    )
 
 
 @app.errorhandler(404)
 def not_found(_):
-    return render_template(
-        "error.html",
-        heading="Not found",
-        text="The requested URL was not found on the server."
-    ), 404
+    return (
+        render_template(
+            "error.html",
+            heading="Not found",
+            text="The requested URL was not found on the server.",
+        ),
+        404,
+    )
