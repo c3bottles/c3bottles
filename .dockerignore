@@ -5,6 +5,7 @@
 .DS_STORE
 .git
 .idea/
+.pytest_cache/
 doc/
 node_modules/
 static/img/map_sq.*
