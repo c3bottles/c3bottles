@@ -1,25 +1,18 @@
+os: linux
+dist: bionic
 language: python
 
 services:
  - docker
 
-matrix:
+jobs:
  include:
-  - name: "Python 3.5"
-    python: 3.5
-    env: what="python3.5"
-    dist: xenial
-    sudo: true
-  - name: "Python 3.6"
-    python: 3.6
-    env: what="python3.6"
-    dist: xenial
-    sudo: true
   - name: "Python 3.7"
     python: 3.7
     env: what="python3.7"
-    dist: xenial
-    sudo: true
+  - name: "Python 3.8"
+    python: 3.8
+    env: what="python3.8"
   - name: "Docker image"
     env: what="docker"
 
@@ -29,14 +22,7 @@ install:
 
 script:
  - if [[ $what = python* ]] ; then pytest --cov=c3bottles ; fi
- - if [[ $what = python* ]] ; then pycodestyle c3bottles ; fi
+ - if [[ $what = python* ]] ; then flake8 c3bottles ; fi
  - if [[ $what = python* ]] ; then yarn build:deps ; fi
- - if [[ $what = python3.6 ]] ; then
-     pip install codacy-coverage &&
-     pytest --cov=c3bottles --cov-report=xml &&
-     python-codacy-coverage -r coverage.xml ;
-   fi
- - if [[ $what = docker ]] ; then docker build -t c3bottles/c3bottles . ; fi
- - if [[ $what = docker ]] ; then
-     docker run --rm --entrypoint /bin/sh c3bottles/c3bottles -c "pip install pytest flask-webtest && pytest" ;
-   fi
+ - if [[ $what = docker ]] ; then docker build -t c3bottles/testrunner --target testrunner . ; fi
+ - if [[ $what = docker ]] ; then docker run --rm c3bottles/testrunner pytest ;fi
