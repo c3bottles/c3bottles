@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import Dict, List, Tuple
 
-from flask_babel import lazy_gettext, LazyString
+from flask_babel import LazyString, lazy_gettext
 
 from c3bottles import db
 from c3bottles.lib import metrics

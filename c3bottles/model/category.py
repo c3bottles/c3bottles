@@ -1,6 +1,6 @@
 from typing import Dict, Iterable
 
-from flask_babel import lazy_gettext, LazyString
+from flask_babel import LazyString, lazy_gettext
 
 from c3bottles.model import drop_point
 

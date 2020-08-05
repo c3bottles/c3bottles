@@ -1,12 +1,11 @@
 from datetime import datetime
 from typing import Dict, List, Tuple
 
-from flask_babel import lazy_gettext, LazyString
+from flask_babel import LazyString, lazy_gettext
 
 from c3bottles import db
 from c3bottles.lib import metrics
-from c3bottles.model import drop_point
-from c3bottles.model import report
+from c3bottles.model import drop_point, report
 
 
 class Visit(db.Model):

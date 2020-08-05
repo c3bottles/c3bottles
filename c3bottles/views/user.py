@@ -1,14 +1,13 @@
 from json import loads
 from re import sub
 
-from flask import render_template, url_for, redirect, request, Blueprint
+from flask import Blueprint, redirect, render_template, request, url_for
 from flask_babel import lazy_gettext
 from flask_login import current_user, login_user, logout_user
 from werkzeug.routing import BuildError
 
 from c3bottles.model.user import User
 from c3bottles.views.forms import LoginForm
-
 
 bp = Blueprint("user", __name__)
 

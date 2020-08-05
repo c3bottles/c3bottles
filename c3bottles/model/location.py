@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import Dict, List, Union
 
-from flask_babel import lazy_gettext, LazyString
+from flask_babel import LazyString, lazy_gettext
 
 from c3bottles import app, db
 from c3bottles.model import drop_point

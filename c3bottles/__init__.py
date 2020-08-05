@@ -1,7 +1,7 @@
 import sys
 
 from babel import Locale
-from flask import Flask, g, session, request
+from flask import Flask, g, request, session
 from flask_babel import Babel
 from flask_bcrypt import Bcrypt
 from flask_compress import Compress
@@ -10,7 +10,6 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import CSRFProtect
 from pwgen import pwgen
 from werkzeug.middleware.proxy_fix import ProxyFix
-
 
 app = Flask(__name__, static_folder="../static", template_folder="../templates")
 app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
@@ -87,15 +86,15 @@ app.before_request(set_locale)
 app.jinja_env.trim_blocks = True
 app.jinja_env.lstrip_blocks = True
 
-from c3bottles.views.action import bp as bp_action  # noqa
-from c3bottles.views.admin import bp as bp_admin  # noqa
-from c3bottles.views.api import bp as bp_api  # noqa
-from c3bottles.views.label import bp as bp_label  # noqa
-from c3bottles.views.main import bp as bp_main  # noqa
-from c3bottles.views.manage import bp as bp_manage  # noqa
-from c3bottles.views.statistics import bp as bp_stats  # noqa
-from c3bottles.views.user import bp as bp_user  # noqa
-from c3bottles.views.view import bp as bp_view  # noqa
+from c3bottles.views.action import bp as bp_action  # noqa  # isort:skip
+from c3bottles.views.admin import bp as bp_admin  # noqa  # isort:skip
+from c3bottles.views.api import bp as bp_api  # noqa  # isort:skip
+from c3bottles.views.label import bp as bp_label  # noqa  # isort:skip
+from c3bottles.views.main import bp as bp_main  # noqa  # isort:skip
+from c3bottles.views.manage import bp as bp_manage  # noqa  # isort:skip
+from c3bottles.views.statistics import bp as bp_stats  # noqa  # isort:skip
+from c3bottles.views.user import bp as bp_user  # noqa  # isort:skip
+from c3bottles.views.view import bp as bp_view  # noqa  # isort:skip
 
 app.register_blueprint(bp_action)
 app.register_blueprint(bp_admin)

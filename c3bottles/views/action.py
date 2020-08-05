@@ -1,11 +1,10 @@
-from flask import Blueprint, render_template, request, abort, flash, redirect, url_for
+from flask import Blueprint, abort, flash, redirect, render_template, request, url_for
 from flask_babel import lazy_gettext
 
 from c3bottles.model.drop_point import DropPoint
 from c3bottles.model.report import Report
 from c3bottles.model.visit import Visit
 from c3bottles.views import needs_reporting, needs_visiting
-
 
 bp = Blueprint("action", __name__)
 

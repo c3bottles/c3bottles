@@ -1,14 +1,6 @@
 from datetime import datetime
 
-from flask import (
-    Blueprint,
-    render_template,
-    request,
-    make_response,
-    url_for,
-    flash,
-    redirect,
-)
+from flask import Blueprint, flash, make_response, redirect, render_template, request, url_for
 from flask_babel import lazy_gettext
 
 from c3bottles import db
@@ -16,7 +8,6 @@ from c3bottles.model.category import categories_sorted
 from c3bottles.model.drop_point import DropPoint
 from c3bottles.model.location import Location
 from c3bottles.views import needs_editing
-
 
 bp = Blueprint("manage", __name__)
 

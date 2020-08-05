@@ -1,13 +1,10 @@
 from time import time
 
 from flask import request
-from prometheus_client import Counter, Histogram, start_http_server, Gauge
+from prometheus_client import Counter, Gauge, Histogram, start_http_server
 
 from c3bottles import app
-from c3bottles.model import drop_point
-from c3bottles.model import report
-from c3bottles.model import visit
-
+from c3bottles.model import drop_point, report, visit
 
 drop_point_count = Gauge(
     "c3bottles_drop_point_count",

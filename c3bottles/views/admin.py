@@ -1,17 +1,11 @@
-from flask import Blueprint, abort, render_template, flash, redirect, url_for, request
+from flask import Blueprint, abort, flash, redirect, render_template, request, url_for
 from flask_babel import lazy_gettext
 from flask_login import current_user
 
-from c3bottles import db, bcrypt
+from c3bottles import bcrypt, db
 from c3bottles.model.user import User, make_secure_token
-from c3bottles.views import not_found, unauthorized, needs_admin
-from c3bottles.views.forms import (
-    UserIdForm,
-    PermissionsForm,
-    PasswordForm,
-    UserCreateForm,
-)
-
+from c3bottles.views import needs_admin, not_found, unauthorized
+from c3bottles.views.forms import PasswordForm, PermissionsForm, UserCreateForm, UserIdForm
 
 bp = Blueprint("admin", __name__, url_prefix="/admin")
 

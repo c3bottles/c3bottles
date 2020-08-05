@@ -31,13 +31,13 @@ jobs:
       run: venv/bin/pip install -r requirements.txt
     - name: Lint with flake8
       run: |
-        # stop the build if there are Python syntax errors or undefined names
-        venv/bin/flake8 c3bottles --count --select=E9,F63,F7,F82 --show-source --statistics
-        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-        venv/bin/flake8 c3bottles --count --exit-zero --max-line-length=127 --statistics
+        venv/bin/flake8 c3bottles config.default.py manage.py wsgi.py
     - name: Lint with black
       run: |
         venv/bin/black --check --line-length=100 c3bottles config.default.py manage.py wsgi.py
+    - name: Lint with isort
+      run: |
+        venv/bin/isort --check-only --recursive c3bottles manage.py wsgi.py
     - name: Test with pytest
       run: venv/bin/pytest --cov=c3bottles
     - name: Install JavaScript dependencies

@@ -14,8 +14,9 @@ environment or your system's default Python interpreter. To use this script
 in a virtual environment, either activate the virtual environment first
 or call it like `venv/bin/python manage.py`.
 """
-import click, os
+import os
 
+import click
 from flask.cli import FlaskGroup
 from werkzeug.middleware.profiler import ProfilerMiddleware
 

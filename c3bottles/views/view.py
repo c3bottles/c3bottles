@@ -1,10 +1,9 @@
-from flask import Blueprint, make_response, render_template, abort
+from flask import Blueprint, abort, make_response, render_template
 
 from c3bottles import app
 from c3bottles.lib.statistics import stats_obj
 from c3bottles.model.category import categories_sorted
 from c3bottles.model.drop_point import DropPoint
-
 
 bp = Blueprint("view", __name__)
 

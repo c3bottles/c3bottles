@@ -39,12 +39,14 @@ Just do the following before committing:
     make pytest
 
 Since arguing about how code should be formatted only wastes time, we let
-[black](https://github.com/psf/black) do that for us. Just run
+[black](https://github.com/psf/black) do that for us. In addition, we let
+isort sort and format nicely all our imports at the start of the files.
+Just run
 
-    make black
+    make format
 
-before committing your changes. If black finds anything to change on your
-code, the CI build will fail.
+before committing your changes. If black or isort finds anything to change on
+your code, the CI build will fail.
 
 JavaScript tests will be automatically run in the normal build process during
 `yarn build:js`.

@@ -2,7 +2,7 @@ import json
 from datetime import datetime
 from typing import Any, Dict, Iterable, List, Optional, Union
 
-from flask_babel import lazy_gettext, LazyString
+from flask_babel import LazyString, lazy_gettext
 from sqlalchemy import desc
 
 from c3bottles import app, db

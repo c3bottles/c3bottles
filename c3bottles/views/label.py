@@ -1,17 +1,16 @@
 from base64 import b64encode
 from io import BytesIO
-from stringcase import snakecase, lowercase
 
 import qrcode
 from cairosvg import svg2pdf
-from flask import Blueprint, render_template, request, Response, abort
-from PyPDF2 import PdfFileWriter, PdfFileReader
+from flask import Blueprint, Response, abort, render_template, request
+from PyPDF2 import PdfFileReader, PdfFileWriter
+from stringcase import lowercase, snakecase
 
 from c3bottles import app
-from c3bottles.model.drop_point import DropPoint
 from c3bottles.model.category import Category
+from c3bottles.model.drop_point import DropPoint
 from c3bottles.views import needs_visiting
-
 
 bp = Blueprint("label", __name__)
 

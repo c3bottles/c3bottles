@@ -1,13 +1,12 @@
 from typing import Dict, Iterable, List, Optional, Union
 
 import click
-from flask import current_app, abort
-from flask_login import UserMixin, AnonymousUserMixin
-from flask_babel import lazy_gettext, LazyString
+from flask import abort, current_app
+from flask_babel import LazyString, lazy_gettext
+from flask_login import AnonymousUserMixin, UserMixin
 from pwgen import pwgen
 
-from c3bottles import app, db, lm, bcrypt
-
+from c3bottles import app, bcrypt, db, lm
 
 MAXLENGTH_NAME = 128
 MAXLENGTH_PW = 128

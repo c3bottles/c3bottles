@@ -31,3 +31,8 @@ pylint: venv
 
 black: venv
 	black --line-length=100 c3bottles config.default.py manage.py wsgi.py
+
+isort: venv
+	isort --recursive c3bottles manage.py wsgi.py
+
+format: black isort

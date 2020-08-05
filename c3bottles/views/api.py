@@ -1,14 +1,13 @@
 import json
 from datetime import datetime
 
-from flask import request, Response, Blueprint, jsonify
+from flask import Blueprint, Response, jsonify, request
 from flask_login import current_user
 
 from c3bottles import app
 from c3bottles.model.drop_point import DropPoint
 from c3bottles.model.report import Report
 from c3bottles.model.visit import Visit
-
 
 bp = Blueprint("api", __name__)
 

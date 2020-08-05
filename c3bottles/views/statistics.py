@@ -1,7 +1,6 @@
-from flask import render_template, Blueprint, make_response, jsonify
+from flask import Blueprint, jsonify, make_response, render_template
 
 from c3bottles.lib.statistics import stats_obj
-
 
 bp = Blueprint("statistics", __name__)
 

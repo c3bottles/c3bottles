@@ -1,7 +1,7 @@
 from datetime import datetime
 from functools import wraps
 
-from flask import render_template, g, request, Response, get_flashed_messages, abort
+from flask import Response, abort, g, get_flashed_messages, render_template, request
 from flask_login import current_user
 
 from c3bottles import app
