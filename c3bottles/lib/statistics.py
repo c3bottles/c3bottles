@@ -1,11 +1,13 @@
+from c3bottles.model.category import categories_sorted
 from c3bottles.model.drop_point import DropPoint
 from c3bottles.model.report import Report
 from c3bottles.model.visit import Visit
-from c3bottles.model.category import categories_sorted
 
 
 def drop_points_by_category_gen(category):
-    return lambda: DropPoint.query.filter(DropPoint.category_id == category.category_id, DropPoint.removed == None).count()  # noqa
+    return lambda: DropPoint.query.filter(
+        DropPoint.category_id == category.category_id, DropPoint.removed == None  # noqa
+    ).count()
 
 
 def drop_points_by_state(state):
@@ -49,7 +51,6 @@ def reports_by_category_and_state_gen(category, state):
 
 
 class Statistics(object):
-
     @property
     def overall_drop_point_count(self):
         try:
@@ -110,7 +111,8 @@ class Statistics(object):
                 ret[category.name] = {}
                 for state in Report.states:
                     ret[category.name][state] = drop_points_by_category_and_state_gen(
-                        category, state)
+                        category, state
+                    )
         except:  # noqa
             pass
         return ret

@@ -68,6 +68,10 @@ module.exports = {
       },
     ],
   },
+  performance: {
+    maxAssetSize: 1024000,
+    maxEntrypointSize: 1024000
+  },
   plugins,
   devtool,
   optimization,

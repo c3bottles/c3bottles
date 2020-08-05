@@ -17,5 +17,6 @@ venv/
 yarn-error.log
 npm-shrinkwrap.json
 .coverage
+.htmlcov/
 .vscode/
 BundleReport.html

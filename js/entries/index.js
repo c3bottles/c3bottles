@@ -1,5 +1,3 @@
-import '@babel/polyfill';
-
 global.create = require('../common/create');
 global.map = require('../common/map');
 global.list = require('../common/list');

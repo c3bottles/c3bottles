@@ -37,7 +37,19 @@ any additional ones succeed as well. The Python tests are available via make.
 Just do the following before committing:
 
     make pytest
-    make pycodestyle
+
+Since arguing about how code should be formatted only wastes time, we let
+[black](https://github.com/psf/black) do that for us. In addition, we let
+isort sort and format nicely all our imports at the start of the files.
+Just run
+
+    make format
+
+before committing your changes. If black or isort finds anything to change on
+your code, the CI build will fail.
+
+isort, black, flake8 and pytest are added as a git pre-commit hook using husky
+as well.
 
 JavaScript tests will be automatically run in the normal build process during
 `yarn build:js`.

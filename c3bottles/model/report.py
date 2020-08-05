@@ -1,6 +1,7 @@
 from datetime import datetime
+from typing import Dict, List, Tuple
 
-from flask_babel import lazy_gettext
+from flask_babel import LazyString, lazy_gettext
 
 from c3bottles import db
 from c3bottles.lib import metrics
@@ -17,39 +18,32 @@ class Report(db.Model):
     about the state of the drop point in question.
     """
 
-    state_weights = [
-        ["DEFAULT", 5.0],   # 0 should be the default/unknown state
-        ["NEW", 1.0],       # 1 should be the state of new drop points
-        ["NO_CRATES", 5.0],
-        ["SOME_BOTTLES", 1.0],
-        ["REASONABLY_FULL", 2.0],
-        ["FULL", 3.0],
-        ["OVERFLOW", 5.0],
-        ["EMPTY", 0.0]      # -1 should be the EMPTY state
+    state_weights: List[Tuple[str, float]] = [
+        ("DEFAULT", 5.0),  # 0 should be the default/unknown state
+        ("NEW", 1.0),  # 1 should be the state of new drop points
+        ("NO_CRATES", 5.0),
+        ("SOME_BOTTLES", 1.0),
+        ("REASONABLY_FULL", 2.0),
+        ("FULL", 3.0),
+        ("OVERFLOW", 5.0),
+        ("EMPTY", 0.0),  # -1 should be the EMPTY state
     ]
 
-    states = [e[0] for e in state_weights]
+    states: List[str] = [e[0] for e in state_weights]
 
     rep_id = db.Column(db.Integer, primary_key=True)
 
-    dp_id = db.Column(
-        db.Integer,
-        db.ForeignKey("drop_point.number"),
-        nullable=False
-    )
+    dp_id = db.Column(db.Integer, db.ForeignKey("drop_point.number"), nullable=False)
 
     dp = db.relationship("DropPoint")
 
     time = db.Column(db.DateTime, nullable=False)
 
-    state = db.Column(
-        db.Enum(*states, name="report_states"),
-        default=states[0]
-    )
+    state = db.Column(db.Enum(*states, name="report_states"), default=states[0])
 
-    def __init__(self, dp, time=None, state=None):
+    def __init__(self, dp: "drop_point.DropPoint", time: datetime = None, state: str = None):
 
-        errors = []
+        errors: List[Dict[str, LazyString]] = []
 
         self.dp = dp
 
@@ -62,10 +56,10 @@ class Report(db.Model):
         if time and not isinstance(time, datetime):
             errors.append({"Report": lazy_gettext("Time not a datetime object.")})
 
-        if isinstance(time, datetime) and time > datetime.today():
+        if isinstance(time, datetime) and time > datetime.now():
             errors.append({"Report": lazy_gettext("Start time in the future.")})
 
-        self.time = time if time else datetime.today()
+        self.time = time if time else datetime.now()
 
         if state in Report.states:
             self.state = state
@@ -81,11 +75,9 @@ class Report(db.Model):
         db.session.add(self)
         db.session.commit()
 
-        metrics.report_count.labels(
-            state=self.state, category=self.dp.category.metrics_name
-        ).inc()
+        metrics.report_count.labels(state=self.state, category=self.dp.category.metrics_name).inc()
 
-    def get_weight(self):
+    def get_weight(self) -> float:
         """Get the weight (i.e. significance) of a report.
 
         The weight of a report determines how significant it is for the
@@ -118,14 +110,14 @@ class Report(db.Model):
         return self.get_state_weight(self.state)
 
     @classmethod
-    def get_state_weight(cls, state):
-        for elem in cls.state_weights:
-            if elem[0] == state:
-                return elem[1]
+    def get_state_weight(cls, state: str) -> float:
+        for name, weight in cls.state_weights:
+            if name == state:
+                return weight
         return float(cls.state_weights[0][1])
 
-    def __repr__(self):
-        return "Report %s of drop point %s (state %s at %s)" % (
-            self.rep_id, self.dp_id,
-            self.state, self.time
+    def __repr__(self) -> str:
+        return (
+            f"Report {self.rep_id} of drop point {self.dp_id} "
+            f"(state {self.state} at {self.time})"
         )

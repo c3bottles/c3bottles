@@ -1,12 +1,11 @@
-from flask import Blueprint, abort, render_template, flash, redirect, url_for, request
+from flask import Blueprint, abort, flash, redirect, render_template, request, url_for
 from flask_babel import lazy_gettext
 from flask_login import current_user
 
-from c3bottles import db, bcrypt
+from c3bottles import bcrypt, db
 from c3bottles.model.user import User, make_secure_token
-from c3bottles.views import not_found, unauthorized, needs_admin
-from c3bottles.views.forms import UserIdForm, PermissionsForm, PasswordForm, UserCreateForm
-
+from c3bottles.views import needs_admin, not_found, unauthorized
+from c3bottles.views.forms import PasswordForm, PermissionsForm, UserCreateForm, UserIdForm
 
 bp = Blueprint("admin", __name__, url_prefix="/admin")
 
@@ -47,10 +46,7 @@ def disable_user():
     user.token = make_secure_token()
     db.session.add(user)
     db.session.commit()
-    flash({
-        "class": "success",
-        "text": lazy_gettext("The user has been disabled successfully.")
-    })
+    flash({"class": "success", "text": lazy_gettext("The user has been disabled successfully.")})
     return redirect(url_for("admin.index"))
 
 
@@ -63,10 +59,7 @@ def enable_user():
     user.is_active = True
     db.session.add(user)
     db.session.commit()
-    flash({
-        "class": "success",
-        "text": lazy_gettext("The user has been enabled successfully.")
-    })
+    flash({"class": "success", "text": lazy_gettext("The user has been enabled successfully.")})
     return redirect(url_for("admin.index"))
 
 
@@ -81,10 +74,12 @@ def user_permissions():
     user.is_admin = form.is_admin.data
     db.session.add(user)
     db.session.commit()
-    flash({
-        "class": "success",
-        "text": lazy_gettext("The user's permissions have been updated successfully.")
-    })
+    flash(
+        {
+            "class": "success",
+            "text": lazy_gettext("The user's permissions have been updated successfully."),
+        }
+    )
     return redirect(url_for("admin.index"))
 
 
@@ -99,19 +94,18 @@ def user_password():
         user.token = make_secure_token()
         db.session.add(user)
         db.session.commit()
-        flash({
-            "class": "success",
-            "text": lazy_gettext("The user's password has been changed successfully")
-        })
+        flash(
+            {
+                "class": "success",
+                "text": lazy_gettext("The user's password has been changed successfully"),
+            }
+        )
         if user == current_user:
             return redirect(url_for("main.index"))
         else:
             return redirect(url_for("admin.index"))
     else:
-        flash({
-            "class": "danger",
-            "text": lazy_gettext("The passwords do not match.")
-        })
+        flash({"class": "danger", "text": lazy_gettext("The passwords do not match.")})
         return redirect(url_for("admin.index"))
 
 
@@ -123,10 +117,7 @@ def delete_user():
     user = User.get_or_404(form.user_id.data)
     db.session.delete(user)
     db.session.commit()
-    flash({
-        "class": "success",
-        "text": lazy_gettext("The user has been deleted successfully.")
-    })
+    flash({"class": "success", "text": lazy_gettext("The user has been deleted successfully.")})
     return redirect(url_for("admin.index"))
 
 
@@ -136,20 +127,23 @@ def create_user():
     if not form.validate_on_submit():
         abort(400)
     if User.get(form.username.data) is not None:
-        flash({
-            "class": "danger",
-            "text": lazy_gettext("A user with this name already exists")
-        })
+        flash({"class": "danger", "text": lazy_gettext("A user with this name already exists")})
         return redirect(url_for("admin.index"))
     else:
         user = User(
-            form.username.data, form.password.data, form.can_visit.data,
-            form.can_edit.data, form.is_admin.data, False
+            form.username.data,
+            form.password.data,
+            form.can_visit.data,
+            form.can_edit.data,
+            form.is_admin.data,
+            False,
         )
         db.session.add(user)
         db.session.commit()
-        flash({
-            "class": "success",
-            "text": lazy_gettext("The new user has been created successfully.")
-        })
+        flash(
+            {
+                "class": "success",
+                "text": lazy_gettext("The new user has been created successfully."),
+            }
+        )
         return redirect(url_for("admin.index"))
