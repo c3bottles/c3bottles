@@ -36,3 +36,7 @@ isort: venv
 	isort --recursive c3bottles manage.py wsgi.py
 
 format: black isort
+
+pre-commit: flake8 pytest
+	black --check --line-length=100 c3bottles config.default.py manage.py wsgi.py
+	isort --check-only --recursive c3bottles manage.py wsgi.py

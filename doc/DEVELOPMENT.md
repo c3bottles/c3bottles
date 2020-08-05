@@ -48,5 +48,8 @@ Just run
 before committing your changes. If black or isort finds anything to change on
 your code, the CI build will fail.
 
+isort, black, flake8 and pytest are added as a git pre-commit hook using husky
+as well.
+
 JavaScript tests will be automatically run in the normal build process during
 `yarn build:js`.
