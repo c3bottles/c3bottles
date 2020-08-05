@@ -37,7 +37,7 @@ jobs:
         venv/bin/flake8 c3bottles --count --exit-zero --max-line-length=127 --statistics
     - name: Lint with black
       run: |
-        black --check --line-length=100 c3bottles config.default.py manage.py wsgi.py
+        venv/bin/black --check --line-length=100 c3bottles config.default.py manage.py wsgi.py
     - name: Test with pytest
       run: venv/bin/pytest --cov=c3bottles
     - name: Install JavaScript dependencies
