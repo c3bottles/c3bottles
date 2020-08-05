@@ -53,7 +53,7 @@ def disable_user():
     db.session.add(user)
     db.session.commit()
     flash(
-        {"class": "success", "text": lazy_gettext("The user has been disabled successfully."),}
+        {"class": "success", "text": lazy_gettext("The user has been disabled successfully.")}
     )
     return redirect(url_for("admin.index"))
 
@@ -68,7 +68,7 @@ def enable_user():
     db.session.add(user)
     db.session.commit()
     flash(
-        {"class": "success", "text": lazy_gettext("The user has been enabled successfully."),}
+        {"class": "success", "text": lazy_gettext("The user has been enabled successfully.")}
     )
     return redirect(url_for("admin.index"))
 
@@ -128,7 +128,7 @@ def delete_user():
     db.session.delete(user)
     db.session.commit()
     flash(
-        {"class": "success", "text": lazy_gettext("The user has been deleted successfully."),}
+        {"class": "success", "text": lazy_gettext("The user has been deleted successfully.")}
     )
     return redirect(url_for("admin.index"))
 
@@ -140,7 +140,7 @@ def create_user():
         abort(400)
     if User.get(form.username.data) is not None:
         flash(
-            {"class": "danger", "text": lazy_gettext("A user with this name already exists"),}
+            {"class": "danger", "text": lazy_gettext("A user with this name already exists")}
         )
         return redirect(url_for("admin.index"))
     else:
