@@ -3,7 +3,6 @@ import pytest
 from c3bottles import db
 from c3bottles.model.user import User
 
-
 username = "user"
 password = "password"
 

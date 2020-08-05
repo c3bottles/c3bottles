@@ -1,11 +1,11 @@
-import pytest
-
 from datetime import datetime, timedelta
+
+import pytest
 
 from c3bottles import db
 from c3bottles.model.drop_point import DropPoint
-from c3bottles.model.visit import Visit
 from c3bottles.model.report import Report
+from c3bottles.model.visit import Visit
 
 
 @pytest.fixture

@@ -25,7 +25,7 @@ htmlcov: coverage
 	(cd .htmlcov/ ; ../venv/bin/python -m http.server 3333)
 
 flake8: venv
-	flake8 c3bottles
+	flake8 c3bottles config.default.py manage.py wsgi.py
 
 pycodestyle: venv
 	pycodestyle c3bottles
@@ -34,13 +34,13 @@ pylint: venv
 	pylint c3bottles
 
 black: venv
-	black --line-length=100 c3bottles config.default.py manage.py wsgi.py
+	black --line-length=100 c3bottles config.default.py manage.py wsgi.py tests
 
 isort: venv
-	isort --recursive c3bottles manage.py wsgi.py
+	isort --recursive c3bottles manage.py wsgi.py tests
 
 format: black isort
 
 pre-commit: flake8 pytest
-	black --check --line-length=100 c3bottles config.default.py manage.py wsgi.py
-	isort --check-only --recursive c3bottles manage.py wsgi.py
+	black --check --line-length=100 c3bottles config.default.py manage.py wsgi.py tests
+	isort --check-only --recursive c3bottles manage.py wsgi.py tests

@@ -1,14 +1,11 @@
 import pytest
-
 from flask import url_for
 
 from c3bottles import app
-from .fixtures import testapp, fresh_state  # noqa
 
+from .fixtures import fresh_state, testapp  # noqa
 
-basic_views = [
-    "main.index", "main.faq", "view.list_", "statistics.numbers"
-]
+basic_views = ["main.index", "main.faq", "view.list_", "statistics.numbers"]
 
 
 @pytest.mark.parametrize("view", basic_views)

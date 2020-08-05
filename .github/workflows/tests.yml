@@ -34,10 +34,10 @@ jobs:
         venv/bin/flake8 c3bottles config.default.py manage.py wsgi.py
     - name: Lint with black
       run: |
-        venv/bin/black --check --line-length=100 c3bottles config.default.py manage.py wsgi.py
+        venv/bin/black --check --line-length=100 c3bottles config.default.py manage.py wsgi.py tests
     - name: Lint with isort
       run: |
-        venv/bin/isort --check-only --recursive c3bottles manage.py wsgi.py
+        venv/bin/isort --check-only --recursive c3bottles manage.py wsgi.py tests
     - name: Test with pytest
       run: venv/bin/pytest --cov=c3bottles
     - name: Install JavaScript dependencies

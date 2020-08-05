@@ -1,14 +1,12 @@
-import pytest
-
 from datetime import datetime, timedelta
 
+import pytest
 from flask_sqlalchemy import BaseQuery
 
 from c3bottles import db
 from c3bottles.model.drop_point import DropPoint
 from c3bottles.model.location import Location
 from c3bottles.model.report import Report
-
 
 dp_number = 1
 creation_time = datetime.now()
@@ -22,12 +20,7 @@ level = 2
 def dp():
     db.session.expunge_all()
     return DropPoint(
-        dp_number,
-        time=creation_time,
-        description=description,
-        lat=lat,
-        lng=lng,
-        level=level
+        dp_number, time=creation_time, description=description, lat=lat, lng=lng, level=level
     )
 
 
@@ -105,7 +98,7 @@ def test_dp_invalid_number(num):
 def test_dp_created_in_future():
     time_in_future = datetime.today() + timedelta(hours=1)
     with pytest.raises(ValueError, match="future"):
-        DropPoint(dp_number+1, time=time_in_future, lat=0, lng=0, level=1)
+        DropPoint(dp_number + 1, time=time_in_future, lat=0, lng=0, level=1)
 
 
 @pytest.mark.parametrize("time", [-1, "foo", False])

@@ -1,11 +1,10 @@
-import pytest
-
 from datetime import datetime, timedelta
+
+import pytest
 
 from c3bottles import db
 from c3bottles.model.drop_point import DropPoint
 from c3bottles.model.location import Location
-
 
 dp_number = 3
 first_description = "here"
@@ -29,7 +28,7 @@ def dp():
         lat=first_lat,
         lng=first_lng,
         level=first_level,
-        time=first_time
+        time=first_time,
     )
 
 
@@ -49,7 +48,7 @@ def l2(dp):
         lat=second_lat,
         lng=second_lng,
         level=second_level,
-        time=second_time
+        time=second_time,
     )
 
 

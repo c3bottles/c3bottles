@@ -1,10 +1,8 @@
 import pytest
-
 from flask_webtest import TestApp
 
 from c3bottles import app
 from c3bottles.model.user import User
-
 
 name = "foobar"
 password = "secure_password123"
