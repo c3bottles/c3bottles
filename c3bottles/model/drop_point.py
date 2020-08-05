@@ -83,7 +83,7 @@ class DropPoint(db.Model):
         else:
             errors.append({"cat_id": lazy_gettext("Invalid drop point category.")})
 
-        if time and not isinstance(time, datetime):
+        if time is not None and not isinstance(time, datetime):
             errors.append({"DropPoint": lazy_gettext("Creation time not a datetime object.")})
 
         if isinstance(time, datetime) and time > datetime.now():

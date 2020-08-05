@@ -1,21 +1,21 @@
-from . import C3BottlesTestCase, NAME, PASSWORD
+from c3bottles import app
+
+from .test_user import user, username, password  # noqa
 
 
-class LoginViewTestCase(C3BottlesTestCase):
+def test_login_fail(user):
+    resp = app.test_client().post('/login', data=dict(
+        username=username,
+        password="foo"
+        ), follow_redirects=True)
+    assert resp.status_code == 200
+    assert "Wrong user name or password" in str(resp.data)
 
-    def test_login(self):
-        self.create_test_user()
 
-        resp = self.c3bottles.post('/login', data=dict(
-            username=NAME,
-            password=NAME
-            ), follow_redirects=True)
-        self.assertEqual(resp.status_code, 200)
-        self.assertTrue('Wrong user name or password' in str(resp.data))
-
-        resp = self.c3bottles.post('/login', data=dict(
-            username=NAME,
-            password=PASSWORD
-            ), follow_redirects=True)
-        self.assertEqual(resp.status_code, 200)
-        self.assertFalse('Wrong user name or password' in str(resp.data))
+def test_login_success(user):
+    resp = app.test_client().post('/login', data=dict(
+        username=username,
+        password=password
+        ), follow_redirects=True)
+    assert resp.status_code == 200
+    assert "Wrong user name or password" not in str(resp.data)

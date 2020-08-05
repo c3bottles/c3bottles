@@ -20,6 +20,10 @@ pytest: venv
 coverage: venv
 	pytest --cov=c3bottles
 
+htmlcov: coverage
+	coverage html -i -d .htmlcov/
+	(cd .htmlcov/ ; ../venv/bin/python -m http.server 3333)
+
 flake8: venv
 	flake8 c3bottles
 

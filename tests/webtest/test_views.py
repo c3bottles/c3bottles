@@ -3,7 +3,7 @@ import pytest
 from flask import url_for
 
 from c3bottles import app
-from .fixtures import testapp, fresh_state
+from .fixtures import testapp, fresh_state  # noqa
 
 
 basic_views = [

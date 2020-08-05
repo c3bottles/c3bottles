@@ -1,3 +1,5 @@
+import pytest
+
 from datetime import datetime, timedelta
 
 from c3bottles import db
@@ -5,115 +7,121 @@ from c3bottles.model.drop_point import DropPoint
 from c3bottles.model.visit import Visit
 from c3bottles.model.report import Report
 
-from . import C3BottlesTestCase
+
+@pytest.fixture
+def dp():
+    db.session.expunge_all()
+    return DropPoint(number=1, lat=0, lng=0, level=1)
 
 
-class VisitTestCase(C3BottlesTestCase):
+def test_visit_none():
+    with pytest.raises(ValueError, match="drop point"):
+        Visit(None)  # noqa
 
-    def test_construction_exceptions(self):
 
-        actions = Visit.actions
+def test_visit_missing_action(dp):
+    with pytest.raises(ValueError, match="action"):
+        Visit(dp)
 
-        dp = DropPoint(1, lat=0, lng=0, level=1)
 
-        with self.assertRaisesRegex(ValueError, "drop point"):
-            Visit(None)
+def test_visit_future(dp):
+    time_in_future = datetime.today() + timedelta(hours=1)
+    with pytest.raises(ValueError, match="future"):
+        Visit(dp, time=time_in_future, action=Visit.actions[0])
 
-        with self.assertRaisesRegex(ValueError, "action"):
-            Visit(dp)
 
-        time_in_future = datetime.today() + timedelta(hours=1)
+def test_visit_not_datetime(dp):
+    with pytest.raises(ValueError, match="not a datetime"):
+        Visit(dp, time="foo", action=Visit.actions[0])  # noqa
 
-        with self.assertRaisesRegex(ValueError, "future"):
-            Visit(dp, time=time_in_future, action=actions[0])
 
-        with self.assertRaisesRegex(ValueError, "not a datetime"):
-            Visit(dp, time="foo", action=actions[0])
+def test_visit_wrong_action(dp):
+    with pytest.raises(ValueError, match="action"):
+        Visit(dp, action="whatever")
 
-        with self.assertRaisesRegex(ValueError, "action"):
-            Visit(dp, action="whatever")
 
-    def test_construction(self):
+first_time = datetime.today()
+first_action = Visit.actions[1]
 
-        actions = Visit.actions
 
-        dp = DropPoint(1, lat=0, lng=0, level=1)
+@pytest.fixture
+def first_visit(dp):
+    return Visit(dp, action=first_action, time=first_time)
 
-        first_time = datetime.today()
-        first_action = actions[1]
-        first_visit = Visit(dp, action=first_action, time=first_time)
 
-        db.session.commit()
+def test_visit_time(first_visit):
+    assert first_visit.time == first_time
 
-        self.assertEqual(
-            first_visit.time, first_time,
-            "Visit creation time not as expected."
-        )
 
-        self.assertEqual(
-            first_visit.action, first_action,
-            "Visit action not as expected."
-        )
+def test_visit_action(first_visit):
+    assert first_visit.action == first_action
 
-        self.assertEqual(
-            dp.visits[0], first_visit,
-            "First visit not first visit of associated drop point."
-        )
 
-        self.assertEqual(
-            dp.last_visit, first_visit,
-            "last_visit did not return first visit."
-        )
+def test_dp_visits(dp, first_visit):
+    assert dp.visits[0] == first_visit
 
-        report_time = datetime.today()
-        report_state = Report.states[0]
-        report = Report(dp, state=report_state, time=report_time)
 
-        second_time = datetime.today()
-        second_action = actions[0]
-        second_visit = Visit(dp, action=second_action, time=second_time)
+def test_dp_last_visit(dp, first_visit):
+    assert dp.last_visit == first_visit
 
-        db.session.commit()
 
-        self.assertEqual(
-            second_visit.action, second_action,
-            "Visit action not as expected."
-        )
+report_time = datetime.today()
+report_state = Report.states[0]
 
-        self.assertEqual(
-            dp.visits[-1], second_visit,
-            "Second visit not last visit of associated drop point."
-        )
 
-        self.assertEqual(
-            dp.last_visit, second_visit,
-            "last_visit did not return second visit."
-        )
+@pytest.fixture
+def report(dp):
+    return Report(dp, state=report_state, time=report_time)
 
-        self.assertNotEqual(
-            dp.last_state, report_state,
-            "last_state returns unchanged state after visit."
-        )
 
-        self.assertEqual(
-            dp.new_report_count, 0,
-            "new_report_count nonzero after visit."
-        )
+def test_report_state(dp, report):
+    assert dp.last_state == report_state
 
-        self.assertFalse(
-            dp.new_reports,
-            "new_reports returned something not False after visit."
-        )
 
-        self.assertEqual(
-            dp.last_report, report,
-            "last_report did not return report after visit."
-        )
+def test_new_report_count(dp, report):
+    assert dp.new_report_count == 1
 
-        self.assertEqual(
-            dp.total_report_count, 1,
-            "total_report_count not as expected after visit."
-        )
 
-    def test_priority_calculation(self):
-        pass  # TODO
+second_time = datetime.today()
+second_action = Visit.actions[0]
+
+
+@pytest.fixture
+def second_visit(dp, first_visit):
+    return Visit(dp, action=second_action, time=second_time)
+
+
+def test_second_visit_action(second_visit):
+    assert second_visit.action == second_action
+
+
+def test_second_visit_dp_visits(dp, second_visit):
+    assert dp.visits[-1] == second_visit
+
+
+def test_second_visit_last_visit(dp, second_visit):
+    assert dp.last_visit == second_visit
+
+
+def test_second_visit_last_state(dp, second_visit):
+    assert dp.last_state == Report.states[-1]
+
+
+def test_second_visit_new_report_count(dp, second_visit):
+    assert dp.new_report_count == 0
+
+
+def test_second_visit_no_new_reports(dp, second_visit):
+    assert not dp.new_reports
+
+
+def test_second_visit_last_report(dp, report, second_visit):
+    assert dp.last_report == report
+
+
+def test_second_visit_total_report_count(dp, report, second_visit):
+    assert dp.total_report_count == 1
+
+
+def test_priority_calculation():
+    pass  # TODO
