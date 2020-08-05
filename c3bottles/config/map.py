@@ -46,7 +46,9 @@ class EH19(MapSource):
 
 
 class OpenStreetMapCamp2019(MapSource):
-    attribution = "<a href='https://www.openstreetmap.org/copyright'>© OpenStreepMap contributers</a>"
+    attribution = (
+        "<a href='https://www.openstreetmap.org/copyright'>© OpenStreepMap contributers</a>"
+    )
     tileserver = "https://{s}.tile.openstreetmap.org/"
     tileserver_subdomains = ["a", "b", "c"]
     min_zoom = 16

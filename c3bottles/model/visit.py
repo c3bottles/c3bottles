@@ -38,9 +38,7 @@ class Visit(db.Model):
 
     action = db.Column(db.Enum(*actions, name="visit_actions"), default=actions[0])
 
-    def __init__(
-        self, dp: "drop_point.DropPoint", time: datetime = None, action: str = None
-    ):
+    def __init__(self, dp: "drop_point.DropPoint", time: datetime = None, action: str = None):
 
         errors: List[Dict[str, LazyString]] = []
 
@@ -63,9 +61,7 @@ class Visit(db.Model):
         if action in Visit.actions:
             self.action = action
         else:
-            errors.append(
-                {"Visit": lazy_gettext("Invalid or missing maintenance action.")}
-            )
+            errors.append({"Visit": lazy_gettext("Invalid or missing maintenance action.")})
 
         if errors:
             raise ValueError(*errors)
@@ -77,9 +73,9 @@ class Visit(db.Model):
         db.session.add(self)
         db.session.commit()
 
-        metrics.visit_count.labels(
-            action=self.action, category=self.dp.category.metrics_name
-        ).inc()
+        metrics.visit_count.labels(action=self.action, category=self.dp.category.metrics_name).inc()
 
     def __repr__(self) -> str:
-        return f"Visit {self.vis_id} of drop point {self.dp_id} (action {self.action} at {self.time})"
+        return (
+            f"Visit {self.vis_id} of drop point {self.dp_id} (action {self.action} at {self.time})"
+        )

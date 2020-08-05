@@ -6,8 +6,8 @@ from c3bottles.model.category import categories_sorted
 
 def drop_points_by_category_gen(category):
     return lambda: DropPoint.query.filter(
-        DropPoint.category_id == category.category_id, DropPoint.removed == None
-    ).count()  # noqa
+        DropPoint.category_id == category.category_id, DropPoint.removed == None  # noqa
+    ).count()
 
 
 def drop_points_by_state(state):

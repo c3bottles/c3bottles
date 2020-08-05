@@ -37,7 +37,14 @@ any additional ones succeed as well. The Python tests are available via make.
 Just do the following before committing:
 
     make pytest
-    make pycodestyle
+
+Since arguing about how code should be formatted only wastes time, we let
+[black](https://github.com/psf/black) do that for us. Just run
+
+    make black
+
+before committing your changes. If black finds anything to change on your
+code, the CI build will fail.
 
 JavaScript tests will be automatically run in the normal build process during
 `yarn build:js`.

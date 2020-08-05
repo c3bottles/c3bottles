@@ -28,15 +28,11 @@ visit_count = Gauge(
 )
 
 request_latency = Histogram(
-    "c3bottles_request_latency_seconds",
-    "c3bottles Request Latency",
-    ["method", "endpoint"],
+    "c3bottles_request_latency_seconds", "c3bottles Request Latency", ["method", "endpoint"],
 )
 
 request_count = Counter(
-    "c3bottles_request_count",
-    "c3bottles Request Count",
-    ["method", "endpoint", "http_status"],
+    "c3bottles_request_count", "c3bottles Request Count", ["method", "endpoint", "http_status"],
 )
 
 
@@ -57,9 +53,7 @@ def monitor(
     port=app.config.get("PROMETHEUS_PORT", 9567),
 ):
     for dp in drop_point.DropPoint.query.all():
-        drop_point_count.labels(
-            state=dp.last_state, category=dp.category.metrics_name
-        ).inc()
+        drop_point_count.labels(state=dp.last_state, category=dp.category.metrics_name).inc()
     for r in report.Report.query.all():
         report_count.labels(state=r.state, category=r.dp.category.metrics_name).inc()
     for v in visit.Visit.query.all():

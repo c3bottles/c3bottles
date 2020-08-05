@@ -20,9 +20,7 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         try:
-            back = redirect(
-                url_for(form.back.data, **loads(sub("( u)?'", '"', form.args.data)))
-            )
+            back = redirect(url_for(form.back.data, **loads(sub("( u)?'", '"', form.args.data))))
         except (BuildError, ValueError):
             back = redirect(url_for("main.index"))
         if current_user.is_authenticated:

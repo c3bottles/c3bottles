@@ -71,18 +71,12 @@ class DropPoint(db.Model):
         try:
             self.number = int(number)
         except (TypeError, ValueError):
-            errors.append(
-                {"number": lazy_gettext("Drop point number is not a number.")}
-            )
+            errors.append({"number": lazy_gettext("Drop point number is not a number.")})
         else:
             if self.number < 1:
-                errors.append(
-                    {"number": lazy_gettext("Drop point number is not positive.")}
-                )
+                errors.append({"number": lazy_gettext("Drop point number is not positive.")})
             if DropPoint.query.get(self.number):
-                errors.append(
-                    {"number": lazy_gettext("That drop point already exists.")}
-                )
+                errors.append({"number": lazy_gettext("That drop point already exists.")})
 
         if category_id in all_categories:
             self.category_id = category_id
@@ -90,9 +84,7 @@ class DropPoint(db.Model):
             errors.append({"cat_id": lazy_gettext("Invalid drop point category.")})
 
         if time and not isinstance(time, datetime):
-            errors.append(
-                {"DropPoint": lazy_gettext("Creation time not a datetime object.")}
-            )
+            errors.append({"DropPoint": lazy_gettext("Creation time not a datetime object.")})
 
         if isinstance(time, datetime) and time > datetime.now():
             errors.append({"DropPoint": lazy_gettext("Creation time in the future.")})
@@ -104,12 +96,7 @@ class DropPoint(db.Model):
 
         try:
             Location(
-                self,
-                time=self.time,
-                description=description,
-                lat=lat,
-                lng=lng,
-                level=level,
+                self, time=self.time, description=description, lat=lat, lng=lng, level=level,
             )
         except ValueError as e:
             errors += e.args
@@ -133,14 +120,10 @@ class DropPoint(db.Model):
         """
 
         if self.removed:
-            raise RuntimeError(
-                {"DropPoint": lazy_gettext("Drop point already removed.")}
-            )
+            raise RuntimeError({"DropPoint": lazy_gettext("Drop point already removed.")})
 
         if time and not isinstance(time, datetime):
-            raise TypeError(
-                {"DropPoint": lazy_gettext("Removal time not a datetime object.")}
-            )
+            raise TypeError({"DropPoint": lazy_gettext("Removal time not a datetime object.")})
 
         if time and time > datetime.now():
             raise ValueError({"DropPoint": lazy_gettext("Removal time in the future.")})
@@ -188,9 +171,7 @@ class DropPoint(db.Model):
         if len(map_source.get("level_config", [])) > 1:
             return lazy_gettext(
                 "%(location)s on level %(level)i",
-                location=self.description
-                if self.description
-                else lazy_gettext("somewhere"),
+                location=self.description if self.description else lazy_gettext("somewhere"),
                 level=self.level,
             )
         else:
@@ -238,9 +219,7 @@ class DropPoint(db.Model):
         metrics.drop_point_count.labels(
             state=self.last_state, category=self.category.metrics_name
         ).dec()
-        metrics.drop_point_count.labels(
-            state=state, category=self.category.metrics_name
-        ).inc()
+        metrics.drop_point_count.labels(state=state, category=self.category.metrics_name).inc()
         self._last_state = state
 
     @property
@@ -370,8 +349,7 @@ class DropPoint(db.Model):
         time.
         """
         priority = (
-            self.priority_factor
-            * (datetime.today() - self.priority_base_time).total_seconds()
+            self.priority_factor * (datetime.today() - self.priority_base_time).total_seconds()
         )
 
         return round(priority, 2)
@@ -408,9 +386,7 @@ class DropPoint(db.Model):
         This returns a JSON representation of the dict constructed by
         :meth:`get_dp_info()`.
         """
-        return json.dumps(
-            {number: cls.get_dp_info(number)}, indent=4 if app.debug else None
-        )
+        return json.dumps({number: cls.get_dp_info(number)}, indent=4 if app.debug else None)
 
     @staticmethod
     def get_dps_json(time: datetime = None) -> str:

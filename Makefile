@@ -1,3 +1,5 @@
+export PATH := venv/bin:$(PATH)
+
 venv: venv/bin/activate
 
 venv/bin/activate: requirements.txt requirements/all.txt requirements/development.txt requirements/production.txt
@@ -13,16 +15,19 @@ mrproper: clean
 	rm -rf venv/
 
 pytest: venv
-	venv/bin/pytest
+	pytest
 
 coverage: venv
-	venv/bin/pytest --cov=c3bottles
+	pytest --cov=c3bottles
 
 flake8: venv
-	venv/bin/flake8 c3bottles
+	flake8 c3bottles
 
 pycodestyle: venv
-	venv/bin/pycodestyle c3bottles
+	pycodestyle c3bottles
 
 pylint: venv
-	venv/bin/pylint c3bottles
+	pylint c3bottles
+
+black: venv
+	black --line-length=100 c3bottles config.default.py manage.py wsgi.py

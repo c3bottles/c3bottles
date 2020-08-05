@@ -41,9 +41,7 @@ class Report(db.Model):
 
     state = db.Column(db.Enum(*states, name="report_states"), default=states[0])
 
-    def __init__(
-        self, dp: "drop_point.DropPoint", time: datetime = None, state: str = None
-    ):
+    def __init__(self, dp: "drop_point.DropPoint", time: datetime = None, state: str = None):
 
         errors: List[Dict[str, LazyString]] = []
 
@@ -66,9 +64,7 @@ class Report(db.Model):
         if state in Report.states:
             self.state = state
         else:
-            errors.append(
-                {"Report": lazy_gettext("Invalid or missing reported state.")}
-            )
+            errors.append({"Report": lazy_gettext("Invalid or missing reported state.")})
 
         if errors:
             raise ValueError(*errors)
@@ -79,9 +75,7 @@ class Report(db.Model):
         db.session.add(self)
         db.session.commit()
 
-        metrics.report_count.labels(
-            state=self.state, category=self.dp.category.metrics_name
-        ).inc()
+        metrics.report_count.labels(state=self.state, category=self.dp.category.metrics_name).inc()
 
     def get_weight(self) -> float:
         """Get the weight (i.e. significance) of a report.

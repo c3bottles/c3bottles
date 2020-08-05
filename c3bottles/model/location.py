@@ -58,9 +58,7 @@ class Location(db.Model):
         self.dp = dp
 
         if time and not isinstance(time, datetime):
-            errors.append(
-                {"Location": lazy_gettext("Start time not a datetime object.")}
-            )
+            errors.append({"Location": lazy_gettext("Start time not a datetime object.")})
 
         if isinstance(time, datetime) and time > datetime.now():
             errors.append({"Location": lazy_gettext("Start time in the future.")})
@@ -73,16 +71,12 @@ class Location(db.Model):
         try:
             self.lat = float(lat)
         except (TypeError, ValueError):
-            errors.append(
-                {"lat": lazy_gettext("Latitude is not a floating point number.")}
-            )
+            errors.append({"lat": lazy_gettext("Latitude is not a floating point number.")})
 
         try:
             self.lng = float(lng)
         except (TypeError, ValueError):
-            errors.append(
-                {"lng": lazy_gettext("Longitude is not a floating point number.")}
-            )
+            errors.append({"lng": lazy_gettext("Longitude is not a floating point number.")})
 
         try:
             self.level = int(level)
@@ -92,14 +86,10 @@ class Location(db.Model):
         try:
             self.description = str(description)
         except (TypeError, ValueError):
-            errors.append(
-                {"description": lazy_gettext("Location description is not a string.")}
-            )
+            errors.append({"description": lazy_gettext("Location description is not a string.")})
         else:
             if len(self.description) > self.MAX_DESCRIPTION:
-                errors.append(
-                    {"description": lazy_gettext("Location description is too long.")}
-                )
+                errors.append({"description": lazy_gettext("Location description is too long.")})
 
         if errors:
             raise ValueError(*errors)
@@ -113,9 +103,7 @@ class Location(db.Model):
         if len(map_source.get("level_config", [])) > 1:
             return lazy_gettext(
                 "%(location)s on level %(level)i",
-                location=self.description
-                if self.description
-                else lazy_gettext("somewhere"),
+                location=self.description if self.description else lazy_gettext("somewhere"),
                 level=self.level,
             )
         else:

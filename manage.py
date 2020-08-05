@@ -35,6 +35,7 @@ def initdb():
     This creates all database tables if they do not exist already.
     """
     from c3bottles import db
+
     db.create_all()
 
 
@@ -46,19 +47,14 @@ def dropdb():
     This removes everything from the database.
     """
     from c3bottles import db
+
     if click.confirm("This deletes everything from the database!"):
         db.drop_all()
 
 
 @app.cli.command()
-@click.option(
-    "--host", "-h",
-    help="The interface to bind to.", default="127.0.0.1"
-)
-@click.option(
-    "--port", "-p",
-    help="The port to bind to.", default=5000
-)
+@click.option("--host", "-h", help="The interface to bind to.", default="127.0.0.1")
+@click.option("--port", "-p", help="The port to bind to.", default=5000)
 def serve(host, port):
     """
     Runs a development server.
@@ -69,14 +65,8 @@ def serve(host, port):
 
 
 @app.cli.command()
-@click.option(
-    "--host", "-h",
-    help="The interface to bind to.", default="127.0.0.1"
-)
-@click.option(
-    "--port", "-p",
-    help="The port to bind to.", default=5000
-)
+@click.option("--host", "-h", help="The interface to bind to.", default="127.0.0.1")
+@click.option("--port", "-p", help="The port to bind to.", default=5000)
 def profile(host, port):
     """
     Runs a development server with profiling.
@@ -90,5 +80,5 @@ def profile(host, port):
     app.run(debug=True, host=host, port=port)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     cli()

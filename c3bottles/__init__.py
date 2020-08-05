@@ -50,9 +50,7 @@ babel = Babel(app)
 
 languages = ("en", "de")
 locales = {lang: Locale(lang) for lang in languages}
-language_list = sorted(
-    (lang for lang in languages), key=lambda k: locales[k].get_display_name()
-)
+language_list = sorted((lang for lang in languages), key=lambda k: locales[k].get_display_name())
 
 
 def get_locale() -> str:

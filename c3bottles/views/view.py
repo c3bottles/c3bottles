@@ -20,9 +20,7 @@ def list_():
 
 @bp.route("/list.js")
 def list_js():
-    resp = make_response(
-        render_template("js/list.js", all_dps_json=DropPoint.get_dps_json())
-    )
+    resp = make_response(render_template("js/list.js", all_dps_json=DropPoint.get_dps_json()))
     resp.mimetype = "application/javascript"
     return resp
 
@@ -40,9 +38,7 @@ def map_():
 
 @bp.route("/map.js")
 def map_js():
-    resp = make_response(
-        render_template("js/map.js", all_dps_json=DropPoint.get_dps_json())
-    )
+    resp = make_response(render_template("js/map.js", all_dps_json=DropPoint.get_dps_json()))
     resp.mimetype = "application/javascript"
     return resp
 

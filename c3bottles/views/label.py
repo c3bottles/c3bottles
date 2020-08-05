@@ -61,13 +61,9 @@ def _create_pdf(dp: DropPoint):
     specific_label_style = label_style + "_" + snakecase(lowercase(dp.category.name))
     try:
         return svg2pdf(
-            render_template(
-                "label/{}.svg".format(specific_label_style), number=dp.number, qr=b64
-            )
+            render_template("label/{}.svg".format(specific_label_style), number=dp.number, qr=b64)
         )
     except:  # noqa
         return svg2pdf(
-            render_template(
-                "label/{}.svg".format(label_style), number=dp.number, qr=b64
-            )
+            render_template("label/{}.svg".format(label_style), number=dp.number, qr=b64)
         )

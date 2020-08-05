@@ -47,14 +47,11 @@ def create(lat: str = None, lng: str = None, level: str = None):
                 {
                     "class": "success disappear",
                     "text": lazy_gettext(
-                        "Your %(category)s has been created successfully.",
-                        category=dp.category,
+                        "Your %(category)s has been created successfully.", category=dp.category,
                     ),
                 }
             )
-            return redirect(
-                "{}#{}/{}/{}/3".format(url_for("view.map_"), level, lat, lng)
-            )
+            return redirect("{}#{}/{}/{}/3".format(url_for("view.map_"), level, lat, lng))
         except ValueError as e:
             errors = e.args
     else:
