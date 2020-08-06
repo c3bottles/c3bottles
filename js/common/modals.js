@@ -29,9 +29,8 @@ function report_dp(num, state) {
   $('#dp_modal').modal('hide');
   $.ajax({
     type: 'POST',
-    url: api_url,
+    url: `${api_url}report`,
     data: {
-      action: 'report',
       number: num,
       state,
     },
@@ -90,9 +89,8 @@ function visit_dp(num, action) {
   }
   $.ajax({
     type: 'POST',
-    url: api_url,
+    url: `${api_url}visit`,
     data: {
-      action: 'visit',
       number: num,
       maintenance: action,
     },

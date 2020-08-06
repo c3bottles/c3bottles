@@ -3,37 +3,45 @@ from datetime import datetime
 
 from flask import Blueprint, Response, jsonify, request
 from flask_login import current_user
+from flask_wtf.csrf import generate_csrf
 
 from c3bottles import app
 from c3bottles.model.drop_point import DropPoint
 from c3bottles.model.report import Report
 from c3bottles.model.visit import Visit
 
-bp = Blueprint("api", __name__)
+bp = Blueprint("api", __name__, url_prefix="/api")
 
 
-@bp.route("/api", methods=("POST", "GET"))
-def process():
-    if request.values.get("action") == "report":
-        return report()
-    elif request.values.get("action") == "visit":
-        return visit()
-    elif request.values.get("action") == "dp_json":
-        return dp_json()
-
-    return Response(
-        json.dumps("Invalid or missing API action.", indent=4 if app.debug else None),
-        mimetype="application/json",
-        status=400,
-    )
+@bp.route("/")
+def index():
+    return jsonify({})
 
 
-@bp.route("/api/all_dp.json", methods=("POST", "GET"))
-def all_dp():
-    return dp_json()
+@bp.route("/token")
+def update_csrf_token():
+    return jsonify({"token": generate_csrf()})
 
 
-@bp.route("/api/map_source.json")
+@bp.route("/all_dp.json")
+def all_dp_json():
+    ts = request.values.get("ts")
+    if ts:
+        try:
+            dps = DropPoint.get_dps_json(time=datetime.fromtimestamp(int(ts)))
+        except ValueError as e:
+            return Response(
+                json.dumps(e.args, indent=4 if app.debug else None),
+                mimetype="application/json",
+                status=400,
+            )
+    else:
+        dps = DropPoint.get_dps_json()
+
+    return Response(dps, mimetype="application/json")
+
+
+@bp.route("/map_source.json")
 def map_source():
     map_source = app.config.get("MAP_SOURCE", {})
     return jsonify(
@@ -54,6 +62,7 @@ def map_source():
     )
 
 
+@bp.route("/report", methods=("POST",))
 def report():
     if not current_user.can_report:
         return Response(
@@ -77,6 +86,7 @@ def report():
         return Response(DropPoint.get_dp_json(number), mimetype="application/json")
 
 
+@bp.route("/visit", methods=("POST",))
 def visit():
     if not current_user.can_visit:
         return Response(
@@ -98,20 +108,3 @@ def visit():
         )
     else:
         return Response(DropPoint.get_dp_json(number), mimetype="application/json")
-
-
-def dp_json():
-    ts = request.values.get("ts")
-    if ts:
-        try:
-            dps = DropPoint.get_dps_json(time=datetime.fromtimestamp(float(ts)))
-        except ValueError as e:
-            return Response(
-                json.dumps(e.args, indent=4 if app.debug else None),
-                mimetype="application/json",
-                status=400,
-            )
-    else:
-        dps = DropPoint.get_dps_json()
-
-    return Response(dps, mimetype="application/json")
