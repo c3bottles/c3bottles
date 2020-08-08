@@ -1,3 +1,6 @@
+import json
+
+
 class _MapSourceType(type):
     def __getattr__(cls, attr):
         return None
@@ -11,6 +14,25 @@ class MapSource(metaclass=_MapSourceType):
     @classmethod
     def override(cls, attr, value):
         setattr(cls, attr, value)
+
+    @classmethod
+    def json(cls):
+        return json.dumps(
+            {
+                "attribution": cls.get("attribution", ""),
+                "tileserver": cls.get("tileserver", ""),
+                "tileserver_subdomains": cls.get("tileserver_subdomains", []),
+                "bounds": cls.get("bounds", None),
+                "initial_view": cls.get("initial_view", None),
+                "level_config": cls.get("level_config", None),
+                "min_zoom": cls.get("min_zoom", 0),
+                "max_zoom": cls.get("max_zoom", 0),
+                "simple_crs": cls.get("simple_crs", False),
+                "hack_257px": cls.get("hack_257px", False),
+                "tms": cls.get("tms", False),
+                "no_wrap": cls.get("no_wrap", False),
+            }
+        )
 
 
 class C3Nav35C3(MapSource):

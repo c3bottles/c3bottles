@@ -1,9 +1,9 @@
-{% include "js/base.js" %}
+var drop_points = {{ all_dps_json|safe }};
 
 {% import "macros/states.html" as states %}
 {{ states.label_js() }}
 
-list.initializeTable(mapSource);
+list.initializeTable();
 
 var hash = location.hash.substr(1);
 if (hash.length > 0) {

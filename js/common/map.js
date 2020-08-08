@@ -5,9 +5,9 @@ const gettext = require('./gettext');
 const modals = require('./modals');
 
 const imgDir = $('meta[name=endpoint]').data('img');
+const mapSource = $.parseJSON($('meta[name=map-source]').attr('content'));
 
 let mapObj;
-let mapSource;
 let layerControl;
 let currentLevel = 0;
 let mapCategory = -1;
@@ -137,7 +137,7 @@ module.exports.getLevel = function() {
 };
 
 module.exports.setLevel = function(level) {
-  if (mapSource.level_config !== undefined) {
+  if (mapSource.level_config) {
     currentLevel = parseInt(level, 10);
     layerControl.setLayer(getLayerNumber(currentLevel));
   } else {
@@ -146,8 +146,7 @@ module.exports.setLevel = function(level) {
   redrawMarkers();
 };
 
-function initializeMap(mapSource_) {
-  mapSource = mapSource_;
+function initializeMap() {
   if (mapSource.hack_257px) {
     const originalInitTile = L.GridLayer.prototype._initTile;
 
@@ -175,7 +174,7 @@ function initializeMap(mapSource_) {
 
   mapObj = L.map('map', map_options);
 
-  if (mapSource.level_config !== undefined) {
+  if (mapSource.level_config) {
     // from c3nav: site/static/site/js/c3nav.js
     const LayerControlWidget = L.Control.extend({
       options: {
@@ -197,7 +196,7 @@ function initializeMap(mapSource_) {
         this._tileLayers[id] = L.tileLayer(`${mapSource.tileserver + String(id)}/{z}/{x}/{y}.png`, {
           minZoom: mapSource.min_zoom,
           maxZoom: mapSource.max_zoom,
-          bounds: mapSource.bounds !== undefined ? L.GeoJSON.coordsToLatLngs(mapSource.bounds) : undefined,
+          bounds: mapSource.bounds ? L.GeoJSON.coordsToLatLngs(mapSource.bounds) : undefined,
           attribution: mapSource.attribution,
           subdomains: mapSource.tileserver_subdomains,
         });
@@ -271,7 +270,7 @@ function initializeMap(mapSource_) {
     L.tileLayer(`${mapSource.tileserver}{z}/{x}/{y}.png`, {
       minZoom: mapSource.min_zoom,
       maxZoom: mapSource.max_zoom,
-      bounds: mapSource.bounds !== undefined ? L.GeoJSON.coordsToLatLngs(mapSource.bounds) : undefined,
+      bounds: mapSource.bounds ? L.GeoJSON.coordsToLatLngs(mapSource.bounds) : undefined,
       attribution: mapSource.attribution,
       subdomains: mapSource.tileserver_subdomains,
       tms: mapSource.tms,
@@ -284,7 +283,7 @@ function initializeMap(mapSource_) {
       const initial = mapSource.initial_view;
 
       mapObj.setView([initial.lat, initial.lng], initial.zoom);
-    } else if (mapSource.bounds !== undefined) {
+    } else if (mapSource.bounds) {
       mapObj.fitBounds(mapSource.bounds);
     } else {
       mapObj.fitWorld();

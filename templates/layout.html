@@ -7,6 +7,7 @@
     <meta name="csrf_token" content="{{ csrf_token() }}">
     <meta name="time" content="{{ g.now.strftime('%s.%f') }}">
     <meta name="endpoint" content="{{ request.endpoint }}" data-api="{{ url_for('api.index') }}" data-token-interval="{{ config.get('WTF_CSRF_TIME_LIMIT', 3600) }}" data-img="{{ url_for('static', filename='img') }}">
+    <meta name="map-source" content="{{ map_source.json() }}">
     <title>{{ _("c3bottles") }}{% if title %} - {{ title }}{% endif %}</title>
     <link href="{{ url_for('static', filename='lib/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='lib/css/bootstrap-select.min.css') }}" rel="stylesheet">

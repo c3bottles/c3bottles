@@ -22,6 +22,8 @@ from werkzeug.middleware.profiler import ProfilerMiddleware
 
 from c3bottles import app
 
+os.environ["FLASK_ENV"] = "development"
+
 
 @click.group(cls=FlaskGroup, create_app=lambda _: app)
 def cli():

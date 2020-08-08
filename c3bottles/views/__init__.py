@@ -5,6 +5,7 @@ from flask import Response, abort, g, get_flashed_messages, render_template, req
 from flask_login import current_user
 
 from c3bottles import app
+from c3bottles.config.map import MapSource
 from c3bottles.views.forms import LoginForm
 
 
@@ -13,6 +14,11 @@ def before_request():
     g.alerts = get_flashed_messages()
     g.login_form = LoginForm()
     g.now = datetime.now()
+
+
+@app.context_processor
+def inject_variables():
+    return {"map_source": app.config.get("MAP_SOURCE", MapSource)}
 
 
 def needs_reporting(func):

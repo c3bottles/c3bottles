@@ -4,6 +4,7 @@ const modals = require('./modals');
 
 require('datatables.net-bs4')(window, $);
 
+const levelConfig = $.parseJSON($('meta[name=map-source]').attr('content')).level_config;
 const offset = $("meta[name='time']").attr('content') - Date.now() / 1000;
 
 const icon_details = $('<i></i>')
@@ -56,7 +57,7 @@ function redrawTable() {
   }, 10000);
 }
 
-module.exports.initializeTable = function(mapSource) {
+module.exports.initializeTable = function() {
   let columns = [
     {
       data: 'number',
@@ -69,7 +70,7 @@ module.exports.initializeTable = function(mapSource) {
     },
   ];
 
-  if (mapSource.level_config !== undefined) {
+  if (levelConfig) {
     columns.push({
       data: 'level',
     });

@@ -1,9 +1,9 @@
-{% include "js/base.js" %}
+var drop_points = {{ all_dps_json|safe }};
 
 var create_dp_url = "{{ url_for('manage.create') }}";
 var hash = location.hash.substr(1).split("/");
 
-var mapObj = map.initializeMap(mapSource);
+var mapObj = map.initializeMap();
 
 if (hash.length === 4 || hash.length === 5) {
     map.setLevel(hash[0]);

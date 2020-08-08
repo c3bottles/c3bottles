@@ -1,6 +1,5 @@
-{% include "js/base.js" %}
-
-var mapObj = map.initializeMap(mapSource)
+var drop_points = {{ all_dps_json|safe }};
+var mapObj = map.initializeMap()
 create.initializeCreation(mapObj);
 
 var lat = {{ dp.lat }};

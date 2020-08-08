@@ -1,6 +1,5 @@
-{% include "js/base.js" %}
-
-var mapObj = map.initializeMap(mapSource);
+var drop_points = {{ all_dps_json|safe }};
+var mapObj = map.initializeMap();
 
 mapObj.setView([{{ lat }}, {{ lng }}], 4);
 map.setLevel({{ level }});
