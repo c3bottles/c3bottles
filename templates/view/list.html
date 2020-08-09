@@ -1,6 +1,9 @@
 {% extends "layout.html" %}
 {% set title = _("Drop Point List") %}
+{% import "macros/states.html" as states %}
 {% block header %}
+    <meta name="all-drop-points" content="{{ all_dps_json }}">
+    <meta name="state-labels" content="{{ states.label_json() }}">
     <link href="{{ url_for('static', filename='lib/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/list.css') }}" rel="stylesheet">
 {% endblock %}
@@ -28,7 +31,4 @@
         </thead>
     </table>
 {% include "modals/list.html" %}
-{% endblock %}
-{% block scripts %}
-<script src="{{ url_for('view.list_js') }}"></script>
 {% endblock %}

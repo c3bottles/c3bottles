@@ -1,36 +1,68 @@
-{% macro num(state) %}{% if state == "OVERFLOW" %}
-1{% elif state == "FULL" %}
-2{% elif state == "DEFAULT" %}
-2{% elif state == "REASONABLY_FULL" %}
-3{% elif state == "SOME_BOTTLES" %}
-4{% elif state == "EMPTY" %}
-5{% elif state == "NEW" %}
-6{% else %}
-0{% endif %}{% endmacro %}
+{% macro num(state) %}
+{%-   if state == "OVERFLOW" -%}        1
+{%- elif state == "FULL" -%}            2
+{%- elif state == "DEFAULT" -%}         2
+{%- elif state == "REASONABLY_FULL" -%} 3
+{%- elif state == "SOME_BOTTLES" -%}    4
+{%- elif state == "EMPTY" -%}           5
+{%- elif state == "NEW" -%}             6
+{%- else -%}                            0
+{%- endif -%}
+{% endmacro %}
 
-{% macro label(state) %}{% if state == "OVERFLOW" %}
-<span class="badge badge-danger">{{ _("Overflowing") }}</span>{% elif state == "FULL" %}
-<span class="badge badge-warning">{{ _("Completely full") }}</span>{% elif state == "REASONABLY_FULL" %}
-<span class="badge badge-info">{{ _("Reasonably full") }}</span>{% elif state == "SOME_BOTTLES" %}
-<span class="badge badge-primary">{{ _("Partially filled") }}</span>{% elif state == "EMPTY" %}
-<span class="badge badge-success">{{ _("Empty") }}</span>{%  elif state == "NEW" %}
-<span class="badge badge-secondary">{{ _("New") }}</span>{%  elif state == "NO_CRATES" %}
-<span class="badge badge-danger">{{ _("Missing") }}</span>{% else %}
-<span class="badge badge-dark">{{ _("Unknown") }}</span>{% endif %}{% endmacro %}
+{% macro badge_class(state) %}
+{%-   if state == "OVERFLOW" -%}        danger
+{%- elif state == "FULL" -%}            warning
+{%- elif state == "REASONABLY_FULL" -%} info
+{%- elif state == "SOME_BOTTLES" -%}    primary
+{%- elif state == "EMPTY" -%}           success
+{%- elif state == "NEW" -%}             secondary
+{%- elif state == "NO_CRATES" -%}       danger
+{%- else -%}                            dark
+{%- endif -%}
+{% endmacro %}
 
-{% macro color(state) %}{% if state == "OVERFLOW" %}
-#d9534f{% elif state == "FULL" %}
-#f0ad4e{% elif state == "REASONABLY_FULL" %}
-#5bc0de{% elif state == "SOME_BOTTLES" %}
-#337ab7{% elif state == "EMPTY" %}
-#5cb85c{%  elif state == "NEW" %}
-#777777{%  elif state == "NO_CRATES" %}
-#d9534f{% else %}
-#6f5499{% endif %}{% endmacro %}
+{% macro description(state) %}
+{%-   if state == "OVERFLOW" -%}        {{ _("Overflowing") }}
+{%- elif state == "FULL" -%}            {{ _("Completely full") }}
+{%- elif state == "REASONABLY_FULL" -%} {{ _("Reasonably full") }}
+{%- elif state == "SOME_BOTTLES" -%}    {{ _("Partially filled") }}
+{%- elif state == "EMPTY" -%}           {{ _("Empty") }}
+{%- elif state == "NEW" -%}             {{ _("New") }}
+{%- elif state == "NO_CRATES" -%}       {{ _("Missing") }}
+{%- else -%}                            {{ _("Unknown") }}
+{%- endif -%}
+{% endmacro %}
+
+{% macro color(state) %}
+{%-   if state == "OVERFLOW" -%}        #d9534f
+{%- elif state == "FULL" -%}            #f0ad4e
+{%- elif state == "REASONABLY_FULL" -%} #5bc0de
+{%- elif state == "SOME_BOTTLES" -%}    #337ab7
+{%- elif state == "EMPTY" -%}           #5cb85c
+{%-  elif state == "NEW" -%}            #777777
+{%-  elif state == "NO_CRATES" -%}      #d9534f
+{%- else -%}                            #6f5499
+{%- endif -%}
+{% endmacro %}
+
+{% macro label(state) %}<span class="badge badge-{{ badge_class(state) }}">{{ description(state)|forceescape }}</span>{% endmacro %}
+
+{% set all_states = ["OVERFLOW", "NO_CRATES", "FULL", "REASONABLY_FULL", "SOME_BOTTLES", "EMPTY", "NEW", "DEFAULT", "UNKNOWN"] %}
 
 {%  macro label_js() %}
 var labels = {
-    {% for state in ["OVERFLOW", "NO_CRATES", "FULL", "REASONABLY_FULL", "SOME_BOTTLES", "EMPTY", "NEW", "DEFAULT", "UNKNOWN"] %}
+    {% for state in all_states %}
     {{ state }}: [{{ num(state) }}, '{{ label(state) }}', "{{ color(state) }}"],
     {% endfor %}
 }{% endmacro %}
+
+{%  macro label_json() %}
+{{- "{" -}}
+{%- for state in all_states %}
+{{- '"'|escape + state + '":'|escape -}}
+{{- '{"num":'|escape + num(state) + ',"badge_class":"'|escape + badge_class(state) + '","description":"'|escape + description(state)|forceescape + '","color":"'|escape + color(state) + '"}'|escape -}}
+{{- "," if not loop.last -}}
+{%- endfor -%}
+{{- "}" -}}
+{% endmacro %}

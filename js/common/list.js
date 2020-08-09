@@ -6,6 +6,7 @@ require('datatables.net-bs4')(window, $);
 
 const levelConfig = $.parseJSON($('meta[name=map-source]').attr('content')).level_config;
 const offset = $("meta[name='time']").attr('content') - Date.now() / 1000;
+const states = $.parseJSON($('meta[name=state-labels]').attr('content'));
 
 const icon_details = $('<i></i>')
   .addClass('clickable fas fa-search dp_modal details')
@@ -80,10 +81,13 @@ module.exports.initializeTable = function() {
       data: null,
       render(data, type) {
         if (type === 'sort') {
-          return labels[data.last_state][0];
+          return labels[data.last_state].num;
         }
 
-        return labels[data.last_state][1];
+        return $('<span/>').addClass('badge')
+          .addClass(`badge-${states[data.last_state].badge_class}`)
+          .text(states[data.last_state].description)
+          .prop('outerHTML');
       },
     },
     {

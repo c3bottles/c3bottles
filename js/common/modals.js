@@ -38,7 +38,9 @@ function report_dp(num, state) {
     success(response) {
       add_alert('success', gettext('Thank you!'), gettext('Your report has been received successfully.'));
       $.extend(true, drop_points, response);
-      global.refreshDropPoint(num);
+      if (typeof(global.refreshDropPoint) === 'function') {
+        global.refreshDropPoint(num);
+      }
     },
     error(response) {
       const errors = $.parseJSON(response.responseText);
@@ -98,7 +100,9 @@ function visit_dp(num, action) {
     success(response) {
       add_alert('success', gettext('Thank you!'), gettext('Your visit has been logged successfully.'));
       $.extend(true, drop_points, response);
-      global.refreshDropPoint(num);
+      if (typeof(global.refreshDropPoint) === 'function') {
+        global.refreshDropPoint(num);
+      }
     },
     error(response) {
       const errors = $.parseJSON(response.responseText);

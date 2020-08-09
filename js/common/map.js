@@ -319,7 +319,7 @@ module.exports.allowDpCreation = function() {
 
       marker.bindPopup(
         L.popup({ closeButton: false }).setContent(
-          `<a class='btn btn-primary white' href='${create_dp_url}/${currentLevel}/${lat}/${lng}'>${gettext(
+          `<a class='btn btn-primary white' href='${createUrl}/${currentLevel}/${lat}/${lng}'>${gettext(
             'Create a new drop point'
           )}</a>`
         )
@@ -329,7 +329,7 @@ module.exports.allowDpCreation = function() {
         const lng = marker._latlng.lng.toPrecision(7);
 
         marker._popup.setContent(
-          `<a class='btn btn-primary white' href='${create_dp_url}/${currentLevel}/${lat}/${lng}'>${gettext(
+          `<a class='btn btn-primary white' href='${createUrl}/${currentLevel}/${lat}/${lng}'>${gettext(
             'Create a new drop point'
           )}</a>`
         );

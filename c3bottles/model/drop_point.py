@@ -379,17 +379,19 @@ class DropPoint(db.Model):
             return None
 
     @classmethod
-    def get_dp_json(cls, number: int) -> str:
+    def get_dp_json(cls, number: int, indent: Optional[int] = 4 if app.debug else None) -> str:
         """
         Get a JSON string characterizing a drop point.
 
         This returns a JSON representation of the dict constructed by
         :meth:`get_dp_info()`.
         """
-        return json.dumps({number: cls.get_dp_info(number)}, indent=4 if app.debug else None)
+        return json.dumps({number: cls.get_dp_info(number)}, indent=indent)
 
     @staticmethod
-    def get_dps_json(time: datetime = None) -> str:
+    def get_dps_json(
+        time: datetime = None, indent: Optional[int] = 4 if app.debug else None
+    ) -> str:
         """
         Get drop points as a JSON string.
 
@@ -415,7 +417,7 @@ class DropPoint(db.Model):
         for dp in dps:
             ret[dp.number] = DropPoint.get_dp_info(dp.number)
 
-        return json.dumps(ret, indent=4 if app.debug else None)
+        return json.dumps(ret, indent=indent)
 
     @staticmethod
     def get_next_free_number() -> int:

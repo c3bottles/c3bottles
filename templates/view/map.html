@@ -1,10 +1,10 @@
 {% extends "layout.html" %}
 {% set title = _("Drop Point Map") %}
 {% block header %}
-    <link href="{{ url_for('static', filename='lib/css/leaflet.css') }}"
-          rel="stylesheet">
-    <link href="{{ url_for('static', filename='css/map.css') }}"
-          rel="stylesheet">
+    <meta name="all-drop-points" content="{{ all_dps_json }}">
+    <meta name="create-options" content="" data-user-can-edit="{{ current_user.can_edit|lower }}" data-create-url="{{ url_for('manage.create') }}">
+    <link href="{{ url_for('static', filename='lib/css/leaflet.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/map.css') }}" rel="stylesheet">
 {% endblock %}
 {% block replacement %}
 <div class="container over-map">
@@ -28,7 +28,4 @@
 </div>
 <div id="map" class="map"></div>
 {% include "modals/map.html" %}
-{% endblock %}
-{% block scripts %}
-<script src="{{ url_for('view.map_js') }}"></script>
 {% endblock %}

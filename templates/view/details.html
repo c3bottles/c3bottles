@@ -3,8 +3,9 @@
 {% import "macros/states.html" as states %}
 {% import "macros/actions.html" as actions %}
 {% block header %}
-    <link href="{{ url_for('static', filename='lib/css/leaflet.css') }}"
-          rel="stylesheet">
+    <meta name="all-drop-points" content="{{ all_dps_json }}">
+    <meta name="drop-point-info" content="" data-lat="{{ dp.lat }}" data-lng="{{ dp.lng }}" data-level="{{ dp.level }}">
+    <link href="{{ url_for('static', filename='lib/css/leaflet.css') }}" rel="stylesheet">
 {% endblock %}
 {% block text %}
         <div class="row">

@@ -9,8 +9,10 @@ function update(ts) {
   $.get(`${api_url}all_dp.json`, { ts, }).then(response => {
     global.drop_points = global.drop_points || [];
     $.extend(true, drop_points, response);
-    for (const num in response) {
-      global.refreshDropPoint(num);
+    if (typeof(global.refreshDropPoint) === 'function') {
+      for (const num in response) {
+        global.refreshDropPoint(num);
+      }
     }
     setTimeout(() => {
       update(_ts);
