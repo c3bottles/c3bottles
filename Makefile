@@ -44,3 +44,4 @@ format: black isort
 pre-commit: flake8 pytest
 	black --check --line-length=100 c3bottles config.default.py manage.py wsgi.py tests
 	isort --check-only --recursive c3bottles manage.py wsgi.py tests
+	yarn run eslint

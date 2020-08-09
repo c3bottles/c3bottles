@@ -3,9 +3,10 @@
   "version": "0.0.0",
   "description": " Bottle drop and collection management system for chaos events",
   "scripts": {
+    "eslint": "eslint js/**/*.js",
     "refresh:babel": "venv/bin/pybabel extract -F translations/babel.cfg -k lazy_gettext -w 80 -o translations/messages.pot . && venv/bin/pybabel update -i translations/messages.pot -w 80 -d translations/",
     "prebuild": "mkdir -p static/lib/js/ static/lib/css/ static/lib/css/fontawesome/ static/lib/css/webfonts/",
-    "prebuild:js": "yarn run prebuild && eslint js/**/*.js",
+    "prebuild:js": "npm-run-all prebuild eslint",
     "build:js:perf": "NODE_ENV=production webpack --profile --json > ./webpack-stats.json && webpack-bundle-analyzer ./webpack-stats.json static/lib/js --mode static -s gzip --report ./BundleReport.html --no-open && rm webpack-stats.json",
     "build:js": "NODE_ENV=production webpack",
     "build:js:debug": "webpack",

@@ -319,6 +319,8 @@ module.exports.allowDpCreation = function() {
       const lat = marker._latlng.lat.toPrecision(7);
       const lng = marker._latlng.lng.toPrecision(7);
 
+      const createUrl = $('meta[name=create-options').data('createUrl');
+
       marker.bindPopup(
         L.popup({ closeButton: false }).setContent(
           `<a class='btn btn-primary white' href='${createUrl}/${currentLevel}/${lat}/${lng}'>${gettext(

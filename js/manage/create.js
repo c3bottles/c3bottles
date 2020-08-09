@@ -1,6 +1,5 @@
 const map = require('../common/map');
-
-global.create = require('../common/create');
+const create = require('../common/create');
 
 require('../common/refresh');
 
@@ -17,5 +16,5 @@ create.initializeCreation(mapObj);
 create.drawNewDp(dropPointInfo.data('lat'), dropPointInfo.data('lng'));
 
 if (!$(".alert-danger").length) {
-    create.setInfoFromMarker({"lat": dropPointInfo.data('lat'), "lng": dropPointInfo.data('lng')});
+    create.setInfoFromMarker({ "lat": dropPointInfo.data('lat'), "lng": dropPointInfo.data('lng') });
 }

@@ -1,6 +1,5 @@
 const map = require('../common/map');
-
-global.create = require('../common/create');
+const create = require('../common/create');
 
 require('../common/refresh');
 
