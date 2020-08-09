@@ -2,6 +2,8 @@ const $ = require('jquery');
 const gettext = require('./gettext');
 const modals = require('./modals');
 
+require('../common/refresh');
+
 require('datatables.net-bs4')(window, $);
 
 const levelConfig = $.parseJSON($('meta[name=map-source]').attr('content')).level_config;

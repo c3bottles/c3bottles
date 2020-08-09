@@ -6,25 +6,18 @@ switch ($('meta[name=endpoint]').attr('content')) {
     require('../common/admin');
     break;
   case 'manage.create':
-    global.map = require('../common/map');
-    global.create = require('../common/create');
-    require('../common/refresh');
+    require('../manage/create');
     break;
   case 'manage.edit':
-    global.map = require('../common/map');
-    global.create = require('../common/create');
-    require('../common/refresh');
+    require('../manage/edit');
     break;
   case 'view.details':
     require('../view/details');
-    require('../common/refresh');
     break;
   case 'view.list_':
     require('../view/list');
-    require('../common/refresh');
     break;
   case 'view.map_':
     require('../view/map');
-    require('../common/refresh');
     break;
 }

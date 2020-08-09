@@ -1,6 +1,8 @@
 {% extends "layout.html" %}
 {% set title = _("Edit %(category)s %(number)i", category=dp.category, number=dp.number) %}
 {% block header %}
+    <meta name="all-drop-points" content="{{ all_dps_json }}">
+    <meta name="drop-point-info" content="" data-lat="{{ lat }}" data-lng="{{ lng }}" data-level="{{ level }}">
     <link href="{{ url_for('static', filename='lib/css/leaflet.css') }}" rel="stylesheet">
 {% endblock %}
 {% block alerts %}
@@ -59,7 +61,4 @@
                 <div class="text-right"><button type="submit" class="btn btn-primary">{{ _("Submit changes") }}</button></div></form>
         </div>
     </div>
-{% endblock %}
-{% block scripts %}
-<script src="{{ url_for('manage.edit_js', number=number) }}"></script>
 {% endblock %}

@@ -4,6 +4,8 @@ const L = require('leaflet');
 const gettext = require('./gettext');
 const modals = require('./modals');
 
+require('../common/refresh');
+
 const imgDir = $('meta[name=endpoint]').data('img');
 const mapSource = $.parseJSON($('meta[name=map-source]').attr('content'));
 

@@ -1,6 +1,8 @@
 {% extends "layout.html" %}
 {% set title = _("Create a New Bottle Drop Point") %}
 {% block header %}
+    <meta name="all-drop-points" content="{{ all_dps_json }}">
+    <meta name="drop-point-info" content="" data-lat="{{ lat }}" data-lng="{{ lng }}" data-level="{{ level }}">
     <link href="{{ url_for('static', filename='lib/css/leaflet.css') }}" rel="stylesheet">
 {% endblock %}
 {% block alerts %}
@@ -60,8 +62,4 @@
             </form>
         </div>
     </div>
-{% endblock %}
-{% block scripts %}
-<script src="{{ url_for('manage.create_js', level=level, lat=lat, lng=lng, center_lat=center_lat, center_lng=center_lng) }}"></script>
-
 {% endblock %}

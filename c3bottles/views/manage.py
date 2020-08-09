@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from flask import Blueprint, flash, make_response, redirect, render_template, request, url_for
+from flask import Blueprint, flash, redirect, render_template, request, url_for
 from flask_babel import lazy_gettext
 
 from c3bottles import db
@@ -65,22 +65,8 @@ def create(lat: str = None, lng: str = None, level: str = None):
         error_list=error_list,
         error_fields=error_fields,
         categories=categories_sorted(),
+        all_dps_json=DropPoint.get_dps_json(indent=None),
     )
-
-
-@bp.route("/create.js/<level>/<lat>/<lng>")
-def create_js(level: str, lat: str, lng: str):
-    resp = make_response(
-        render_template(
-            "js/create.js",
-            all_dps_json=DropPoint.get_dps_json(),
-            level=int(level),
-            lat=float(lat),
-            lng=float(lng),
-        )
-    )
-    resp.mimetype = "application/javascript"
-    return resp
 
 
 @bp.route("/edit/<int:number>", methods=("GET", "POST"))
@@ -151,17 +137,5 @@ def edit(number: int = None):
         level=level,
         error_list=error_list,
         error_fields=error_fields,
+        all_dps_json=DropPoint.get_dps_json(indent=None),
     )
-
-
-@bp.route("/edit.js/<int:number>")
-def edit_js(number: int):
-    resp = make_response(
-        render_template(
-            "js/edit.js",
-            all_dps_json=DropPoint.get_dps_json(),
-            dp=DropPoint.query.get_or_404(number),
-        )
-    )
-    resp.mimetype = "application/javascript"
-    return resp
