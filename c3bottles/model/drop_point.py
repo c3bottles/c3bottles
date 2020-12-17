@@ -96,7 +96,12 @@ class DropPoint(db.Model):
 
         try:
             Location(
-                self, time=self.time, description=description, lat=lat, lng=lng, level=level,
+                self,
+                time=self.time,
+                description=description,
+                lat=lat,
+                lng=lng,
+                level=level,
             )
         except ValueError as e:
             errors += e.args

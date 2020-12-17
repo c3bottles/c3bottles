@@ -25,11 +25,15 @@ visit_count = Gauge(
 )
 
 request_latency = Histogram(
-    "c3bottles_request_latency_seconds", "c3bottles Request Latency", ["method", "endpoint"],
+    "c3bottles_request_latency_seconds",
+    "c3bottles Request Latency",
+    ["method", "endpoint"],
 )
 
 request_count = Counter(
-    "c3bottles_request_count", "c3bottles Request Count", ["method", "endpoint", "http_status"],
+    "c3bottles_request_count",
+    "c3bottles Request Count",
+    ["method", "endpoint", "http_status"],
 )
 
 

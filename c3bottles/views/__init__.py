@@ -72,7 +72,9 @@ def bad_request(_):
         return Response('[{"e": "API request failed."}]', mimetype="application/json", status=400)
     return (
         render_template(
-            "error.html", heading="Bad request", text="Your browser sent an invalid request.",
+            "error.html",
+            heading="Bad request",
+            text="Your browser sent an invalid request.",
         ),
         400,
     )

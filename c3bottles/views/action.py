@@ -68,4 +68,7 @@ def visit(number: int = None):
             )
             return redirect(f"{url_for('view.map_')}#{dp.level}/{dp.lat}/{dp.lng}/3")
     else:
-        return render_template("action/visit.html", dp=dp,)
+        return render_template(
+            "action/visit.html",
+            dp=dp,
+        )

@@ -38,7 +38,8 @@ def create(lat: str = None, lng: str = None, level: str = None):
                 {
                     "class": "success disappear",
                     "text": lazy_gettext(
-                        "Your %(category)s has been created successfully.", category=dp.category,
+                        "Your %(category)s has been created successfully.",
+                        category=dp.category,
                     ),
                 }
             )
