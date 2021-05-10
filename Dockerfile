@@ -43,8 +43,8 @@ RUN apk add --no-cache wget zip \
     && update-ms-fonts \
     && apk del --no-cache .msttcorefonts \
     && mkdir -p /usr/share/fonts \
-    && wget https://github.com/google/fonts/raw/master/ofl/montserrat/Montserrat-Black.ttf -O /usr/share/fonts/Montserrat-Black.ttf \
-    && wget https://github.com/google/fonts/raw/master/ofl/montserrat/Montserrat-Light.ttf -O /usr/share/fonts/Montserrat-Light.ttf \
+    && wget https://github.com/google/fonts/raw/main/ofl/montserrat/Montserrat-Black.ttf -O /usr/share/fonts/Montserrat-Black.ttf \
+    && wget https://github.com/google/fonts/raw/main/ofl/montserrat/Montserrat-Light.ttf -O /usr/share/fonts/Montserrat-Light.ttf \
     && wget https://events.ccc.de/congress/2019/wiki/images/6/61/Blackout_Midnight_Umlauts.ttf.zip -O /usr/share/fonts/Blackout_Midnight_Umlauts.ttf.zip \
     && cd /usr/share/fonts && unzip Blackout_Midnight_Umlauts.ttf.zip && rm -rf Blackout_Midnight_Umlauts.ttf.zip
 
