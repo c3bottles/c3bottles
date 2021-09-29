@@ -31,7 +31,7 @@
     "bootstrap": "^4.5.0",
     "bootstrap-select": "^1.13.12",
     "chart.js": "^2.9.4",
-    "datatables.net": "^1.10.22",
+    "datatables.net": "^1.11.3",
     "datatables.net-bs4": "1.10.20",
     "jquery": "^3.5.0",
     "leaflet": "^1.6.0",
