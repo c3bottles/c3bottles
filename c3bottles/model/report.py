@@ -42,7 +42,6 @@ class Report(db.Model):
     state = db.Column(db.Enum(*states, name="report_states"), default=states[0])
 
     def __init__(self, dp: "drop_point.DropPoint", time: datetime = None, state: str = None):
-
         errors: List[Dict[str, LazyString]] = []
 
         self.dp = dp

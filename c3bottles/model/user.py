@@ -40,7 +40,6 @@ class User(db.Model, UserMixin):
         is_admin: bool = False,
         must_reset_pw: bool = True,
     ):
-
         errors: List[Dict[str, LazyString]] = []
 
         if not (name and password):

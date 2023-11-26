@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "description": " Bottle drop and collection management system for chaos events",
   "scripts": {
+    "prepare": "husky install",
     "eslint": "eslint js/**/*.js",
     "refresh:babel": "venv/bin/pybabel extract -F translations/babel.cfg -k lazy_gettext -w 80 -o translations/messages.pot . && venv/bin/pybabel update -i translations/messages.pot -w 80 -d translations/",
     "prebuild": "mkdir -p static/lib/js/ static/lib/css/ static/lib/css/fontawesome/ static/lib/css/webfonts/",
@@ -18,7 +19,8 @@
     "build:deps": "npm-run-all build:js build:css build:fonts",
     "build": "run-s prebuild build:babel build:deps",
     "watch:js": "webpack --watch",
-    "watch:py": "venv/bin/python manage.py serve"
+    "watch:py": "venv/bin/python manage.py serve",
+    "pre-commit": "make pre-commit"
   },
   "repository": "c3bottles/c3bottles",
   "author": "MichiK <c3bottles@michik.net>",

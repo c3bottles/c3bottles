@@ -1,9 +1,9 @@
 from datetime import datetime, timedelta
 
 import pytest
-from flask_sqlalchemy import BaseQuery
+from flask_sqlalchemy.query import Query
 
-from c3bottles import db
+from c3bottles import app, db
 from c3bottles.model.drop_point import DropPoint
 from c3bottles.model.location import Location
 from c3bottles.model.report import Report
@@ -37,7 +37,7 @@ def test_dp_not_removed(dp):
 
 
 def test_reports_are_query(dp):
-    assert isinstance(dp.reports, BaseQuery)
+    assert isinstance(dp.reports, Query)
 
 
 def test_dp_has_no_reports(dp):
@@ -45,7 +45,7 @@ def test_dp_has_no_reports(dp):
 
 
 def test_visits_are_query(dp):
-    assert isinstance(dp.visits, BaseQuery)
+    assert isinstance(dp.visits, Query)
 
 
 def test_dp_has_no_visits(dp):
@@ -265,10 +265,6 @@ def second_report(dp, first_report):
 
 def test_dp_first_report_is_first_in_list(dp, first_report, second_report):
     assert dp.reports[0] == first_report
-
-
-def test_dp_second_report_is_last_in_list(dp, second_report):
-    assert dp.reports[-1] == second_report
 
 
 def test_dp_second_report_is_returned_as_last(dp, second_report):

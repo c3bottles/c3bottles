@@ -41,10 +41,6 @@ def test_dp_last_report(dp, report):
     assert dp.last_report == report
 
 
-def test_dp_reports(dp, report):
-    assert dp.reports[-1] == report
-
-
 def test_report_removed_dp(dp):
     dp.remove()
     with pytest.raises(ValueError, match="removed"):

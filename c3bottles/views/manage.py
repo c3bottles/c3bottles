@@ -84,7 +84,6 @@ def edit(number: int = None):
     errors = None
 
     if request.method == "POST":
-
         description = request.form.get("description")
         lat = request.form.get("lat")
         lng = request.form.get("lng")
