@@ -17,24 +17,24 @@ RUN apk add -U --no-cache \
     python3-dev \
     py3-virtualenv \
     nodejs \
-    yarn \
     py3-pip \
     libffi-dev \
+    nodejs \
+    npm \
     gcc \
     g++ \
     libc-dev \
     zlib-dev \
     postgresql-dev \
     && chown c3bottles:c3bottles /c3bottles
-COPY --chown=c3bottles:c3bottles requirements/docker.txt requirements/production.txt /c3bottles/requirements/
+COPY --chown=c3bottles:c3bottles . /c3bottles
+RUN npm i -g corepack && corepack enable
 USER c3bottles
 RUN virtualenv -p python3 /c3bottles/venv
 ENV PATH=/c3bottles/venv/bin:$PATH
 RUN pip install -r requirements/docker.txt
-COPY --chown=c3bottles:c3bottles package.json yarn.lock /c3bottles/
-RUN yarn
-COPY --chown=c3bottles:c3bottles . /c3bottles
-RUN yarn build && rm -r /c3bottles/node_modules/
+RUN pnpm i --frozen-lockfile
+RUN pnpm build && rm -r /c3bottles/node_modules/
 
 
 FROM base as fontloader

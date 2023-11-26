@@ -4,7 +4,8 @@ const modals = require('./modals');
 
 require('../common/refresh');
 
-require('datatables.net-bs4')(window, $);
+const datatablesInit = require('datatables.net-bs4').default;
+datatablesInit(window, $);
 
 const levelConfig = $.parseJSON($('meta[name=map-source]').attr('content')).level_config;
 const offset = $("meta[name='time']").attr('content') - Date.now() / 1000;
@@ -16,9 +17,7 @@ const icon_details = $('<i></i>')
 const icon_report = $('<span></span>')
   .addClass('clickable fas fa-bullhorn dp_modal report')
   .attr('title', gettext('Report'));
-const icon_visit = $('<i></i>')
-  .addClass('clickable fas fa-wrench dp_modal visit')
-  .attr('title', gettext('Visit'));
+const icon_visit = $('<i></i>').addClass('clickable fas fa-wrench dp_modal visit').attr('title', gettext('Visit'));
 
 let dt;
 let category = -1;
@@ -37,9 +36,7 @@ function getTableData() {
 
 function setCategory(num) {
   category = num;
-  $('.list-category-select-button')
-    .removeClass('btn-primary')
-    .addClass('btn-light');
+  $('.list-category-select-button').removeClass('btn-primary').addClass('btn-light');
   $('.list-category-select-button')
     .filter(`[data-category_id='${num}']`)
     .removeClass('btn-light')
@@ -52,15 +49,13 @@ function setCategory(num) {
 module.exports.setCategory = setCategory;
 
 function redrawTable() {
-  dt.rows()
-    .invalidate()
-    .draw(false);
+  dt.rows().invalidate().draw(false);
   setTimeout(() => {
     redrawTable();
   }, 10000);
 }
 
-module.exports.initializeTable = function() {
+module.exports.initializeTable = function () {
   let columns = [
     {
       data: 'number',
@@ -86,7 +81,8 @@ module.exports.initializeTable = function() {
           return labels[data.last_state].num;
         }
 
-        return $('<span/>').addClass('badge')
+        return $('<span/>')
+          .addClass('badge')
           .addClass(`badge-${states[data.last_state].badge_class}`)
           .text(states[data.last_state].description)
           .prop('outerHTML');
@@ -121,9 +117,7 @@ module.exports.initializeTable = function() {
         my_icon.click(() => {
           modals.show(data.number, 'details');
         });
-        $(data.details_cell)
-          .empty()
-          .append(my_icon);
+        $(data.details_cell).empty().append(my_icon);
       },
     },
     {
@@ -139,9 +133,7 @@ module.exports.initializeTable = function() {
         my_icon.click(() => {
           modals.show(data.number, 'report');
         });
-        $(data.report_cell)
-          .empty()
-          .append(my_icon);
+        $(data.report_cell).empty().append(my_icon);
       },
     },
     {
@@ -157,9 +149,7 @@ module.exports.initializeTable = function() {
         my_icon.click(() => {
           modals.show(data.number, 'visit');
         });
-        $(data.visit_cell)
-          .empty()
-          .append(my_icon);
+        $(data.visit_cell).empty().append(my_icon);
       },
     },
   ]);
@@ -180,21 +170,19 @@ module.exports.initializeTable = function() {
   }, 10000);
 };
 
-module.exports.drawRow = function(num) {
+module.exports.drawRow = function (num) {
   if (drop_points[num] && drop_points[num].row) {
-    dt.row(drop_points[num].row)
-      .data(drop_points[num])
-      .draw(false);
+    dt.row(drop_points[num].row).data(drop_points[num]).draw(false);
   } else if (drop_points[num]) {
     dt.row.add(drop_points[num]).draw(false);
   }
 };
 
-module.exports.isInitialized = function() {
+module.exports.isInitialized = function () {
   return dt !== undefined;
 };
 
-$('.list-category-select-button').on('click', ev => {
+$('.list-category-select-button').on('click', (ev) => {
   const num = $(ev.currentTarget).data('category_id');
 
   if (num > -1) {

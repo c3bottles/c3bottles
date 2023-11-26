@@ -10,21 +10,21 @@ prepare your development environment is as follows:
     git clone https://github.com/c3bottles/c3bottles.git
     cd c3bottles
     make venv
-    yarn
-    yarn build
+    pnpm
+    pnpm build
 
-If you want to work on the Python code, a yarn task is available that starts
+If you want to work on the Python code, a pnpm task is available that starts
 the development webserver and reloads it on every change made to the code.
 Templates are not cached, so changes to templates are reflected as well:
 
-    yarn watch:py
+    pnpm watch:py
 
 Please note that the development server might crash and not come back
 automatically if you introduce an error that raises an unchecked exception.
 
 To work on the JavaScript code, a similar task is available:
 
-    yarn watch:js
+    pnpm watch:js
 
 Any changes to the JavaScript code in the `js/` directory will trigger a
 rebuild of all static JavasScript. You then just have to refresh the website
@@ -52,4 +52,4 @@ isort, black, flake8 and pytest are added as a git pre-commit hook using husky
 as well.
 
 JavaScript tests will be automatically run in the normal build process during
-`yarn build:js`.
+`pnpm build:js`.
