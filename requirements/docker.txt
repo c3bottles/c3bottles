@@ -1,4 +1,3 @@
 # remember to update pillow in production.txt as well!
-pillow>=6.1.0 --install-option="build_ext" --install-option="--disable-jpeg"
 gunicorn>=19.9.0
 -r production.txt

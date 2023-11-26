@@ -78,7 +78,7 @@ def set_locale() -> None:
     g.languages, g.locales = language_list, locales
 
 
-babel.localeselector(get_locale)
+babel.init_app(app, locale_selector=get_locale)
 app.before_request(set_locale)
 
 # Trim and strip blocks in jinja2 so no unnecessary
