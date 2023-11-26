@@ -320,7 +320,7 @@ class DropPoint(db.Model):
 
         i = 0
         for report in new_reports:
-            priority += report.get_weight() / 2 ** i
+            priority += report.get_weight() / 2**i
             i += 1
 
         priority /= 1.0 * self.visit_interval

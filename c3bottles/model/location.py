@@ -48,7 +48,6 @@ class Location(db.Model):
         lng: float = None,
         level: int = None,
     ):
-
         errors: List[Dict[str, LazyString]] = []
 
         if not isinstance(dp, drop_point.DropPoint):

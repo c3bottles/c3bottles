@@ -6,15 +6,12 @@ const TerserPlugin = require('terser-webpack-plugin');
 // eslint-disable-next-line
 const __DEV__ = nodeEnv !== 'production';
 
-const devtool = __DEV__ ? '#source-map' : '';
-
 const plugins = [
   new webpack.DefinePlugin({
     'process.env': {
       NODE_ENV: JSON.stringify(nodeEnv),
     },
   }),
-  new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
 ];
 
 const optimization = {
@@ -41,7 +38,6 @@ if (!__DEV__) {
 
 module.exports = {
   mode: __DEV__ ? 'development' : 'production',
-  context: __dirname,
   resolve: {
     // Extension die wir weglassen können
     extensions: ['.js', '.jsx'],
@@ -73,6 +69,6 @@ module.exports = {
     maxEntrypointSize: 1024000
   },
   plugins,
-  devtool,
+  devtool: __DEV__ ? 'cheap-module-source-map' : 'source-map',
   optimization,
 };

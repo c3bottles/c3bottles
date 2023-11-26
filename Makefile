@@ -3,7 +3,7 @@ export PATH := venv/bin:$(PATH)
 venv: venv/bin/activate
 
 venv/bin/activate: requirements.txt requirements/all.txt requirements/development.txt requirements/production.txt
-	test -d venv || virtualenv -p python3 venv
+	test -d venv || python3 -m venv venv
 	venv/bin/pip install -Ur requirements.txt
 	touch venv/bin/activate
 
@@ -44,4 +44,4 @@ format: black isort
 pre-commit: flake8 pytest
 	black --check --line-length=100 c3bottles config.default.py manage.py wsgi.py tests
 	isort --check-only --recursive c3bottles manage.py wsgi.py tests
-	yarn run eslint
+	pnpm run eslint

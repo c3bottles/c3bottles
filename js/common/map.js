@@ -53,7 +53,7 @@ function getIcon(category, state) {
 module.exports.getIcon = getIcon;
 
 function drawMarker(num) {
-  if (mapObj.hasLayer(drop_points[num].layer)) {
+  if (drop_points[num].layer && mapObj.hasLayer(drop_points[num].layer)) {
     mapObj.removeLayer(drop_points[num].layer);
   }
   if (drop_points[num].level !== currentLevel) {

@@ -14,7 +14,7 @@ author uses PostgreSQL, therefore Psycopg2 is already included in
 `requirements.txt` but most databases that are supported by SQLAlchemy should
 work without any problem.
 
-To build the frontend dependencies, you will need Node.js and yarn.
+To build the frontend dependencies, you will need Node.js and pnpm (corepack).
 
 ## Installation
 
@@ -36,8 +36,8 @@ To build the frontend dependencies, you will need Node.js and yarn.
 
 3.  Fetch the frontend dependencies and build everything:
 
-        yarn
-        yarn build
+        pnpm
+        pnpm build
 
 4.  Create a configuriation file `config.py`. You will find a template for
     the configuration in the file `config.default.py`. Although c3bottles will

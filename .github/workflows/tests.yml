@@ -2,53 +2,53 @@ name: Run Tests & Build Docker Image
 
 on:
   push:
-    branches: [ master ]
+    branches: [main]
   pull_request:
-    branches: [ master ]
+    branches: [main]
 
 jobs:
   Tests:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [3.7, 3.8, 3.9]
-        node-version: [10.x, 12.x, 14.x, 16.x]
+        python-version: [3.11]
+        node-version: [18]
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v2
-      with:
-        python-version: ${{ matrix.python-version }}
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-    - name: Set up virtual environment
-      run: |
-        pip install virtualenv
-        virtualenv -p python${{ matrix.python-version }} venv/
-    - name: Install Python dependencies
-      run: venv/bin/pip install -r requirements.txt
-    - name: Lint with flake8
-      run: |
-        venv/bin/flake8 c3bottles config.default.py manage.py wsgi.py
-    - name: Lint with black
-      run: |
-        venv/bin/black --check --line-length=100 c3bottles config.default.py manage.py wsgi.py tests
-    - name: Lint with isort
-      run: |
-        venv/bin/isort --check-only --recursive c3bottles manage.py wsgi.py tests
-    - name: Test with pytest
-      run: venv/bin/pytest --cov=c3bottles
-    - name: Install JavaScript dependencies
-      run: yarn
-    - name: Build the JavaScript code
-      run: yarn run build
+      - uses: actions/checkout@v2
+      - name: Use Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Set up virtual environment
+        run: |
+          pip install virtualenv
+          virtualenv -p python${{ matrix.python-version }} venv/
+      - name: Install Python dependencies
+        run: venv/bin/pip install -r requirements.txt
+      - name: Lint with flake8
+        run: |
+          venv/bin/flake8 c3bottles config.default.py manage.py wsgi.py
+      - name: Lint with black
+        run: |
+          venv/bin/black --check --line-length=100 c3bottles config.default.py manage.py wsgi.py tests
+      - name: Lint with isort
+        run: |
+          venv/bin/isort --check-only --recursive c3bottles manage.py wsgi.py tests
+      - name: Test with pytest
+        run: venv/bin/pytest --cov=c3bottles
+      - name: Install JavaScript dependencies
+        run: corepack enable && pnpm i --frozen-lockfile
+      - name: Build the JavaScript code
+        run: pnpm run build
   Docker:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --target testrunner --tag c3bottles/testrunner
-    - name: Run Python tests inside Docker
-      run: docker run --rm c3bottles/testrunner pytest
+      - uses: actions/checkout@v2
+      - name: Build the Docker image
+        run: docker build . --file Dockerfile --target testrunner --tag c3bottles/testrunner
+      - name: Run Python tests inside Docker
+        run: docker run --rm c3bottles/testrunner pytest

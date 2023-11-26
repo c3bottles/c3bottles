@@ -38,7 +38,6 @@ class Visit(db.Model):
     action = db.Column(db.Enum(*actions, name="visit_actions"), default=actions[0])
 
     def __init__(self, dp: "drop_point.DropPoint", time: datetime = None, action: str = None):
-
         errors: List[Dict[str, LazyString]] = []
 
         self.dp = dp

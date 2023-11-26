@@ -18,11 +18,11 @@ jobs:
 
 install:
  - if [[ $what = python* ]] ; then pip install -r requirements.txt ; fi
- - if [[ $what = python* ]] ; then yarn ; fi
+ - if [[ $what = python* ]] ; then pnpm ; fi
 
 script:
  - if [[ $what = python* ]] ; then pytest --cov=c3bottles ; fi
  - if [[ $what = python* ]] ; then flake8 c3bottles ; fi
- - if [[ $what = python* ]] ; then yarn build:deps ; fi
+ - if [[ $what = python* ]] ; then pnpm build:deps ; fi
  - if [[ $what = docker ]] ; then docker build -t c3bottles/testrunner --target testrunner . ; fi
  - if [[ $what = docker ]] ; then docker run --rm c3bottles/testrunner pytest ;fi

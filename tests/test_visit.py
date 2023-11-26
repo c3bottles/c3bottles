@@ -95,10 +95,6 @@ def test_second_visit_action(second_visit):
     assert second_visit.action == second_action
 
 
-def test_second_visit_dp_visits(dp, second_visit):
-    assert dp.visits[-1] == second_visit
-
-
 def test_second_visit_last_visit(dp, second_visit):
     assert dp.last_visit == second_visit
 

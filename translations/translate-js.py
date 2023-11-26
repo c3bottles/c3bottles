@@ -5,14 +5,14 @@ import os
 parent = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 os.sys.path.insert(0, parent)
 
-from jinja2 import Markup
+from markupsafe import Markup
 
 from flask import render_template
 from flask_babel import force_locale
 
 from c3bottles import app, languages
 
-_js_escapes = { 
+_js_escapes = {
     '\\': '\\u005C',
     '\'': '\\u0027',
     '"': '\\u0022',
