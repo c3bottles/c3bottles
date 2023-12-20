@@ -84,7 +84,7 @@ function drawMarker(num) {
           icon: getIcon(feature.properties.category_id, feature.properties.last_state),
         });
 
-        marker.on('click', e => {
+        marker.on('click', (e) => {
           const dp = e.target.feature;
 
           modals.show(dp.properties.number, pane_on_click);
@@ -116,15 +116,13 @@ function redrawMarkers() {
   }
 }
 
-module.exports.getCategory = function() {
+module.exports.getCategory = function () {
   return mapCategory;
 };
 
 function setCategory(num) {
   mapCategory = num;
-  $('.map-category-select-button')
-    .removeClass('btn-primary')
-    .addClass('btn-light');
+  $('.map-category-select-button').removeClass('btn-primary').addClass('btn-light');
   $('.map-category-select-button')
     .filter(`[data-category_id='${num}']`)
     .removeClass('btn-light')
@@ -134,11 +132,11 @@ function setCategory(num) {
 
 module.exports.setCategory = setCategory;
 
-module.exports.getLevel = function() {
+module.exports.getLevel = function () {
   return currentLevel;
 };
 
-module.exports.setLevel = function(level) {
+module.exports.setLevel = function (level) {
   if (mapSource.level_config) {
     currentLevel = parseInt(level, 10);
     layerControl.setLayer(getLayerNumber(currentLevel));
@@ -280,8 +278,8 @@ function initializeMap() {
     }).addTo(mapObj);
   }
 
-  module.exports.setDefaultView = function() {
-    if (mapSource.initial_view !== undefined) {
+  module.exports.setDefaultView = function () {
+    if (mapSource.initial_view) {
       const initial = mapSource.initial_view;
 
       mapObj.setView([initial.lat, initial.lng], initial.zoom);
@@ -297,8 +295,8 @@ function initializeMap() {
 
 module.exports.initializeMap = initializeMap;
 
-module.exports.allowDpCreation = function() {
-  mapObj.on('click', e => {
+module.exports.allowDpCreation = function () {
+  mapObj.on('click', (e) => {
     const latlng = e.latlng;
 
     function get_marker(latlng) {
@@ -348,7 +346,7 @@ module.exports.allowDpCreation = function() {
   });
 };
 
-$('.map-category-select-button').on('click', ev => {
+$('.map-category-select-button').on('click', (ev) => {
   const num = $(ev.currentTarget).data('category_id');
 
   setCategory(num);
@@ -366,7 +364,7 @@ $('.map-category-select-button').on('click', ev => {
   location.hash = hash;
 });
 
-global.refreshDropPoint = num => {
+global.refreshDropPoint = (num) => {
   if (mapObj) {
     drawMarker(num);
   }
