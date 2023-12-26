@@ -4,7 +4,7 @@ from io import BytesIO
 import qrcode
 from cairosvg import svg2pdf
 from flask import Blueprint, Response, abort, render_template, request
-from PyPDF2 import PdfFileReader, PdfFileWriter
+from PyPDF2 import PdfReader, PdfWriter
 from stringcase import lowercase, snakecase
 
 from c3bottles import app
@@ -27,9 +27,9 @@ def for_dp(number: int):
 @bp.route("/label/all.pdf")
 @needs_visiting
 def all_labels():
-    output = PdfFileWriter()
+    output = PdfWriter()
     for dp in DropPoint.query.filter(DropPoint.removed == None).all():  # noqa
-        output.addPage(PdfFileReader(BytesIO(_create_pdf(dp))).getPage(0))
+        output.add_page(PdfReader(BytesIO(_create_pdf(dp))).pages[0])
     f = BytesIO()
     output.write(f)
     return Response(f.getvalue(), mimetype="application/pdf")
@@ -41,18 +41,18 @@ def for_cat(number: int):
     cat = Category.get(number)
     if cat is None:
         return abort(404)
-    output = PdfFileWriter()
+    output = PdfWriter()
     for dp in DropPoint.query.filter(
         DropPoint.category_id == cat.category_id, DropPoint.removed == None  # noqa
     ).all():
-        output.addPage(PdfFileReader(BytesIO(_create_pdf(dp))).getPage(0))
+        output.add_page(PdfReader(BytesIO(_create_pdf(dp))).pages[0])
     f = BytesIO()
     output.write(f)
     return Response(f.getvalue(), mimetype="application/pdf")
 
 
 def _create_pdf(dp: DropPoint):
-    img = qrcode.make(request.url_root + str(dp.number))
+    img = qrcode.make(request.url_root + str(dp.number), border=1)
     f = BytesIO()
     img.save(f)
     b64 = b64encode(f.getvalue()).decode("utf-8")
