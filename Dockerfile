@@ -38,6 +38,7 @@ RUN pnpm build && rm -r /c3bottles/node_modules/
 
 
 FROM base as fontloader
+COPY 37c3.ttf /usr/share/fonts/
 RUN apk add --no-cache wget zip \
     && apk add --no-cache --virtual .msttcorefonts msttcorefonts-installer \
     && update-ms-fonts \
