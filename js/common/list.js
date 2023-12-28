@@ -78,7 +78,7 @@ module.exports.initializeTable = function () {
       data: null,
       render(data, type) {
         if (type === 'sort') {
-          return labels[data.last_state].num;
+          return states[data.last_state].num;
         }
 
         return $('<span/>')
