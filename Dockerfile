@@ -1,4 +1,4 @@
-FROM alpine:3.18 as base
+FROM alpine:3.18 AS base
 ENV \
     PYTHONDONTWRITEBYTECODE=1 \
     PIP_NO_CACHE_DIR=true \
@@ -11,7 +11,7 @@ RUN apk add -U --no-cache \
     && adduser --disabled-password c3bottles
 
 
-FROM base as builder
+FROM base AS builder
 WORKDIR /c3bottles
 RUN apk add -U --no-cache \
     python3-dev \
@@ -37,7 +37,7 @@ RUN pnpm i --frozen-lockfile
 RUN pnpm build && rm -r /c3bottles/node_modules/
 
 
-FROM base as fontloader
+FROM base AS fontloader
 COPY 37c3.ttf /usr/share/fonts/
 RUN apk add --no-cache wget zip \
     && apk add --no-cache --virtual .msttcorefonts msttcorefonts-installer \

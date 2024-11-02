@@ -1,7 +1,9 @@
-version: '3.7'
 services:
   app:
-    image: c3bottles/c3bottles
+    # image: c3bottles/c3bottles
+    build:
+      context: .
+      dockerfile: Dockerfile
     volumes:
       - type: volume
         source: datavolume
@@ -13,7 +15,7 @@ services:
      - "9567:9567"
 
   web:
-    image: nginx:1.17-alpine
+    image: nginx:alpine
     user: 65534:65534
     volumes:
       - type: volume
@@ -28,7 +30,7 @@ services:
      - "8000:8000"
 
   db:
-    image: postgres:11-alpine
+    image: postgres:16-alpine
     restart: always
     environment:
       POSTGRES_USER: postgres

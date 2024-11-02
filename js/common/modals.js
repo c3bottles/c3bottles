@@ -63,7 +63,6 @@ $('#dp_modal').on('hidden.bs.modal', e => {
 });
 
 $('.modal-body .report-button').each(function() {
-  // eslint-disable-next-line babel/no-invalid-this
   $(this).on('click', e => {
     report_dp(
       $('.modal_dp_number')
@@ -121,7 +120,6 @@ function visit_dp(num, action) {
 }
 
 $('.visit-button').each(function() {
-  // eslint-disable-next-line babel/no-invalid-this
   $(this).on('click', e => {
     visit_dp(
       $('.modal_dp_number')
