@@ -1,4 +1,4 @@
-FROM alpine:3.18 AS base
+FROM alpine:3.20 AS base
 ENV \
     PYTHONDONTWRITEBYTECODE=1 \
     PIP_NO_CACHE_DIR=true \
