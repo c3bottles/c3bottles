@@ -1,5 +1,6 @@
 from base64 import b64encode
 from io import BytesIO
+from zipfile import ZipFile
 
 import qrcode
 from cairosvg import svg2pdf
@@ -26,13 +27,27 @@ def for_dp(number: int):
 
 @bp.route("/label/all.pdf")
 @needs_visiting
-def all_labels():
+def all_labels_pdf():
     output = PdfWriter()
     for dp in DropPoint.query.filter(DropPoint.removed == None).all():  # noqa
         output.add_page(PdfReader(BytesIO(_create_pdf(dp))).pages[0])
     f = BytesIO()
     output.write(f)
     return Response(f.getvalue(), mimetype="application/pdf")
+
+
+@bp.route("/label/all.zip")
+@needs_visiting
+def all_labels_zip():
+    f = BytesIO()
+    with ZipFile(f, "w") as z:
+        for dp in DropPoint.query.filter(DropPoint.removed == None).all():  # noqa
+            output = PdfWriter()
+            output.add_page(PdfReader(BytesIO(_create_pdf(dp))).pages[0])
+            pdf = BytesIO()
+            output.write(pdf)
+            z.writestr(f"{dp.number}.pdf", pdf.getvalue())
+    return Response(f.getvalue(), mimetype="application/x-zip")
 
 
 @bp.route("/label/category/<int:number>.pdf")

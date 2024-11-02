@@ -28,7 +28,13 @@ $('.admin-button-user-delete').on('click', ev => {
   $('#admin-modal-user-delete').modal('show');
 });
 
-$('#admin-button-create-all-labels').on('click', ev => {
+$('#admin-button-create-all-labels-pdf').on('click', ev => {
+  $(ev.currentTarget)
+    .attr('disabled', true)
+    .prepend('<i class="fas fa-circle-notch fa-spin"></i> ');
+});
+
+$('#admin-button-create-all-labels-zip').on('click', ev => {
   $(ev.currentTarget)
     .attr('disabled', true)
     .prepend('<i class="fas fa-circle-notch fa-spin"></i> ');

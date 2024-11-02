@@ -141,5 +141,8 @@
     </div>
     <hr>
     <h2>{{ _("Drop point labels") }}</h2>
-    <p><a id="admin-button-create-all-labels" href="{{ url_for('label.all_labels') }}" class="btn btn-primary">{{ _('Create labels for all drop points at once (slow!)') }}</a></p>
+    <p>
+        <a id="admin-button-create-all-labels-pdf" href="{{ url_for('label.all_labels_pdf') }}" class="btn btn-primary">{{ _('Create one large PDF for all drop points') }}</a>
+        <a id="admin-button-create-all-labels-zip" href="{{ url_for('label.all_labels_zip') }}" class="btn btn-primary">{{ _('Create ZIP file with one PDF per drop point ') }}</a>
+    </p>
 {% endblock %}
