@@ -27,13 +27,16 @@ RUN apk add -U --no-cache \
     zlib-dev \
     postgresql-dev \
     && chown c3bottles:c3bottles /c3bottles
-COPY --chown=c3bottles:c3bottles . /c3bottles
 RUN npm i -g corepack && corepack enable
 USER c3bottles
 RUN virtualenv -p python3 /c3bottles/venv
 ENV PATH=/c3bottles/venv/bin:$PATH
+COPY requirements /c3bottles/requirements
 RUN pip install -r requirements/docker.txt
+COPY package.json pnpm-lock.yaml /c3bottles
+COPY patches /c3bottles/patches
 RUN pnpm i --frozen-lockfile
+COPY --chown=c3bottles:c3bottles . /c3bottles
 RUN pnpm build && rm -r /c3bottles/node_modules/
 
 
