@@ -88,3 +88,15 @@ class C3Nav37C3(MapSource):
     initial_view = {"lat": 27.93750, "lng": 60.62500, "zoom": 2}
     simple_crs = True
     hack_257px = True
+
+
+class C3Nav38C3(MapSource):
+    attribution = "Powered by <a href='https://c3nav.de/'>c3nav</a>"
+    tileserver = "https://tiles.38c3.c3nav.de/"
+    min_zoom = 0
+    max_zoom = 5
+    level_config = [[62, -1], [1, 0], [2, 1], [3, 2], [4, 3], [5, 4]]
+    bounds = [[-25.52, -14.87], [323.2, 321.14]]
+    initial_view = {"lat": 180, "lng": 149, "zoom": 2}
+    simple_crs = True
+    hack_257px = True
