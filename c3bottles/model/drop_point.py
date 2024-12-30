@@ -298,6 +298,7 @@ class DropPoint(db.Model):
 
     @property
     def priority_factor(self) -> float:
+        return 0
         """
         Get the priority factor.
 
