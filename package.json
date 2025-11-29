@@ -50,7 +50,7 @@
     "@babel/preset-env": "^7.23.3",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^9.1.3",
-    "core-js": "3.33.3",
+    "core-js": "3.47.0",
     "eslint": "^8.54.0",
     "eslint-config-marudor": "^9.3.2",
     "eslint-config-prettier": "^9.0.0",
@@ -74,7 +74,7 @@
       "pre-commit": "make pre-commit"
     }
   },
-  "packageManager": "pnpm@8.11.0+sha256.5858806c3b292cbec89b5533662168a957358e2bbd86431516d441dc1aface89",
+  "packageManager": "pnpm@10.24.0+sha512.01ff8ae71b4419903b65c60fb2dc9d34cf8bb6e06d03bde112ef38f7a34d6904c424ba66bea5cdcf12890230bf39f9580473140ed9c946fef328b6e5238a345a",
   "pnpm": {
     "patchedDependencies": {
       "datatables.net@1.13.8": "patches/datatables.net@1.13.8.patch"
