@@ -1,0 +1,185 @@
+{% import "macros/states.html" as states %}
+{% extends "layoutstats.html" %}
+{% block text %}
+<style>
+    @font-face {
+        font-family: 'KarioDuplexVar';
+        src: URL('static/fonts/Kario39C3Var-Roman.ttf') format('truetype');
+        src: URL('static/fonts/Kario39C3VarWEB-Roman.woff') format('woff');
+        src: URL('static/fonts/Kario39C3VarWEB-Roman.woff2') format('woff2');
+    }
+
+    @font-face {
+        font-family: 'OfficerSansCond';
+        src: URL('static/fonts/OfficerSansCondWeb-Regular.woff') format('woff');
+        src: URL('static/fonts/OfficerSansCondWeb-Regular.woff2') format('woff2');
+    }
+
+    @font-face {
+        font-family: 'OfficerSansCond';
+        font-weight: bold;
+        font-style: italic;
+        src: URL('static/fonts/OfficerSansCondWeb-BoldItalic.woff') format('woff');
+        src: URL('static/fonts/OfficerSansCondWeb-BoldItalic.woff2') format('woff2');
+    }
+
+    @font-face {
+        font-family: 'OfficerSansCond';
+        font-weight: bold;
+        src: URL('static/fonts/OfficerSansCondWeb-Bold.woff') format('woff');
+        src: URL('static/fonts/OfficerSansCondWeb-Bold.woff2') format('woff2');
+    }
+
+    @font-face {
+        font-family: 'OfficerSansCond';
+        font-style: italic;
+        src: URL('static/fonts/OfficerSansCondWeb-RegularItalic.woff') format('woff');
+        src: URL('static/fonts/OfficerSansCondWeb-RegularItalic.woff2') format('woff2');
+    }
+
+    @font-face {
+        font-family: 'OfficerSans';
+        src: URL('static/fonts/OfficerSansWeb-Regular.woff') format('woff');
+        src: URL('static/fonts/OfficerSansWeb-Regular.woff2') format('woff2');
+    }
+
+    @font-face {
+        font-family: 'OfficerSans';
+        font-weight: bold;
+        font-style: italic;
+        src: URL('static/fonts/OfficerSansWeb-BoldItalic.woff') format('woff');
+        src: URL('static/fonts/OfficerSansWeb-BoldItalic.woff2') format('woff2');
+    }
+
+    @font-face {
+        font-family: 'OfficerSans';
+        font-weight: bold;
+        src: URL('static/fonts/OfficerSansWeb-Bold.woff') format('woff');
+        src: URL('static/fonts/OfficerSansWeb-Bold.woff2') format('woff2');
+    }
+
+    @font-face {
+        font-family: 'OfficerSans';
+        font-style: italic;
+        src: URL('static/fonts/OfficerSansWeb-RegularItalic.woff') format('woff');
+        src: URL('static/fonts/OfficerSansWeb-RegularItalic.woff2') format('woff2');
+    }
+
+    :root {
+        --color-dark: #141414;
+        --color-neutral: #faf5f5;
+        --color-primary: #00ff00;
+        --color-secondary: #9673ff;
+        --color-additional-01: #ff3719;
+        --color-additional-02: #66f2ff;
+
+        --color-primary-tint-01: #009900;
+        --color-primary-tint-02: #00be00;
+        --color-primary-tint-03: #00d300;
+        --color-primary-tint-04: #00ea00;
+        --color-primary-tint-05: #a3ff90;
+        --color-primary-tint-06: #ccffbe;
+        --color-primary-tint-07: #ebffe5;
+
+        --color-secondary-tint-01: #4d2eed;
+        --color-secondary-tint-02: #5c33f4;
+        --color-secondary-tint-03: #7952fe;
+        --color-secondary-tint-04: #b69dfe;
+        --color-secondary-tint-05: #d4c4fe;
+        --color-secondary-tint-06: #efe7ff;
+    }
+
+    .badge-danger {
+        background-color: var(--color-additional-01)!important;
+    }
+
+    @keyframes font_weight_wave {
+        from {
+            font-weight: 10;
+        } to {
+            font-weight: 100;
+        }
+    }
+    h1 {
+        font-family: 'KarioDuplexVar'!important;
+        color: var(--color-neutral)!important;
+    }
+    body {
+        padding: 0!important;
+        background-color: var(--color-dark)!important;
+        color: var(--color-neutral)!important;
+        font-family: 'OfficerSans'!important;
+    }
+    .table {
+        color: var(--color-neutral)!important;
+    }
+    hr {
+        border-top: rgba(255,255,255, 0.2)
+    }
+</style>
+<script>
+{{ states.label_js() }}
+</script>
+{% if stats.overall_drop_point_count > 0 and stats.report_count > 0: %}
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-4 col-sm-4 col-xs-12 text-center">
+            <p><label for="overall_drop_points_by_state">{{ _("Drop points by state") }}</label></p>
+            <canvas class="piechart" id="overall_drop_points_by_state"></canvas>
+            <div class="spacer"></div>
+        </div>
+        <div class="col-md-2 col-sm-4 col-xs-12">
+            <table class="table table-sm">
+                {% set d = stats.overall_drop_points_by_state %}
+                {% set r = stats.reports_by_state %}
+                {% for s in ["DEFAULT", "NO_CRATES", "OVERFLOW", "FULL", "REASONABLY_FULL", "SOME_BOTTLES", "EMPTY", "NEW"]: %}
+                <tr>
+                    <td class="text-right">{{ d[s] }}</td>
+                    <td class="text-center">{{ states.label(s) }}</td>
+                    <td class="text-right">{{ r[s] }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-12 text-center">
+            <p><label for="reports_by_state">{{ _("Reports by state") }}</label></p>
+            <canvas class="piechart" id="reports_by_state"></canvas>
+            <div class="spacer"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4 col-xs-12 text-center">
+            <p class="large-icon sum">{{ stats.overall_drop_point_count }}</p>
+            <p>{{ _("drop points in the database") }}</p>
+        </div>
+        <div class="col-sm-4 col-xs-6 text-center">
+            <p class="large-icon sum">{{ stats.report_count }}</p>
+            <p>{{ _("state reports by helpful participants") }}</p>
+        </div>
+        <div class="col-sm-4 col-xs-6 text-center">
+            <p class="large-icon sum">{{ stats.visit_count }}</p>
+            <p>{{ _("visits by the bottle collectors") }}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-3 col-xs-6 text-center">
+            <p class="large-icon average">{{ (stats.report_count / stats.overall_drop_point_count)|round(1) }}</p>
+            <p>{{ _("reports per drop point") }}</p>
+        </div>
+        <div class="col-sm-2"></div>
+        <div class="col-sm-3 col-xs-6 text-center">
+            <p class="large-icon average">{{ (stats.visit_count / stats.overall_drop_point_count)|round(1) }}</p>
+            <p>{{ _("visits per drop point") }}</p>
+        </div>
+    </div>
+{% else %}
+<p>{{ _("There are no drop points and/or reports yet. Therefore, no statistics are available.") }}</p>
+{% endif %}
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='lib/js/commons.js') }}"></script>
+<script src="{{ url_for('static', filename='lib/js/' + session['lang'] + '.js') }}"></script>
+<script src="{{ url_for('static', filename='lib/js/lib.js') }}"></script>
+<script src="{{ url_for('static', filename='lib/js/numbers.js') }}"></script>
+{% endblock %}

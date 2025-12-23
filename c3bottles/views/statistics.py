@@ -10,6 +10,11 @@ def numbers():
     return render_template("statistics/numbers.html", stats=stats_obj)
 
 
+@bp.route("/stats")
+def stats():
+    return render_template("statistics/stats.html", stats=stats_obj)
+
+
 @bp.route("/numbers.json")
 def numbers_json():
     return jsonify(

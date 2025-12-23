@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf_token" content="{{ csrf_token() }}">
+    <meta name="time" content="{{ g.now.strftime('%s.%f') }}">
+    <meta name="endpoint" content="{{ request.endpoint }}" data-api="{{ url_for('api.index') }}" data-token-interval="{{ config.get('WTF_CSRF_TIME_LIMIT', 3600) }}" data-img="{{ url_for('static', filename='img') }}">
+    <meta name="map-source" content="{{ map_source.json() }}">
+    <title>Statistics</title>
+    <link href="{{ url_for('static', filename='lib/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='lib/css/bootstrap-select.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='lib/css/fontawesome/all.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/c3bottles.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='img/refund-black.png') }}" rel="icon" type="image/png">
+{% block header %}{% endblock %}
+</head>
+<body>
+{% block replacement %}
+<div class="container">
+    <div id="alerts">
+        {% block alerts %}
+        {% for alert in g.alerts %}
+        <div class="alert alert-{{ alert.get('class', 'info') }}">
+            {% if 'headline' in alert %}<strong>{{ alert.get('headline') }}</strong>{% endif %}
+            {{ alert.get('text', '') }}
+        </div>
+        {% endfor %}
+        {% endblock %}
+    </div>
+    {% block content %}
+    <h1>c3bottles statistics</h1><hr>
+    {% block text %}{% endblock %}
+    {% endblock %}
+</div>
+{% endblock %}
+<script src="{{ url_for('static', filename='lib/js/commons.js') }}"></script>
+<script src="{{ url_for('static', filename='lib/js/' + session['lang'] + '.js') }}"></script>
+<script src="{{ url_for('static', filename='lib/js/lib.js') }}"></script>
+{% block scripts %}{% endblock %}
+</body>
+</html>
