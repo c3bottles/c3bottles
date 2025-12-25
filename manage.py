@@ -14,6 +14,7 @@ environment or your system's default Python interpreter. To use this script
 in a virtual environment, either activate the virtual environment first
 or call it like `venv/bin/python manage.py`.
 """
+
 import os
 
 import click
