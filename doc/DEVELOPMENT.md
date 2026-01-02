@@ -10,7 +10,7 @@ prepare your development environment is as follows:
     git clone https://github.com/c3bottles/c3bottles.git
     cd c3bottles
     make venv
-    pnpm
+    pnpm install
     pnpm build
 
 If you want to work on the Python code, a pnpm task is available that starts

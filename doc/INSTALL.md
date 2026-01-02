@@ -36,7 +36,7 @@ To build the frontend dependencies, you will need Node.js and pnpm (corepack).
 
 3.  Fetch the frontend dependencies and build everything:
 
-        pnpm
+        pnpm install
         pnpm build
 
 4.  Create a configuriation file `config.py`. You will find a template for
