@@ -71,8 +71,7 @@ class OpenStreetMapCamp2019(MapSource):
     attribution = (
         "<a href='https://www.openstreetmap.org/copyright'>© OpenStreepMap contributers</a>"
     )
-    tileserver = "https://{s}.tile.openstreetmap.org/"
-    tileserver_subdomains = ["a", "b", "c"]
+    tileserver = "https://tile.openstreetmap.org/"
     min_zoom = 16
     max_zoom = 19
     initial_view = {"lat": 53.03124, "lng": 13.30734, "zoom": 17}
