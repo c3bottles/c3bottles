@@ -31,8 +31,7 @@ c3bottles ships with a number of map sources that can be used directly:
     The *OpenStreetMapCamp2019* configuration is an example for OpenStreetMap
     and pointing at the location of the Chaos Communication Camp 2019 in
     Mildenberg. The starting location and zoom levels can be easily adapted
-    as needed. OpenStreepMap only has one layer. The `tileserver_subdomains`
-    option is used to distribute load over different tile servers.
+    as needed. OpenStreepMap only has one layer.
 
 *   **c3nav**: c3nav is a routing webservice for chaos events that is available
     for use at [https://c3nav.de/](https://c3nav.de/) and being developed at
