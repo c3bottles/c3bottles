@@ -20,7 +20,7 @@ def report(number: int = None):
 
     state = request.values.get("state")
 
-    if state:
+    if state and request.method != "GET":
         try:
             Report(dp=dp, state=state)
         except ValueError as e:
