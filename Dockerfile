@@ -65,6 +65,7 @@ FROM base
 COPY --from=fontloader /usr/share/fonts/ /usr/share/fonts/
 COPY --from=builder /c3bottles /c3bottles
 RUN fc-cache -f
+RUN chown -R c3bottles /c3bottles
 USER c3bottles
 WORKDIR /c3bottles
 VOLUME /c3bottles/static
