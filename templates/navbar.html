@@ -33,7 +33,7 @@
                     </a>
                     <div class="dropdown-menu">
                         {% for l in g.languages %}
-                        <a class="dropdown-item" href="{{ request.path }}?lang={{ l }}">{{ g.locales[l].get_display_name() }}</a>
+                        <a class="dropdown-item" href="{{ url_for(request.endpoint, lang=l, **(request.view_args or {})) }}">{{ g.locales[l].get_display_name() }}</a>
                         {% endfor %}
                     </div>
                 </li>
