@@ -78,6 +78,10 @@
   "pnpm": {
     "patchedDependencies": {
       "datatables.net@1.13.8": "patches/datatables.net@1.13.8.patch"
-    }
+    },
+    "onlyBuiltDependencies": [
+      "@fortawesome/fontawesome-free",
+      "core-js"
+    ]
   }
 }
